@@ -3008,6 +3008,7 @@ input, select, textarea {
 			border-radius: 5px;
 			margin: 1.5em 3em 1.5em 0;
 			width: calc(50% - 1.5em);
+			height: calc(60% - 1.5em);
 		}
 
 			.features article:nth-child(2n) {
@@ -3646,7 +3647,7 @@ input, select, textarea {
 			background-size: 100% 100%;
 			content: '';
 			display: block;
-			height: 4.5em;
+			height: 4.6em;
 			position: absolute;
 			width: 100%;
 		}
@@ -4175,7 +4176,7 @@ input, select, textarea {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 2em; /* uniforma lo spazio verticale */
+	height: 2em;
 }
 
 .icon-nav a {
@@ -4191,7 +4192,7 @@ input, select, textarea {
 }
 
 .icon-nav a {
-	font-size: 1.2em; /* icone più piccole */
+	font-size: 1.2em;
 	color: white;
 	text-decoration: none;
 	transition: transform 0.2s, color 0.2s;
@@ -4200,4 +4201,13 @@ input, select, textarea {
 .icon-nav a:hover {
 	transform: scale(1.2);
 	color: black;
+}
+
+.social-icons {
+	margin-top: auto; /* Spinge verso il fondo */
+	margin-bottom: 2em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.2em;
 }
