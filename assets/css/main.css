@@ -3205,6 +3205,9 @@ input, select, textarea {
 		}
 
 		@media screen and (max-width: 480px) {
+			#header {
+				padding: 0 0.5em;
+			}
 
 			#header nav a[href="#menu"] {
 				width: 4em;
@@ -3379,6 +3382,7 @@ input, select, textarea {
 
 	#banner {
 		padding: 7.5em 0 2.25em 0 ;
+
 	}
 
 		#banner .inner {
@@ -3465,8 +3469,8 @@ input, select, textarea {
 
 			#banner {
 				padding: 7em 0 8.25em 0 ;
-				background-color: #2e3141;
-				background-image: linear-gradient(to top, rgba(46, 49, 65, 0.8), rgba(46, 49, 65, 0.8)), url("../../images/bg.jpg");
+				background-color: #2f3346;
+				background-image: linear-gradient(to top, rgb(47, 51, 70), rgb(47, 51, 70)), url("../../images/bg.jpg");
 				background-size: auto,
  cover;
 				background-position: center,
@@ -4070,8 +4074,8 @@ input, select, textarea {
 	@media screen and (max-width: 1280px) {
 
 		#footer {
-			background-color: #2e3141;
-			background-image: linear-gradient(to top, rgba(46, 49, 65, 0.8), rgba(46, 49, 65, 0.8)), url("../../images/bg.jpg");
+			background-color: #2f3346;
+			background-image: linear-gradient(to top, rgb(47, 51, 70), rgb(47, 51, 70)), url("../../images/bg.jpg");
 			background-size: auto,
  cover;
 			background-position: center,
@@ -4212,4 +4216,49 @@ input, select, textarea {
 	flex-direction: column;
 	align-items: center;
 	gap: 1.2em;
+}
+
+/* Bottom bar nascosta di default */
+#bottom-bar {
+	display: none;
+}
+
+/* Responsive per dispositivi piccoli */
+@media (max-width: 768px) {
+	#sidebar {
+		display: none; /* nasconde sidebar */
+	}
+
+	#bottom-bar {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		background-color: rgba(38, 41, 54, 0.95);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0.6em 0;
+		z-index: 10000;
+	}
+
+	#bottom-bar ul {
+		list-style: none;
+		display: flex;
+		gap: 5em;
+		margin: 0;
+		padding: 0;
+	}
+
+	#bottom-bar a {
+		font-size: 1.2em;
+		color: white;
+		text-decoration: none;
+		transition: transform 0.2s, color 0.2s;
+	}
+
+	#bottom-bar a:hover {
+		transform: scale(1.2);
+		color: black;
+	}
 }
