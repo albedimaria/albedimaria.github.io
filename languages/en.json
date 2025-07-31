@@ -22,13 +22,13 @@
 
   "experience_title": "Work Experience",
   "exp1_title": "Audio Developer – Anecoica Studio",
-  "exp1_desc": "Music Information Retrieval, 3D user interfaces, and generative audio models. Built a full-stack prototype using React.js, Flask, and Python.",
+  "exp1_desc": "Music Information Retrieval, 3D user interfaces, and generative audio models.\n Built a full-stack prototype using React.js, Flask, and Python.",
   "exp1_info": "Berlin, Germany · 2023 – 2024",
   "exp2_title": "Private Tutor – il-Cubo.it",
-  "exp2_desc": "Tutored over 30 university students in computer science and electronics. Improved technical communication and clarity in explaining complex concepts.",
+  "exp2_desc": "Tutored over 30 university students in computer science and electronics.\n Improved technical communication and clarity in explaining complex concepts.",
   "exp2_info": "Milan, Italy · 2021 – Present",
   "exp3_title": "Tutor – The Admission Hub",
-  "exp3_desc": "Coaching for GMAT and IELTS, guiding candidates toward top-tier business schools. Support includes test preparation, application strategy, and CV review.",
+  "exp3_desc": "Coaching for GMAT and IELTS, guiding candidates toward top-tier business schools.\n Support includes test preparation, application strategy, and CV review.",
   "exp3_info": "Online · 2025 – Present",
 
   "contact_title": "Get in Touch"
