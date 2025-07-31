@@ -11,6 +11,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
+		<!-- Favicons -->
+		<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+		<link rel="manifest" href="images/site.webmanifest">
+		<link rel="shortcut icon" href="images/favicon.ico">
+
 	</head>
 	<body class="is-preload">
 
@@ -30,6 +38,19 @@
 						<li><a href="#training" class="icon solid fa-graduation-cap" title="Training"></a></li>
 						<li><a href="#experience" class="icon solid fa-briefcase" title="Experience"></a></li>
 						<li><a href="#footer" class="icon solid fa-envelope" title="Contact"></a></li>
+						<li class="lang-menu">
+							<div id="langButton" class="lang-button">EN</div>
+							<ul id="langDropdown" class="lang-dropdown">
+								<li data-lang="en">EN</li>
+								<li data-lang="es">ES</li>
+								<li data-lang="it">IT</li>
+							</ul>
+						</li>
+
+
+
+
+
 					</ul>
 					<ul class="icon-nav social-icons">
 						<li><a href="https://github.com/albedimaria" class="icon brands fa-github" title="GitHub" target="_blank"></a></li>
@@ -48,12 +69,12 @@
 
 
 				<!-- Banner -->
-					<section id="banner">
-						<div class="inner">
-							<h2>Alberto Di Maria</h2>
-							<p>Music and Acoustic Engineer</p>
-						</div>
-					</section>
+				<section id="banner">
+					<div class="inner">
+						<h2>Alberto Di Maria</h2>
+						<p data-translate="role">Music and Acoustic Engineer</p>
+					</div>
+				</section>
 
 				<!-- Wrapper -->
 					<section id="wrapper">
@@ -63,14 +84,16 @@
 								<div class="inner">
 									<a href="#" class="image"><img src="images/propic.png" alt="" /></a>
 									<div class="content">
-										<h2>about me</h2>
-										<p>MSc graduate in Music and Acoustic Engineering,
+										<h2 data-translate="about_title">about me</h2>
+										<p data-translate="about_text">
+											MSc graduate in Music and Acoustic Engineering,
 											specialized in deep learning applied to audio.
 											Experienced in signal analysis, generative models, and
 											interactive audio systems.
 											Interested in applied research and real-world innovation
-											in sound and music technology.</p>
-										<a href="assets/Di%20Maria_Alberto_Resume.pdf" class="special">download CV</a>
+											in sound and music technology.
+										</p>
+										<a href="assets/Di%20Maria_Alberto_Resume.pdf" class="special" data-translate="cv_button">download CV</a>
 									</div>
 								</div>
 							</section>
@@ -78,31 +101,31 @@
 						<!-- two -->
 						<section id="projects" class="wrapper alt style1">
 							<div class="inner">
-								<h2>Main projects</h2>
+								<h2 data-translate="projects_title">Main projects</h2>
 								<section class="features">
 									<article>
-										<a href="#" class="image"><img src="images/rave_presentation.png" alt="" /></a>
-										<h3 class="major"> BEYOND SPACE: RAVE LATENT INTERPOLATION AUDIO SYSTEM</h3>
+										<a href="https://github.com/albedimaria/beyond_space" class="image"><img src="images/rave_presentation.png" alt="" /></a>
+										<h3 class="major" data-translate="proj1_title"> BEYOND SPACE: RAVE LATENT INTERPOLATION AUDIO SYSTEM</h3>
 										<p><strong>Tech:</strong> Python, PyTorch, Librosa</p>
-										<a href="https://github.com/albedimaria/beyond_space" target="_blank" rel="noopener noreferrer" class="special">Learn more</a>
+										<a href="https://github.com/albedimaria/beyond_space" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
 									</article>
 									<article>
 										<a href="https://youtu.be/2TnS3kzFt2c" class="image"><img src="images/thesis.png" alt="" /></a>
-										<h3 class="major">GEOMETRY IN MUSIC: FROM AUDIO ANALYSIS TO MUSIC GENERATION</h3>
+										<h3 class="major" data-translate="proj2_title">GEOMETRY IN MUSIC: FROM AUDIO ANALYSIS TO MUSIC GENERATION</h3>
 										<p><strong>Tech:</strong> Python, React.js, Essentia</p>
-										<a href="https://youtu.be/2TnS3kzFt2c" target="_blank" rel="noopener noreferrer" class="special">Learn more</a>
+										<a href="https://youtu.be/2TnS3kzFt2c" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
 									</article>
 									<article>
 										<a href="https://github.com/albedimaria/music_genre_classifier" class="image"><img src="images/cnn.png" alt="" /></a>
-										<h3 class="major"> DEEP LEARNING FOR MUSIC GENRE CLASSIFICATION </h3>
+										<h3 class="major" data-translate="proj3_title"> DEEP LEARNING FOR MUSIC GENRE CLASSIFICATION </h3>
 										<p><strong>Tech:</strong> Python, TensorFlow, Keras</p>
-										<a href="https://github.com/albedimaria/music_genre_classifier" target="_blank" rel="noopener noreferrer" class="special">Learn more</a>
+										<a href="https://github.com/albedimaria/music_genre_classifier" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
 									</article>
 									<article>
 										<a href="https://github.com/RobertoAlessandri/SaveTheWorld" class="image"><img src="images/bigliettoCPAC.png" alt="" /></a>
-										<h3 class="major"> SAVETHEWORLD | RAISING AWARENESS OF ECO-IMPACT DAILY ACTIONS</h3>
+										<h3 class="major" data-translate="proj4_title"> SAVETHEWORLD | RAISING AWARENESS OF ECO-IMPACT DAILY ACTIONS</h3>
 										<p><strong>Tech:</strong> Python, TouchDesigner, Supercollider</p>
-										<a href="https://github.com/RobertoAlessandri/SaveTheWorld" target="_blank" rel="noopener noreferrer" class="special">Learn more</a>
+										<a href="https://github.com/RobertoAlessandri/SaveTheWorld" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
 									</article>
 								</section>
 								<ul class="actions">
@@ -115,26 +138,32 @@
 						<section id="training" class="wrapper spotlight style3">
 							<div class="inner">
 								<div class="content">
-									<h2>Further training</h2>
+									<h2 data-translate="training_title">Further training</h2>
 
 									<div>
 										<div>
-											<p><strong>Creative Machine Learning – IRCAM / ACIDS</strong><br />
-												ML for audio: fundamentals, neural networks, generative models and transformers.<br />
-												<em>2025, online, 10 weeks, certificate awarded</em></p>
+											<p>
+												<strong data-translate="training1_title">Creative Machine Learning – IRCAM / ACIDS</strong><br />
+												<span data-translate="training1_desc">    ML for audio: fundamentals, neural networks, generative models and transformers.  </span><br />
+												<em data-translate="training1_info">2025, online, 10 weeks, certificate awarded</em>
+											</p>
 										</div>
 
 										<div>
-											<p><strong>Generative Music AI Workshop – MTG & Sound of AI</strong><br />
-												GenAI for music creation with team-based project development.<br />
-												<em>2025, in person, 1 week, certificate awarded</em></p>
+											<p>
+												<strong data-translate="training2_title">Generative Music AI Workshop – MTG & Sound of AI</strong><br />
+												<span data-translate="training2_desc">    GenAI for music creation with team-based project development.  </span><br />
+												<em data-translate="training2_info">2025, in person, 1 week, certificate awarded</em>
+											</p>
+
 										</div>
 
-										<div>
-											<p><strong>Audio Signal Processing for Music Applications – UPF</strong><br />
-												Analysis, transformation and synthesis of musical signals.<br />
-												<em>2025, online, 10 weeks, in progress</em></p>
-										</div>
+										<p>
+											<strong data-translate="training3_title">Audio Signal Processing for Music Applications – UPF</strong><br />
+											<span data-translate="training3_desc">Analysis, transformation and synthesis of musical signals.  </span><br />
+											<em data-translate="training3_info">2025, online, 10 weeks, in progress</em>
+										</p>
+
 									</div>
 
 								</div>
@@ -147,26 +176,40 @@
 							<section id="experience" class="wrapper alt spotlight style2">
 								<div class="inner">
 									<div class="content">
-										<h2>Work experience</h2>
+										<h2 data-translate="experience_title">Work experience</h2>
 										<div>
-											<p><strong>Audio Developer – Anecoica Studio</strong><br />
-												Music Information Retrieval, 3D user interfaces, and generative audio models.<br />
-												Built a full-stack prototype using React.js, Flask, and Python.<br />
-												<em>Berlin, Germany · 2023 – 2024</em></p>
+											<p>
+												<strong data-translate="exp1_title">Audio Developer – Anecoica Studio</strong><br />
+												<span data-translate="exp1_desc">
+													Music Information Retrieval, 3D user interfaces, and generative audio models.<br />
+													Built a full-stack prototype using React.js, Flask, and Python.
+												</span><br />
+												<em data-translate="exp1_info">Berlin, Germany · 2023 – 2024</em>
+											</p>
+
 										</div>
 
 										<div>
-											<p><strong>Private Tutor – il-Cubo.it</strong><br />
-												Tutored over 30 university students in computer science and electronics.<br />
-												Improved technical communication and clarity in explaining complex concepts.<br />
-												<em>Milan, Italy · 2021 – Present</em></p>
+											<p>
+												<strong data-translate="exp2_title">Private Tutor – il-Cubo.it</strong><br />
+												<span data-translate="exp2_desc">
+    												Tutored over 30 university students in computer science and electronics.<br />
+    												Improved technical communication and clarity in explaining complex concepts.
+  												</span><br />
+												<em data-translate="exp2_info">Milan, Italy · 2021 – Present</em>
+											</p>
+
 										</div>
 										<div>
-												<p><strong>Tutor – The Admission Hub</strong><br />
+											<p>
+												<strong data-translate="exp3_title">Tutor – The Admission Hub</strong><br />
+												<span data-translate="exp3_desc">
 													Coaching for GMAT and IELTS, guiding candidates toward top-tier business schools.<br />
-													Support includes test preparation, application strategy, CV review.<br />
-													<em>Online · 2025 – Present</em>
-												</p>
+													Support includes test preparation, application strategy, CV review.
+												</span><br />
+												<em data-translate="exp3_info">Online · 2025 – Present</em>
+											</p>
+
 										</div>
 									</div>
 								</div>
@@ -180,11 +223,9 @@
 				<!-- Footer -->
 					<section id="footer">
 						<div class="inner">
-							<h2 class="major">Get in touch</h2>
+							<h2 class="major" data-translate="contact_title">Get in touch</h2>
 							<ul class="contact">
-								<li class="icon solid fa-coffee">
-									Milan, Italy<br />
-								</li>
+								<li class="icon solid fa-coffee">Milan, Italy<br /></li>
 								<li class="icon solid fa-envelope"><a>dimaria.alberto@outlook.com</a></li>
 								<li class="icon brands fa-linkedin"><a href="https://www.linkedin.com/in/di-maria-alberto/">Alberto Di Maria</a></li>
 							</ul>
@@ -205,6 +246,8 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="js/lang.js"></script>
+
 
 	</body>
 </html>

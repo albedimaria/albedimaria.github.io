@@ -1,0 +1,19 @@
+{
+  "role": "Ingeniero de Sonido y Acústica",
+  "about_title": "Sobre mí",
+  "about_text": "Graduado de máster en Music and Acoustic Engineering, especializado en la aplicación del deep learning al audio. Con experiencia en análisis de señales, modelos generativos y sistemas de audio interactivos. Interesado en la investigación aplicada y la innovación real en tecnología de sonido y música.",
+  "cv_button": "Descargar CV",
+  "projects_title": "Proyectos principales",
+  "proj1_title": "BEYOND SPACE: SISTEMA DE INTERPOLACIÓN LATENTE RAVE",
+  "learn_more": "Más información",
+  "browse_all": "Ver todos los proyectos",
+  "training_title": "Formación adicional",
+  "training1_text": "Creative Machine Learning – IRCAM / ACIDS. ML para audio: fundamentos, redes neuronales, modelos generativos y transformers. 2025, en línea, 10 semanas, certificado otorgado.",
+  "training2_text": "Generative Music AI Workshop – MTG & Sound of AI. GenAI para la creación musical con desarrollo de proyectos en equipo. 2025, presencial, 1 semana, certificado otorgado.",
+  "training3_text": "Audio Signal Processing for Music Applications – UPF. Análisis, transformación y síntesis de señales musicales. 2025, en línea, 10 semanas, en curso.",
+  "experience_title": "Experiencia laboral",
+  "exp1_text": "Audio Developer – Anecoica Studio. Music Information Retrieval, interfaces 3D, modelos de audio generativos. Desarrolló un prototipo full-stack con React.js, Flask y Python. Berlín, Alemania · 2023 – 2024.",
+  "exp2_text": "Profesor particular – il-Cubo.it. Tutoría a más de 30 estudiantes universitarios en informática y electrónica. Mejoró la comunicación técnica y la claridad al explicar conceptos complejos. Milán, Italia · 2021 – Presente.",
+  "exp3_text": "Tutor – The Admission Hub. Coaching para GMAT e IELTS, guiando a candidatos hacia escuelas de negocios de alto nivel. Apoyo en la preparación de exámenes, estrategia de aplicación y revisión de CV. En línea · 2025 – Presente.",
+  "contact_title": "Contacto"
+}

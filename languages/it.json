@@ -1,0 +1,19 @@
+{
+  "role": "Music and Acoustic Engineer",
+  "about_title": "bio",
+  "about_text": "Laureato magistrale in Music and Acoustic Engineering, specializzato nell'applicazione del deep learning all'audio. Esperto in analisi del segnale, modelli generativi e sistemi audio interattivi. Interessato alla ricerca applicata e all'innovazione reale nel campo della tecnologia del suono e della musica.",
+  "cv_button": "Scarica CV",
+  "projects_title": "Progetti principali",
+  "proj1_title": "BEYOND SPACE: SISTEMA DI INTERPOLAZIONE LATENTE RAVE",
+  "learn_more": "Scopri di più",
+  "browse_all": "tutti i progetti",
+  "training_title": "Formazione aggiuntiva",
+  "training1_text": "Creative Machine Learning – IRCAM / ACIDS. ML per l'audio: fondamenti, reti neurali, modelli generativi e transformers. 2025, online, 10 settimane, certificato rilasciato.",
+  "training2_text": "Generative Music AI Workshop – MTG & Sound of AI. GenAI per la creazione musicale con sviluppo di progetti in team. 2025, in presenza, 1 settimana, certificato rilasciato.",
+  "training3_text": "Audio Signal Processing for Music Applications – UPF. Analisi, trasformazione e sintesi di segnali musicali. 2025, online, 10 settimane, in corso.",
+  "experience_title": "Esperienze lavorative",
+  "exp1_text": "Audio Developer – Anecoica Studio. Music Information Retrieval, interfacce 3D, modelli audio generativi. Sviluppato un prototipo full-stack con React.js, Flask e Python. Berlino, Germania · 2023 – 2024.",
+  "exp2_text": "Docente privato – il-Cubo.it. Tutorato di oltre 30 studenti universitari in informatica ed elettronica. Migliorate le competenze di comunicazione tecnica e di chiarezza nell'esposizione di concetti complessi. Milano, Italia · 2021 – Presente.",
+  "exp3_text": "Tutor – The Admission Hub. Coaching per GMAT e IELTS, guidando i candidati verso scuole di business di alto livello. Supporto nella preparazione ai test, strategia di candidatura e revisione CV. Online · 2025 – Presente.",
+  "contact_title": "Contatti"
+}

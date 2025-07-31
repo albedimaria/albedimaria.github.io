@@ -4262,3 +4262,51 @@ input, select, textarea {
 		color: black;
 	}
 }
+
+.lang-menu {
+    position: relative;
+}
+
+.lang-button {
+    background: transparent;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.lang-button:hover {
+    transform: scale(1.2);
+}
+
+.lang-dropdown {
+    display: none;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 6px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-width: 70px;
+    z-index: 1000;
+}
+
+.lang-dropdown li {
+    padding: 8px 12px;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+.lang-dropdown li:hover {
+    background: #3f4e85;
+}
+
+/* mostra il dropdown quando attivo */
+.lang-menu.open .lang-dropdown {
+    display: block;
+}
