@@ -4173,6 +4173,7 @@ input, select, textarea {
 	flex-direction: column;
 	align-items: center;
 	padding-top: 2em;
+	padding-right: 8px;
 }
 
 .icon-nav {
@@ -4223,7 +4224,7 @@ input, select, textarea {
 	display: none;
 }
 
-/* Responsive per dispositivi piccoli */
+/* Responsive sidebar */
 @media (max-width: 768px) {
 	#sidebar {
 		display: none; /* nasconde sidebar */
@@ -4284,15 +4285,17 @@ input, select, textarea {
 .lang-dropdown {
     display: none;
     position: absolute;
-    top: 30px;
+    top: 50px;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 6px;
     list-style: none;
-    padding: 0;
     margin: 0;
-    min-width: 70px;
+    min-width: 60px;
     z-index: 1000;
+	font-size: 0.8em;
+	padding-left: 8px;
+	padding-top: 0;
 }
 
 .lang-dropdown li {
@@ -4303,7 +4306,8 @@ input, select, textarea {
 }
 
 .lang-dropdown li:hover {
-    background: #3f4e85;
+	transform: scale(1.2);
+
 }
 
 /* mostra il dropdown quando attivo */
