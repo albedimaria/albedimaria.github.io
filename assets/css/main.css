@@ -4219,7 +4219,7 @@ input, select, textarea {
 	gap: 1.2em;
 }
 
-/* Bottom bar nascosta di default */
+/* Bottom bar hidden by default */
 #bottom-bar {
 	display: none;
 }
@@ -4264,6 +4264,7 @@ input, select, textarea {
 	}
 }
 
+/* language menu*/
 .lang-menu {
     position: relative;
 }
@@ -4310,7 +4311,7 @@ input, select, textarea {
 
 }
 
-/* mostra il dropdown quando attivo */
+/* active dropdown */
 .lang-menu.open .lang-dropdown {
     display: block;
 }
