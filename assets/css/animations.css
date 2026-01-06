@@ -10,7 +10,7 @@
     top: 50%; /* Lo posizioniamo a metà altezza */
     left: 0;
     width: 100%;
-    height: 150px; /* Altezza fissa per sicurezza */
+    height: 220px; /* Altezza fissa per sicurezza */
     transform: translateY(-50%); /* Centra l'animazione rispetto al testo */
     pointer-events: none;
     z-index: 1;
@@ -18,7 +18,7 @@
 
 .waves {
     width: 100%;
-    height: 100%;
+    height: 110%;
 }
 
 /* Animazione delle linee */
@@ -44,3 +44,4 @@
     position: relative !important;
     z-index: 10 !important;
 }
+
