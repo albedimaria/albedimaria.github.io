@@ -4,21 +4,21 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html lang="en">
 	<head>
 		<title>Di Maria - portfolio</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link rel="stylesheet" href="assets/css/animations.css" />
-		<oscript><link rel="stylesheet" href="assets/css/noscript.css" /></oscript>
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
 		<!-- Favicons -->
-		<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
 		<link rel="manifest" href="images/site.webmanifest">
-		<link rel="shortcut icon" href="images/favicon.ico">
+		<link rel="shortcut icon" href="icons/favicon.ico">
 
 	</head>
 	<body class="is-preload">
@@ -28,60 +28,43 @@
 
 				<!-- Header -->
 				<header id="header" class="alt">
-					<h1><a href="#banner" title="Back to top"><i class="fas fa-arrow-up"></i></a></h1>
+					<h1><a href="#banner" title="Back to top" aria-label="Back to top"><i class="fas fa-arrow-up" aria-hidden="true"></i></a></h1>
 				</header>
 
 				<!-- sidebar desktop version -->
-				<div id="sidebar">
+				<nav id="sidebar" aria-label="Primary">
 					<ul class="icon-nav">
-						<li><a href="#aboutme" class="icon solid fa-user" title="About Me"></a></li>
-						<li><a href="#projects" class="icon solid fa-folder-open" title="Projects"></a></li>
-						<li><a href="#training" class="icon solid fa-graduation-cap" title="Training"></a></li>
-						<li><a href="#experience" class="icon solid fa-briefcase" title="Experience"></a></li>
-						<li><a href="mailto:dimaria.alberto@outlook.com" class="icon solid fa-envelope" title="Contact"></a></li>
-							<li class="lang-menu">
-							<div id="langButton" class="lang-button"></div>
-							<ul id="langDropdown" class="lang-dropdown">
-								<li data-lang="en">EN</li>
-								<li data-lang="es">ES</li>
-								<li data-lang="it">IT</li>
+						<li><a href="#aboutme" class="icon solid fa-user" title="About Me" aria-label="About me"></a></li>
+						<li><a href="#projects" class="icon solid fa-folder-open" title="Projects" aria-label="Projects"></a></li>
+						<li><a href="#training" class="icon solid fa-graduation-cap" title="Training" aria-label="Further training"></a></li>
+						<li><a href="#experience" class="icon solid fa-briefcase" title="Experience" aria-label="Work experience"></a></li>
+						<li><a href="mailto:dimaria.alberto@outlook.com" class="icon solid fa-envelope" title="Contact" aria-label="Email"></a></li>
+						<li class="lang-menu">
+							<div id="langButton" class="lang-button" role="button" tabindex="0" aria-label="Select language" aria-haspopup="menu"></div>
+							<ul id="langDropdown" class="lang-dropdown" role="menu" aria-label="Language">
+								<li data-lang="en" role="menuitem" tabindex="0">EN</li>
+								<li data-lang="es" role="menuitem" tabindex="0">ES</li>
+								<li data-lang="it" role="menuitem" tabindex="0">IT</li>
 							</ul>
 						</li>
-
-
-
-
-
 					</ul>
 					<ul class="icon-nav social-icons">
-						<li><a href="https://github.com/albedimaria" class="icon brands fa-github" title="GitHub" target="_blank"></a></li>
-						<li><a href="https://www.linkedin.com/in/di-maria-alberto/" class="icon brands fa-linkedin" title="LinkedIn" target="_blank"></a></li>
+						<li><a href="https://github.com/albedimaria" class="icon brands fa-github" title="GitHub" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"></a></li>
+						<li><a href="https://www.linkedin.com/in/di-maria-alberto/" class="icon brands fa-linkedin" title="LinkedIn" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"></a></li>
 					</ul>
-				</div>
+				</nav>
 
 				<!-- sidebar mobile version -->
-				<div id="bottom-bar">
+				<nav id="bottom-bar" aria-label="Quick links">
 					<ul>
-						<li><a href="https://github.com/albedimaria" class="icon brands fa-github" title="GitHub" target="_blank"></a></li>
-						<li><a href="mailto:dimaria.alberto@outlook.com" class="icon solid fa-envelope" title="Projects"></a></li>
-						<li><a href="https://www.linkedin.com/in/di-maria-alberto/" class="icon brands fa-linkedin" title="LinkedIn" target="_blank"></a></li>
+						<li><a href="https://github.com/albedimaria" class="icon brands fa-github" title="GitHub" aria-label="GitHub (opens in a new tab)" target="_blank" rel="noopener noreferrer"></a></li>
+						<li><a href="mailto:dimaria.alberto@outlook.com" class="icon solid fa-envelope" title="Contact" aria-label="Email"></a></li>
+						<li><a href="https://www.linkedin.com/in/di-maria-alberto/" class="icon brands fa-linkedin" title="LinkedIn" aria-label="LinkedIn (opens in a new tab)" target="_blank" rel="noopener noreferrer"></a></li>
 					</ul>
-				</div>
+				</nav>
 
 
 				<!-- Banner -->
-				<!--<section id="banner" style="position: relative;">
-
-					<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; z-index: 5;">
-						<div class="wave-line"></div>
-					</div>
-
-					<div class="inner" style="position: relative; z-index: 10;">
-						<h2>Alberto Di Maria</h2>
-						<p data-translate="role">Music and Acoustic Engineer</p>
-					</div>
-				</section>-->
-
 				<section id="banner">
 					<div class="waves-container">
 						<svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -111,7 +94,7 @@
 						<!-- One -->
 							<section id="aboutme" class="wrapper spotlight style1">
 								<div class="inner">
-									<a href="#" class="image"><img src="images/propic.png" alt="" /></a>
+									<a href="#aboutme" class="image" aria-label="About me"><img src="images/propic.png" alt="Portrait of Alberto Di Maria" /></a>
 									<div class="content">
 										<h2 data-translate="about_title">about me</h2>
 										<p data-translate="about_text">
@@ -133,25 +116,37 @@
 								<h2 data-translate="projects_title">Main projects</h2>
 								<section class="features">
 									<article>
-										<a href="https://github.com/albedimaria/beyond_space" class="image"><img src="images/rave_presentation.png" alt="" /></a>
+										<a href="https://github.com/albedimaria/beyond_space" class="image"><img src="images/rave_presentation.png" alt="Beyond Space project preview" /></a>
 										<h3 class="major" data-translate="proj1_title"> BEYOND SPACE: RAVE LATENT INTERPOLATION AUDIO SYSTEM</h3>
-										<p><strong>Tech:</strong> Python, PyTorch, Librosa</p>
+										<p><strong>Tech:</strong> Python, PyTorch, Librosa, React.js</p>
 										<a href="https://github.com/albedimaria/beyond_space" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
 									</article>
 									<article>
-										<a href="https://youtu.be/2TnS3kzFt2c" class="image"><img src="images/thesis.png" alt="" /></a>
+										<a href="https://elevenlabs.io/app/talk-to?agent_id=agent_6201kk3y614yfjxv05r3tjhj1zzt&branch_id=agtbrch_4801kk3y61ybe138m1vnv9x1p3kc" class="image"><img src="images/frontend-voice-agent.png" alt="SkyItalia Voice Agent preview" /></a>
+										<h3 class="major">SKYITALIA VOICE AGENT – HACKATHON</h3>
+										<p><strong>Tech:</strong> ElevenLabs, Gemini, REST APIs</p>
+										<a href="https://elevenlabs.io/app/talk-to?agent_id=agent_6201kk3y614yfjxv05r3tjhj1zzt&branch_id=agtbrch_4801kk3y61ybe138m1vnv9x1p3kc" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
+									</article>
+									<article>
+										<a href="https://youtu.be/2TnS3kzFt2c" class="image"><img src="images/thesis.png" alt="Geometry in Music project preview" /></a>
 										<h3 class="major" data-translate="proj2_title">GEOMETRY IN MUSIC: FROM AUDIO ANALYSIS TO MUSIC GENERATION</h3>
-										<p><strong>Tech:</strong> Python, React.js, Essentia</p>
+										<p><strong>Tech:</strong> Python, React.js, Essentia, Flask</p>
 										<a href="https://youtu.be/2TnS3kzFt2c" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
 									</article>
 									<article>
-										<a href="https://github.com/albedimaria/music_genre_classifier" class="image"><img src="images/cnn.png" alt="" /></a>
+										<a href="https://github.com/albedimaria/WDF-on-H9000" class="image"><img src="images/project-course-presentation.png" alt="WDF on H9000 project preview" /></a>
+										<h3 class="major">WAVE DIGITAL FILTER IMPLEMENTATION of linear and non linear circuits ON EVENTIDE H9000 hardware</h3>
+										<p><strong>Tech:</strong> MATLAB, VSig3</p>
+										<a href="https://github.com/albedimaria/WDF-on-H9000" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
+									</article>
+									<article>
+										<a href="https://github.com/albedimaria/music_genre_classifier" class="image"><img src="images/cnn.png" alt="Music genre classifier project preview" /></a>
 										<h3 class="major" data-translate="proj3_title"> DEEP LEARNING FOR MUSIC GENRE CLASSIFICATION </h3>
-										<p><strong>Tech:</strong> Python, TensorFlow, Keras</p>
+										<p><strong>Tech:</strong> Python, ML, TensorFlow, Keras</p>
 										<a href="https://github.com/albedimaria/music_genre_classifier" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
 									</article>
 									<article>
-										<a href="https://github.com/RobertoAlessandri/SaveTheWorld" class="image"><img src="images/bigliettoCPAC.png" alt="" /></a>
+										<a href="https://github.com/RobertoAlessandri/SaveTheWorld" class="image"><img src="images/bigliettoCPAC.png" alt="SaveTheWorld project preview" /></a>
 										<h3 class="major" data-translate="proj4_title"> SAVETHEWORLD | RAISING AWARENESS OF ECO-IMPACT DAILY ACTIONS</h3>
 										<p><strong>Tech:</strong> Python, TouchDesigner, Supercollider</p>
 										<a href="https://github.com/RobertoAlessandri/SaveTheWorld" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
@@ -255,7 +250,8 @@
 							<h2 class="major" data-translate="contact_title">Get in touch</h2>
 							<ul class="contact">
 								<li class="icon solid fa-coffee">Milan, Italy<br /></li>
-								<li class="icon solid fa-envelope"><a href="mailto:dimaria.alberto@outlook.com">dimaria.alberto@outlook.com</a></li>								<li class="icon brands fa-linkedin"><a href="https://www.linkedin.com/in/di-maria-alberto/" target="_blank" rel="noopener noreferrer">Alberto Di Maria</a></li>
+								<li class="icon solid fa-envelope"><a href="mailto:dimaria.alberto@outlook.com">dimaria.alberto@outlook.com</a></li>
+								<li class="icon brands fa-linkedin"><a href="https://www.linkedin.com/in/di-maria-alberto/" target="_blank" rel="noopener noreferrer">Alberto Di Maria</a></li>
 							</ul>
 
 							<ul class="copyright">

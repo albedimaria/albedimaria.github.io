@@ -12,6 +12,14 @@ langButton.addEventListener("click", () => {
     langMenu.classList.toggle("open");
 });
 
+// keyboard support for "button" and menu items
+langButton.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        langButton.click();
+    }
+});
+
 // handle user selection
 langDropdown.querySelectorAll("li").forEach(item => {
     item.addEventListener("click", e => {
@@ -19,6 +27,13 @@ langDropdown.querySelectorAll("li").forEach(item => {
         localStorage.setItem("lang", selectedLang);
         loadLanguage(selectedLang, langButton, langDropdown);
         langMenu.classList.remove("open");
+    });
+
+    item.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            item.click();
+        }
     });
 });
 

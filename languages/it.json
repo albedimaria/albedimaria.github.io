@@ -23,13 +23,14 @@
   "training3_info": "2025, online, 10 settimane, in corso",
 
   "training4_title": "Tutor di Intelligenza Artificiale",
-  "training4_desc:": "",
-  "training4_info": "",
+  "training4_desc:": "Certificazione come tutor qualificato di IA \n con abilità avanzate in GenAI e impegno per l'uso etico dell'IA.",
+  "training4_info": "2025, online, certificato ottenuto",
 
   "experience_title": "Esperienze lavorative",
   "exp1_title": "Audio Developer – Anecoica Studio",
   "exp1_desc": "Music Information Retrieval, interfacce 3D e modelli audio generativi.\nSviluppato un prototipo full-stack con React.js e Python.",
   "exp1_info": "Berlino, Germania · 2023 – 2024",
+  
   "exp2_title": "Docente privato – il-Cubo.it",
   "exp2_desc": "Tutorato di oltre 30 studenti universitari in informatica ed elettronica.\nMigliorate le competenze di comunicazione tecnica e chiarezza nell'esposizione di concetti complessi.",
   "exp2_info": "Milano, Italia · 2021 – Presente",
