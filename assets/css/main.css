@@ -7,6 +7,32 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+/* ── Custom scrollbar ─────────────────────────────────────────── */
+
+* {
+	scrollbar-width: thin;
+	scrollbar-color: #4c5c96 #2e3141;
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+}
+
+::-webkit-scrollbar-track {
+	background: #2e3141;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #4c5c96;
+	border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: #5b6ba6;
+}
+
+/* ───────────────────────────────────────────────────────────────── */
+
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
 pre, a, abbr, acronym, address, big, cite,
