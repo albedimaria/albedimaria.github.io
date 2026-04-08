@@ -12,24 +12,15 @@
    Filter description line
    ========================================= */
 
-.filter-desc-wrap {
-    position: relative;
-    height: 1.4em;
-    margin-top: -1.8rem;
-    margin-bottom: 1.8rem;
-}
-
 #filter-desc {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 0;
-    font-size: 1.44em;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.6);
-    font-style: italic;
-    letter-spacing: 0.03em;
-    line-height: 1.4;
+    align-self: center;
+    margin-left: 0.8rem;
+    font-size: 0.72em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1;
 }
 
 /* =========================================
