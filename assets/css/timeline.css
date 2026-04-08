@@ -9,44 +9,41 @@
 }
 
 /* =========================================
-   Project category labels
+   Project filter tooltips
    ========================================= */
 
-#projects .features article {
+.project-filters {
     position: relative;
 }
 
-.project-label {
+.project-filters [data-tooltip] {
+    position: relative;
+}
+
+.project-filters [data-tooltip]::after {
+    content: attr(data-tooltip);
     position: absolute;
-    top: 0.7rem;
-    right: 0.7rem;
-    font-family: Raleway, Helvetica, sans-serif;
-    font-size: 0.62em;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 0.2em 0.55em;
+    bottom: calc(100% + 0.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(20, 22, 35, 0.95);
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.68em;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    white-space: nowrap;
+    padding: 0.35em 0.75em;
     border-radius: 3px;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.project-label.product {
-    background: rgba(76, 175, 80, 0.12);
-    color: rgba(130, 210, 130, 0.85);
-    border: 1px solid rgba(76, 175, 80, 0.25);
-}
-
-.project-label.research {
-    background: rgba(76, 92, 150, 0.25);
-    color: rgba(160, 180, 255, 0.85);
-    border: 1px solid rgba(76, 92, 150, 0.4);
-}
-
-.project-label.project {
-    background: rgba(255, 255, 255, 0.05);
-    color: rgba(255, 255, 255, 0.38);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    z-index: 100;
+}
+
+.project-filters [data-tooltip]:hover::after {
+    opacity: 1;
 }
 
 /* =========================================
