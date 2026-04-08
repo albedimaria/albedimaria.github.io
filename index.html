@@ -6,11 +6,13 @@
 -->
 <html lang="en">
 	<head>
-		<title>Di Maria - portfolio</title>
+		<title>Alberto Di Maria — Music &amp; Acoustic Engineer</title>
+		<meta name="description" content="Portfolio of Alberto Di Maria, MSc in Music and Acoustic Engineering. Specialized in deep learning for audio, generative models, and interactive audio systems." />
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link rel="stylesheet" href="assets/css/animations.css" />
+		<link rel="stylesheet" href="assets/css/timeline.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
 		<!-- Favicons -->
@@ -105,6 +107,8 @@
 											Interested in applied research and real-world innovation
 											in sound and music technology.
 										</p>
+										<!-- TODO: personalize closing sentence -->
+										<p data-translate="about_closing">Currently open to opportunities in applied audio AI research and music technology.</p>
 										<a href="assets/Di%20Maria_Alberto_Resume.pdf" target="_blank" rel="noopener noreferrer" class="special" data-translate="cv_button">download CV</a>
 									</div>
 								</div>
@@ -114,63 +118,148 @@
 						<section id="projects" class="wrapper alt style1">
 							<div class="inner">
 								<h2 data-translate="projects_title">Main projects</h2>
-								<section class="features">
-									<article>
+					<div class="project-filters">
+						<button class="button primary" data-filter="all">All</button>
+						<button class="button" data-filter="audio-ai">Audio AI &amp; Research</button>
+						<button class="button" data-filter="fullstack">Full-Stack &amp; Products</button>
+						<button class="button" data-filter="other">Other</button>
+					</div>
+					<section class="features">
+									<article data-category="fullstack">
 										<a href="https://beat-store-puce.vercel.app" class="image"><img src="images/beat-store.png" alt="Beat Store project preview" /></a>
-										<h3 class="major" data-translate="proj_beat_title">BEAT STORE — FULL-STACK MUSIC E-COMMERCE PLATFORM</h3>
-										<p><strong>Tech:</strong> Next.js 14 · TypeScript · Supabase · Stripe · Cloudflare R2 · Resend · Vercel · Claude API</p>
+										<h3 class="major" data-translate="proj_beat_title">BEAT STORE — FULL-STACK MUSIC E-COMMERCE PLATFORM<span style="display:inline-block;background:#4caf50;color:#fff;font-size:0.65em;font-weight:700;padding:2px 9px;border-radius:4px;vertical-align:middle;margin-left:6px;letter-spacing:0.04em;">✓ Sold</span></h3>
+										<!-- TODO: project description -->
+<!--
+										<p>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]
+										</p>
+-->
+										<p><strong>AI/ML:</strong> Claude API</p>
+										<p><strong>Stack:</strong> Next.js 14 · TypeScript · Supabase · Stripe · Cloudflare R2 · Resend · Vercel</p>
 										<a href="https://beat-store-puce.vercel.app" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
 									</article>
-									<article>
+									<article data-category="fullstack">
 										<a href="https://shy-order.vercel.app/" class="image"><img src="images/shy_order_cv_banner_v3.svg" alt="Shy Order project preview" /></a>
 										<h3 class="major" data-translate="proj_shy_order_title">SHY ORDER — FULL-STACK VOICE AGENT FOR RESTAURANT BOOKINGS</h3>
-										<p><strong>Tech:</strong> Python · Twilio · FastAPI · ElevenLabs · Supabase · Stripe · Railway · Vercel</p>
+										<!-- TODO: project description -->
+<!--
+										<p>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]
+										</p>
+-->
+										<p><strong>AI/ML:</strong> ElevenLabs</p>
+										<p><strong>Stack:</strong> Python · Twilio · FastAPI · Supabase · Stripe · Railway · Vercel</p>
 										<a href="https://shy-order.vercel.app/" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
 									</article>
-									<article>
-										<div class="image"><img src="images/invoice_agent_cover_v3.svg" alt="Invoice Agent project preview" /></div>
-										<h3 class="major" data-translate="proj_invoice_title">INVOICE AGENT — BILLING AUTOMATION FOR FREELANCERS</h3>
-										<p><strong>Tech:</strong> Python · Playwright · Notion API · Gmail SMTP</p>
-									</article>
-									<article>
+									<article data-category="audio-ai">
 										<a href="https://github.com/albedimaria/beyond_space" class="image"><img src="images/rave_presentation.png" alt="Beyond Space project preview" /></a>
-										<h3 class="major" data-translate="proj1_title"> BEYOND SPACE: RAVE LATENT INTERPOLATION AUDIO SYSTEM</h3>
-										<p><strong>Tech:</strong> Python · PyTorch · Librosa · React.js</p>
+										<h3 class="major" data-translate="proj1_title">BEYOND SPACE: RAVE LATENT INTERPOLATION AUDIO SYSTEM</h3>
+										<!-- TODO: project description -->
+<!--
+										<p>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]
+										</p>
+-->
+										<p><strong>AI/ML:</strong> RAVE · PyTorch</p>
+										<p><strong>Stack:</strong> Python · Librosa · React.js</p>
 										<a href="https://github.com/albedimaria/beyond_space" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
 									</article>
-									<article>
-										<a href="https://elevenlabs.io/app/talk-to?agent_id=agent_6201kk3y614yfjxv05r3tjhj1zzt&branch_id=agtbrch_4801kk3y61ybe138m1vnv9x1p3kc" class="image"><img src="images/frontend-voice-agent.png" alt="SkyItalia Voice Agent preview" /></a>
-										<h3 class="major">SKYITALIA VOICE AGENT – HACKATHON</h3>
-										<p><strong>Tech:</strong> ElevenLabs · Gemini · REST APIs</p>
-										<a href="https://elevenlabs.io/app/talk-to?agent_id=agent_6201kk3y614yfjxv05r3tjhj1zzt&branch_id=agtbrch_4801kk3y61ybe138m1vnv9x1p3kc" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
-									</article>
-									<article>
+									<article data-category="audio-ai">
 										<a href="https://youtu.be/2TnS3kzFt2c" class="image"><img src="images/thesis.png" alt="Geometry in Music project preview" /></a>
 										<h3 class="major" data-translate="proj2_title">GEOMETRY IN MUSIC: FROM AUDIO ANALYSIS TO MUSIC GENERATION</h3>
-										<p><strong>Tech:</strong> Python · React.js · Essentia · Flask</p>
+										<!-- TODO: project description -->
+<!--
+										<p>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]
+										</p>
+-->
+										<p><strong>AI/ML:</strong> Essentia</p>
+										<p><strong>Stack:</strong> Python · React.js · Flask</p>
 										<a href="https://youtu.be/2TnS3kzFt2c" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
 									</article>
-									<article>
+									<article data-category="fullstack">
+										<div class="image"><img src="images/invoice_agent_cover_v3.svg" alt="Invoice Agent project preview" /></div>
+										<h3 class="major" data-translate="proj_invoice_title">INVOICE AGENT — BILLING AUTOMATION FOR FREELANCERS</h3>
+										<!-- TODO: project description -->
+<!--
+										<p>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]
+										</p>
+-->
+										<p><strong>Stack:</strong> Python · Playwright · Notion API · Gmail SMTP</p>
+										<p><em>Demo coming soon</em></p>
+									</article>
+									<article data-category="other">
+										<a href="https://elevenlabs.io/app/talk-to?agent_id=agent_6201kk3y614yfjxv05r3tjhj1zzt&branch_id=agtbrch_4801kk3y61ybe138m1vnv9x1p3kc" class="image"><img src="images/frontend-voice-agent.png" alt="SkyItalia Voice Agent preview" /></a>
+										<h3 class="major">SKYITALIA VOICE AGENT – HACKATHON</h3>
+										<!-- TODO: project description -->
+<!--
+										<p>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]
+										</p>
+-->
+										<p><strong>AI/ML:</strong> ElevenLabs · Gemini</p>
+										<p><strong>Stack:</strong> REST APIs</p>
+										<a href="https://elevenlabs.io/app/talk-to?agent_id=agent_6201kk3y614yfjxv05r3tjhj1zzt&branch_id=agtbrch_4801kk3y61ybe138m1vnv9x1p3kc" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
+									</article>
+									<article data-category="audio-ai">
 										<a href="https://github.com/albedimaria/WDF-on-H9000" class="image"><img src="images/project-course-presentation.png" alt="WDF on H9000 project preview" /></a>
 										<h3 class="major">WAVE DIGITAL FILTER IMPLEMENTATION of linear and non linear circuits ON EVENTIDE H9000 hardware</h3>
-										<p><strong>Tech:</strong> MATLAB · VSig3</p>
+										<!-- TODO: project description -->
+<!--
+										<p>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]
+										</p>
+-->
+										<p><strong>Stack:</strong> MATLAB · VSig3</p>
 										<a href="https://github.com/albedimaria/WDF-on-H9000" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
 									</article>
-									<article>
+									<article data-category="audio-ai">
 										<a href="https://github.com/albedimaria/music_genre_classifier" class="image"><img src="images/cnn.png" alt="Music genre classifier project preview" /></a>
-										<h3 class="major" data-translate="proj3_title"> DEEP LEARNING FOR MUSIC GENRE CLASSIFICATION </h3>
-										<p><strong>Tech:</strong> Python · ML · TensorFlow · Keras</p>
+										<h3 class="major" data-translate="proj3_title">DEEP LEARNING FOR MUSIC GENRE CLASSIFICATION</h3>
+										<!-- TODO: project description -->
+<!--
+										<p>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]
+										</p>
+-->
+										<p><strong>AI/ML:</strong> TensorFlow · Keras</p>
+										<p><strong>Stack:</strong> Python</p>
 										<a href="https://github.com/albedimaria/music_genre_classifier" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
 									</article>
-									<article>
+									<article data-category="other">
 										<a href="https://github.com/RobertoAlessandri/SaveTheWorld" class="image"><img src="images/bigliettoCPAC.png" alt="SaveTheWorld project preview" /></a>
-										<h3 class="major" data-translate="proj4_title"> SAVETHEWORLD | RAISING AWARENESS OF ECO-IMPACT DAILY ACTIONS</h3>
-										<p><strong>Tech:</strong> Python · TouchDesigner · Supercollider</p>
+										<h3 class="major" data-translate="proj4_title">SAVETHEWORLD | RAISING AWARENESS OF ECO-IMPACT DAILY ACTIONS</h3>
+										<!-- TODO: project description -->
+<!--
+										<p>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]<br>
+											[Project description — to be filled]
+										</p>
+-->
+										<p><strong>Stack:</strong> Python · TouchDesigner · Supercollider</p>
 										<a href="https://github.com/RobertoAlessandri/SaveTheWorld" target="_blank" rel="noopener noreferrer" class="special" data-translate="learn_more">Learn more</a>
 									</article>
 								</section>
 								<ul class="actions">
-									<li><a href="https://github.com/albedimaria" target="_blank" rel="noopener noreferrer" class="button" data-translate="browse_all">Browse All</a></li>
+									<li><a href="https://github.com/albedimaria" target="_blank" rel="noopener noreferrer" class="button" data-translate="browse_all">View all projects on GitHub</a></li>
 								</ul>
 							</div>
 						</section>
@@ -181,35 +270,39 @@
 								<div class="content">
 									<h2 data-translate="training_title">Further training</h2>
 
-									<div>
-										<div>
-											<p>
-												<strong data-translate="training1_title">Creative Machine Learning – IRCAM / ACIDS</strong><br />
-												<span data-translate="training1_desc">ML for audio: fundamentals, neural networks, generative models and transformers.  </span><br />
-												<em data-translate="training1_info"></em>
-											</p>
+									<div class="timeline">
+
+										<div class="timeline-item">
+											<div class="timeline-header">
+												<h3><span data-translate="training3_title">Audio Signal Processing for Music Applications – UPF</span></h3>
+												<span class="timeline-meta" data-translate="training3_info">2025, online, 10 weeks, in progress</span>
+											</div>
+											<p class="timeline-desc" data-translate="training3_desc">Analysis, transformation and synthesis of musical signals.</p>
 										</div>
 
-										<div>
-											<p>
-												<strong data-translate="training2_title">Generative Music AI Workshop – MTG & Sound of AI</strong><br />
-												<span data-translate="training2_desc">GenAI for music creation with team-based project development.  </span><br />
-												<em data-translate="training2_info">2025, in person, 1 week, certificate awarded</em>
-											</p>
-
+										<div class="timeline-item">
+											<div class="timeline-header">
+												<h3><span data-translate="training2_title">Generative Music AI Workshop – MTG &amp; Sound of AI</span></h3>
+												<span class="timeline-meta" data-translate="training2_info">2025, in person, 1 week, certificate awarded</span>
+											</div>
+											<p class="timeline-desc" data-translate="training2_desc">GenAI for music creation with team-based project development.</p>
 										</div>
 
-										<p>
-											<strong data-translate="training3_title">Audio Signal Processing for Music Applications – UPF</strong><br />
-											<span data-translate="training3_desc">Analysis, transformation and synthesis of musical signals.  </span><br />
-											<em data-translate="training3_info">2025, online, 10 weeks, in progress</em>
-										</p>
+										<div class="timeline-item">
+											<div class="timeline-header">
+												<h3><span data-translate="training4_title">Artificial Intelligence Tutor – AIFIA</span></h3>
+												<span class="timeline-meta" data-translate="training4_info">2025, online, certificate awarded</span>
+											</div>
+											<p class="timeline-desc" data-translate="training4_desc">Certification as qualified AI trainer with advanced GenAI skills and commitment to ethical AI use.</p>
+										</div>
 
-										<p>
-											<strong data-translate="training4_title">Artificial Intelligence Tutor - AIFIA</strong><br />
-											<span data-translate="training4_desc">Certification as qualified AI trainer \n with advanced GenAI skills and commitment to ethical AI use.</span><br />
-											<em data-translate="training4_info">2025, online, certificate awarded</em>
-										</p>	
+										<div class="timeline-item">
+											<div class="timeline-header">
+												<h3><span data-translate="training1_title">Creative Machine Learning – IRCAM / ACIDS</span></h3>
+												<span class="timeline-meta" data-translate="training1_info"></span>
+											</div>
+											<p class="timeline-desc" data-translate="training1_desc">ML for audio: fundamentals, neural networks, generative models and transformers.</p>
+										</div>
 
 									</div>
 
@@ -224,32 +317,40 @@
 								<div class="inner">
 									<div class="content">
 										<h2 data-translate="experience_title">Work experience</h2>
-										<div>
-											<p>
-												<strong data-translate="exp1_title">Audio Developer – Anecoica Studio</strong><br />
-												<span data-translate="exp1_desc">
-												</span><br />
-												<em data-translate="exp1_info">Berlin, Germany · 2023 – 2024</em>
-											</p>
 
-										</div>
+										<div class="timeline">
 
-										<div>
-											<p>
-												<strong data-translate="exp2_title">Private Tutor – il-Cubo.it</strong><br />
-												<span data-translate="exp2_desc">
-  												</span><br />
-												<em data-translate="exp2_info">Milan, Italy · 2021 – Present</em>
-											</p>
+											<div class="timeline-item">
+												<div class="timeline-header">
+													<h3><span data-translate="exp0_title">Freelance Developer – AI-Powered Audio Tools for Music Producers</span></h3>
+													<span class="timeline-meta" data-translate="exp0_info">2026 – Present · Milan, Italy</span>
+												</div>
+												<p class="timeline-desc" data-translate="exp0_desc"></p>
+											</div>
 
-										</div>
-										<div>
-											<p>
-												<strong data-translate="exp3_title">Tutor – The Admission Hub</strong><br />
-												<span data-translate="exp3_desc">
-												</span><br />
-												<em data-translate="exp3_info">Online · 2025 – Present</em>
-											</p>
+											<div class="timeline-item">
+												<div class="timeline-header">
+													<h3><span data-translate="exp1_title">Audio Developer – Anecoica Studio</span></h3>
+													<span class="timeline-meta" data-translate="exp1_info">Berlin, Germany · 2023 – 2024</span>
+												</div>
+												<p class="timeline-desc" data-translate="exp1_desc"></p>
+											</div>
+
+											<div class="timeline-item">
+												<div class="timeline-header">
+													<h3><span data-translate="exp3_title">Tutor – The Admission Hub</span></h3>
+													<span class="timeline-meta" data-translate="exp3_info">Online · 2025 – Present</span>
+												</div>
+												<p class="timeline-desc" data-translate="exp3_desc"></p>
+											</div>
+
+											<div class="timeline-item">
+												<div class="timeline-header">
+													<h3><span data-translate="exp2_title">Private Tutor – il-Cubo.it</span></h3>
+													<span class="timeline-meta" data-translate="exp2_info">Milan, Italy · 2021 – Present</span>
+												</div>
+												<p class="timeline-desc" data-translate="exp2_desc"></p>
+											</div>
 
 										</div>
 									</div>
@@ -289,6 +390,31 @@
 			<script src="assets/js/main.js"></script>
 			<script type="module" src="js/lang_main.js"></script>
 
+
+	<elevenlabs-convai agent-id="agent_3401knpzvazqeamvd48kn8cn9gxe"></elevenlabs-convai>
+	<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+
+	<script>
+		(function () {
+			var filterBtns = document.querySelectorAll('.project-filters [data-filter]');
+			var articles   = document.querySelectorAll('#projects .features article[data-category]');
+
+			filterBtns.forEach(function (btn) {
+				btn.addEventListener('click', function () {
+					var filter = btn.getAttribute('data-filter');
+
+					filterBtns.forEach(function (b) { b.classList.remove('primary'); });
+					btn.classList.add('primary');
+
+					articles.forEach(function (article) {
+						article.style.display =
+							(filter === 'all' || article.getAttribute('data-category') === filter)
+							? '' : 'none';
+					});
+				});
+			});
+		}());
+	</script>
 
 	</body>
 </html>

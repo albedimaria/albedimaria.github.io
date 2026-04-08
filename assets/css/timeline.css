@@ -1,0 +1,125 @@
+/* =========================================
+   Project filter bar — #projects
+   ========================================= */
+
+.project-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+}
+
+/* Slightly compact vs the full-size .button */
+.project-filters .button {
+    font-size: 0.72em;
+    height: 2.8em;
+    line-height: 2.8em;
+    padding: 0 1.5em;
+}
+
+/* =========================================
+   Vertical Timeline — #training & #experience
+   =========================================
+   Layout context:
+   - #training  = .wrapper.spotlight.style3, 3rd child of #wrapper
+     → matches :nth-child(2n-1) → theme sets text-align:right on .inner
+     → timeline is mirrored: line and dot on the RIGHT, text inherits right-align
+   - #experience = .wrapper.alt.spotlight.style2, 4th child (even)
+     → normal flow, left-aligned, line and dot on the LEFT
+   ========================================= */
+
+.timeline {
+    position: relative;
+    padding-left: 1.75rem;  /* default: line/dot on the left */
+    margin: 1rem 0 0;
+}
+
+/* Vertical line — default left side
+   left: 4px → line occupies 4–6px, centre at 5px from .timeline left */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 0.45em;
+    bottom: 0;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 1.8rem;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Circular dot — default left side
+   padding-left 1.75rem ≈ 28px → item left edge is 28px from .timeline left
+   dot centre at 5px from .timeline left → dot left edge at 0px
+   → left relative to item = 0 − 28px = −1.75rem                            */
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.75rem;
+    top: 0.28em;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Header block: title on first line, date/info below it */
+.timeline-header {
+    margin-bottom: 0.25rem;
+}
+
+.timeline-header h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.4;
+    border: none;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+
+.timeline-meta {
+    display: block;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.35);
+    font-style: italic;
+    margin-top: 0.1rem;
+}
+
+.timeline-desc {
+    margin: 0;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+}
+
+/* ── #training: mirror timeline to the right ──────────────────────────────
+   Text inherits text-align:right from the theme's :nth-child(2n-1) rule.
+   Swap padding and line/dot to the right side so they stay flush with text. */
+
+#training .timeline {
+    padding-left: 0;
+    padding-right: 1.75rem;
+}
+
+#training .timeline::before {
+    left: auto;
+    right: 4px;  /* mirrors: line at 4–6px from right, centre at 5px */
+}
+
+#training .timeline-item::before {
+    left: auto;
+    right: -1.75rem;  /* dot right-edge at .timeline right, centre at 5px from right */
+}
+
