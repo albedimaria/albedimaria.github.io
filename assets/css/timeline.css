@@ -14,13 +14,19 @@
 
 #filter-desc {
     align-self: center;
-    margin-left: 0.8rem;
+    margin-left: auto;
     font-size: 0.72em;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: rgba(255, 255, 255, 0.45);
     line-height: 1;
+}
+
+@media screen and (max-width: 736px) {
+    .project-filters [data-filter="all"] {
+        flex-basis: 100%;
+    }
 }
 
 /* =========================================
