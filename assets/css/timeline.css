@@ -98,6 +98,11 @@
     letter-spacing: 0;
 }
 
+/* Override global `h3 span { font-weight: 200 }` which would make timeline titles ultra-thin */
+.timeline-header h3 span {
+    font-weight: 600;
+}
+
 
 .timeline-meta {
     display: block;
