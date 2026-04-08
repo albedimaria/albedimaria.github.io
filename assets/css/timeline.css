@@ -1,4 +1,14 @@
 /* =========================================
+   ElevenLabs ConvAI widget — hidden on mobile
+   ========================================= */
+
+@media (max-width: 768px) {
+    elevenlabs-convai {
+        display: none;
+    }
+}
+
+/* =========================================
    Project filter bar — #projects
    ========================================= */
 
@@ -79,7 +89,7 @@
 .timeline-header h3 {
     margin: 0;
     padding: 0;
-    font-size: 0.92rem;
+    font-size: 1em;
     font-weight: 600;
     color: #ffffff;
     line-height: 1.4;
@@ -91,15 +101,15 @@
 
 .timeline-meta {
     display: block;
-    font-size: 0.75rem;
+    font-size: 0.8em;
     color: rgba(255, 255, 255, 0.35);
     font-style: italic;
-    margin-top: 0.1rem;
+    margin-top: 0.1em;
 }
 
 .timeline-desc {
     margin: 0;
-    font-size: 0.875rem;
+    font-size: 1em;
     color: rgba(255, 255, 255, 0.6);
     line-height: 1.6;
 }
