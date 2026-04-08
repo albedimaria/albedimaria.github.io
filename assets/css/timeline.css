@@ -9,38 +9,27 @@
 }
 
 /* =========================================
-   Project filter tooltips
+   Filter description line
    ========================================= */
 
-.project-filters .button[data-tooltip] {
-    overflow: visible;
+.filter-desc-wrap {
     position: relative;
+    height: 1.4em;
+    margin-top: -1.8rem;
+    margin-bottom: 1.8rem;
 }
 
-.project-filters .button[data-tooltip]::after {
-    content: attr(data-tooltip);
+#filter-desc {
     position: absolute;
-    top: calc(100% + 0.5rem);
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(20, 22, 35, 0.95);
-    color: rgba(255, 255, 255, 0.55);
-    font-size: 0.68em;
+    top: 0;
+    left: 0;
+    margin: 0;
+    font-size: 0.72em;
     font-weight: 400;
-    letter-spacing: 0.04em;
-    text-transform: none;
-    white-space: nowrap;
-    padding: 0.35em 0.75em;
-    border-radius: 3px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.15s ease;
-    z-index: 100;
-}
-
-.project-filters .button[data-tooltip]:hover::after {
-    opacity: 1;
+    color: rgba(255, 255, 255, 0.6);
+    font-style: italic;
+    letter-spacing: 0.03em;
+    line-height: 1.4;
 }
 
 /* =========================================

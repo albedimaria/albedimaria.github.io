@@ -120,14 +120,17 @@
 								<h2 data-translate="projects_title">Main projects</h2>
 					<div class="project-filters">
 						<button class="button primary" data-filter="all">All</button>
-						<button class="button" data-filter="products" data-tooltip="deployed, client-facing applications">Products</button>
-						<button class="button" data-filter="research" data-tooltip="academic and advanced technical work">Research</button>
-						<button class="button" data-filter="projects" data-tooltip="explorations and experiments">Projects</button>
+						<button class="button" data-filter="products">Products</button>
+						<button class="button" data-filter="research">Research</button>
+						<button class="button" data-filter="projects">Projects</button>
+					</div>
+					<div class="filter-desc-wrap">
+						<p id="filter-desc"></p>
 					</div>
 					<section class="features">
 								<article data-category="products">
 										<a href="https://beat-store-puce.vercel.app" class="image"><img src="images/beat-store.png" alt="Beat Store project preview" /></a>
-										<h3 class="major" data-translate="proj_beat_title">BEAT STORE — PRODUCTION MUSIC MARKETPLACE · ACQUIRED<span style="display:inline-block;background:#4caf50;color:#fff;font-size:0.65em;font-weight:700;padding:2px 9px;border-radius:4px;vertical-align:middle;margin-left:6px;letter-spacing:0.04em;">✓ Sold</span></h3>
+										<h3 class="major" data-translate="proj_beat_title">BEAT STORE — PRODUCTION MUSIC MARKETPLACE<span style="display:inline-block;background:#4caf50;color:#fff;font-size:0.65em;font-weight:700;padding:2px 9px;border-radius:4px;vertical-align:middle;margin-left:6px;letter-spacing:0.04em;">✓ acquired</span></h3>
 										<!-- TODO: project description -->
 <!--
 										<p>
@@ -398,6 +401,14 @@
 		(function () {
 			var filterBtns = document.querySelectorAll('.project-filters [data-filter]');
 			var articles   = document.querySelectorAll('#projects .features article[data-category]');
+			var filterDesc = document.getElementById('filter-desc');
+
+			var descriptions = {
+				'all':      '',
+				'products': 'deployed, client-facing applications',
+				'research': 'academic and advanced technical work',
+				'projects': 'explorations and experiments'
+			};
 
 			filterBtns.forEach(function (btn) {
 				btn.addEventListener('click', function () {
@@ -405,6 +416,8 @@
 
 					filterBtns.forEach(function (b) { b.classList.remove('primary'); });
 					btn.classList.add('primary');
+
+					filterDesc.textContent = descriptions[filter] || '';
 
 					articles.forEach(function (article) {
 						article.style.display =
