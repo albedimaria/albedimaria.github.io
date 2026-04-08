@@ -12,18 +12,15 @@
    Project filter tooltips
    ========================================= */
 
-.project-filters {
+.project-filters .button[data-tooltip] {
+    overflow: visible;
     position: relative;
 }
 
-.project-filters [data-tooltip] {
-    position: relative;
-}
-
-.project-filters [data-tooltip]::after {
+.project-filters .button[data-tooltip]::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: calc(100% + 0.5rem);
+    top: calc(100% + 0.5rem);
     left: 50%;
     transform: translateX(-50%);
     background: rgba(20, 22, 35, 0.95);
@@ -42,7 +39,7 @@
     z-index: 100;
 }
 
-.project-filters [data-tooltip]:hover::after {
+.project-filters .button[data-tooltip]:hover::after {
     opacity: 1;
 }
 
@@ -63,6 +60,32 @@
     height: 2.8em;
     line-height: 2.8em;
     padding: 0 1.5em;
+}
+
+/* =========================================
+   #projects feature grid — gap-based layout
+   Replaces nth-child margin approach so that
+   display:none articles don't break spacing
+   ========================================= */
+
+#projects .features {
+    gap: 3em;
+}
+
+#projects .features article {
+    margin: 0 !important;
+}
+
+@media screen and (max-width: 980px) {
+    #projects .features {
+        gap: 2em;
+    }
+}
+
+@media screen and (max-width: 736px) {
+    #projects .features {
+        gap: 1.75em;
+    }
 }
 
 /* =========================================
