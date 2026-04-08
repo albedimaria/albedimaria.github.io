@@ -27,6 +27,14 @@
     .project-filters [data-filter="all"] {
         flex-basis: 100%;
     }
+    .project-filters [data-filter="products"],
+    .project-filters [data-filter="research"],
+    .project-filters [data-filter="projects"] {
+        flex: 1;
+    }
+    #filter-desc {
+        display: none;
+    }
 }
 
 /* =========================================
