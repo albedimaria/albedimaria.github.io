@@ -28,9 +28,9 @@
   "training4_info": "2025, en línea, certificado otorgado",
 
   "experience_title": "Experiencia laboral",
-  "exp0_title": "Desarrollador Freelance – Herramientas de Audio con IA para Productores Musicales",
-  "exp0_desc": "",
-  "exp0_info": "2026 – Presente · Milán, Italia",
+  "exp_freelance_title": "Desarrollador Freelance – Herramientas de Audio con IA para Productores Musicales",
+  "exp_freelance_desc": "Desarrollo end-to-end de herramientas web con IA para la industria musical —\nplataformas e-commerce, agentes de automatización e interfaces de voz.",
+  "exp_freelance_info": "2026 – Presente · Milán, Italia",
   "exp1_title": "Audio Developer – Anecoica Studio",
   "exp1_desc": "Music Information Retrieval, interfaces 3D y modelos de audio generativos.\n Desarrolló un prototipo full-stack con React.js, Flask y Python.",
   "exp1_info": "Berlín, Alemania · 2023 – 2024",
