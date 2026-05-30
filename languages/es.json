@@ -20,6 +20,9 @@
   "proj_invoice_bullet2": "Sincroniza sesiones de Google Calendar con Notion; reserva automáticamente en las plataformas",
   "proj_invoice_bullet3": "Se ejecuta a diario: facturación, correos, registro de sesiones y reservas",
   "proj1_title": "BEYOND SPACE: SISTEMA DE INTERPOLACIÓN LATENTE RAVE",
+  "proj1_bullet1": "Carga hasta 4 archivos de audio e interpola entre sus codificaciones latentes RAVE mediante un tablero 2D",
+  "proj1_bullet2": "Ponderación baricéntrica — la posición del clic define la mezcla entre todas las entradas simultáneamente",
+  "proj1_bullet3": "Backend FastAPI + TorchScript en HF Spaces, frontend React en Vercel",
   "learn_more": "Más información",
   "browse_all": "Ver todos los proyectos",
 
@@ -48,12 +51,12 @@
   "exp1_desc": "Music Information Retrieval, interfaces 3D y modelos de audio generativos.\n Desarrolló un prototipo full-stack con React.js, Flask y Python.",
   "exp1_info": "Berlín, Alemania · 2023 – 2024",
   "exp2_title": "Profesor particular – il-Cubo.it",
-  "exp2_desc": "Tutoría a más de 30 estudiantes universitarios en informática y electrónica.\n Mejoró la comunicación técnica y la claridad al explicar conceptos complejos.",
+  "exp2_desc": "Tutorías a 30+ estudiantes de grado y máster en informática y electrónica; rol ampliado a la coordinación de un equipo de tutores.",
   "exp2_info": "Milán, Italia · 2021 – Presente",
 
   "exp3_title": "Instructor STEM – Bricks4Kidz",
   "exp3_desc": "Instructor STEM para niños de educación primaria \n Especializado en LEGO Technic y programación introductoria",
-  "exp3_info": "Milán, Italia · 2025 – Presente",
+  "exp3_info": "Milán, Italia · 2025 – 2026",
 
   "contact_title": "Contacto"
 }
