@@ -39,6 +39,9 @@
   "training4_title": "Tutor di Intelligenza Artificiale",
   "training4_desc": "Certificazione come tutor qualificato di IA \n con abilità avanzate in GenAI e impegno per l'uso etico dell'IA.",
   "training4_info": "2025, online, certificato ottenuto",
+  "training5_title": "Workshop Agent Harness – Datapizza & Cosmico",
+  "training5_desc": "Costruito un agent harness LLM da zero: loop di tool-calling, subagenti paralleli via ThreadPoolExecutor e ricerca RAG su knowledge base Markdown. Senza framework.",
+  "training5_info": "2026, in presenza, 1 giorno",
 
   "experience_title": "Esperienze lavorative",
   "exp_freelance_title": "Sviluppatore Freelance – Strumenti Audio AI per Produttori Musicali",
