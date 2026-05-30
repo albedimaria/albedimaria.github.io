@@ -37,8 +37,8 @@
   "training4_desc": "Certificación como formador cualificado en IA \n con habilidades avanzadas en GenAI y uso ético de la IA.",
   "training4_info": "2025, en línea, certificado otorgado",
   "training5_title": "Workshop de Agent Harness – Datapizza & Cosmico",
-  "training5_desc": "Construcción de un agent harness LLM desde cero: bucle de tool-calling, subagentes paralelos vía ThreadPoolExecutor y búsqueda RAG sobre base de conocimiento Markdown. Sin frameworks.",
-  "training5_info": "2026, presencial, 1 día",
+  "training5_desc": "Construcción de un agent harness LLM desde cero: bucle de tool-calling,\nsubagentes paralelos y búsqueda RAG vs Grep sobre base de conocimiento Markdown. Sin frameworks.",
+  "training5_info": "2026, Milán, 1 día",
 
   "experience_title": "Experiencia laboral",
   "exp_freelance_title": "Desarrollador Freelance – Herramientas de Audio con IA para Productores Musicales",
