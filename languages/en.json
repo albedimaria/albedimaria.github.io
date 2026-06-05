@@ -14,7 +14,7 @@
   "proj_dance_bullet1": "Inbound voice agent 24/7: identifies students, books classes, schedules makeup sessions, and handles trial lesson requests — entirely over the phone",
   "proj_dance_bullet2": "Real-time voice pipeline with barge-in support: Deepgram STT → GPT-4o with parallel tool calling → ElevenLabs TTS streaming (IT/ES)",
   "proj_dance_bullet3": "Admin dashboard with call analytics, booking trends, and student management — built with Next.js, Supabase Auth, and deployed on Vercel",
-  "proj_beat_title": "BEAT STORE — PRODUCTION MUSIC MARKETPLACE",
+  "proj_beat_title": "BEAT STORE — FULL-STACK MUSIC E-COMMERCE PLATFORM",
   "proj_beat_acquired": "✓ acquired",
   "proj_beat_bullet1": "Beat catalog with waveform previews, multi-license cart (MP3 / WAV / stems / exclusive), and in-page Stripe checkout",
   "proj_beat_bullet2": "Idempotent Stripe webhook, RLS on every table, JWT-guarded admin API, downloads via on-demand signed URLs",
