@@ -19,6 +19,7 @@
   "proj_beat_bullet1": "Beat catalog with waveform previews, multi-license cart (MP3 / WAV / stems / exclusive), and in-page Stripe checkout",
   "proj_beat_bullet2": "Idempotent Stripe webhook, RLS on every table, JWT-guarded admin API, downloads via on-demand signed URLs",
   "proj_beat_bullet3": "Zero-egress stack: audio served from Cloudflare R2 straight to the browser, direct-to-storage uploads — Next.js 16 + Supabase + Stripe, CI-deployed on Netlify",
+  "proj_beat_cta": "Listen",
   "proj_invoice_bullet1": "Automates invoicing via Fiscozen and sends personalized client emails",
   "proj_invoice_bullet2": "Syncs Google Calendar sessions to Notion; auto-books on third-party platforms",
   "proj_invoice_bullet3": "Runs daily across invoicing, email dispatch, session logging, and booking",
