@@ -3,21 +3,17 @@ import '../styles/global.css';
 import '@fontsource-variable/fraunces';
 import '@fontsource-variable/inter';
 import '@fontsource-variable/jetbrains-mono';
-import type { Lang } from '../i18n/content';
+import { seo, ogLocale, localizedHome, type Lang } from '../i18n/content';
 
 interface Props {
-  title?: string;
-  description?: string;
   lang?: Lang;
 }
-
-const {
-  title = 'Alberto Di Maria — AI Product Engineer',
-  description = 'Freelance AI product engineer. I design and ship agentic AI products — voice agents, full-stack platforms and audio tools.',
-  lang = 'en',
-} = Astro.props;
+const { lang = 'en' } = Astro.props;
 
 const site = 'https://albedimaria.github.io';
+const { title, description } = seo[lang];
+const canonical = `${site}${localizedHome[lang]}`;
+const skipText = { en: 'Skip to content', it: 'Vai al contenuto', es: 'Ir al contenido' }[lang];
 ---
 
 <!doctype html>
@@ -28,15 +24,20 @@ const site = 'https://albedimaria.github.io';
     <link rel="icon" type="image/png" href="/favicon-32x32.png" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={ogLocale[lang]} />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="alternate" hreflang="en" href={`${site}/`} />
     <link rel="alternate" hreflang="it" href={`${site}/it/`} />
     <link rel="alternate" hreflang="es" href={`${site}/es/`} />
     <link rel="alternate" hreflang="x-default" href={`${site}/`} />
   </head>
   <body class="min-h-screen antialiased">
+    <a href="#top" class="skip-link">{skipText}</a>
     <slot />
 
     <elevenlabs-convai

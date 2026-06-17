@@ -7,6 +7,23 @@ export const langLabels: Record<Lang, string> = { en: 'EN', it: 'IT', es: 'ES' }
 /** Path for a locale: en at root, it/es prefixed. */
 export const localizedHome: Record<Lang, string> = { en: '/', it: '/it/', es: '/es/' };
 
+export const ogLocale: Record<Lang, string> = { en: 'en_US', it: 'it_IT', es: 'es_ES' };
+
+export const seo: Record<Lang, { title: string; description: string }> = {
+  en: {
+    title: 'Alberto Di Maria — AI Product Engineer',
+    description: 'Freelance AI product engineer in Milan. I design and ship agentic AI products — voice agents, full-stack platforms and audio tools.',
+  },
+  it: {
+    title: 'Alberto Di Maria — AI Product Engineer',
+    description: 'AI product engineer freelance a Milano. Progetto e realizzo prodotti AI agentici — voice agent, piattaforme full-stack e strumenti audio.',
+  },
+  es: {
+    title: 'Alberto Di Maria — AI Product Engineer',
+    description: 'AI product engineer freelance en Milán. Diseño y entrego productos de IA agéntica — agentes de voz, plataformas full-stack y herramientas de audio.',
+  },
+};
+
 export const filterCanonical = ['All', 'Products', 'Research', 'Voice AI', 'Audio / ML'] as const;
 
 interface UI {
