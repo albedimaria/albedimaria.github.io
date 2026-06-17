@@ -45,6 +45,10 @@
   "proj2_bullet1": "Tesi magistrale al Politecnico di Milano: una pipeline a tre client che trasforma l'analisi audio in generazione musicale — visualizzazione 3D mood-based → mappatura delle emozioni → generazione AI senza prompt, in loop real-time",
   "proj2_bullet2": "La geometria sacra come interfaccia — il Cubo di Metatron e i solidi platonici mappano le emozioni sulle feature audio in un client 3D interattivo e senza etichette (React Three Fiber / Three.js)",
   "proj2_bullet3": "Generazione senza prompt via Suno API a partire da placeholder visivi; benchmark comparativo di modelli generativi (Suno, RAVE, MusicGen, Jukebox)",
+  "proj_h9000_title": "WAVE DIGITAL FILTERS SU EVENTIDE H9000 — MODELLAZIONE DI CIRCUITI ANALOGICI SU HARDWARE",
+  "proj_h9000_bullet1": "Prima implementazione riuscita di un algoritmo Wave Digital Filter (WDF) su Eventide H9000: modellazione di circuiti audio lineari e non lineari direttamente sull'hardware tramite la piattaforma VSig3",
+  "proj_h9000_bullet2": "Non-linearità gestite con una rappresentazione Canonical PieceWise-Linear (CPWL); validato end-to-end con un circuito diode-clipper funzionante sul dispositivo",
+  "proj_h9000_bullet3": "Sviluppato entro i limiti del linguaggio low-level di VSig3 (nessun esempio in letteratura) — ponte tra modellazione di circuiti analogici e hardware di effetti real-time",
   "learn_more": "Scopri di più",
   "browse_all": "Tutti i progetti",
 
