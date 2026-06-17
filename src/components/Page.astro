@@ -8,13 +8,14 @@ import About from './About.astro';
 import Background from './Background.astro';
 import Contact from './Contact.astro';
 import BackToTop from './BackToTop.astro';
-import { ui, type Lang } from '../i18n/content';
+import { ui, voiceDemo, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = ui[lang];
+const demo = voiceDemo[lang];
 ---
 
 <Layout lang={lang}>
@@ -26,6 +27,13 @@ const t = ui[lang];
     <About lang={lang} />
     <Background lang={lang} />
     <Contact lang={lang} />
+
+    <section class="border-t border-bone/10 bg-ink">
+      <div class="mx-auto max-w-3xl px-6 py-16 text-center md:py-20">
+        <p class="font-display text-2xl font-semibold text-bone md:text-3xl">{demo.title}</p>
+        <p class="mx-auto mt-3 max-w-md text-[14px] leading-relaxed text-text-muted">{demo.desc}</p>
+      </div>
+    </section>
   </main>
 
   <footer class="border-t border-bone/10 bg-ink">
