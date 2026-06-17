@@ -24,6 +24,19 @@ export const seo: Record<Lang, { title: string; description: string }> = {
   },
 };
 
+// Above-the-fold proof strip (credibility, not fluff).
+export const heroProof: Record<Lang, string[]> = {
+  en: ['Beat Store — acquired', 'Company Brain — Top 15 hackathon', 'Voice agents in production'],
+  it: ['Beat Store — acquisito', 'Company Brain — Top 15 hackathon', 'Voice agent in produzione'],
+  es: ['Beat Store — adquirido', 'Company Brain — Top 15 hackathon', 'Agentes de voz en producción'],
+};
+
+export const contactReply: Record<Lang, string> = {
+  en: 'I usually reply within a day.',
+  it: 'Di solito rispondo in giornata.',
+  es: 'Suelo responder en un día.',
+};
+
 export const filterCanonical = ['All', 'Products', 'Research', 'Voice AI', 'Audio / ML'] as const;
 
 interface UI {

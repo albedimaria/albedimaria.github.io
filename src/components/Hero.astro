@@ -1,12 +1,13 @@
 ---
 import WaveSignature from './WaveSignature.astro';
-import { ui, type Lang } from '../i18n/content';
+import { ui, heroProof, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = ui[lang];
+const proof = heroProof[lang];
 ---
 
 <section id="top" class="relative overflow-hidden">
@@ -18,25 +19,34 @@ const t = ui[lang];
     </h1>
     <p class="mt-6 font-mono text-sm tracking-wide text-text-muted md:text-[15px]">{t.hero_role}</p>
 
-    <div class="mt-9 flex flex-wrap items-center gap-3">
+    <div class="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3">
       <a
         href="#contact"
-        class="rounded-[var(--radius-btn)] bg-bone px-5 py-3 font-mono text-sm font-medium text-ink transition hover:opacity-90"
+        class="rounded-[var(--radius-btn)] bg-bone px-6 py-3.5 font-mono text-sm font-medium text-ink transition hover:opacity-90"
       >
         {t.hero_cta_primary}
       </a>
       <a
         href="#work"
-        class="rounded-[var(--radius-btn)] border border-bone/30 px-5 py-3 font-mono text-sm text-bone transition hover:border-bone/60"
+        class="rounded-[var(--radius-btn)] border border-bone/30 px-5 py-3.5 font-mono text-sm text-bone transition hover:border-bone/60"
       >
         {t.hero_cta_secondary}
       </a>
       <a
         href="/cv.pdf"
-        class="rounded-[var(--radius-btn)] border border-bone/15 px-5 py-3 font-mono text-sm text-text-muted transition hover:text-bone"
+        class="font-mono text-[12px] text-text-dim underline-offset-4 transition hover:text-bone hover:underline"
       >
         {t.hero_cta_cv}
       </a>
+    </div>
+
+    <div class="mt-9 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-bone/10 pt-6 font-mono text-[11px] text-text-dim">
+      {proof.map((p, i) => (
+        <span class="inline-flex items-center gap-3">
+          {i > 0 && <span class="text-oxblood-soft" aria-hidden="true">·</span>}
+          <span>{p}</span>
+        </span>
+      ))}
     </div>
   </div>
 </section>
