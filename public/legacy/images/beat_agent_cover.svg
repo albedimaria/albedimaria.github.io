@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" font-family="system-ui, -apple-system, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c0102"/>
+      <stop offset="1" stop-color="#160304"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Canvas -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Top label -->
+  <text x="600" y="33" fill="#fc2626" font-size="13" font-weight="700" text-anchor="middle" letter-spacing="3" opacity="0.8" font-family="monospace">BEAT-AGENT · CLI</text>
+
+  <!-- ============ Terminal: beat-agent run ============ -->
+  <rect x="80" y="50" width="1040" height="540" rx="12" fill="#160304" stroke="#442a2a" stroke-width="1.5"/>
+  <!-- Title bar -->
+  <rect x="80" y="50" width="1040" height="38" rx="12" fill="#230405"/>
+  <rect x="80" y="72" width="1040" height="16" fill="#230405"/>
+  <circle cx="112" cy="69" r="6" fill="#fc5f57"/>
+  <circle cx="132" cy="69" r="6" fill="#febc2e"/>
+  <circle cx="152" cy="69" r="6" fill="#28c840"/>
+  <text x="600" y="73" fill="#acacae" font-size="11" text-anchor="middle" font-family="monospace">Windows PowerShell — beat-agent run</text>
+
+  <!-- Command line -->
+  <text x="104" y="116" font-size="12.5" font-family="monospace" xml:space="preserve"><tspan fill="#fc2626">PS D:\drop&gt;</tspan><tspan fill="#e0e0e1"> beat-agent run</tspan></text>
+
+  <!-- Review panel (rich-style) -->
+  <rect x="104" y="130" width="992" height="162" rx="8" fill="#1c0708" stroke="#fc0000" stroke-opacity="0.35" stroke-width="1.2"/>
+  <!-- title row (full beat name) -->
+  <text x="124" y="158" font-size="12" font-family="monospace" font-weight="700" xml:space="preserve"><tspan fill="#fc2626">▸ </tspan><tspan fill="#f5f5f0">(FREE) Club Dogo Type Beat (ft. Marracash) - "M.I.L.A.N.O." | Old School Type Beat</tspan></text>
+  <rect x="124" y="166" width="972" height="1" fill="#442a2a" opacity="0.5"/>
+
+  <!-- rows -->
+  <g font-family="monospace" font-size="11.5" xml:space="preserve">
+    <text x="206" y="190" fill="#79787b" text-anchor="end">genere</text>
+    <text x="222" y="190" fill="#e0e0e1">Old School · Boom Bap</text>
+    <text x="206" y="212" fill="#79787b" text-anchor="end">bpm / key</text>
+    <text x="222" y="212" fill="#e0e0e1">90 / Gm</text>
+    <text x="206" y="234" fill="#79787b" text-anchor="end">tags</text>
+    <text x="222" y="234" fill="#e0e0e1">club dogo, marracash, old school, boom bap, 90 bpm, free</text>
+    <text x="206" y="256" fill="#79787b" text-anchor="end">files</text>
+    <text x="222" y="256"><tspan fill="#22c55e">✓</tspan><tspan fill="#acacae"> cover   </tspan><tspan fill="#22c55e">✓</tspan><tspan fill="#acacae"> mp3_preview   </tspan><tspan fill="#22c55e">✓</tspan><tspan fill="#acacae"> mp3_full   </tspan><tspan fill="#fc2626">✗</tspan><tspan fill="#79787b"> wav   </tspan><tspan fill="#fc2626">✗</tspan><tspan fill="#79787b"> stems</tspan></text>
+    <text x="206" y="278" fill="#79787b" text-anchor="end">metadati</text>
+    <text x="222" y="278" fill="#79787b">LLM · claude-haiku-4-5</text>
+  </g>
+
+  <!-- confirm -->
+  <text x="104" y="316" font-size="12.5" font-family="monospace" xml:space="preserve"><tspan fill="#e0e0e1">Pubblicare "M.I.L.A.N.O."? [y/N]:</tspan><tspan fill="#22c55e" font-weight="700"> y</tspan></text>
+
+  <!-- result lines -->
+  <g font-family="monospace" font-size="11.5" xml:space="preserve">
+    <text x="104" y="342"><tspan fill="#22c55e">✓</tspan><tspan fill="#c6c6c7"> beat creato: 7f3a9c2e</tspan></text>
+    <text x="104" y="364"><tspan fill="#22c55e">✓</tspan><tspan fill="#c6c6c7"> cover caricato</tspan><tspan fill="#5f5e61">          0.4 MB</tspan></text>
+    <text x="104" y="386"><tspan fill="#22c55e">✓</tspan><tspan fill="#c6c6c7"> mp3_preview caricato</tspan><tspan fill="#5f5e61">    2.4 MB</tspan></text>
+    <text x="104" y="408"><tspan fill="#22c55e">✓</tspan><tspan fill="#c6c6c7"> mp3_full caricato</tspan><tspan fill="#5f5e61">       7.1 MB</tspan></text>
+    <text x="104" y="430"><tspan fill="#22c55e">✓</tspan><tspan fill="#c6c6c7"> pubblicato</tspan></text>
+    <text x="104" y="452"><tspan fill="#22c55e">✓</tspan><tspan fill="#c6c6c7"> agent_publish</tspan><tspan fill="#c6c6c7"> </tspan><tspan fill="#fc2626">→</tspan><tspan fill="#c6c6c7"> analytics</tspan></text>
+  </g>
+  <text x="104" y="482" font-size="12" font-family="monospace" font-weight="700" xml:space="preserve"><tspan fill="#22c55e">✓ "M.I.L.A.N.O."</tspan><tspan fill="#acacae"> — live su ffinnico.netlify.app</tspan></text>
+  <text x="104" y="510" font-size="12.5" font-family="monospace" xml:space="preserve"><tspan fill="#fc2626">PS D:\drop&gt;</tspan><tspan fill="#e0e0e1"> ▮</tspan></text>
+
+  <!-- terminal status bar -->
+  <rect x="92" y="558" width="1016" height="26" rx="6" fill="#230405"/>
+  <text x="108" y="575" fill="#939294" font-size="9.5" font-family="monospace" letter-spacing="0.5">beat-agent v0.1.0</text>
+  <text x="1092" y="575" fill="#939294" font-size="9.5" font-family="monospace" text-anchor="end" letter-spacing="0.5">drop/ · 1 NEW · Python + Claude API</text>
+</svg>

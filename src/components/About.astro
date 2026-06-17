@@ -1,0 +1,35 @@
+---
+import { ui, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+
+const credentials = ['Politecnico di Milano', 'IRCAM', 'MTG Barcelona', 'UPF', 'Anecoica Studio'];
+---
+
+<section id="about" class="border-t border-bone/10 bg-ink-2">
+  <div class="mx-auto max-w-5xl px-6 py-20 md:py-24">
+    <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">{t.about_title}</h2>
+
+    <div class="mt-8 grid gap-10 md:grid-cols-[250px_1fr] md:items-start">
+      <div class="overflow-hidden rounded-[var(--radius-card)] border border-bone/10 bg-surface">
+        <img src="/images/propic.png" alt="Alberto Di Maria" loading="lazy" width="500" height="625" class="aspect-[4/5] w-full object-cover" />
+      </div>
+
+      <div class="min-w-0">
+        <p class="font-display text-2xl leading-snug text-bone md:text-[26px]">{t.about_text}</p>
+        <p class="mt-4 text-[15px] leading-relaxed text-[#c8b9af]">{t.about_closing}</p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          {credentials.map((c) => (
+            <span class="rounded-[5px] border border-bone/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-text-muted">
+              {c}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,42 @@
+---
+import WaveSignature from './WaveSignature.astro';
+import { ui, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+---
+
+<section id="top" class="relative overflow-hidden">
+  <WaveSignature />
+
+  <div class="relative z-10 mx-auto max-w-5xl px-6 pb-28 pt-24 md:pb-32 md:pt-32">
+    <h1 class="font-display text-5xl font-semibold leading-[0.95] tracking-tight text-bone md:text-7xl">
+      Alberto Di Maria
+    </h1>
+    <p class="mt-6 font-mono text-sm tracking-wide text-text-muted md:text-[15px]">{t.hero_role}</p>
+
+    <div class="mt-10 flex flex-wrap items-center gap-x-5 gap-y-3">
+      <a
+        href="#contact"
+        class="rounded-[var(--radius-btn)] bg-bone px-6 py-3.5 font-mono text-sm font-medium text-ink transition hover:opacity-90"
+      >
+        {t.hero_cta_primary}
+      </a>
+      <a
+        href="#work"
+        class="rounded-[var(--radius-btn)] border border-bone/30 px-5 py-3.5 font-mono text-sm text-bone transition hover:border-bone/60"
+      >
+        {t.hero_cta_secondary}
+      </a>
+      <a
+        href="/cv.pdf"
+        class="font-mono text-[12px] text-text-dim underline-offset-4 transition hover:text-bone hover:underline"
+      >
+        {t.hero_cta_cv}
+      </a>
+    </div>
+  </div>
+</section>

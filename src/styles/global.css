@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+/* Design tokens — Oxblood & Bone, warm dark (no flat black) */
+@theme {
+  --color-ink: #16100f;          /* page background, warm near-black */
+  --color-ink-2: #120c0b;        /* deeper section background */
+  --color-surface: #1b1115;      /* cards */
+  --color-surface-2: #140c10;    /* cover wells / insets */
+
+  --color-oxblood: #7a1228;      /* primary accent */
+  --color-oxblood-soft: #9c3340; /* secondary wave / accents */
+
+  --color-bone: #e8dfd3;         /* light / inverse surfaces */
+  --color-text: #ece3da;         /* body text */
+  --color-text-muted: #b7a89d;   /* muted text */
+  --color-text-dim: #a89a8f;     /* dim labels (lifted for AA contrast on dark) */
+
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+
+  --radius-btn: 4px;
+  --radius-card: 8px;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Visible keyboard focus for accessibility */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-oxblood-soft);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Skip link — hidden until focused */
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -48px;
+  z-index: 50;
+  background-color: var(--color-bone);
+  color: var(--color-ink);
+  padding: 8px 14px;
+  border-radius: var(--radius-btn);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 12px;
+}

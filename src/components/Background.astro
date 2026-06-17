@@ -1,0 +1,41 @@
+---
+import { ui, experience, training, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+const exp = experience[lang];
+const tr = training[lang];
+---
+
+<section id="experience" class="border-t border-bone/10">
+  <div class="mx-auto grid max-w-5xl gap-14 px-6 py-20 md:grid-cols-2 md:py-24">
+    <div>
+      <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">{t.experience_title}</h2>
+      <ol class="mt-7 space-y-7">
+        {exp.map((e) => (
+          <li class="border-l border-oxblood/40 pl-5">
+            <h3 class="font-display text-lg font-semibold text-bone">{e.title}</h3>
+            <p class="mt-0.5 font-mono text-[11px] text-text-dim">{e.meta}</p>
+            <p class="mt-1.5 text-[13.5px] leading-relaxed text-[#c8b9af]">{e.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <div>
+      <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">{t.training_title}</h2>
+      <ol class="mt-7 space-y-7">
+        {tr.map((e) => (
+          <li class="border-l border-oxblood/40 pl-5">
+            <h3 class="font-display text-lg font-semibold text-bone">{e.title}</h3>
+            <p class="mt-0.5 font-mono text-[11px] text-text-dim">{e.meta}</p>
+            <p class="mt-1.5 text-[13.5px] leading-relaxed text-[#c8b9af]">{e.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+---
+import BrandMark from './BrandMark.astro';
+import { ui, langLabels, localizedHome, langs, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+---
+
+<header class="sticky top-0 z-30 border-b border-bone/10 bg-ink/80 backdrop-blur">
+  <nav class="grid w-full grid-cols-3 items-center px-5 py-5 md:px-8" aria-label="Primary">
+    <div class="justify-self-start">
+      <BrandMark />
+    </div>
+
+    <ul class="flex justify-center gap-6 font-mono text-xs lowercase tracking-wide text-text-muted">
+      <li><a href="#work" class="transition hover:text-bone">{t.nav.work}</a></li>
+      <li><a href="#about" class="transition hover:text-bone">{t.nav.about}</a></li>
+      <li><a href="#contact" class="transition hover:text-bone">{t.nav.contact}</a></li>
+    </ul>
+
+    <ul class="flex justify-end gap-3 font-mono text-xs">
+      {langs.map((l) => (
+        <li>
+          <a
+            href={localizedHome[l]}
+            class={l === lang ? 'text-bone' : 'text-text-dim transition hover:text-bone'}
+            aria-current={l === lang ? 'true' : undefined}
+          >
+            {langLabels[l]}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>

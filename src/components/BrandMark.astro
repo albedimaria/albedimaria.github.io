@@ -1,0 +1,72 @@
+---
+// Brand mark: a real 3D wireframe octahedron, slowly rotating.
+// Vertices rotated in 3D each frame and projected — back edges fade for depth.
+// Respects prefers-reduced-motion (renders a single static pose).
+---
+
+<a href="#top" class="brand-mark" aria-label="Alberto Di Maria — back to top">
+  <svg class="brand-octa" width="40" height="40" viewBox="-20 -20 40 40" role="img" aria-hidden="true">
+    {Array.from({ length: 12 }).map(() => (
+      <line stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+    ))}
+  </svg>
+</a>
+
+<style>
+  .brand-mark {
+    display: inline-flex;
+    color: var(--color-bone);
+    transition: color 0.2s;
+  }
+  .brand-mark:hover { color: #fff; }
+  .brand-octa { overflow: visible; }
+</style>
+
+<script>
+  (() => {
+    const svg = document.querySelector<SVGSVGElement>('.brand-octa');
+    if (!svg) return;
+    const lines = Array.from(svg.querySelectorAll('line'));
+    const R = 14;
+    const V: number[][] = [
+      [R, 0, 0], [-R, 0, 0],
+      [0, R, 0], [0, -R, 0],
+      [0, 0, R], [0, 0, -R],
+    ];
+    // octahedron edges: every vertex pair except the 3 antipodal ones
+    const E: [number, number][] = [];
+    for (let a = 0; a < 6; a++) {
+      for (let b = a + 1; b < 6; b++) {
+        if ((a === 0 && b === 1) || (a === 2 && b === 3) || (a === 4 && b === 5)) continue;
+        E.push([a, b]);
+      }
+    }
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let t = 0.5;
+
+    function frame() {
+      t += 0.011;
+      const ay = t, ax = t * 0.6;
+      const cy = Math.cos(ay), sy = Math.sin(ay), cx = Math.cos(ax), sx = Math.sin(ax);
+      const P = V.map(([x, y, z]) => {
+        const x1 = x * cy + z * sy;
+        const z1 = -x * sy + z * cy;
+        const y1 = y * cx - z1 * sx;
+        const z2 = y * sx + z1 * cx;
+        return [x1, y1, z2];
+      });
+      E.forEach(([a, b], i) => {
+        const p = P[a], q = P[b], ln = lines[i];
+        if (!ln) return;
+        ln.setAttribute('x1', p[0].toFixed(2));
+        ln.setAttribute('y1', (-p[1]).toFixed(2));
+        ln.setAttribute('x2', q[0].toFixed(2));
+        ln.setAttribute('y2', (-q[1]).toFixed(2));
+        const zMid = (p[2] + q[2]) / 2;
+        ln.setAttribute('opacity', ((zMid + R) / (2 * R) * 0.72 + 0.28).toFixed(2));
+      });
+      if (!reduce) requestAnimationFrame(frame);
+    }
+    frame();
+  })();
+</script>

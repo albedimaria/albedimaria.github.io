@@ -1,0 +1,32 @@
+{
+  "name": "html5up-solid-state",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albedimaria/albedimaria.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/albedimaria/albedimaria.github.io/issues"
+  },
+  "homepage": "https://github.com/albedimaria/albedimaria.github.io#readme",
+  "dependencies": {
+    "@fontsource-variable/fraunces": "^5.2.9",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource-variable/jetbrains-mono": "^5.2.8",
+    "@tailwindcss/vite": "^4.3.1",
+    "astro": "^5.18.2",
+    "tailwindcss": "^4.3.1"
+  }
+}

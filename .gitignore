@@ -1,2 +1,23 @@
 # Graphify
 graphify-out/
+
+# Astro build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+
+# environment
+.env
+.env.production
+
+# editor / OS
+.DS_Store
+
+# local dev preview config + temp logs
+.claude/
+dev_*.log
