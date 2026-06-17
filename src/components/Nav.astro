@@ -7,32 +7,124 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = ui[lang];
+
+const navItems = [
+  { href: '#work', label: t.nav.work },
+  { href: '#about', label: t.nav.about },
+  { href: '#contact', label: t.nav.contact },
+];
 ---
 
 <header class="sticky top-0 z-30 border-b border-bone/10 bg-ink/80 backdrop-blur">
-  <nav class="grid w-full grid-cols-3 items-center px-5 py-5 md:px-8" aria-label="Primary">
-    <div class="justify-self-start">
-      <BrandMark />
-    </div>
+  <nav class="flex items-center gap-4 px-5 py-4 md:px-8" aria-label="Primary">
+    <BrandMark />
 
-    <ul class="flex justify-center gap-6 font-mono text-xs lowercase tracking-wide text-text-muted">
-      <li><a href="#work" class="transition hover:text-bone">{t.nav.work}</a></li>
-      <li><a href="#about" class="transition hover:text-bone">{t.nav.about}</a></li>
-      <li><a href="#contact" class="transition hover:text-bone">{t.nav.contact}</a></li>
-    </ul>
-
-    <ul class="flex justify-end gap-3 font-mono text-xs">
-      {langs.map((l) => (
-        <li>
-          <a
-            href={localizedHome[l]}
-            class={l === lang ? 'text-bone' : 'text-text-dim transition hover:text-bone'}
-            aria-current={l === lang ? 'true' : undefined}
-          >
-            {langLabels[l]}
-          </a>
-        </li>
+    <!-- desktop nav (centered) -->
+    <ul class="hidden flex-1 justify-center gap-8 font-mono text-[13px] lowercase tracking-wide text-text-muted md:flex">
+      {navItems.map((i) => (
+        <li><a href={i.href} class="transition hover:text-bone">{i.label}</a></li>
       ))}
     </ul>
+
+    <!-- desktop language dropdown (shows current; click to change) -->
+    <div class="relative ml-auto hidden md:block">
+      <button
+        id="lang-btn"
+        type="button"
+        class="flex items-center gap-1.5 font-mono text-[12px] text-bone"
+        aria-haspopup="true"
+        aria-expanded="false"
+        aria-label="Change language"
+      >
+        {langLabels[lang]} <span class="text-text-dim">▾</span>
+      </button>
+      <ul id="lang-menu" class="absolute right-0 mt-2 hidden min-w-[64px] overflow-hidden rounded-[var(--radius-btn)] border border-bone/15 bg-surface py-1">
+        {langs.map((l) => (
+          <li>
+            <a
+              href={localizedHome[l]}
+              class:list={['block px-3.5 py-1.5 font-mono text-[12px] transition hover:bg-ink-2', l === lang ? 'text-bone' : 'text-text-muted hover:text-bone']}
+              aria-current={l === lang ? 'true' : undefined}
+            >
+              {langLabels[l]}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- mobile hamburger -->
+    <button id="menu-btn" type="button" class="ml-auto text-bone md:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" />
+      </svg>
+    </button>
   </nav>
+
+  <!-- mobile full-screen menu -->
+  <div id="mobile-menu" class="fixed inset-0 z-50 hidden bg-ink/95 backdrop-blur md:hidden">
+    <div class="flex items-center justify-between px-5 py-4">
+      <BrandMark />
+      <button id="menu-close" type="button" class="text-bone" aria-label="Close menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12" /><path d="M18 6L6 18" />
+        </svg>
+      </button>
+    </div>
+    <ul class="flex flex-1 flex-col justify-center gap-7 px-8 font-display text-4xl text-bone">
+      {navItems.map((i) => (
+        <li><a href={i.href} class="mobile-link inline-block transition hover:text-[#fff]">{i.label}</a></li>
+      ))}
+    </ul>
+    <div class="flex gap-6 border-t border-bone/10 px-8 py-7 font-mono text-base">
+      {langs.map((l) => (
+        <a href={localizedHome[l]} class={l === lang ? 'text-bone' : 'text-text-muted transition hover:text-bone'} aria-current={l === lang ? 'true' : undefined}>
+          {langLabels[l]}
+        </a>
+      ))}
+    </div>
+  </div>
 </header>
+
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const menuClose = document.getElementById('menu-close');
+
+  const openMenu = () => {
+    menu?.classList.remove('hidden');
+    menu?.classList.add('flex', 'flex-col');
+    menuBtn?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  };
+  const closeMenu = () => {
+    menu?.classList.add('hidden');
+    menu?.classList.remove('flex', 'flex-col');
+    menuBtn?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  };
+
+  menuBtn?.addEventListener('click', openMenu);
+  menuClose?.addEventListener('click', closeMenu);
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+
+  const langBtn = document.getElementById('lang-btn');
+  const langMenu = document.getElementById('lang-menu');
+  langBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const willOpen = langMenu?.classList.contains('hidden');
+    langMenu?.classList.toggle('hidden');
+    langBtn.setAttribute('aria-expanded', String(!!willOpen));
+  });
+  document.addEventListener('click', () => {
+    langMenu?.classList.add('hidden');
+    langBtn?.setAttribute('aria-expanded', 'false');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeMenu();
+      langMenu?.classList.add('hidden');
+    }
+  });
+</script>
