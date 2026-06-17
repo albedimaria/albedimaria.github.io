@@ -1,0 +1,60 @@
+---
+import { featuredProjects, gridProjects, workFilters } from '../data/projects';
+import ProjectFeatured from './ProjectFeatured.astro';
+import ProjectCard from './ProjectCard.astro';
+---
+
+<section id="work" class="relative border-t border-bone/10 bg-ink-2">
+  <div class="mx-auto max-w-5xl px-6 py-20 md:py-24">
+    <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">Selected work</h2>
+
+    <div class="mt-5 flex flex-wrap gap-2" aria-label="Filter projects">
+      {workFilters.map((f, i) => (
+        <button
+          type="button"
+          data-filter={f}
+          aria-pressed={i === 0 ? 'true' : 'false'}
+          class:list={[
+            'filter-chip rounded-[5px] border px-3 py-1.5 font-mono text-[11px] transition',
+            i === 0 ? 'border-transparent bg-oxblood text-[#f0d7dc]' : 'border-bone/15 text-text-muted hover:text-bone',
+          ]}
+        >
+          {f}
+        </button>
+      ))}
+    </div>
+
+    <div class="mt-8 space-y-6">
+      {featuredProjects.map((p) => <ProjectFeatured project={p} />)}
+    </div>
+
+    <div class="mt-6 grid gap-6 sm:grid-cols-2">
+      {gridProjects.map((p) => <ProjectCard project={p} />)}
+    </div>
+  </div>
+</section>
+
+<script>
+  const chips = document.querySelectorAll('.filter-chip');
+  const cards = document.querySelectorAll('.project-card');
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const filter = chip.getAttribute('data-filter');
+      chips.forEach((c) => {
+        const active = c === chip;
+        c.setAttribute('aria-pressed', String(active));
+        c.classList.toggle('bg-oxblood', active);
+        c.classList.toggle('text-[#f0d7dc]', active);
+        c.classList.toggle('border-transparent', active);
+        c.classList.toggle('text-text-muted', !active);
+        c.classList.toggle('border-bone/15', !active);
+      });
+      cards.forEach((card) => {
+        const cardFilters = (card.getAttribute('data-filters') || '').split('|');
+        const show = filter === 'All' || cardFilters.includes(filter ?? '');
+        (card as HTMLElement).style.display = show ? '' : 'none';
+      });
+    });
+  });
+</script>

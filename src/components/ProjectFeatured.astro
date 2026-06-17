@@ -1,0 +1,59 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+---
+
+<article
+  data-filters={project.filters.join('|')}
+  class="project-card overflow-hidden rounded-[var(--radius-card)] border border-bone/10 bg-surface"
+>
+  <div class="aspect-[16/7] w-full overflow-hidden border-b border-oxblood/30 bg-surface-2">
+    <img src={project.cover} alt={`${project.title} preview`} loading="lazy" class="h-full w-full object-cover" />
+  </div>
+  <div class="p-6 md:p-7">
+    <div class="flex items-baseline gap-3">
+      <span class="font-mono text-[11px] uppercase tracking-wider text-text-muted">{project.category}</span>
+      {project.badge && (
+        <span class="ml-auto rounded-[4px] bg-oxblood px-2 py-0.5 font-mono text-[10px] font-medium tracking-wide text-[#f0d7dc]">
+          {project.badge}
+        </span>
+      )}
+    </div>
+    <h3 class="mt-2 font-display text-2xl font-semibold text-bone md:text-[28px]">{project.title}</h3>
+    <p class="mt-1 font-mono text-[13px] text-text-muted">{project.oneliner}</p>
+    <ul class="mt-4 space-y-2 text-[14px] leading-relaxed text-[#c8b9af]">
+      {project.bullets.map((b) => (
+        <li class="flex gap-2">
+          <span class="text-oxblood-soft" aria-hidden="true">—</span>
+          <span>{b}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-5 font-mono text-[11px] text-text-dim">
+      <span class="text-oxblood-soft">stack</span>&nbsp;&nbsp;{project.stack.join(' · ')}
+    </p>
+    {project.links.length > 0 && (
+      <div class="mt-5 flex flex-wrap gap-2.5">
+        {project.links.map((l, i) => (
+          <a
+            href={l.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class:list={[
+              'rounded-[4px] px-3.5 py-2 font-mono text-[12px] transition',
+              i === 0
+                ? 'border border-oxblood text-bone hover:bg-oxblood/15'
+                : 'border border-bone/15 text-text-muted hover:text-bone',
+            ]}
+          >
+            {l.label}
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</article>
