@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from './Nav.astro';
+import Hero from './Hero.astro';
+import Work from './Work.astro';
+import Services from './Services.astro';
+import About from './About.astro';
+import Background from './Background.astro';
+import Contact from './Contact.astro';
+import BackToTop from './BackToTop.astro';
+import { ui, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
+---
+
+<Layout lang={lang}>
+  <Nav lang={lang} />
+  <main>
+    <Hero lang={lang} />
+    <Work lang={lang} />
+    <Services lang={lang} />
+    <About lang={lang} />
+    <Background lang={lang} />
+    <Contact lang={lang} />
+  </main>
+
+  <footer class="border-t border-bone/10 bg-ink">
+    <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 px-6 py-8 font-mono text-[11px] text-text-dim">
+      <span>© 2026 Alberto Di Maria</span>
+      <span>{t.footer_built}</span>
+    </div>
+  </footer>
+
+  <BackToTop />
+</Layout>

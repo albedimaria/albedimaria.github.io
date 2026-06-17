@@ -1,5 +1,12 @@
 ---
 import WaveSignature from './WaveSignature.astro';
+import { ui, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
 ---
 
 <section id="top" class="relative overflow-hidden">
@@ -9,28 +16,26 @@ import WaveSignature from './WaveSignature.astro';
     <h1 class="font-display text-5xl font-semibold leading-[0.95] tracking-tight text-bone md:text-7xl">
       Alberto Di Maria
     </h1>
-    <p class="mt-6 font-mono text-sm tracking-wide text-text-muted md:text-[15px]">
-      AI PRODUCT ENGINEER <span class="text-oxblood-soft">·</span> agentic AI, voice agents &amp; audio
-    </p>
+    <p class="mt-6 font-mono text-sm tracking-wide text-text-muted md:text-[15px]">{t.hero_role}</p>
 
     <div class="mt-9 flex flex-wrap items-center gap-3">
       <a
         href="#contact"
         class="rounded-[var(--radius-btn)] bg-bone px-5 py-3 font-mono text-sm font-medium text-ink transition hover:opacity-90"
       >
-        Let's work together →
+        {t.hero_cta_primary}
       </a>
       <a
         href="#work"
         class="rounded-[var(--radius-btn)] border border-bone/30 px-5 py-3 font-mono text-sm text-bone transition hover:border-bone/60"
       >
-        View work ↓
+        {t.hero_cta_secondary}
       </a>
       <a
         href="/cv.pdf"
         class="rounded-[var(--radius-btn)] border border-bone/15 px-5 py-3 font-mono text-sm text-text-muted transition hover:text-bone"
       >
-        Download CV
+        {t.hero_cta_cv}
       </a>
     </div>
   </div>

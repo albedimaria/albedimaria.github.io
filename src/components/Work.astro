@@ -1,6 +1,13 @@
 ---
-import { projects, workFilters } from '../data/projects';
+import { projects } from '../data/projects';
 import ProjectCard from './ProjectCard.astro';
+import { ui, filterCanonical, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
 
 const VISIBLE = 3;
 const hiddenCount = Math.max(0, projects.length - VISIBLE);
@@ -8,27 +15,28 @@ const hiddenCount = Math.max(0, projects.length - VISIBLE);
 
 <section id="work" class="relative border-t border-bone/10 bg-ink-2">
   <div class="mx-auto max-w-5xl px-6 py-20 md:py-24">
-    <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">Selected work</h2>
+    <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">{t.work_title}</h2>
 
     <div class="mt-5 flex flex-wrap items-center gap-x-2 gap-y-3">
-      {workFilters.map((f, i) => (
+      {filterCanonical.map((f, i) => (
         <button
           type="button"
           data-filter={f}
+          data-desc={t.filter_desc[f]}
           aria-pressed={i === 0 ? 'true' : 'false'}
           class:list={[
             'filter-chip rounded-[5px] border px-3 py-1.5 font-mono text-[11px] transition',
             i === 0 ? 'border-transparent bg-oxblood text-[#f0d7dc]' : 'border-bone/15 text-text-muted hover:text-bone',
           ]}
         >
-          {f}
+          {t.filter_labels[f]}
         </button>
       ))}
       <span id="filter-desc" class="ml-auto self-center font-mono text-[10px] uppercase tracking-[0.08em] text-text-dim"></span>
     </div>
 
     <div class="mt-8 space-y-6">
-      {projects.map((p, i) => <ProjectCard project={p} index={i} extra={i >= VISIBLE} />)}
+      {projects.map((p, i) => <ProjectCard project={p} index={i} extra={i >= VISIBLE} lang={lang} />)}
     </div>
 
     {hiddenCount > 0 && (
@@ -38,7 +46,7 @@ const hiddenCount = Math.max(0, projects.length - VISIBLE);
           type="button"
           class="rounded-[var(--radius-btn)] border border-bone/20 px-5 py-2.5 font-mono text-[12px] text-text-muted transition hover:border-bone/50 hover:text-bone"
         >
-          Show all projects (+{hiddenCount})
+          {t.show_all} (+{hiddenCount})
         </button>
       </div>
     )}
@@ -50,14 +58,6 @@ const hiddenCount = Math.max(0, projects.length - VISIBLE);
   const cards = Array.from(document.querySelectorAll('.project-card'));
   const showAll = document.getElementById('show-all');
   const filterDesc = document.getElementById('filter-desc');
-
-  const descriptions: Record<string, string> = {
-    All: '',
-    Products: 'deployed, client-facing applications',
-    Research: 'academic & advanced technical work',
-    'Voice AI': 'real-time conversational phone agents',
-    'Audio / ML': 'audio analysis & generative models',
-  };
 
   function revealExtras() {
     cards.forEach((c) => {
@@ -80,7 +80,7 @@ const hiddenCount = Math.max(0, projects.length - VISIBLE);
         c.classList.toggle('text-text-muted', !active);
         c.classList.toggle('border-bone/15', !active);
       });
-      if (filterDesc) filterDesc.textContent = descriptions[filter] || '';
+      if (filterDesc) filterDesc.textContent = chip.getAttribute('data-desc') || '';
       revealExtras();
       cards.forEach((card) => {
         const cardFilters = (card.getAttribute('data-filters') || '').split('|');

@@ -1,22 +1,27 @@
 ---
 import WaveSignature from './WaveSignature.astro';
+import { ui, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = ui[lang];
 ---
 
 <section id="contact" class="relative overflow-hidden border-t border-bone/10 bg-ink-2">
   <WaveSignature />
   <div class="relative z-10 mx-auto max-w-5xl px-6 py-24 md:py-28">
-    <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">Contact</h2>
-    <p class="mt-4 font-display text-4xl font-semibold leading-tight text-bone md:text-6xl">Let&rsquo;s work together.</p>
-    <p class="mt-5 max-w-xl font-mono text-[13px] leading-relaxed text-text-muted">
-      Available for freelance projects — voice agents, full-stack AI products and audio tools. Based in Milan, working remotely.
-    </p>
+    <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">{t.contact_title}</h2>
+    <p class="mt-4 font-display text-4xl font-semibold leading-tight text-bone md:text-6xl">{t.contact_headline}</p>
+    <p class="mt-5 max-w-xl font-mono text-[13px] leading-relaxed text-text-muted">{t.contact_lead}</p>
 
     <div class="mt-8 flex flex-wrap gap-3">
       <a
         href="mailto:dimaria.alberto@outlook.com"
         class="rounded-[var(--radius-btn)] bg-bone px-5 py-3 font-mono text-sm font-medium text-ink transition hover:opacity-90"
       >
-        Email me →
+        {t.contact_email}
       </a>
       <a
         href="https://www.linkedin.com/in/di-maria-alberto/"

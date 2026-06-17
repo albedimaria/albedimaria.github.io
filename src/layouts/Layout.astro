@@ -3,11 +3,12 @@ import '../styles/global.css';
 import '@fontsource-variable/fraunces';
 import '@fontsource-variable/inter';
 import '@fontsource-variable/jetbrains-mono';
+import type { Lang } from '../i18n/content';
 
 interface Props {
   title?: string;
   description?: string;
-  lang?: string;
+  lang?: Lang;
 }
 
 const {
@@ -15,6 +16,8 @@ const {
   description = 'Freelance AI product engineer. I design and ship agentic AI products — voice agents, full-stack platforms and audio tools.',
   lang = 'en',
 } = Astro.props;
+
+const site = 'https://albedimaria.github.io';
 ---
 
 <!doctype html>
@@ -28,6 +31,10 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <link rel="alternate" hreflang="en" href={`${site}/`} />
+    <link rel="alternate" hreflang="it" href={`${site}/it/`} />
+    <link rel="alternate" hreflang="es" href={`${site}/es/`} />
+    <link rel="alternate" hreflang="x-default" href={`${site}/`} />
   </head>
   <body class="min-h-screen antialiased">
     <slot />

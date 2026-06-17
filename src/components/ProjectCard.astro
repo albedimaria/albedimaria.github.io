@@ -1,17 +1,24 @@
 ---
 import type { Project } from '../data/projects';
 import { frameLabelFor } from '../data/projects';
+import { projectText } from '../i18n/project-text';
+import type { Lang } from '../i18n/content';
 
 interface Props {
   project: Project;
   index: number;
   extra?: boolean;
+  lang: Lang;
 }
-const { project, index, extra = false } = Astro.props;
+const { project, index, extra = false, lang } = Astro.props;
 const frameLabel = frameLabelFor(project);
-// images always on the right (text-left → read first, then preview) for a consistent rhythm
-const imageLeft = false;
+
+const override = lang !== 'en' ? projectText[lang]?.[project.id] : undefined;
+const oneliner = override?.oneliner ?? project.oneliner;
+const bullets = override?.bullets ?? project.bullets;
+
 void index;
+const imageLeft = false;
 ---
 
 <article
@@ -33,7 +40,7 @@ void index;
       )}
     </div>
     <h3 class="mt-2 font-display text-2xl font-semibold text-bone md:text-[28px]">{project.title}</h3>
-    <p class="mt-1.5 font-mono text-[13px] text-text-muted">{project.oneliner}</p>
+    <p class="mt-1.5 font-mono text-[13px] text-text-muted">{oneliner}</p>
   </div>
 
   <figure
@@ -57,7 +64,7 @@ void index;
 
   <div class:list={['min-w-0', imageLeft ? 'md:col-start-2 md:row-start-2' : 'md:col-start-1 md:row-start-2']}>
     <ul class="space-y-2 text-[14px] leading-relaxed text-[#c8b9af]">
-      {project.bullets.map((b) => (
+      {bullets.map((b) => (
         <li class="flex gap-2">
           <span class="text-oxblood-soft" aria-hidden="true">—</span>
           <span>{b}</span>
