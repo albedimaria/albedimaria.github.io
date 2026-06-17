@@ -1,0 +1,50 @@
+---
+const services = [
+  {
+    n: '01',
+    title: 'AI voice agents',
+    desc: 'Inbound & outbound phone agents that book, qualify and handle real conversations end-to-end — STT → LLM tool-calling → TTS on Twilio.',
+    tags: ['Twilio', 'ElevenLabs', 'Deepgram', 'GPT-4o'],
+  },
+  {
+    n: '02',
+    title: 'Full-stack AI products',
+    desc: 'Production web apps from database to UI — e-commerce, dashboards, auth, payments — shipped, secured and maintained.',
+    tags: ['Next.js', 'Supabase', 'Stripe', 'Cloudflare R2'],
+  },
+  {
+    n: '03',
+    title: 'Automation & agents',
+    desc: 'Agentic pipelines and CLI tools that remove manual work: data enrichment, publishing, invoicing and integrations.',
+    tags: ['Python', 'FastAPI', 'Claude API', 'Playwright'],
+  },
+  {
+    n: '04',
+    title: 'Audio & ML',
+    desc: 'Generative audio, music information retrieval and deep-learning models — from research prototype to interactive demo.',
+    tags: ['PyTorch', 'TensorFlow', 'RAVE', 'Essentia'],
+  },
+];
+---
+
+<section id="services" class="border-t border-bone/10">
+  <div class="mx-auto max-w-5xl px-6 py-20 md:py-24">
+    <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">What I build</h2>
+    <p class="mt-3 max-w-2xl font-display text-2xl leading-snug text-bone md:text-[28px]">
+      End-to-end AI products — from the model and the data to the interface your users actually touch.
+    </p>
+
+    <div class="mt-10 grid gap-x-10 gap-y-9 sm:grid-cols-2">
+      {services.map((s) => (
+        <div class="border-t border-bone/10 pt-5">
+          <div class="flex items-baseline gap-3">
+            <span class="font-mono text-[12px] text-oxblood-soft">{s.n}</span>
+            <h3 class="font-display text-xl font-semibold text-bone">{s.title}</h3>
+          </div>
+          <p class="mt-2 text-[14px] leading-relaxed text-[#c8b9af]">{s.desc}</p>
+          <p class="mt-3 font-mono text-[11px] text-text-dim">{s.tags.join(' · ')}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

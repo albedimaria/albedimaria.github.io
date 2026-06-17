@@ -1,0 +1,32 @@
+---
+const credentials = ['Politecnico di Milano', 'IRCAM', 'MTG Barcelona', 'UPF', 'Anecoica Studio'];
+---
+
+<section id="about" class="border-t border-bone/10 bg-ink-2">
+  <div class="mx-auto max-w-5xl px-6 py-20 md:py-24">
+    <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">About</h2>
+
+    <div class="mt-8 grid gap-10 md:grid-cols-[250px_1fr] md:items-start">
+      <div class="overflow-hidden rounded-[var(--radius-card)] border border-bone/10 bg-surface">
+        <img src="/images/propic.png" alt="Alberto Di Maria" class="aspect-[4/5] w-full object-cover" />
+      </div>
+
+      <div class="min-w-0">
+        <p class="font-display text-2xl leading-snug text-bone md:text-[26px]">
+          MSc in Music &amp; Acoustic Engineering. I build agentic AI products — full-stack apps, voice agents and automation pipelines.
+        </p>
+        <p class="mt-4 text-[15px] leading-relaxed text-[#c8b9af]">
+          Background in deep learning for audio, generative models and signal analysis. I also work as a trainer
+          in computer science and electronics. Currently freelance and open to new projects, based in Milan.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          {credentials.map((t) => (
+            <span class="rounded-[5px] border border-bone/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-text-muted">
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

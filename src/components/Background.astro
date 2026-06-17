@@ -1,0 +1,82 @@
+---
+const experience = [
+  {
+    title: 'Freelance Developer — AI-Powered Audio Tools',
+    meta: '2026 – Present · Milan, Italy',
+    desc: 'End-to-end AI web tools for the music industry: e-commerce, automation agents and voice interfaces.',
+  },
+  {
+    title: 'Audio Developer — Anecoica Studio',
+    meta: 'Berlin, Germany · 2023 – 2024',
+    desc: 'Music information retrieval, 3D interfaces and generative audio; full-stack prototype in React, Flask and Python.',
+  },
+  {
+    title: 'Private Tutor — il-Cubo.it',
+    meta: 'Milan, Italy · 2021 – Present',
+    desc: 'Tutored 30+ bachelor and master students in CS and electronics; later coordinated a team of tutors.',
+  },
+  {
+    title: 'STEM Instructor — Bricks4Kidz',
+    meta: 'Milan, Italy · 2025 – 2026',
+    desc: 'STEM for primary-school children: LEGO Technic and an introduction to programming.',
+  },
+];
+
+const training = [
+  {
+    title: 'Agent Harness Workshop — Datapizza & Cosmico',
+    meta: '2026 · Milan · 1 day',
+    desc: 'Built a custom LLM agent harness from scratch: tool-calling loop, parallel subagents, RAG vs grep over a Markdown knowledge base. No frameworks.',
+  },
+  {
+    title: 'Generative Music AI Workshop — MTG & Sound of AI',
+    meta: '2025 · Barcelona · 1 week · certificate',
+    desc: 'GenAI for music creation with team-based project development.',
+  },
+  {
+    title: 'Artificial Intelligence Tutor — AIFIA',
+    meta: '2025 · online · certificate',
+    desc: 'Certified AI trainer with advanced GenAI skills and a commitment to ethical AI.',
+  },
+  {
+    title: 'Audio Signal Processing for Music Applications — UPF',
+    meta: '2025 · online · 10 weeks',
+    desc: 'Analysis, transformation and synthesis of musical signals.',
+  },
+  {
+    title: 'Creative Machine Learning — IRCAM / ACIDS',
+    meta: 'online',
+    desc: 'ML for audio: fundamentals, neural networks, generative models and transformers.',
+  },
+];
+---
+
+<section id="experience" class="border-t border-bone/10">
+  <div class="mx-auto grid max-w-5xl gap-14 px-6 py-20 md:grid-cols-2 md:py-24">
+    <div>
+      <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">Experience</h2>
+      <ol class="mt-7 space-y-7">
+        {experience.map((e) => (
+          <li class="border-l border-oxblood/40 pl-5">
+            <h3 class="font-display text-lg font-semibold text-bone">{e.title}</h3>
+            <p class="mt-0.5 font-mono text-[11px] text-text-dim">{e.meta}</p>
+            <p class="mt-1.5 text-[13.5px] leading-relaxed text-[#c8b9af]">{e.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <div>
+      <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">Training</h2>
+      <ol class="mt-7 space-y-7">
+        {training.map((e) => (
+          <li class="border-l border-oxblood/40 pl-5">
+            <h3 class="font-display text-lg font-semibold text-bone">{e.title}</h3>
+            <p class="mt-0.5 font-mono text-[11px] text-text-dim">{e.meta}</p>
+            <p class="mt-1.5 text-[13.5px] leading-relaxed text-[#c8b9af]">{e.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
