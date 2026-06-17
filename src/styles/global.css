@@ -13,7 +13,7 @@
   --color-bone: #e8dfd3;         /* light / inverse surfaces */
   --color-text: #ece3da;         /* body text */
   --color-text-muted: #b7a89d;   /* muted text */
-  --color-text-dim: #9b8f86;     /* dim labels */
+  --color-text-dim: #a89a8f;     /* dim labels (lifted for AA contrast on dark) */
 
   --font-display: "Fraunces Variable", Georgia, serif;
   --font-sans: "Inter Variable", system-ui, sans-serif;

@@ -37,6 +37,12 @@ export const contactReply: Record<Lang, string> = {
   es: 'Suelo responder en un día.',
 };
 
+export const servicesCta: Record<Lang, string> = {
+  en: 'See it live ↗',
+  it: 'Guardalo live ↗',
+  es: 'Míralo en vivo ↗',
+};
+
 export const filterCanonical = ['All', 'Products', 'Research', 'Voice AI', 'Audio / ML'] as const;
 
 interface UI {

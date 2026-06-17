@@ -17,6 +17,10 @@ const override = lang !== 'en' ? projectText[lang]?.[project.id] : undefined;
 const oneliner = override?.oneliner ?? project.oneliner;
 const bullets = override?.bullets ?? project.bullets;
 
+// Only show the browser-window chrome (dots) when the label is a real host;
+// otherwise render a neutral caption strip (no fake URL metaphor).
+const looksLikeHost = /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(frameLabel);
+
 void index;
 const imageLeft = false;
 ---
@@ -52,10 +56,14 @@ const imageLeft = false;
     ]}
   >
     <div class="flex items-center gap-1.5 border-b border-bone/10 bg-ink-2 px-3.5 py-2">
-      <span class="h-2 w-2 rounded-full bg-oxblood/70"></span>
-      <span class="h-2 w-2 rounded-full bg-bone/15"></span>
-      <span class="h-2 w-2 rounded-full bg-bone/15"></span>
-      <span class="ml-2.5 truncate font-mono text-[11px] text-text-dim">{frameLabel}</span>
+      {looksLikeHost && (
+        <>
+          <span class="h-2 w-2 rounded-full bg-oxblood/70"></span>
+          <span class="h-2 w-2 rounded-full bg-bone/15"></span>
+          <span class="h-2 w-2 rounded-full bg-bone/15"></span>
+        </>
+      )}
+      <span class:list={['truncate font-mono text-[11px] text-text-dim', looksLikeHost && 'ml-2.5']}>{frameLabel}</span>
     </div>
     <div class="aspect-[16/10] w-full bg-surface-2">
       <img src={project.cover} alt={`${project.title} preview`} loading="lazy" class="h-full w-full object-contain object-top" />
