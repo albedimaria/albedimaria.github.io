@@ -39,6 +39,12 @@ body {
   html { scroll-behavior: auto; }
 }
 
+/* Constrain the ElevenLabs voice widget so its panel doesn't overlap content */
+elevenlabs-convai {
+  --elevenlabs-convai-widget-width: 360px;
+  --elevenlabs-convai-widget-max-width: 360px;
+}
+
 /* Visible keyboard focus for accessibility */
 a:focus-visible,
 button:focus-visible {
