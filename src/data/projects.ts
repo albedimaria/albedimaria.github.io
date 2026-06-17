@@ -200,10 +200,10 @@ export const projects: Project[] = [
     category: 'Experiments',
     filters: ['Experiments', 'Voice AI'],
     featured: false,
-    oneliner: 'Dual voice-agent system with escalation — Yellow Tech × ElevenLabs hackathon.',
+    oneliner: 'Dual voice-agent airline support with live escalation — Yellow Tech × ElevenLabs.',
     bullets: [
-      'Two cooperating voice agents: a front-line agent escalates to a specialist agent when the request needs it.',
-      'Multilingual conversational flow on ElevenLabs with a Gemini reasoning layer, wired over REST APIs.',
+      'Aria handles passengers on the front line and escalates complex cases to Marco, a supervisor agent.',
+      'Multilingual conversational support (IT / EN / ES / FR) on ElevenLabs Conversational AI.',
       'Built at the Yellow Tech × ElevenLabs hackathon.',
     ],
     stack: ['REST APIs'],
