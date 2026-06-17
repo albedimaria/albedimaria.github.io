@@ -36,6 +36,29 @@ export const servicesCta: Record<Lang, string> = {
   es: 'Míralo en vivo ↗',
 };
 
+// One honest outcome line under the hero role — what the visitor gets, not hype.
+export const heroTagline: Record<Lang, string> = {
+  en: 'I design and ship AI products end-to-end — from the model to the interface.',
+  it: 'Progetto e spedisco prodotti AI end-to-end — dal modello all’interfaccia.',
+  es: 'Diseño y entrego productos de IA end-to-end — del modelo a la interfaz.',
+};
+
+// Contextualises the floating voice widget as a live demo of the work.
+export const voiceDemo: Record<Lang, { title: string; desc: string }> = {
+  en: {
+    title: 'Talk to an agent I built ↘',
+    desc: 'A live ElevenLabs voice agent — the kind of thing I make. It’s in the bottom-right corner; try it.',
+  },
+  it: {
+    title: 'Parla con un agente che ho costruito ↘',
+    desc: 'Un voice agent ElevenLabs dal vivo — il genere di cosa che costruisco. È in basso a destra; provalo.',
+  },
+  es: {
+    title: 'Habla con un agente que he construido ↘',
+    desc: 'Un agente de voz ElevenLabs en vivo — el tipo de cosa que construyo. Está abajo a la derecha; pruébalo.',
+  },
+};
+
 export const filterCanonical = ['All', 'Products', 'Research', 'Voice AI', 'Audio / ML'] as const;
 
 interface UI {

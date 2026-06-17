@@ -1,12 +1,13 @@
 ---
 import WaveSignature from './WaveSignature.astro';
-import { ui, contactReply, type Lang } from '../i18n/content';
+import { ui, contactReply, voiceDemo, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = ui[lang];
+const demo = voiceDemo[lang];
 ---
 
 <section id="contact" class="relative overflow-hidden border-t border-bone/10 bg-ink-2">
@@ -40,6 +41,11 @@ const t = ui[lang];
       >
         GitHub ↗
       </a>
+    </div>
+
+    <div class="mt-10 max-w-md rounded-[var(--radius-card)] border border-oxblood/30 bg-surface p-4">
+      <p class="font-mono text-[12px] text-bone">{demo.title}</p>
+      <p class="mt-1.5 text-[13px] leading-relaxed text-text-muted">{demo.desc}</p>
     </div>
   </div>
 </section>
