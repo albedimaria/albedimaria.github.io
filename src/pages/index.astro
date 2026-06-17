@@ -1,26 +1,12 @@
 ---
-import '../styles/global.css';
-import '@fontsource-variable/fraunces';
-import '@fontsource-variable/inter';
-import '@fontsource-variable/jetbrains-mono';
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Alberto Di Maria</title>
-  </head>
-  <body class="min-h-screen">
-    <main class="mx-auto max-w-3xl px-6 py-24">
-      <p class="font-mono text-sm tracking-[0.2em] text-text-muted">PHASE 0 · PIPELINE OK</p>
-      <h1 class="mt-4 font-display text-6xl font-semibold text-bone">Alberto Di Maria</h1>
-      <p class="mt-4 text-text-muted">Astro + Tailwind v4 scaffold — oxblood &amp; bone tokens live.</p>
-      <div class="mt-8 flex gap-3">
-        <span class="rounded-[var(--radius-btn)] bg-bone px-4 py-2 font-mono text-sm text-ink">primary</span>
-        <span class="rounded-[var(--radius-btn)] border border-oxblood px-4 py-2 font-mono text-sm text-text">accent</span>
-      </div>
-    </main>
-  </body>
-</html>
+<Layout>
+  <Nav />
+  <main>
+    <Hero />
+  </main>
+</Layout>

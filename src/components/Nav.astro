@@ -1,0 +1,23 @@
+---
+// Three-zone header: brand mark (placeholder, pending decision) · centered nav · language switch
+---
+
+<header class="relative z-20">
+  <nav class="mx-auto grid max-w-5xl grid-cols-3 items-center px-6 py-5" aria-label="Primary">
+    <div class="justify-self-start">
+      {/* brand mark slot — pending Alberto's white symbol */}
+    </div>
+
+    <ul class="flex justify-center gap-6 font-mono text-xs lowercase tracking-wide text-text-muted">
+      <li><a href="#work" class="transition hover:text-bone">work</a></li>
+      <li><a href="#about" class="transition hover:text-bone">about</a></li>
+      <li><a href="#contact" class="transition hover:text-bone">contact</a></li>
+    </ul>
+
+    <ul class="flex justify-end gap-3 font-mono text-xs">
+      <li><a href="/" class="text-bone" aria-current="true">EN</a></li>
+      <li><a href="/it/" class="text-text-dim transition hover:text-bone">IT</a></li>
+      <li><a href="/es/" class="text-text-dim transition hover:text-bone">ES</a></li>
+    </ul>
+  </nav>
+</header>
