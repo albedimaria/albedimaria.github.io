@@ -245,6 +245,30 @@ export const projects: Project[] = [
   },
 ];
 
+const frameLabelOverrides: Record<string, string> = {
+  thesis: 'MSc · Politecnico di Milano',
+  'invoice-agent': 'internal automation',
+  'wdf-h9000': 'MATLAB · VSig3 · H9000',
+  'music-genre-classifier': 'github.com',
+  'save-the-world': 'audio-visual installation',
+  'skyitalia-voice-agent': 'elevenlabs.io',
+  'beat-agent': 'CLI · part of Beat Store',
+};
+
+/** Short label shown in the cover's browser-frame chrome bar. */
+export function frameLabelFor(p: Project): string {
+  if (frameLabelOverrides[p.id]) return frameLabelOverrides[p.id];
+  const href = p.links[0]?.href;
+  if (href) {
+    try {
+      return new URL(href).hostname.replace(/^www\./, '');
+    } catch {
+      /* fall through */
+    }
+  }
+  return p.category;
+}
+
 export const workFilters = ['All', 'Products', 'Research', 'Voice AI', 'Audio / ML'] as const;
 
 export const featuredProjects = projects.filter((p) => p.featured);

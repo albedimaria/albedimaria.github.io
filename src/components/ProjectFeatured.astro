@@ -1,18 +1,28 @@
 ---
 import type { Project } from '../data/projects';
+import { frameLabelFor } from '../data/projects';
 
 interface Props {
   project: Project;
 }
 const { project } = Astro.props;
+const frameLabel = frameLabelFor(project);
 ---
 
 <article
   data-filters={project.filters.join('|')}
   class="project-card overflow-hidden rounded-[var(--radius-card)] border border-bone/10 bg-surface"
 >
-  <div class="aspect-[16/7] w-full overflow-hidden border-b border-oxblood/30 bg-surface-2">
-    <img src={project.cover} alt={`${project.title} preview`} loading="lazy" class="h-full w-full object-cover" />
+  <div class="border-b border-oxblood/30">
+    <div class="flex items-center gap-1.5 border-b border-bone/10 bg-ink-2 px-4 py-2.5">
+      <span class="h-2 w-2 rounded-full bg-oxblood/70"></span>
+      <span class="h-2 w-2 rounded-full bg-bone/15"></span>
+      <span class="h-2 w-2 rounded-full bg-bone/15"></span>
+      <span class="ml-2.5 truncate font-mono text-[11px] text-text-dim">{frameLabel}</span>
+    </div>
+    <div class="aspect-[16/8] w-full overflow-hidden bg-surface-2">
+      <img src={project.cover} alt={`${project.title} preview`} loading="lazy" class="h-full w-full object-cover object-top" />
+    </div>
   </div>
   <div class="p-6 md:p-7">
     <div class="flex items-baseline gap-3">
