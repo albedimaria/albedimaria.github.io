@@ -41,6 +41,10 @@
   "proj1_bullet1": "Carica fino a 4 file audio e interpola tra le loro codifiche latenti RAVE tramite una board 2D",
   "proj1_bullet2": "Ponderazione baricentrica — la posizione del click imposta il blend tra tutti gli input simultaneamente",
   "proj1_bullet3": "Backend FastAPI + TorchScript su HF Spaces, frontend React su Vercel",
+  "proj2_title": "GEOMETRIA NELLA MUSICA: DALL'ANALISI AUDIO ALLA GENERAZIONE MUSICALE",
+  "proj2_bullet1": "Tesi magistrale al Politecnico di Milano: una pipeline a tre client che trasforma l'analisi audio in generazione musicale — visualizzazione 3D mood-based → mappatura delle emozioni → generazione AI senza prompt, in loop real-time",
+  "proj2_bullet2": "La geometria sacra come interfaccia — il Cubo di Metatron e i solidi platonici mappano le emozioni sulle feature audio in un client 3D interattivo e senza etichette (React Three Fiber / Three.js)",
+  "proj2_bullet3": "Generazione senza prompt via Suno API a partire da placeholder visivi; benchmark comparativo di modelli generativi (Suno, RAVE, MusicGen, Jukebox)",
   "learn_more": "Scopri di più",
   "browse_all": "Tutti i progetti",
 
