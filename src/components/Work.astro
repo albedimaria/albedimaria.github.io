@@ -1,14 +1,16 @@
 ---
-import { featuredProjects, gridProjects, workFilters } from '../data/projects';
-import ProjectFeatured from './ProjectFeatured.astro';
+import { projects, workFilters } from '../data/projects';
 import ProjectCard from './ProjectCard.astro';
+
+const VISIBLE = 3;
+const hiddenCount = Math.max(0, projects.length - VISIBLE);
 ---
 
 <section id="work" class="relative border-t border-bone/10 bg-ink-2">
   <div class="mx-auto max-w-5xl px-6 py-20 md:py-24">
     <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">Selected work</h2>
 
-    <div class="mt-5 flex flex-wrap gap-2" aria-label="Filter projects">
+    <div class="mt-5 flex flex-wrap items-center gap-x-2 gap-y-3">
       {workFilters.map((f, i) => (
         <button
           type="button"
@@ -22,25 +24,53 @@ import ProjectCard from './ProjectCard.astro';
           {f}
         </button>
       ))}
+      <span id="filter-desc" class="ml-1 font-mono text-[11px] italic text-text-dim"></span>
     </div>
 
     <div class="mt-8 space-y-6">
-      {featuredProjects.map((p, i) => <ProjectFeatured project={p} index={i} />)}
+      {projects.map((p, i) => <ProjectCard project={p} index={i} extra={i >= VISIBLE} />)}
     </div>
 
-    <div class="mt-6 grid gap-6 sm:grid-cols-2">
-      {gridProjects.map((p) => <ProjectCard project={p} />)}
-    </div>
+    {hiddenCount > 0 && (
+      <div class="mt-8 flex justify-center">
+        <button
+          id="show-all"
+          type="button"
+          class="rounded-[var(--radius-btn)] border border-bone/20 px-5 py-2.5 font-mono text-[12px] text-text-muted transition hover:border-bone/50 hover:text-bone"
+        >
+          Show all projects (+{hiddenCount})
+        </button>
+      </div>
+    )}
   </div>
 </section>
 
 <script>
-  const chips = document.querySelectorAll('.filter-chip');
-  const cards = document.querySelectorAll('.project-card');
+  const chips = Array.from(document.querySelectorAll('.filter-chip'));
+  const cards = Array.from(document.querySelectorAll('.project-card'));
+  const showAll = document.getElementById('show-all');
+  const filterDesc = document.getElementById('filter-desc');
+
+  const descriptions: Record<string, string> = {
+    All: '',
+    Products: 'deployed, client-facing applications',
+    Research: 'academic & advanced technical work',
+    'Voice AI': 'real-time conversational phone agents',
+    'Audio / ML': 'audio analysis & generative models',
+  };
+
+  function revealExtras() {
+    cards.forEach((c) => {
+      if ((c as HTMLElement).dataset.extra === 'true') (c as HTMLElement).style.display = '';
+    });
+    if (showAll) showAll.style.display = 'none';
+  }
+
+  showAll?.addEventListener('click', revealExtras);
 
   chips.forEach((chip) => {
     chip.addEventListener('click', () => {
-      const filter = chip.getAttribute('data-filter');
+      const filter = chip.getAttribute('data-filter') ?? 'All';
       chips.forEach((c) => {
         const active = c === chip;
         c.setAttribute('aria-pressed', String(active));
@@ -50,9 +80,11 @@ import ProjectCard from './ProjectCard.astro';
         c.classList.toggle('text-text-muted', !active);
         c.classList.toggle('border-bone/15', !active);
       });
+      if (filterDesc) filterDesc.textContent = descriptions[filter] || '';
+      revealExtras();
       cards.forEach((card) => {
         const cardFilters = (card.getAttribute('data-filters') || '').split('|');
-        const show = filter === 'All' || cardFilters.includes(filter ?? '');
+        const show = filter === 'All' || cardFilters.includes(filter);
         (card as HTMLElement).style.display = show ? '' : 'none';
       });
     });
