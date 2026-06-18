@@ -18,25 +18,27 @@ const t = ui[lang];
     </h1>
     <p class="mt-6 font-mono text-sm tracking-wide text-text-muted md:text-[15px]">{t.hero_role}</p>
 
-    <div class="mt-10 flex flex-wrap items-center gap-x-5 gap-y-3">
+    <div class="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-x-5">
       <a
         href="#contact"
         class="rounded-[var(--radius-btn)] bg-bone px-6 py-3.5 font-mono text-sm font-medium text-ink transition hover:opacity-90"
       >
         {t.hero_cta_primary}
       </a>
-      <a
-        href="#work"
-        class="rounded-[var(--radius-btn)] border border-bone/30 px-5 py-3.5 font-mono text-sm text-bone transition hover:border-bone/60"
-      >
-        {t.hero_cta_secondary}
-      </a>
-      <a
-        href="/cv.pdf"
-        class="font-mono text-[12px] text-text-dim underline-offset-4 transition hover:text-bone hover:underline"
-      >
-        {t.hero_cta_cv}
-      </a>
+      <div class="flex items-center gap-5">
+        <a
+          href="#work"
+          class="rounded-[var(--radius-btn)] border border-bone/30 px-5 py-3.5 font-mono text-sm text-bone transition hover:border-bone/60"
+        >
+          {t.hero_cta_secondary}
+        </a>
+        <a
+          href="/cv.pdf"
+          class="font-mono text-[12px] text-text-dim underline-offset-4 transition hover:text-bone hover:underline"
+        >
+          {t.hero_cta_cv}
+        </a>
+      </div>
     </div>
   </div>
 </section>
