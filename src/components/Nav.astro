@@ -19,7 +19,7 @@ const navItems = [
   <nav class="flex items-center gap-4 px-5 py-4 md:px-8" aria-label="Primary">
     <div class="flex items-center gap-2.5">
       <BrandMark />
-      <span class="font-mono text-[12px] tracking-wide text-bone">alberto di maria</span>
+      <span class="font-mono text-[11px] leading-[1.15] tracking-wide text-bone">Alberto<br />Di Maria</span>
     </div>
 
     <!-- desktop nav (centered) -->
@@ -58,24 +58,26 @@ const navItems = [
      not the backdrop-filtered header (which would confine and clip it) -->
 <div id="mobile-menu" class="fixed inset-0 z-50 hidden bg-ink md:hidden">
     <div class="flex items-center justify-between border-b border-bone/10 px-5 py-4">
-      <span class="font-mono text-[12px] tracking-wide text-bone">alberto di maria</span>
+      <span class="font-mono text-[11px] leading-[1.15] tracking-wide text-bone">Alberto<br />Di Maria</span>
       <button id="menu-close" type="button" class="text-bone" aria-label="Close menu">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
           <path d="M6 6l12 12" /><path d="M18 6L6 18" />
         </svg>
       </button>
     </div>
-    <ul class="flex flex-1 flex-col justify-center gap-8 px-8 font-display text-4xl text-bone">
-      {navItems.map((i) => (
-        <li><a href={i.href} class="inline-block transition hover:text-white">{i.label}</a></li>
-      ))}
-    </ul>
-    <div class="flex gap-7 border-t border-bone/10 px-8 py-7 font-mono text-lg">
-      {langs.map((l) => (
-        <a href={localizedHome[l]} class={l === lang ? 'text-bone' : 'text-text-muted transition hover:text-bone'} aria-current={l === lang ? 'true' : undefined}>
-          {langLabels[l]}
-        </a>
-      ))}
+    <div class="grid flex-1 grid-cols-[1fr_auto] items-center gap-6 px-8">
+      <ul class="flex flex-col gap-8 font-display text-4xl text-bone">
+        {navItems.map((i) => (
+          <li><a href={i.href} class="inline-block transition hover:text-white">{i.label}</a></li>
+        ))}
+      </ul>
+      <div class="flex flex-col items-end gap-5 self-center border-l border-bone/10 pl-6 font-mono text-lg">
+        {langs.map((l) => (
+          <a href={localizedHome[l]} class={l === lang ? 'text-bone' : 'text-text-muted transition hover:text-bone'} aria-current={l === lang ? 'true' : undefined}>
+            {langLabels[l]}
+          </a>
+        ))}
+      </div>
     </div>
   </div>
 
