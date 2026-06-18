@@ -44,6 +44,11 @@ elevenlabs-convai {
   --elevenlabs-convai-widget-width: 360px;
   --elevenlabs-convai-widget-max-width: 360px;
 }
+/* On mobile the floating widget overlaps content; hide it and route to the
+   agent's own page via the closing band CTA instead. */
+@media (max-width: 767px) {
+  elevenlabs-convai { display: none !important; }
+}
 
 /* Visible keyboard focus for accessibility */
 a:focus-visible,

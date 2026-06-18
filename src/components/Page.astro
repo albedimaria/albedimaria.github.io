@@ -16,6 +16,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = ui[lang];
 const demo = voiceDemo[lang];
+const talkToUrl = 'https://elevenlabs.io/app/talk-to?agent_id=agent_3401knpzvazqeamvd48kn8cn9gxe';
 ---
 
 <Layout lang={lang}>
@@ -30,7 +31,14 @@ const demo = voiceDemo[lang];
 
     <section class="border-t border-bone/10 bg-ink">
       <div class="mx-auto max-w-3xl px-6 py-16 text-center md:py-20">
-        <p class="font-display text-2xl font-semibold text-bone md:text-3xl">{demo.title}</p>
+        <a
+          href={talkToUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block font-display text-2xl font-semibold text-bone transition hover:text-white md:text-3xl"
+        >
+          {demo.title}
+        </a>
         <p class="mx-auto mt-3 max-w-md text-[14px] leading-relaxed text-text-muted">{demo.desc}</p>
       </div>
     </section>
