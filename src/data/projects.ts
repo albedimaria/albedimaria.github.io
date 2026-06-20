@@ -7,6 +7,22 @@ export interface ProjectLink {
   href: string;
 }
 
+/** One numeric proof point, revealed when the engineering block is expanded. */
+export interface EngineeringStat {
+  value: string;
+  label: string;
+}
+
+/** Optional "rigor + measures" block — collapsed by default, expandable.
+ *  Only the flagship projects carry it; the rest stay metric-free. */
+export interface Engineering {
+  /** qualitative signal, always visible in the collapsed summary */
+  summary: string;
+  /** the numbers, revealed on expand */
+  stats: EngineeringStat[];
+  note?: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -21,6 +37,7 @@ export interface Project {
   stack: string[];
   ai?: string[];
   hardware?: string[];
+  engineering?: Engineering;
   cover: string;
   links: ProjectLink[];
 }
@@ -41,6 +58,15 @@ export const projects: Project[] = [
     ],
     stack: ['Next.js 16', 'TypeScript', 'Supabase', 'Stripe', 'Cloudflare R2', 'Resend', 'Netlify'],
     ai: ['Claude API'],
+    engineering: {
+      summary: 'tested · CI-gated · observability',
+      stats: [
+        { value: '86%', label: 'money-path cov' },
+        { value: '34', label: 'tests · CI gate' },
+        { value: 'Sentry', label: 'errors · p95' },
+      ],
+      note: 'Vitest + Playwright · GitHub Actions blocking merges · RLS default-deny',
+    },
     cover: '/images/beat-store.png',
     links: [
       { label: 'visit store ↗', href: 'https://ffinnico.netlify.app' },
@@ -81,6 +107,15 @@ export const projects: Project[] = [
     ],
     stack: ['Python', 'FastAPI', 'Twilio', 'Supabase', 'Next.js', 'Render', 'Vercel'],
     ai: ['GPT-4o', 'Deepgram', 'ElevenLabs'],
+    engineering: {
+      summary: 'evaluated · instrumented · cost-tracked',
+      stats: [
+        { value: '6/6', label: 'scenario evals' },
+        { value: '4.2s', label: 'p50 latency' },
+        { value: '6.3s', label: 'p95 latency' },
+      ],
+      note: 'fixed-scenario eval runner on the live LLM + DB · per-turn token/cost metrics · /observability + /evals dashboards',
+    },
     cover: '/images/dance_voice_agent_cover.svg',
     links: [
       { label: 'demo ↗', href: 'https://dance-voice-agent-dashboard.vercel.app' },
@@ -101,6 +136,15 @@ export const projects: Project[] = [
     ],
     stack: ['Python', 'FastAPI', 'Twilio', 'Supabase', 'Stripe', 'Next.js', 'Vercel'],
     ai: ['ElevenLabs Conversational AI'],
+    engineering: {
+      summary: 'evaluated · observable',
+      stats: [
+        { value: '7/7', label: 'offline evals' },
+        { value: '4', label: 'online criteria' },
+        { value: 'p50·p95', label: 'latency tracked' },
+      ],
+      note: 'ground-truth extraction evals · ElevenLabs online eval criteria · /observability latency dashboard',
+    },
     cover: '/images/shy_order_cover.svg',
     links: [
       { label: 'demo ↗', href: 'https://shy-order.onrender.com' },
