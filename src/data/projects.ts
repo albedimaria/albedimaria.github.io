@@ -67,7 +67,7 @@ export const projects: Project[] = [
       ],
       note: 'Vitest + Playwright · GitHub Actions blocking merges · RLS default-deny',
     },
-    cover: '/images/beat-store.png',
+    cover: '/images/beat-store.webp',
     links: [
       { label: 'visit store ↗', href: 'https://ffinnico.netlify.app' },
     ],
@@ -185,7 +185,7 @@ export const projects: Project[] = [
     ],
     stack: ['Python', 'FastAPI', 'Librosa', 'React'],
     ai: ['RAVE', 'PyTorch', 'TorchScript'],
-    cover: '/images/rave_presentation.png',
+    cover: '/images/rave_presentation.webp',
     links: [{ label: 'demo ↗', href: 'https://beyond-space-kappa.vercel.app' }],
   },
   {
@@ -202,7 +202,7 @@ export const projects: Project[] = [
     ],
     stack: ['Python', 'Flask', 'SocketIO', 'React Three Fiber'],
     ai: ['Essentia', 'TensorFlow (MIR)', 'Suno API'],
-    cover: '/images/thesis.png',
+    cover: '/images/thesis.webp',
     links: [{ label: 'learn more ↗', href: 'https://youtu.be/2TnS3kzFt2c' }],
   },
   {
@@ -219,7 +219,7 @@ export const projects: Project[] = [
     ],
     stack: ['MATLAB', 'VSig3'],
     hardware: ['Eventide H9000'],
-    cover: '/images/project-course-presentation.png',
+    cover: '/images/project-course-presentation.webp',
     links: [{ label: 'learn more ↗', href: 'https://github.com/albedimaria/WDF-on-H9000' }],
   },
   {
@@ -252,7 +252,7 @@ export const projects: Project[] = [
     ],
     stack: ['REST APIs'],
     ai: ['ElevenLabs', 'Gemini'],
-    cover: '/images/frontend-voice-agent.png',
+    cover: '/images/frontend-voice-agent.webp',
     links: [
       {
         label: 'learn more ↗',
@@ -273,7 +273,7 @@ export const projects: Project[] = [
     ],
     stack: ['Python'],
     ai: ['TensorFlow', 'Keras'],
-    cover: '/images/cnn.png',
+    cover: '/images/cnn.webp',
     links: [{ label: 'learn more ↗', href: 'https://github.com/albedimaria/music_genre_classifier' }],
   },
   {
@@ -288,7 +288,7 @@ export const projects: Project[] = [
       'Python gesture recognition + TouchDesigner real-time 3D visuals + SuperCollider generative soundscapes.',
     ],
     stack: ['Python', 'TouchDesigner', 'SuperCollider'],
-    cover: '/images/bigliettoCPAC.png',
+    cover: '/images/bigliettoCPAC.webp',
     links: [{ label: 'learn more ↗', href: 'https://github.com/RobertoAlessandri/SaveTheWorld' }],
   },
 ];

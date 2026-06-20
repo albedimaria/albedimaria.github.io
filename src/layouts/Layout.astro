@@ -49,11 +49,14 @@ const skipText = { en: 'Skip to content', it: 'Vai al contenuto', es: 'Ir al con
       avatar-orb-color-1="#7a1228"
       avatar-orb-color-2="#c76b86"
     ></elevenlabs-convai>
-    <!-- Lazy-load the ElevenLabs widget (~250 KB) so its bundle never blocks the
-         main thread on first paint. Loads on first interaction, or when idle. -->
+    <!-- Lazy-load the ElevenLabs widget (~250 KB) on first user interaction only, so
+         its bundle never executes on initial load. The orb appears the moment the
+         visitor scrolls/moves/taps (sub-second in practice); a passive page view never
+         pays the cost. -->
     <script is:inline>
       (() => {
         let loaded = false;
+        const events = ['pointerdown', 'keydown', 'touchstart', 'scroll', 'mousemove'];
         const load = () => {
           if (loaded) return;
           loaded = true;
@@ -63,10 +66,7 @@ const skipText = { en: 'Skip to content', it: 'Vai al contenuto', es: 'Ir al con
           document.body.appendChild(s);
           events.forEach((e) => window.removeEventListener(e, load));
         };
-        const events = ['pointerdown', 'keydown', 'touchstart', 'scroll', 'mousemove'];
         events.forEach((e) => window.addEventListener(e, load, { once: true, passive: true }));
-        if ('requestIdleCallback' in window) requestIdleCallback(load, { timeout: 5000 });
-        else setTimeout(load, 4000);
       })();
     </script>
   </body>
