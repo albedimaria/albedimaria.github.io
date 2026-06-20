@@ -29,12 +29,13 @@ const imageLeft = false;
   data-filters={project.filters.join('|')}
   data-extra={extra ? 'true' : 'false'}
   class:list={[
-    'project-card grid gap-x-8 gap-y-5 rounded-[var(--radius-card)] border border-bone/10 bg-surface p-5 md:grid-cols-2 md:p-7',
+    'project-card grid gap-x-8 rounded-[var(--radius-card)] border border-bone/10 bg-surface p-5 md:grid-cols-2 md:p-7',
     extra && 'is-extra',
   ]}
   style={extra ? 'display:none' : undefined}
 >
-  <div class:list={['min-w-0', imageLeft ? 'md:col-start-2 md:row-start-1' : 'md:col-start-1 md:row-start-1']}>
+  <!-- row 1: eyebrow + title -->
+  <div class="min-w-0 md:col-start-1 md:row-start-1">
     <div class="flex items-baseline gap-3">
       <span class="font-mono text-[11px] uppercase tracking-wider text-text-muted">{project.category}</span>
       {project.badge && (
@@ -44,17 +45,12 @@ const imageLeft = false;
       )}
     </div>
     <h3 class="mt-2 font-display text-2xl font-semibold text-bone md:text-[28px]">{project.title}</h3>
-    <p class="mt-1.5 font-mono text-[13px] text-text-muted">{oneliner}</p>
   </div>
 
-  <figure
-    class:list={[
-      'm-0 overflow-hidden rounded-[6px] border border-bone/10',
-      imageLeft
-        ? 'md:col-start-1 md:row-start-1 md:row-span-2 md:self-center'
-        : 'md:col-start-2 md:row-start-1 md:row-span-2 md:self-center',
-    ]}
-  >
+  <!-- row 2: subtitle — the cover's top edge aligns to this line -->
+  <p class="mt-1.5 min-w-0 font-mono text-[13px] text-text-muted md:col-start-1 md:row-start-2">{oneliner}</p>
+
+  <figure class="m-0 mt-5 overflow-hidden rounded-[6px] border border-bone/10 md:col-start-2 md:row-start-2 md:row-span-2 md:mt-0 md:self-start">
     <div class="flex items-center gap-1.5 border-b border-bone/10 bg-ink-2 px-3.5 py-2">
       {looksLikeHost && (
         <>
@@ -70,7 +66,7 @@ const imageLeft = false;
     </div>
   </figure>
 
-  <div class:list={['min-w-0', imageLeft ? 'md:col-start-2 md:row-start-2' : 'md:col-start-1 md:row-start-2']}>
+  <div class="min-w-0 mt-5 md:col-start-1 md:row-start-3">
     <ul class="space-y-2 text-[14px] leading-relaxed text-[#c8b9af]">
       {bullets.map((b) => (
         <li class="flex gap-2">

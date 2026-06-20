@@ -49,6 +49,25 @@ const skipText = { en: 'Skip to content', it: 'Vai al contenuto', es: 'Ir al con
       avatar-orb-color-1="#7a1228"
       avatar-orb-color-2="#c76b86"
     ></elevenlabs-convai>
-    <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+    <!-- Lazy-load the ElevenLabs widget (~250 KB) so its bundle never blocks the
+         main thread on first paint. Loads on first interaction, or when idle. -->
+    <script is:inline>
+      (() => {
+        let loaded = false;
+        const load = () => {
+          if (loaded) return;
+          loaded = true;
+          const s = document.createElement('script');
+          s.src = 'https://unpkg.com/@elevenlabs/convai-widget-embed';
+          s.async = true;
+          document.body.appendChild(s);
+          events.forEach((e) => window.removeEventListener(e, load));
+        };
+        const events = ['pointerdown', 'keydown', 'touchstart', 'scroll', 'mousemove'];
+        events.forEach((e) => window.addEventListener(e, load, { once: true, passive: true }));
+        if ('requestIdleCallback' in window) requestIdleCallback(load, { timeout: 5000 });
+        else setTimeout(load, 4000);
+      })();
+    </script>
   </body>
 </html>
