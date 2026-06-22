@@ -44,6 +44,27 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 'lyra',
+    title: 'Lyra',
+    category: 'Products',
+    filters: ['Products', 'Audio / ML'],
+    featured: true,
+    badge: 'Musixmatch Musicathon',
+    oneliner: 'Lyrics-first music discovery — a playlist that travels your emotions.',
+    bullets: [
+      'Describe a mood in plain language, or tap a 12-emotion wheel — a Claude agent resolves text and taps into one emotional state, and Lyra builds the playlist as a trajectory through that space, not a flat list.',
+      'Songs are chosen by what their lyrics say: sentence-transformer embeddings place each track on a valence × energy emotion taxonomy, and the exact cited line that matched your mood is surfaced via Musixmatch lyrics/richsync.',
+      'Steer live — more like this / change the mood / raise the energy — reshaping the upcoming queue without cutting the current track; a 3D react-three-fiber compass turns to your mood and traces the path travelled.',
+    ],
+    stack: ['Next.js 16', 'TypeScript', 'react-three-fiber', 'FastAPI', 'Vercel', 'Hugging Face'],
+    ai: ['Claude (Anthropic)', 'sentence-transformers (mpnet)', 'Musixmatch Pro API'],
+    cover: '/images/lyra.webp',
+    links: [
+      { label: 'try it ↗', href: 'https://lyra-green-chi.vercel.app' },
+      { label: 'code ↗', href: 'https://github.com/dr-zaib/Lyra_musicathon' },
+    ],
+  },
+  {
     id: 'beat-store',
     title: 'Beat Store',
     category: 'Products',

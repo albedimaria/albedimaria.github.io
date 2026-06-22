@@ -9,6 +9,14 @@ export interface ProjectText {
 // Reuses Alberto's existing translations (languages/it.json, es.json) where the EN matches.
 export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
   it: {
+    'lyra': {
+      oneliner: 'Scoperta musicale lyrics-first — una playlist che attraversa le tue emozioni.',
+      bullets: [
+        'Descrivi uno stato d’animo a parole, o tocca una ruota di 12 emozioni — un agente Claude interpreta testo e tap nello stesso stato emotivo, e Lyra costruisce la playlist come una traiettoria in quello spazio, non una lista piatta.',
+        'I brani sono scelti per ciò che dicono i testi: embedding sentence-transformer collocano ogni traccia su una tassonomia emotiva valenza × energia, e viene mostrato il verso citato esatto che ha fatto match con il tuo mood, via Musixmatch lyrics/richsync.',
+        'Guidi dal vivo — more like this / change the mood / raise the energy — rimodellando la coda senza tagliare il brano in riproduzione; una bussola 3D react-three-fiber si orienta al tuo mood e traccia il percorso compiuto.',
+      ],
+    },
     'beat-store': {
       oneliner: 'Piattaforma e-commerce musicale full-stack per un producer.',
       bullets: [
@@ -105,6 +113,14 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
     },
   },
   es: {
+    'lyra': {
+      oneliner: 'Descubrimiento musical desde la letra — una playlist que recorre tus emociones.',
+      bullets: [
+        'Describe un estado de ánimo con palabras, o toca una rueda de 12 emociones — un agente Claude interpreta texto y toques en un mismo estado emocional, y Lyra construye la playlist como una trayectoria por ese espacio, no una lista plana.',
+        'Las canciones se eligen por lo que dicen sus letras: embeddings sentence-transformer sitúan cada tema en una taxonomía emocional de valencia × energía, y se muestra el verso citado exacto que encajó con tu ánimo, vía Musixmatch lyrics/richsync.',
+        'Diriges en directo — more like this / change the mood / raise the energy — remodelando la cola sin cortar la canción en curso; una brújula 3D react-three-fiber gira hacia tu ánimo y traza el camino recorrido.',
+      ],
+    },
     'beat-store': {
       oneliner: 'Plataforma de e-commerce musical full-stack para un productor.',
       bullets: [
