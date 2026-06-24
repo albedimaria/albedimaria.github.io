@@ -1,6 +1,6 @@
 // Single source of truth for the work section.
 // English copy is canonical here; IT/ES come from the i18n dicts in Phase 4.
-// Content reconciled against the live site (e.g. "Top 15", not the stale "Top 10").
+// Content reconciled against the live site.
 
 export interface ProjectLink {
   label: string;
@@ -99,10 +99,10 @@ export const projects: Project[] = [
     category: 'Products',
     filters: ['Products'],
     featured: true,
-    badge: '★ Top 15',
+    badge: '★ Top 10',
     oneliner: 'Agentic AI over a company’s live business data.',
     bullets: [
-      'Top 15 at the Cursor × Yellow Tech hackathon → qualified for the Italian National Hackathon League.',
+      'Top 10 at the Cursor × Yellow Tech hackathon → qualified for the Italian National Hackathon League.',
       'FastAPI agent over CRM, ERP, call logs and a knowledge base: the LLM only picks tools and writes the answer while Python does every count and sum — exact figures, source provenance, zero hallucinations.',
       'Zero-infra RAG (BM25 over whole documents) plus an interactive knowledge graph; multilingual IT/EN/ES.',
     ],

@@ -28,7 +28,7 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
     'company-brain': {
       oneliner: 'AI agentica sui dati aziendali in tempo reale.',
       bullets: [
-        'Top 15 all’hackathon Cursor × Yellow Tech → qualificato alla Lega Nazionale Italiana degli Hackathon.',
+        'Top 10 all’hackathon Cursor × Yellow Tech → qualificato alla Lega Nazionale Italiana degli Hackathon.',
         'Agente FastAPI su CRM, ERP, log chiamate e knowledge base: l’LLM sceglie solo i tool e scrive la risposta mentre Python fa ogni conteggio e somma — numeri esatti, provenienza delle fonti, zero allucinazioni.',
         'RAG zero-infrastruttura (BM25 su documenti interi) più un knowledge graph interattivo; multilingua IT/EN/ES.',
       ],
@@ -132,7 +132,7 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
     'company-brain': {
       oneliner: 'IA agéntica sobre los datos de empresa en vivo.',
       bullets: [
-        'Top 15 en el hackathon Cursor × Yellow Tech → clasificado para la Liga Nacional Italiana de Hackathons.',
+        'Top 10 en el hackathon Cursor × Yellow Tech → clasificado para la Liga Nacional Italiana de Hackathons.',
         'Agente FastAPI sobre el CRM, ERP, registros de llamadas y base de conocimiento: el LLM solo elige las herramientas y redacta la respuesta mientras Python hace cada conteo y suma — cifras exactas, procedencia de las fuentes, cero alucinaciones.',
         'RAG sin infraestructura (BM25 sobre documentos completos) más un grafo de conocimiento interactivo; multilingüe IT/EN/ES.',
       ],
