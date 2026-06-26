@@ -46,16 +46,16 @@ export const heroTagline: Record<Lang, string> = {
 // Contextualises the floating voice widget as a live demo of the work.
 export const voiceDemo: Record<Lang, { title: string; desc: string }> = {
   en: {
-    title: 'Talk to an agent I built →',
-    desc: 'A live ElevenLabs voice agent — the kind of thing I build. Have a real conversation with it.',
+    title: 'Talk to an agent I built',
+    desc: 'A live voice agent — the kind of thing I build. Try it in a real conversation.',
   },
   it: {
-    title: 'Parla con un agente che ho costruito →',
-    desc: 'Un voice agent ElevenLabs dal vivo — il genere di cosa che costruisco. Provalo in una conversazione vera.',
+    title: 'Parla con un agente che ho costruito',
+    desc: 'Un voice agent dal vivo — il genere di cosa che costruisco. Provalo in una vera conversazione.',
   },
   es: {
-    title: 'Habla con un agente que he construido →',
-    desc: 'Un agente de voz ElevenLabs en vivo — el tipo de cosa que construyo. Pruébalo en una conversación real.',
+    title: 'Habla con un agente que he construido',
+    desc: 'Un agente de voz en vivo — el tipo de cosa que construyo. Pruébalo en una conversación real.',
   },
 };
 

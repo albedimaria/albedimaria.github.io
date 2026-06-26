@@ -161,7 +161,7 @@ function Panel({
           aria-hidden="true"
         />
         <span className="font-mono text-[11px] uppercase tracking-wider text-text-dim">
-          {connected ? (mode === 'voice' ? 'live' : 'chat') : 'ElevenLabs · RAG'}
+          {connected ? `D10S · ${mode === 'voice' ? 'live' : 'chat'}` : 'D10S'}
         </span>
       </div>
 
@@ -187,7 +187,7 @@ function Panel({
       {shownErr && <p className="mb-2 px-1 font-mono text-[11px] text-oxblood-soft">{shownErr}</p>}
 
       {!connected ? (
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center justify-center gap-2">
           <button
             onClick={startVoice}
             disabled={status === 'connecting'}
