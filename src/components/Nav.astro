@@ -34,7 +34,7 @@ const navItems = [
       <ul id="lang-menu" class="absolute right-0 mt-2 hidden min-w-[64px] overflow-hidden rounded-[var(--radius-btn)] border border-bone/15 bg-surface py-1">
         {langs.map((l) => (
           <li>
-            <a href={localizedHome[l]} class:list={['block px-3.5 py-1.5 font-mono text-[12px] transition hover:bg-ink-2', l === lang ? 'text-bone' : 'text-text-muted hover:text-bone']} aria-current={l === lang ? 'true' : undefined}>
+            <a href={localizedHome[l]} data-lang-link class:list={['block px-3.5 py-1.5 font-mono text-[12px] transition hover:bg-ink-2', l === lang ? 'text-bone' : 'text-text-muted hover:text-bone']} aria-current={l === lang ? 'true' : undefined}>
               {langLabels[l]}
             </a>
           </li>
@@ -69,7 +69,7 @@ const navItems = [
       </ul>
       <div class="flex flex-col items-end gap-5 self-center border-l border-bone/10 pl-6 font-mono text-lg">
         {langs.map((l) => (
-          <a href={localizedHome[l]} class={l === lang ? 'text-bone' : 'text-text-muted transition hover:text-bone'} aria-current={l === lang ? 'true' : undefined}>
+          <a href={localizedHome[l]} data-lang-link class={l === lang ? 'text-bone' : 'text-text-muted transition hover:text-bone'} aria-current={l === lang ? 'true' : undefined}>
             {langLabels[l]}
           </a>
         ))}
@@ -78,6 +78,27 @@ const navItems = [
   </div>
 
 <script>
+  // Preserve scroll position when switching language (same layout across locales,
+  // so the section stays roughly in place instead of jumping back to the top).
+  (() => {
+    document.querySelectorAll('[data-lang-link]').forEach((a) =>
+      a.addEventListener('click', () => {
+        try { sessionStorage.setItem('vc_scroll', String(window.scrollY)); } catch {}
+      })
+    );
+    let y: number | null = null;
+    try {
+      const s = sessionStorage.getItem('vc_scroll');
+      if (s !== null) { y = parseInt(s, 10); sessionStorage.removeItem('vc_scroll'); }
+    } catch {}
+    if (y !== null) {
+      const target = y;
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.scrollTo(0, target);
+      window.addEventListener('load', () => window.scrollTo(0, target));
+    }
+  })();
+
   const menuBtn = document.getElementById('menu-btn');
   const menu = document.getElementById('mobile-menu');
   const menuClose = document.getElementById('menu-close');

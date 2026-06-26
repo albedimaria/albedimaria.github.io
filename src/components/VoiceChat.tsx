@@ -203,6 +203,16 @@ function Panel({
             {t.type}
           </button>
         </div>
+      ) : mode === 'voice' ? (
+        <div className="flex justify-center">
+          <button
+            type="button"
+            onClick={stop}
+            className="rounded-full border border-bone/25 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-bone transition hover:bg-bone/10"
+          >
+            {t.end}
+          </button>
+        </div>
       ) : (
         <form onSubmit={send} className="flex items-center gap-2">
           <input
