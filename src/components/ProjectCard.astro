@@ -26,6 +26,7 @@ const imageLeft = false;
 ---
 
 <article
+  id={`proj-${project.id}`}
   data-filters={project.filters.join('|')}
   data-extra={extra ? 'true' : 'false'}
   class:list={[

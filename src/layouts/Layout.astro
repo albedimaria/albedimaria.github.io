@@ -43,31 +43,5 @@ const skipText = { en: 'Skip to content', it: 'Vai al contenuto', es: 'Ir al con
   <body class="min-h-screen antialiased">
     <a href="#top" class="skip-link">{skipText}</a>
     <slot />
-
-    <elevenlabs-convai
-      agent-id="agent_3401knpzvazqeamvd48kn8cn9gxe"
-      avatar-orb-color-1="#7a1228"
-      avatar-orb-color-2="#c76b86"
-    ></elevenlabs-convai>
-    <!-- Lazy-load the ElevenLabs widget (~250 KB) on first user interaction only, so
-         its bundle never executes on initial load. The orb appears the moment the
-         visitor scrolls/moves/taps (sub-second in practice); a passive page view never
-         pays the cost. -->
-    <script is:inline>
-      (() => {
-        let loaded = false;
-        const events = ['pointerdown', 'keydown', 'touchstart', 'scroll', 'mousemove'];
-        const load = () => {
-          if (loaded) return;
-          loaded = true;
-          const s = document.createElement('script');
-          s.src = 'https://unpkg.com/@elevenlabs/convai-widget-embed';
-          s.async = true;
-          document.body.appendChild(s);
-          events.forEach((e) => window.removeEventListener(e, load));
-        };
-        events.forEach((e) => window.addEventListener(e, load, { once: true, passive: true }));
-      })();
-    </script>
   </body>
 </html>
