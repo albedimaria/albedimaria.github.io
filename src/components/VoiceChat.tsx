@@ -20,6 +20,21 @@ const STR: Record<Lang, Record<string, string>> = {
 const DAILY_LIMIT = 6;
 const SESSION_MAX_MS = 110_000;
 
+// ASR keyword biasing (client SDK >=1.12): proper nouns the recognizer would
+// otherwise mangle when visitors ask about them by voice.
+const ASR_KEYWORDS = [
+  'Alberto Di Maria',
+  'D10S',
+  'Dance Voice Agent',
+  'Shy Order',
+  'Company Brain',
+  'Beat Store',
+  'Lyra',
+  'Metatron',
+  'Anecoica',
+  'Beyond Space',
+];
+
 // client-side soft cost guard (per browser). Hard cap = overage-off on the
 // ElevenLabs dashboard + the agent's 120s max_duration.
 function sessionAllowed(): boolean {
@@ -111,7 +126,15 @@ function Panel({
   }, [status]);
 
   const sessionOpts = (textOnly: boolean, connectionType: 'webrtc' | 'websocket') =>
-    ({ agentId: AGENT_ID, connectionType, textOnly, overrides: { agent: { language: lang } } }) as Parameters<typeof controls.startSession>[0];
+    ({
+      agentId: AGENT_ID,
+      connectionType,
+      textOnly,
+      overrides: {
+        agent: { language: lang },
+        ...(textOnly ? {} : { asr: { keywords: ASR_KEYWORDS } }),
+      },
+    }) as Parameters<typeof controls.startSession>[0];
 
   const guard = (): boolean => {
     if (!sessionAllowed()) {
