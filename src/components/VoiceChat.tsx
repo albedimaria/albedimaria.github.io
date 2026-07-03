@@ -12,9 +12,9 @@ type Lang = 'en' | 'it' | 'es';
 type Line = { source: 'user' | 'ai'; text: string };
 
 const STR: Record<Lang, Record<string, string>> = {
-  en: { heading: 'talk to my work', sub: 'ask about my projects — by voice or text', talk: '🎙 talk', type: '⌨ type', placeholder: 'type a message…', end: '○ end', limit: "You've hit today's session limit — try again tomorrow.", mic: 'Microphone blocked — use “type” or allow the mic in your browser.' },
-  it: { heading: 'parla con il mio lavoro', sub: 'chiedi dei miei progetti — a voce o per iscritto', talk: '🎙 parla', type: '⌨ scrivi', placeholder: 'scrivi un messaggio…', end: '○ fine', limit: 'Hai raggiunto il limite di sessioni per oggi — riprova domani.', mic: 'Microfono bloccato — usa “scrivi” o consenti il microfono.' },
-  es: { heading: 'habla con mi trabajo', sub: 'pregunta por mis proyectos — por voz o texto', talk: '🎙 habla', type: '⌨ escribe', placeholder: 'escribe un mensaje…', end: '○ fin', limit: 'Has alcanzado el límite de sesiones de hoy — vuelve mañana.', mic: 'Micrófono bloqueado — usa “escribe” o permite el micrófono.' },
+  en: { heading: 'talk to my work', sub: 'ask about my projects — by voice or text', talk: '🎙 talk', type: '⌨ type', placeholder: 'type a message…', end: '○ end', limit: "You've hit today's session limit — try again tomorrow.", mic: 'Microphone blocked — use “type” or allow the mic in your browser.', disclosure: 'D10S is an AI assistant — you’re talking to an automated system, not a person.' },
+  it: { heading: 'parla con il mio lavoro', sub: 'chiedi dei miei progetti — a voce o per iscritto', talk: '🎙 parla', type: '⌨ scrivi', placeholder: 'scrivi un messaggio…', end: '○ fine', limit: 'Hai raggiunto il limite di sessioni per oggi — riprova domani.', mic: 'Microfono bloccato — usa “scrivi” o consenti il microfono.', disclosure: 'D10S è un assistente AI — parli con un sistema automatico, non con una persona.' },
+  es: { heading: 'habla con mi trabajo', sub: 'pregunta por mis proyectos — por voz o texto', talk: '🎙 habla', type: '⌨ escribe', placeholder: 'escribe un mensaje…', end: '○ fin', limit: 'Has alcanzado el límite de sesiones de hoy — vuelve mañana.', mic: 'Micrófono bloqueado — usa “escribe” o permite el micrófono.', disclosure: 'D10S es un asistente de IA — hablas con un sistema automático, no con una persona.' },
 };
 
 const DAILY_LIMIT = 6;
@@ -210,21 +210,25 @@ function Panel({
       {shownErr && <p className="mb-2 px-1 font-mono text-[11px] text-oxblood-soft">{shownErr}</p>}
 
       {!connected ? (
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          <button
-            onClick={startVoice}
-            disabled={status === 'connecting'}
-            className="rounded-full border border-oxblood px-4 py-2 font-mono text-[12px] uppercase tracking-[0.15em] text-bone transition hover:bg-oxblood/15 disabled:opacity-50"
-          >
-            {status === 'connecting' ? '…' : t.talk}
-          </button>
-          <button
-            onClick={startText}
-            disabled={status === 'connecting'}
-            className="rounded-full border border-bone/20 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.15em] text-text-muted transition hover:bg-bone/5 disabled:opacity-50"
-          >
-            {t.type}
-          </button>
+        <div className="space-y-2.5">
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <button
+              onClick={startVoice}
+              disabled={status === 'connecting'}
+              className="rounded-full border border-oxblood px-4 py-2 font-mono text-[12px] uppercase tracking-[0.15em] text-bone transition hover:bg-oxblood/15 disabled:opacity-50"
+            >
+              {status === 'connecting' ? '…' : t.talk}
+            </button>
+            <button
+              onClick={startText}
+              disabled={status === 'connecting'}
+              className="rounded-full border border-bone/20 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.15em] text-text-muted transition hover:bg-bone/5 disabled:opacity-50"
+            >
+              {t.type}
+            </button>
+          </div>
+          {/* AI-disclosure (EU AI Act Art. 50): visible before the first interaction */}
+          <p className="text-center font-mono text-[10px] leading-snug text-text-dim">{t.disclosure}</p>
         </div>
       ) : mode === 'voice' ? (
         <div className="flex justify-center">
