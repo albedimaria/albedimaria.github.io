@@ -20,6 +20,31 @@ const t = ui[lang];
       <div class="min-w-0">
         <p class="font-display text-2xl leading-snug text-bone md:text-[26px]">{t.about_text}</p>
         <p class="mt-4 text-[16px] leading-relaxed text-text-muted">{t.about_closing}</p>
+
+        <div class="mt-7 flex flex-wrap items-center gap-3">
+          <a
+            href="https://www.linkedin.com/in/di-maria-alberto/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-[var(--radius-btn)] border border-bone/25 px-5 py-3 font-mono text-[14px] text-bone transition hover:border-bone/60"
+          >
+            LinkedIn ↗
+          </a>
+          <a
+            href="https://github.com/albedimaria"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-[var(--radius-btn)] border border-bone/15 px-5 py-3 font-mono text-[14px] text-text-muted transition hover:text-bone"
+          >
+            GitHub ↗
+          </a>
+          <a
+            href="/cv.pdf"
+            class="rounded-[var(--radius-btn)] border border-bone/15 px-5 py-3 font-mono text-[14px] text-text-muted transition hover:text-bone"
+          >
+            {t.hero_cta_cv} ↓
+          </a>
+        </div>
       </div>
     </div>
   </div>

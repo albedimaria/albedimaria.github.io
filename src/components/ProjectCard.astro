@@ -22,7 +22,6 @@ const bullets = override?.bullets ?? project.bullets;
 const looksLikeHost = /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(frameLabel);
 
 void index;
-const imageLeft = false;
 ---
 
 <article
@@ -30,13 +29,13 @@ const imageLeft = false;
   data-filters={project.filters.join('|')}
   data-extra={extra ? 'true' : 'false'}
   class:list={[
-    'project-card grid gap-x-8 rounded-[var(--radius-card)] border border-bone/10 bg-surface p-5 transition duration-300 hover:-translate-y-0.5 hover:border-oxblood-soft/40 md:grid-cols-2 md:p-7',
+    'project-card grid gap-x-9 gap-y-6 rounded-[var(--radius-card)] border border-bone/10 bg-surface p-5 transition duration-300 hover:-translate-y-0.5 hover:border-oxblood-soft/40 md:grid-cols-[1fr_minmax(0,340px)] md:items-start md:p-7',
     extra && 'is-extra',
   ]}
   style={extra ? 'display:none' : undefined}
 >
-  <!-- row 1: eyebrow + title -->
-  <div class="min-w-0 md:col-start-1 md:row-start-1">
+  <!-- LEFT: the substance -->
+  <div class="flex min-w-0 flex-col">
     <div class="flex items-baseline gap-3">
       <span class="font-mono text-[12px] uppercase tracking-wider text-text-muted">{project.category}</span>
       {project.badge && (
@@ -46,29 +45,9 @@ const imageLeft = false;
       )}
     </div>
     <h3 class="mt-2 font-display text-2xl font-semibold text-bone md:text-[28px]">{project.title}</h3>
-  </div>
+    <p class="mt-1.5 font-mono text-[14px] text-text-muted">{oneliner}</p>
 
-  <!-- row 2: subtitle — the cover's top edge aligns to this line -->
-  <p class="mt-1.5 min-w-0 font-mono text-[14px] text-text-muted md:col-start-1 md:row-start-2">{oneliner}</p>
-
-  <figure class="m-0 mt-5 overflow-hidden rounded-[6px] border border-bone/10 md:col-start-2 md:row-start-2 md:row-span-2 md:mt-0 md:self-start">
-    <div class="flex items-center gap-1.5 border-b border-bone/10 bg-ink-2 px-3.5 py-2">
-      {looksLikeHost && (
-        <>
-          <span class="h-2 w-2 rounded-full bg-oxblood/70"></span>
-          <span class="h-2 w-2 rounded-full bg-bone/15"></span>
-          <span class="h-2 w-2 rounded-full bg-bone/15"></span>
-        </>
-      )}
-      <span class:list={['truncate font-mono text-[12px] text-text-dim', looksLikeHost && 'ml-2.5']}>{frameLabel}</span>
-    </div>
-    <div class="aspect-[16/10] w-full bg-surface-2">
-      <img src={project.cover} alt={`${project.title} preview`} loading="lazy" class="h-full w-full object-contain object-top" />
-    </div>
-  </figure>
-
-  <div class="min-w-0 mt-5 md:col-start-1 md:row-start-3">
-    <ul class="space-y-2 text-[15px] leading-relaxed text-text-muted">
+    <ul class="mt-5 space-y-2 text-[15px] leading-relaxed text-text-muted">
       {bullets.map((b) => (
         <li class="flex gap-2">
           <span class="text-oxblood-soft" aria-hidden="true">—</span>
@@ -76,11 +55,9 @@ const imageLeft = false;
         </li>
       ))}
     </ul>
-    <p class="mt-5 font-mono text-[12px] text-text-dim">
-      <span class="text-oxblood-soft">stack</span>&nbsp;&nbsp;{project.stack.join(' · ')}
-    </p>
+
     {project.engineering && (
-      <details class="group mt-4 border-t border-bone/[0.08] pt-3">
+      <details class="group mt-5 border-t border-bone/[0.08] pt-3">
         <summary class="flex cursor-pointer list-none items-center gap-x-2 font-mono text-[12px] text-text-dim [&::-webkit-details-marker]:hidden">
           <span class="text-oxblood-soft">engineering</span>
           <span class="text-text-muted">{project.engineering.summary}</span>
@@ -102,15 +79,16 @@ const imageLeft = false;
         )}
       </details>
     )}
+
     {project.links.length > 0 && (
-      <div class="mt-5 flex flex-wrap gap-2.5">
+      <div class="mt-6 flex flex-wrap gap-2.5">
         {project.links.map((l, i) => (
           <a
             href={l.href}
             target="_blank"
             rel="noopener noreferrer"
             class:list={[
-              'rounded-[4px] px-3.5 py-2 font-mono text-[12px] transition',
+              'rounded-[4px] px-3.5 py-2 font-mono text-[13px] transition',
               i === 0
                 ? 'border border-oxblood text-bone hover:bg-oxblood/15'
                 : 'border border-bone/15 text-text-muted hover:text-bone',
@@ -121,5 +99,27 @@ const imageLeft = false;
         ))}
       </div>
     )}
+  </div>
+
+  <!-- RIGHT: cover, with the stack line sitting under it so the column reads as a unit -->
+  <div class="flex min-w-0 flex-col">
+    <figure class="m-0 overflow-hidden rounded-[6px] border border-bone/10">
+      <div class="flex items-center gap-1.5 border-b border-bone/10 bg-ink-2 px-3.5 py-2">
+        {looksLikeHost && (
+          <>
+            <span class="h-2 w-2 rounded-full bg-oxblood/70"></span>
+            <span class="h-2 w-2 rounded-full bg-bone/15"></span>
+            <span class="h-2 w-2 rounded-full bg-bone/15"></span>
+          </>
+        )}
+        <span class:list={['truncate font-mono text-[12px] text-text-dim', looksLikeHost && 'ml-2.5']}>{frameLabel}</span>
+      </div>
+      <div class="aspect-[16/10] w-full bg-surface-2">
+        <img src={project.cover} alt={`${project.title} preview`} loading="lazy" class="h-full w-full object-contain object-top" />
+      </div>
+    </figure>
+    <p class="mt-4 font-mono text-[13px] leading-relaxed text-text-dim">
+      <span class="text-oxblood-soft">stack</span>&nbsp;&nbsp;{project.stack.join(' · ')}
+    </p>
   </div>
 </article>

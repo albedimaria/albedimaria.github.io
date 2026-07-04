@@ -131,7 +131,7 @@ export const ui: Record<Lang, UI> = {
     contact_title: 'Contact',
     contact_headline: 'Let’s work together.',
     contact_lead: 'Available for freelance projects — voice agents, full-stack AI products and audio tools. Based in Milan, working remotely.',
-    contact_email: 'Email me →',
+    contact_email: 'Email me',
     footer_built: 'Milan, Italy · built with Astro',
   },
   it: {
