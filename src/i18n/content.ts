@@ -36,33 +36,41 @@ export const servicesCta: Record<Lang, string> = {
   es: 'Míralo en vivo ↗',
 };
 
-// One honest outcome line under the hero role — what the visitor gets, not hype.
-export const heroTagline: Record<Lang, string> = {
-  en: 'I design and ship AI products end-to-end — from the model to the interface.',
-  it: 'Progetto e spedisco prodotti AI end-to-end — dal modello all’interfaccia.',
-  es: 'Diseño y entrego productos de IA end-to-end — del modelo a la interfaz.',
+// Hero line that ties the name to the agent — the "equation" explained in one
+// sentence. `accent` is rendered in Fraunces italic oxblood.
+export const heroLine: Record<Lang, { pre: string; accent: string; post: string }> = {
+  en: { pre: 'I build AI products end-to-end — and ', accent: 'D10S', post: ', right here, is one of them.' },
+  it: { pre: 'Costruisco prodotti AI end-to-end — e ', accent: 'D10S', post: ', qui accanto, è uno di loro.' },
+  es: { pre: 'Construyo productos de IA end-to-end — y ', accent: 'D10S', post: ', aquí mismo, es uno de ellos.' },
 };
 
-// Contextualises the floating voice widget as a live demo of the work.
+// D10S guide claim — heading + sub of the hero's right column.
 export const voiceDemo: Record<Lang, { title: string; desc: string }> = {
   en: {
-    title: 'Talk to an agent I built',
-    desc: 'A live voice agent — the kind of thing I build. Try it in a real conversation.',
+    title: "Hi, I'm D10S — your guide here.",
+    desc: "Talk or type: I'll take you around — projects, services, how to work with Alberto.",
   },
   it: {
-    title: 'Parla con un agente che ho costruito',
-    desc: 'Un voice agent dal vivo — il genere di cosa che costruisco. Provalo in una vera conversazione.',
+    title: 'Ciao, sono D10S — la tua guida qui.',
+    desc: 'Parla o scrivi: ti porto io in giro — progetti, servizi, come lavorare con Alberto.',
   },
   es: {
-    title: 'Habla con un agente que he construido',
-    desc: 'Un agente de voz en vivo — el tipo de cosa que construyo. Pruébalo en una conversación real.',
+    title: 'Hola, soy D10S — tu guía aquí.',
+    desc: 'Habla o escribe: te llevo yo — proyectos, servicios, cómo trabajar con Alberto.',
   },
+};
+
+// Contact headline split so the last word carries the italic accent.
+export const contactHeadline: Record<Lang, { pre: string; accent: string }> = {
+  en: { pre: "Let's work ", accent: 'together.' },
+  it: { pre: 'Lavoriamo ', accent: 'insieme.' },
+  es: { pre: 'Trabajemos ', accent: 'juntos.' },
 };
 
 export const filterCanonical = ['All', 'Products', 'Research', 'Voice AI', 'Audio / ML'] as const;
 
 interface UI {
-  nav: { work: string; about: string; contact: string };
+  nav: { work: string; services: string; about: string; contact: string };
   hero_role: string;
   hero_cta_primary: string;
   hero_cta_secondary: string;
@@ -88,7 +96,7 @@ interface UI {
 
 export const ui: Record<Lang, UI> = {
   en: {
-    nav: { work: 'work', about: 'about', contact: 'contact' },
+    nav: { work: 'work', services: 'services', about: 'about', contact: 'contact' },
     hero_role: 'AI PRODUCT ENGINEER · agentic AI, voice agents & audio',
     hero_cta_primary: "Let's work together →",
     hero_cta_secondary: 'View work ↓',
@@ -123,7 +131,7 @@ export const ui: Record<Lang, UI> = {
     footer_built: 'Milan, Italy · built with Astro',
   },
   it: {
-    nav: { work: 'lavori', about: 'chi sono', contact: 'contatti' },
+    nav: { work: 'lavori', services: 'servizi', about: 'chi sono', contact: 'contatti' },
     hero_role: 'AI PRODUCT ENGINEER · AI agentica, voice agent & audio',
     hero_cta_primary: 'Lavoriamo insieme →',
     hero_cta_secondary: 'Vedi i lavori ↓',
@@ -158,7 +166,7 @@ export const ui: Record<Lang, UI> = {
     footer_built: 'Milano, Italia · costruito con Astro',
   },
   es: {
-    nav: { work: 'trabajo', about: 'sobre mí', contact: 'contacto' },
+    nav: { work: 'trabajo', services: 'servicios', about: 'sobre mí', contact: 'contacto' },
     hero_role: 'AI PRODUCT ENGINEER · IA agéntica, agentes de voz & audio',
     hero_cta_primary: 'Trabajemos juntos →',
     hero_cta_secondary: 'Ver proyectos ↓',

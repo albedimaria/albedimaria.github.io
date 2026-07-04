@@ -1,19 +1,22 @@
 ---
 import WaveSignature from './WaveSignature.astro';
-import { ui, contactReply, type Lang } from '../i18n/content';
+import { ui, contactReply, contactHeadline, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = ui[lang];
+const headline = contactHeadline[lang];
 ---
 
 <section id="contact" class="relative overflow-hidden border-t border-bone/10 bg-ink-2">
   <WaveSignature />
-  <div class="relative z-10 mx-auto max-w-5xl px-6 py-24 md:py-28">
-    <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">{t.contact_title}</h2>
-    <p class="mt-4 font-display text-4xl font-semibold leading-tight text-bone md:text-6xl">{t.contact_headline}</p>
+  <div class="relative z-10 mx-auto max-w-5xl px-6 py-24 md:py-32">
+    <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted"><span class="mr-3 text-oxblood-soft">04</span>{t.contact_title}</h2>
+    <p class="mt-5 font-display text-5xl font-semibold leading-[1.02] tracking-tight text-bone md:text-7xl xl:text-8xl">
+      {headline.pre}<em class="italic text-oxblood-soft">{headline.accent}</em>
+    </p>
     <p class="mt-5 max-w-xl font-mono text-[13px] leading-relaxed text-text-muted">{t.contact_lead}</p>
     <p class="mt-2 font-mono text-[11px] text-text-dim">{contactReply[lang]}</p>
 

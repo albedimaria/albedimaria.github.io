@@ -90,22 +90,49 @@ function Panel({
       return 'retrieval failed.';
     }
   });
+  // Guide powers: D10S can physically move the visitor around the page.
+  useConversationClientTool('goToSection', (p: { section?: string }) => {
+    const map: Record<string, string> = {
+      work: 'work', projects: 'work', portfolio: 'work',
+      services: 'services', service: 'services',
+      about: 'about', bio: 'about',
+      experience: 'experience', training: 'experience', background: 'experience',
+      contact: 'contact', email: 'contact',
+      top: 'top', hero: 'top', home: 'top',
+    };
+    const id = map[(p?.section ?? '').trim().toLowerCase()];
+    const el = id ? document.getElementById(id) : null;
+    if (!el) return `unknown section: ${p?.section}. valid: work, services, about, experience, contact, top`;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return `navigated to ${id}`;
+  });
+  useConversationClientTool('openCV', () => {
+    window.open('/cv.pdf', '_blank', 'noopener');
+    return 'CV opened in a new tab';
+  });
 
   // pulse the speaking dot from output volume (direct DOM mutation, no setState)
+  // and drive the hero waves: --d10s-vol makes the signature waves breathe
+  // with the agent's voice (see WaveSignature.astro).
   useEffect(() => {
+    let smooth = 0;
+    const root = document.documentElement;
     const loop = () => {
       try {
         const v = controls.getOutputVolume?.() ?? 0;
+        smooth = smooth * 0.82 + v * 0.18; // low-pass: waves sway, never jitter
         if (dotRef.current) {
           dotRef.current.style.transform = `scale(${1 + v * 1.6})`;
           dotRef.current.style.opacity = String(0.5 + v * 0.5);
         }
+        root.style.setProperty('--d10s-vol', smooth.toFixed(3));
       } catch {}
       rafRef.current = requestAnimationFrame(loop);
     };
     rafRef.current = requestAnimationFrame(loop);
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      root.style.setProperty('--d10s-vol', '0');
     };
   }, [controls]);
 

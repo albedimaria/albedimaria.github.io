@@ -8,33 +8,21 @@ import About from './About.astro';
 import Background from './Background.astro';
 import Contact from './Contact.astro';
 import BackToTop from './BackToTop.astro';
-import VoiceChat from './VoiceChat.tsx';
-import { ui, voiceDemo, type Lang } from '../i18n/content';
+import { ui, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = ui[lang];
-const demo = voiceDemo[lang];
 ---
 
 <Layout lang={lang}>
   <Nav lang={lang} />
   <main>
     <Hero lang={lang} />
-
-    <section id="voice-chat" class="border-t border-bone/10 bg-ink">
-      <div class="mx-auto max-w-3xl px-6 py-16 md:py-20">
-        <div class="mb-6 text-center">
-          <h2 class="font-display text-2xl font-semibold text-bone md:text-3xl">{demo.title}</h2>
-          <p class="mx-auto mt-2 max-w-md text-[14px] leading-relaxed text-text-muted">{demo.desc}</p>
-        </div>
-        <VoiceChat client:visible lang={lang} />
-      </div>
-    </section>
-    <Work lang={lang} />
     <Services lang={lang} />
+    <Work lang={lang} />
     <About lang={lang} />
     <Background lang={lang} />
     <Contact lang={lang} />
