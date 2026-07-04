@@ -1,64 +1,36 @@
 ---
 import WaveSignature from './WaveSignature.astro';
 import VoiceChat from './VoiceChat.tsx';
-import { ui, heroLine, voiceDemo, type Lang } from '../i18n/content';
+import { ui, voiceDemo, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = ui[lang];
-const line = heroLine[lang];
 const demo = voiceDemo[lang];
 ---
 
 <!-- Hero "equation": name on the left, D10S (the live guide) on the right,
      the signature waves running through the whole scene as the agent's voice. -->
 <section id="top" class="relative overflow-hidden">
-  <WaveSignature top="68%" />
+  <WaveSignature top="70%" />
 
   <div
-    class="relative z-10 mx-auto grid max-w-6xl items-center gap-y-14 px-6 pb-16 pt-14 md:pb-20 md:pt-20 lg:min-h-[min(calc(100svh-65px),860px)] lg:grid-cols-[1.05fr_0.95fr] lg:gap-x-14"
+    class="relative z-10 mx-auto grid max-w-6xl items-center gap-y-12 px-6 pb-16 pt-16 md:pb-20 md:pt-24 lg:min-h-[min(calc(100svh-65px),820px)] lg:grid-cols-[1fr_0.92fr] lg:gap-x-16"
   >
     <div class="min-w-0">
-      <p class="font-mono text-[12px] tracking-wide text-text-muted md:text-[13px]">{t.hero_role}</p>
-      <h1 class="mt-5 font-display text-6xl font-semibold leading-[0.95] tracking-tight text-bone md:text-7xl xl:text-[88px]">
+      <h1 class="font-display text-6xl font-semibold leading-[0.92] tracking-tight text-bone md:text-8xl xl:text-[104px]">
         Alberto<br />Di Maria
       </h1>
-      <p class="mt-6 max-w-lg font-display text-xl leading-snug text-text-muted md:text-[22px]">
-        {line.pre}<em class="font-medium italic text-oxblood-soft">{line.accent}</em>{line.post}
-      </p>
-
-      <div class="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-x-5">
-        <a
-          href="#contact"
-          class="rounded-[var(--radius-btn)] bg-bone px-6 py-3.5 font-mono text-sm font-medium text-ink transition hover:opacity-90"
-        >
-          {t.hero_cta_primary}
-        </a>
-        <div class="flex items-center gap-5">
-          <a
-            href="#work"
-            class="rounded-[var(--radius-btn)] border border-bone/30 px-5 py-3.5 font-mono text-sm text-bone transition hover:border-bone/60"
-          >
-            {t.hero_cta_secondary}
-          </a>
-          <a
-            href="/cv.pdf"
-            class="font-mono text-[12px] text-text-dim underline-offset-4 transition hover:text-bone hover:underline"
-          >
-            {t.hero_cta_cv}
-          </a>
-        </div>
-      </div>
+      <p class="mt-6 font-mono text-[13px] tracking-wide text-text-muted md:text-[14px]">{t.hero_role}</p>
     </div>
 
     <div id="voice-chat" class="min-w-0">
-      <h2 class="font-display text-2xl font-semibold leading-snug text-bone md:text-[26px]">
+      <h2 class="font-display text-[26px] font-semibold leading-snug text-bone md:text-[32px]">
         {demo.title}
       </h2>
-      <p class="mt-2 max-w-md text-[14px] leading-relaxed text-text-muted">{demo.desc}</p>
-      <div class="mt-5">
+      <div class="mt-6">
         <VoiceChat client:visible lang={lang} />
       </div>
     </div>

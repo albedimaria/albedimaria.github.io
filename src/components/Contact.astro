@@ -11,37 +11,52 @@ const headline = contactHeadline[lang];
 ---
 
 <section id="contact" class="relative overflow-hidden border-t border-bone/10 bg-ink-2">
-  <WaveSignature />
-  <div class="relative z-10 mx-auto max-w-5xl px-6 py-24 md:py-32">
-    <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted"><span class="mr-3 text-oxblood-soft">04</span>{t.contact_title}</h2>
-    <p class="mt-5 font-display text-5xl font-semibold leading-[1.02] tracking-tight text-bone md:text-7xl xl:text-8xl">
-      {headline.pre}<em class="italic text-oxblood-soft">{headline.accent}</em>
-    </p>
-    <p class="mt-5 max-w-xl font-mono text-[13px] leading-relaxed text-text-muted">{t.contact_lead}</p>
-    <p class="mt-2 font-mono text-[11px] text-text-dim">{contactReply[lang]}</p>
+  <WaveSignature top="82%" />
+  <div class="relative z-10 mx-auto grid max-w-6xl items-center gap-y-12 px-6 py-24 md:py-32 lg:grid-cols-[0.9fr_1.1fr] lg:gap-x-16">
+    <!-- left: context + secondary links -->
+    <div class="min-w-0">
+      <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">
+        <span class="mr-3 text-text-dim">04</span>{t.contact_title}
+      </h2>
+      <p class="mt-6 max-w-md text-[15px] leading-relaxed text-text-muted">{t.contact_lead}</p>
+      <p class="mt-2 font-mono text-[12px] text-text-dim">{contactReply[lang]}</p>
 
-    <div class="mt-8 flex flex-wrap gap-3">
+      <div class="mt-7 flex flex-wrap gap-x-6 gap-y-3 font-mono text-[13px]">
+        <a
+          href="https://www.linkedin.com/in/di-maria-alberto/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-text-muted underline-offset-4 transition hover:text-bone hover:underline"
+        >
+          LinkedIn ↗
+        </a>
+        <a
+          href="https://github.com/albedimaria"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-text-muted underline-offset-4 transition hover:text-bone hover:underline"
+        >
+          GitHub ↗
+        </a>
+        <a
+          href="/cv.pdf"
+          class="text-text-muted underline-offset-4 transition hover:text-bone hover:underline"
+        >
+          {t.hero_cta_cv} ↓
+        </a>
+      </div>
+    </div>
+
+    <!-- right: highlighted CTA -->
+    <div class="rounded-[var(--radius-card)] border border-oxblood-soft/40 bg-surface/60 p-8 md:p-10">
+      <p class="font-display text-5xl font-semibold leading-[1.02] tracking-tight text-bone md:text-6xl xl:text-7xl">
+        {headline.pre}<em class="italic text-oxblood-soft">{headline.accent}</em>
+      </p>
       <a
         href="mailto:ing.albedimaria@gmail.com"
-        class="rounded-[var(--radius-btn)] bg-bone px-5 py-3 font-mono text-sm font-medium text-ink transition hover:opacity-90"
+        class="mt-8 inline-flex items-center gap-2 rounded-[var(--radius-btn)] bg-bone px-7 py-4 font-mono text-[15px] font-medium text-ink transition hover:opacity-90"
       >
         {t.contact_email}
-      </a>
-      <a
-        href="https://www.linkedin.com/in/di-maria-alberto/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="rounded-[var(--radius-btn)] border border-bone/25 px-5 py-3 font-mono text-sm text-bone transition hover:border-bone/60"
-      >
-        LinkedIn ↗
-      </a>
-      <a
-        href="https://github.com/albedimaria"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="rounded-[var(--radius-btn)] border border-bone/15 px-5 py-3 font-mono text-sm text-text-muted transition hover:text-bone"
-      >
-        GitHub ↗
       </a>
     </div>
   </div>

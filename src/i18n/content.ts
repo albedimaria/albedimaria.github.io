@@ -47,16 +47,16 @@ export const heroLine: Record<Lang, { pre: string; accent: string; post: string 
 // D10S guide claim — heading + sub of the hero's right column.
 export const voiceDemo: Record<Lang, { title: string; desc: string }> = {
   en: {
-    title: "Hi, I'm D10S — your guide here.",
-    desc: "Talk or type: I'll take you around — projects, services, how to work with Alberto.",
+    title: "Hi, I'm D10S — your guide.",
+    desc: 'Talk or type — I take you around.',
   },
   it: {
-    title: 'Ciao, sono D10S — la tua guida qui.',
-    desc: 'Parla o scrivi: ti porto io in giro — progetti, servizi, come lavorare con Alberto.',
+    title: 'Ciao, sono D10S — la tua guida.',
+    desc: 'Parla o scrivi — ti porto io in giro.',
   },
   es: {
-    title: 'Hola, soy D10S — tu guía aquí.',
-    desc: 'Habla o escribe: te llevo yo — proyectos, servicios, cómo trabajar con Alberto.',
+    title: 'Hola, soy D10S — tu guía.',
+    desc: 'Habla o escribe — te llevo yo.',
   },
 };
 

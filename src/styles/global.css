@@ -10,10 +10,10 @@
   --color-oxblood: #7a1228;      /* primary accent */
   --color-oxblood-soft: #9c3340; /* secondary wave / accents */
 
-  --color-bone: #f3eadb;         /* light / inverse surfaces (brighter) */
-  --color-text: #f5ede3;         /* body text */
-  --color-text-muted: #c4b3a7;   /* muted text */
-  --color-text-dim: #b3a498;     /* dim labels (lifted for AA contrast on dark) */
+  --color-bone: #faf3e8;         /* light / inverse surfaces (bright) */
+  --color-text: #f9f2e9;         /* body text */
+  --color-text-muted: #d2c3b7;   /* muted text (brighter) */
+  --color-text-dim: #c3b5a9;     /* dim labels (brighter, AA on dark) */
 
   --font-display: "Fraunces Variable", Georgia, serif;
   --font-sans: "Inter Variable", system-ui, sans-serif;

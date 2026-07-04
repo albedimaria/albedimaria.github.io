@@ -243,7 +243,7 @@ function Panel({
           className={`inline-block h-2.5 w-2.5 rounded-full transition-transform ${connected ? 'bg-oxblood' : 'bg-bone/25'}`}
           aria-hidden="true"
         />
-        <span className="font-mono text-[11px] uppercase tracking-wider text-text-dim">
+        <span className="font-mono text-[12px] uppercase tracking-wider text-text-muted">
           {connected ? `D10S · ${mode === 'voice' ? 'live' : 'chat'}` : 'D10S'}
         </span>
       </div>
@@ -283,13 +283,13 @@ function Panel({
             <button
               onClick={startText}
               disabled={status === 'connecting'}
-              className="flex items-center gap-2 rounded-full border border-bone/35 px-5 py-2.5 font-mono text-[12px] uppercase tracking-[0.15em] text-text-muted transition hover:border-bone/60 hover:text-bone disabled:opacity-50"
+              className="flex items-center gap-2 rounded-full border border-bone/35 px-5 py-2.5 font-mono text-[13px] uppercase tracking-[0.15em] text-text-muted transition hover:border-bone/60 hover:text-bone disabled:opacity-50"
             >
               <KeysIcon />
               {t.type}
             </button>
           </div>
-          <div className="flex flex-wrap justify-center gap-1.5 pt-0.5">
+          <div className="flex flex-wrap justify-center gap-2 pt-1">
             {CHIPS[lang].map((c) => (
               <button
                 key={c}
@@ -299,21 +299,21 @@ function Panel({
                   startText();
                 }}
                 disabled={status === 'connecting'}
-                className="rounded-full border border-bone/10 bg-bone/[0.04] px-3 py-1.5 font-mono text-[11px] text-text-dim transition hover:border-oxblood-soft/50 hover:text-bone disabled:opacity-50"
+                className="rounded-full border border-bone/15 bg-bone/[0.05] px-3.5 py-2 font-mono text-[13px] text-text-muted transition hover:border-oxblood-soft/60 hover:text-bone disabled:opacity-50"
               >
                 {c}
               </button>
             ))}
           </div>
           {/* AI-disclosure (EU AI Act Art. 50): visible before the first interaction */}
-          <p className="pt-1 font-mono text-[9.5px] leading-snug text-text-dim/70">{t.disclosure}</p>
+          <p className="pt-1.5 font-mono text-[11px] leading-snug text-text-dim">{t.disclosure}</p>
         </div>
       ) : mode === 'voice' ? (
         <div className="flex justify-center">
           <button
             type="button"
             onClick={stop}
-            className="rounded-full border border-bone/25 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-bone transition hover:bg-bone/10"
+            className="rounded-full border border-bone/25 px-5 py-2.5 font-mono text-[13px] uppercase tracking-[0.12em] text-bone transition hover:bg-bone/10"
           >
             {t.end}
           </button>
@@ -325,12 +325,12 @@ function Panel({
             onChange={(e) => setText(e.target.value)}
             placeholder={t.placeholder}
             autoFocus
-            className="min-w-0 flex-1 rounded-full border border-bone/15 bg-transparent px-4 py-2 font-mono text-[12px] text-bone placeholder:text-text-dim focus:border-oxblood focus:outline-none"
+            className="min-w-0 flex-1 rounded-full border border-bone/15 bg-transparent px-4 py-2.5 font-mono text-[13px] text-bone placeholder:text-text-dim focus:border-oxblood focus:outline-none"
           />
           <button
             type="button"
             onClick={stop}
-            className="shrink-0 rounded-full border border-bone/25 px-3.5 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-bone transition hover:bg-bone/10"
+            className="shrink-0 rounded-full border border-bone/25 px-4 py-2.5 font-mono text-[13px] uppercase tracking-[0.12em] text-bone transition hover:bg-bone/10"
           >
             {t.end}
           </button>
