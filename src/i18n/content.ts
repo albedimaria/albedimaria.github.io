@@ -39,9 +39,9 @@ export const servicesCta: Record<Lang, string> = {
 // Hero line that ties the name to the agent — the "equation" explained in one
 // sentence. `accent` is rendered in Fraunces italic oxblood.
 export const heroLine: Record<Lang, { pre: string; accent: string; post: string }> = {
-  en: { pre: 'I build AI products end-to-end — and ', accent: 'D10S', post: ', right here, is one of them.' },
-  it: { pre: 'Costruisco prodotti AI end-to-end — e ', accent: 'D10S', post: ', qui accanto, è uno di loro.' },
-  es: { pre: 'Construyo productos de IA end-to-end — y ', accent: 'D10S', post: ', aquí mismo, es uno de ellos.' },
+  en: { pre: 'I build AI products end-to-end — and ', accent: 'D10S', post: ', right here, is one of them.' },
+  it: { pre: 'Costruisco prodotti AI end-to-end — e ', accent: 'D10S', post: ', qui accanto, è uno di loro.' },
+  es: { pre: 'Construyo productos de IA end-to-end — y ', accent: 'D10S', post: ', aquí mismo, es uno de ellos.' },
 };
 
 // D10S guide claim — heading + sub of the hero's right column.

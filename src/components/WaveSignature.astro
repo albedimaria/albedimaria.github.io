@@ -2,9 +2,14 @@
 // Signature waves — ported verbatim from Alberto's original site
 // (assets/css/animations.css + banner SVG), recoloured oxblood.
 // Same path #line-wave, 4 staggered <use>, move-forever animation.
+// `top` lets each scene place the band (hero pushes it below the text).
+interface Props {
+  top?: string;
+}
+const { top = '50%' } = Astro.props;
 ---
 
-<div class="wave-field" aria-hidden="true">
+<div class="wave-field" style={`top:${top}`} aria-hidden="true">
   <svg
     class="waves"
     viewBox="0 20 150 40"
@@ -17,10 +22,10 @@
       <path id="line-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18" />
     </defs>
     <g class="parallax-lines">
-      <use xlink:href="#line-wave" x="48" y="0" fill="none" stroke="rgba(156,51,64,0.55)" stroke-width="0.2" />
-      <use xlink:href="#line-wave" x="48" y="3" fill="none" stroke="rgba(156,51,64,0.38)" stroke-width="0.15" />
-      <use xlink:href="#line-wave" x="48" y="5" fill="none" stroke="rgba(122,18,40,0.30)" stroke-width="0.1" />
-      <use xlink:href="#line-wave" x="48" y="7" fill="none" stroke="rgba(122,18,40,0.18)" stroke-width="0.05" />
+      <use xlink:href="#line-wave" x="48" y="0" fill="none" stroke="rgba(156,51,64,0.8)" stroke-width="0.32" />
+      <use xlink:href="#line-wave" x="48" y="3" fill="none" stroke="rgba(156,51,64,0.55)" stroke-width="0.22" />
+      <use xlink:href="#line-wave" x="48" y="5" fill="none" stroke="rgba(122,18,40,0.45)" stroke-width="0.14" />
+      <use xlink:href="#line-wave" x="48" y="7" fill="none" stroke="rgba(122,18,40,0.3)" stroke-width="0.08" />
     </g>
   </svg>
 </div>

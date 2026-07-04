@@ -12,10 +12,32 @@ type Lang = 'en' | 'it' | 'es';
 type Line = { source: 'user' | 'ai'; text: string };
 
 const STR: Record<Lang, Record<string, string>> = {
-  en: { heading: 'talk to my work', sub: 'ask about my projects — by voice or text', talk: '🎙 talk', type: '⌨ type', placeholder: 'type a message…', end: '○ end', limit: "You've hit today's session limit — try again tomorrow.", mic: 'Microphone blocked — use “type” or allow the mic in your browser.', disclosure: 'D10S is an AI assistant — you’re talking to an automated system, not a person.' },
-  it: { heading: 'parla con il mio lavoro', sub: 'chiedi dei miei progetti — a voce o per iscritto', talk: '🎙 parla', type: '⌨ scrivi', placeholder: 'scrivi un messaggio…', end: '○ fine', limit: 'Hai raggiunto il limite di sessioni per oggi — riprova domani.', mic: 'Microfono bloccato — usa “scrivi” o consenti il microfono.', disclosure: 'D10S è un assistente AI — parli con un sistema automatico, non con una persona.' },
-  es: { heading: 'habla con mi trabajo', sub: 'pregunta por mis proyectos — por voz o texto', talk: '🎙 habla', type: '⌨ escribe', placeholder: 'escribe un mensaje…', end: '○ fin', limit: 'Has alcanzado el límite de sesiones de hoy — vuelve mañana.', mic: 'Micrófono bloqueado — usa “escribe” o permite el micrófono.', disclosure: 'D10S es un asistente de IA — hablas con un sistema automático, no con una persona.' },
+  en: { heading: 'talk to my work', sub: 'ask about my projects — by voice or text', talk: 'talk', type: 'type', placeholder: 'type a message…', end: 'end', limit: "You've hit today's session limit — try again tomorrow.", mic: 'Microphone blocked — use “type” or allow the mic in your browser.', disclosure: 'D10S is an AI assistant — you’re talking to an automated system, not a person.' },
+  it: { heading: 'parla con il mio lavoro', sub: 'chiedi dei miei progetti — a voce o per iscritto', talk: 'parla', type: 'scrivi', placeholder: 'scrivi un messaggio…', end: 'fine', limit: 'Hai raggiunto il limite di sessioni per oggi — riprova domani.', mic: 'Microfono bloccato — usa “scrivi” o consenti il microfono.', disclosure: 'D10S è un assistente AI — parli con un sistema automatico, non con una persona.' },
+  es: { heading: 'habla con mi trabajo', sub: 'pregunta por mis proyectos — por voz o texto', talk: 'habla', type: 'escribe', placeholder: 'escribe un mensaje…', end: 'fin', limit: 'Has alcanzado el límite de sesiones de hoy — vuelve mañana.', mic: 'Micrófono bloqueado — usa “escribe” o permite el micrófono.', disclosure: 'D10S es un asistente de IA — hablas con un sistema automático, no con una persona.' },
 };
+
+// Conversation starters — double duty: give the panel presence and tell the
+// visitor what D10S can actually do. Clicking one starts a text session.
+const CHIPS: Record<Lang, string[]> = {
+  en: ['show me the projects', 'what does Alberto build?', 'how do we work together?'],
+  it: ['fammi vedere i progetti', 'cosa costruisce Alberto?', 'come si lavora insieme?'],
+  es: ['enséñame los proyectos', '¿qué construye Alberto?', '¿cómo trabajamos juntos?'],
+};
+
+const MicIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+    <rect x="9" y="3" width="6" height="11" rx="3" />
+    <path d="M5 11a7 7 0 0 0 14 0" />
+    <path d="M12 18v3" />
+  </svg>
+);
+const KeysIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
+    <rect x="3" y="7" width="18" height="11" rx="2" />
+    <path d="M7 11h.01M11 11h.01M15 11h.01M17 11h.01M7 15h10" />
+  </svg>
+);
 
 const DAILY_LIMIT = 6;
 const SESSION_MAX_MS = 110_000;
@@ -75,6 +97,7 @@ function Panel({
   const [text, setText] = useState('');
   const [mode, setMode] = useState<'voice' | 'text' | null>(null);
   const [err, setErr] = useState<string | null>(null);
+  const [pending, setPending] = useState<string | null>(null);
   const dotRef = useRef<HTMLSpanElement>(null);
   const rafRef = useRef<number | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
@@ -152,6 +175,16 @@ function Panel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 
+  // deliver a queued chip question once the text session is up
+  useEffect(() => {
+    if (status === 'connected' && mode === 'text' && pending) {
+      controls.sendUserMessage(pending);
+      appendUser(pending);
+      setPending(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status, mode, pending]);
+
   const sessionOpts = (textOnly: boolean, connectionType: 'webrtc' | 'websocket') =>
     ({
       agentId: AGENT_ID,
@@ -207,7 +240,7 @@ function Panel({
       <div className="mb-3 flex items-center gap-2">
         <span
           ref={dotRef}
-          className="inline-block h-2.5 w-2.5 rounded-full bg-oxblood transition-transform"
+          className={`inline-block h-2.5 w-2.5 rounded-full transition-transform ${connected ? 'bg-oxblood' : 'bg-bone/25'}`}
           aria-hidden="true"
         />
         <span className="font-mono text-[11px] uppercase tracking-wider text-text-dim">
@@ -237,25 +270,43 @@ function Panel({
       {shownErr && <p className="mb-2 px-1 font-mono text-[11px] text-oxblood-soft">{shownErr}</p>}
 
       {!connected ? (
-        <div className="space-y-2.5">
-          <div className="flex flex-wrap items-center justify-center gap-2">
+        <div className="space-y-3">
+          <div className="flex flex-wrap items-center justify-center gap-2.5">
             <button
               onClick={startVoice}
               disabled={status === 'connecting'}
-              className="rounded-full border border-oxblood px-4 py-2 font-mono text-[12px] uppercase tracking-[0.15em] text-bone transition hover:bg-oxblood/15 disabled:opacity-50"
+              className="flex items-center gap-2 rounded-full bg-oxblood px-6 py-2.5 font-mono text-[13px] uppercase tracking-[0.15em] text-[#f6dfe4] transition hover:bg-oxblood/85 disabled:opacity-50"
             >
+              <MicIcon />
               {status === 'connecting' ? '…' : t.talk}
             </button>
             <button
               onClick={startText}
               disabled={status === 'connecting'}
-              className="rounded-full border border-bone/20 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.15em] text-text-muted transition hover:bg-bone/5 disabled:opacity-50"
+              className="flex items-center gap-2 rounded-full border border-bone/35 px-5 py-2.5 font-mono text-[12px] uppercase tracking-[0.15em] text-text-muted transition hover:border-bone/60 hover:text-bone disabled:opacity-50"
             >
+              <KeysIcon />
               {t.type}
             </button>
           </div>
+          <div className="flex flex-wrap justify-center gap-1.5 pt-0.5">
+            {CHIPS[lang].map((c) => (
+              <button
+                key={c}
+                type="button"
+                onClick={() => {
+                  setPending(c);
+                  startText();
+                }}
+                disabled={status === 'connecting'}
+                className="rounded-full border border-bone/10 bg-bone/[0.04] px-3 py-1.5 font-mono text-[11px] text-text-dim transition hover:border-oxblood-soft/50 hover:text-bone disabled:opacity-50"
+              >
+                {c}
+              </button>
+            ))}
+          </div>
           {/* AI-disclosure (EU AI Act Art. 50): visible before the first interaction */}
-          <p className="text-center font-mono text-[10px] leading-snug text-text-dim">{t.disclosure}</p>
+          <p className="pt-1 font-mono text-[9.5px] leading-snug text-text-dim/70">{t.disclosure}</p>
         </div>
       ) : mode === 'voice' ? (
         <div className="flex justify-center">

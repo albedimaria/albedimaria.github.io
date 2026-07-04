@@ -2,18 +2,18 @@
 
 /* Design tokens — Oxblood & Bone, warm dark (no flat black) */
 @theme {
-  --color-ink: #16100f;          /* page background, warm near-black */
-  --color-ink-2: #120c0b;        /* deeper section background */
-  --color-surface: #1b1115;      /* cards */
-  --color-surface-2: #140c10;    /* cover wells / insets */
+  --color-ink: #211311;          /* page background, warm red-brown (not black) */
+  --color-ink-2: #1a0e0d;        /* deeper section background */
+  --color-surface: #2a161a;      /* cards */
+  --color-surface-2: #1f1014;    /* cover wells / insets */
 
   --color-oxblood: #7a1228;      /* primary accent */
   --color-oxblood-soft: #9c3340; /* secondary wave / accents */
 
-  --color-bone: #e8dfd3;         /* light / inverse surfaces */
-  --color-text: #ece3da;         /* body text */
-  --color-text-muted: #b7a89d;   /* muted text */
-  --color-text-dim: #a89a8f;     /* dim labels (lifted for AA contrast on dark) */
+  --color-bone: #f3eadb;         /* light / inverse surfaces (brighter) */
+  --color-text: #f5ede3;         /* body text */
+  --color-text-muted: #c4b3a7;   /* muted text */
+  --color-text-dim: #b3a498;     /* dim labels (lifted for AA contrast on dark) */
 
   --font-display: "Fraunces Variable", Georgia, serif;
   --font-sans: "Inter Variable", system-ui, sans-serif;
