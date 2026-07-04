@@ -47,16 +47,16 @@ export const heroLine: Record<Lang, { pre: string; accent: string; post: string 
 // D10S guide claim — heading + sub of the hero's right column.
 export const voiceDemo: Record<Lang, { title: string; desc: string }> = {
   en: {
-    title: "Hi, I'm D10S — your guide.",
-    desc: 'Talk or type — I take you around.',
+    title: "I'm D10S — your AI voice assistant and guide to this site.",
+    desc: '',
   },
   it: {
-    title: 'Ciao, sono D10S — la tua guida.',
-    desc: 'Parla o scrivi — ti porto io in giro.',
+    title: 'Sono D10S — il tuo assistente vocale AI e la tua guida al sito.',
+    desc: '',
   },
   es: {
-    title: 'Hola, soy D10S — tu guía.',
-    desc: 'Habla o escribe — te llevo yo.',
+    title: 'Soy D10S — tu asistente de voz IA y tu guía del sitio.',
+    desc: '',
   },
 };
 
@@ -71,6 +71,7 @@ export const filterCanonical = ['All', 'Products', 'Research', 'Voice AI', 'Audi
 
 interface UI {
   nav: { work: string; services: string; about: string; contact: string };
+  nav_cta: string;
   hero_role: string;
   hero_cta_primary: string;
   hero_cta_secondary: string;
@@ -97,6 +98,7 @@ interface UI {
 export const ui: Record<Lang, UI> = {
   en: {
     nav: { work: 'work', services: 'services', about: 'about', contact: 'contact' },
+    nav_cta: "Let's work together",
     hero_role: 'AI PRODUCT ENGINEER · agentic AI, voice agents & audio',
     hero_cta_primary: "Let's work together →",
     hero_cta_secondary: 'View work ↓',
@@ -132,6 +134,7 @@ export const ui: Record<Lang, UI> = {
   },
   it: {
     nav: { work: 'lavori', services: 'servizi', about: 'chi sono', contact: 'contatti' },
+    nav_cta: 'Lavoriamo insieme',
     hero_role: 'AI PRODUCT ENGINEER · AI agentica, voice agent & audio',
     hero_cta_primary: 'Lavoriamo insieme →',
     hero_cta_secondary: 'Vedi i lavori ↓',
@@ -167,6 +170,7 @@ export const ui: Record<Lang, UI> = {
   },
   es: {
     nav: { work: 'trabajo', services: 'servicios', about: 'sobre mí', contact: 'contacto' },
+    nav_cta: 'Trabajemos juntos',
     hero_role: 'AI PRODUCT ENGINEER · IA agéntica, agentes de voz & audio',
     hero_cta_primary: 'Trabajemos juntos →',
     hero_cta_secondary: 'Ver proyectos ↓',

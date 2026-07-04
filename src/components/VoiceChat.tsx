@@ -237,16 +237,18 @@ function Panel({
 
   return (
     <div className="mx-auto w-full max-w-xl rounded-[var(--radius-card)] border border-bone/10 bg-surface p-4 shadow-[0_0_50px_rgba(0,0,0,0.4)] sm:p-5">
-      <div className="mb-3 flex items-center gap-2">
-        <span
-          ref={dotRef}
-          className={`inline-block h-2.5 w-2.5 rounded-full transition-transform ${connected ? 'bg-oxblood' : 'bg-bone/25'}`}
-          aria-hidden="true"
-        />
-        <span className="font-mono text-[12px] uppercase tracking-wider text-text-muted">
-          {connected ? `D10S · ${mode === 'voice' ? 'live' : 'chat'}` : 'D10S'}
-        </span>
-      </div>
+      {connected && (
+        <div className="mb-3 flex items-center gap-2">
+          <span
+            ref={dotRef}
+            className="inline-block h-2.5 w-2.5 rounded-full bg-oxblood transition-transform"
+            aria-hidden="true"
+          />
+          <span className="font-mono text-[12px] uppercase tracking-wider text-text-muted">
+            D10S · {mode === 'voice' ? 'live' : 'chat'}
+          </span>
+        </div>
+      )}
 
       {lines.some((l) => l.text.trim()) && (
         <div className="chat-scroll mb-3 max-h-56 space-y-2 overflow-y-auto pr-1.5">
@@ -289,7 +291,7 @@ function Panel({
               {t.type}
             </button>
           </div>
-          <div className="flex flex-wrap justify-center gap-2 pt-1">
+          <div className="flex flex-wrap justify-center gap-2 pt-0.5">
             {CHIPS[lang].map((c) => (
               <button
                 key={c}
@@ -299,14 +301,12 @@ function Panel({
                   startText();
                 }}
                 disabled={status === 'connecting'}
-                className="rounded-full border border-bone/15 bg-bone/[0.05] px-3.5 py-2 font-mono text-[13px] text-text-muted transition hover:border-oxblood-soft/60 hover:text-bone disabled:opacity-50"
+                className="rounded-full border border-bone/12 bg-bone/[0.04] px-3 py-1.5 font-mono text-[12px] text-text-muted transition hover:border-oxblood-soft/60 hover:text-bone disabled:opacity-50"
               >
                 {c}
               </button>
             ))}
           </div>
-          {/* AI-disclosure (EU AI Act Art. 50): visible before the first interaction */}
-          <p className="pt-1.5 font-mono text-[11px] leading-snug text-text-dim">{t.disclosure}</p>
         </div>
       ) : mode === 'voice' ? (
         <div className="flex justify-center">

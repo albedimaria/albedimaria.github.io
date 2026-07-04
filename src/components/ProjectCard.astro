@@ -38,7 +38,7 @@ const imageLeft = false;
   <!-- row 1: eyebrow + title -->
   <div class="min-w-0 md:col-start-1 md:row-start-1">
     <div class="flex items-baseline gap-3">
-      <span class="font-mono text-[11px] uppercase tracking-wider text-text-muted">{project.category}</span>
+      <span class="font-mono text-[12px] uppercase tracking-wider text-text-muted">{project.category}</span>
       {project.badge && (
         <span class="ml-auto rounded-[4px] bg-oxblood px-2 py-0.5 font-mono text-[10px] font-medium tracking-wide text-[#f0d7dc]">
           {project.badge}
@@ -49,7 +49,7 @@ const imageLeft = false;
   </div>
 
   <!-- row 2: subtitle — the cover's top edge aligns to this line -->
-  <p class="mt-1.5 min-w-0 font-mono text-[13px] text-text-muted md:col-start-1 md:row-start-2">{oneliner}</p>
+  <p class="mt-1.5 min-w-0 font-mono text-[14px] text-text-muted md:col-start-1 md:row-start-2">{oneliner}</p>
 
   <figure class="m-0 mt-5 overflow-hidden rounded-[6px] border border-bone/10 md:col-start-2 md:row-start-2 md:row-span-2 md:mt-0 md:self-start">
     <div class="flex items-center gap-1.5 border-b border-bone/10 bg-ink-2 px-3.5 py-2">
@@ -60,7 +60,7 @@ const imageLeft = false;
           <span class="h-2 w-2 rounded-full bg-bone/15"></span>
         </>
       )}
-      <span class:list={['truncate font-mono text-[11px] text-text-dim', looksLikeHost && 'ml-2.5']}>{frameLabel}</span>
+      <span class:list={['truncate font-mono text-[12px] text-text-dim', looksLikeHost && 'ml-2.5']}>{frameLabel}</span>
     </div>
     <div class="aspect-[16/10] w-full bg-surface-2">
       <img src={project.cover} alt={`${project.title} preview`} loading="lazy" class="h-full w-full object-contain object-top" />
@@ -68,7 +68,7 @@ const imageLeft = false;
   </figure>
 
   <div class="min-w-0 mt-5 md:col-start-1 md:row-start-3">
-    <ul class="space-y-2 text-[14px] leading-relaxed text-[#c8b9af]">
+    <ul class="space-y-2 text-[15px] leading-relaxed text-text-muted">
       {bullets.map((b) => (
         <li class="flex gap-2">
           <span class="text-oxblood-soft" aria-hidden="true">—</span>
@@ -76,12 +76,12 @@ const imageLeft = false;
         </li>
       ))}
     </ul>
-    <p class="mt-5 font-mono text-[11px] text-text-dim">
+    <p class="mt-5 font-mono text-[12px] text-text-dim">
       <span class="text-oxblood-soft">stack</span>&nbsp;&nbsp;{project.stack.join(' · ')}
     </p>
     {project.engineering && (
       <details class="group mt-4 border-t border-bone/[0.08] pt-3">
-        <summary class="flex cursor-pointer list-none items-center gap-x-2 font-mono text-[11px] text-text-dim [&::-webkit-details-marker]:hidden">
+        <summary class="flex cursor-pointer list-none items-center gap-x-2 font-mono text-[12px] text-text-dim [&::-webkit-details-marker]:hidden">
           <span class="text-oxblood-soft">engineering</span>
           <span class="text-text-muted">{project.engineering.summary}</span>
           <span class="ml-auto whitespace-nowrap text-oxblood-soft">
@@ -93,12 +93,12 @@ const imageLeft = false;
           {project.engineering.stats.map((s) => (
             <div class="border-l border-bone/10 pl-3.5 first:border-l-0 first:pl-0">
               <div class="font-display text-[22px] leading-none text-bone">{s.value}</div>
-              <div class="mt-1.5 font-mono text-[9px] uppercase tracking-wide text-text-dim">{s.label}</div>
+              <div class="mt-1.5 font-mono text-[11px] uppercase tracking-wide text-text-dim">{s.label}</div>
             </div>
           ))}
         </div>
         {project.engineering.note && (
-          <p class="mt-3.5 font-mono text-[10px] leading-relaxed text-text-dim/70">{project.engineering.note}</p>
+          <p class="mt-3.5 font-mono text-[12px] leading-relaxed text-text-dim">{project.engineering.note}</p>
         )}
       </details>
     )}

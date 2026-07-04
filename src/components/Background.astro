@@ -22,7 +22,7 @@ const lists = [
   <div class="mx-auto grid max-w-5xl gap-14 px-6 py-14 md:grid-cols-2 md:py-16">
     {lists.map((list) => (
       <div>
-        <h2 class="font-mono text-[11px] uppercase tracking-[0.2em] text-text-muted">{list.title}</h2>
+        <h2 class="font-mono text-[12px] uppercase tracking-[0.2em] text-text-muted">{list.title}</h2>
         <ol class="mt-7 space-y-7" data-list={list.id}>
           {list.items.map((e, i) => (
             <li
@@ -30,8 +30,8 @@ const lists = [
               style={i >= VISIBLE ? 'display:none' : undefined}
             >
               <h3 class="font-display text-lg font-semibold text-bone">{e.title}</h3>
-              <p class="mt-0.5 font-mono text-[11px] text-text-dim">{e.meta}</p>
-              <p class="mt-1.5 text-[13.5px] leading-relaxed text-[#c8b9af]">{e.desc}</p>
+              <p class="mt-0.5 font-mono text-[12px] text-text-dim">{e.meta}</p>
+              <p class="mt-1.5 text-[15px] leading-relaxed text-text-muted">{e.desc}</p>
             </li>
           ))}
         </ol>
@@ -39,7 +39,7 @@ const lists = [
           <button
             type="button"
             data-list={list.id}
-            class="more-btn mt-5 font-mono text-[11px] text-text-muted underline-offset-4 transition hover:text-bone hover:underline"
+            class="more-btn mt-5 font-mono text-[12px] text-text-muted underline-offset-4 transition hover:text-bone hover:underline"
           >
             {moreLabel} (+{list.items.length - VISIBLE})
           </button>
