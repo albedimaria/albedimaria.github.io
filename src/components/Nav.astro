@@ -30,10 +30,9 @@ const navItems = [
     <div class="ml-auto hidden items-center gap-5 md:flex">
       <a
         href="#contact"
-        class="cta-shine group relative inline-flex items-center gap-2 overflow-hidden rounded-[var(--radius-btn)] bg-oxblood px-5 py-2.5 font-mono text-[13px] text-[#f8e6ea] transition-colors hover:bg-oxblood-soft"
+        class="cta-glow inline-flex items-center rounded-[var(--radius-btn)] bg-oxblood px-5 py-2.5 font-mono text-[13px] text-[#f8e6ea] transition-colors hover:bg-oxblood-soft"
       >
-        <span>{t.nav_cta}</span>
-        <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">&#8594;</span>
+        {t.nav_cta}
       </a>
       <div class="relative">
         <button id="lang-btn" type="button" class="flex items-center gap-1.5 font-mono text-[13px] text-bone" aria-haspopup="true" aria-expanded="false" aria-label="Change language">
@@ -76,9 +75,8 @@ const navItems = [
           <li><a href={i.href} class="inline-block transition hover:text-white">{i.label}</a></li>
         ))}
         <li class="pt-2">
-          <a href="#contact" class="group inline-flex items-center gap-2 rounded-[var(--radius-btn)] bg-oxblood px-5 py-3 font-mono text-[15px] text-[#f8e6ea] transition-colors hover:bg-oxblood-soft">
-            <span>{t.nav_cta}</span>
-            <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">&#8594;</span>
+          <a href="#contact" class="cta-glow inline-flex items-center rounded-[var(--radius-btn)] bg-oxblood px-5 py-3 font-mono text-[15px] text-[#f8e6ea] transition-colors hover:bg-oxblood-soft">
+            {t.nav_cta}
           </a>
         </li>
       </ul>
