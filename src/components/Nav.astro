@@ -35,8 +35,8 @@ const navItems = [
         {t.nav_cta}
       </a>
       <div class="relative">
-        <button id="lang-btn" type="button" class="flex items-center gap-1.5 font-mono text-[13px] text-bone" aria-haspopup="true" aria-expanded="false" aria-label="Change language">
-          {langLabels[lang]} <span class="text-text-dim">▾</span>
+        <button id="lang-btn" type="button" class="group flex items-center gap-1.5 font-mono text-[13px] text-text-muted transition-colors hover:text-bone" aria-haspopup="true" aria-expanded="false" aria-label="Change language">
+          {langLabels[lang]} <span class="text-text-dim transition-colors group-hover:text-oxblood-soft">▾</span>
         </button>
         <ul id="lang-menu" class="absolute right-0 mt-2 hidden min-w-[64px] overflow-hidden rounded-[var(--radius-btn)] border border-bone/15 bg-surface py-1">
           {langs.map((l) => (
