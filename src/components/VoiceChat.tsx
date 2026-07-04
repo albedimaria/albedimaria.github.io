@@ -160,7 +160,11 @@ function Panel({
   }, [controls]);
 
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    // Keep the transcript pinned to the bottom WITHOUT moving the page — the
+    // panel lives in the hero now, so scrollIntoView() would yank the whole
+    // page back up (and fight focusProject/goToSection). Scroll the box only.
+    const box = endRef.current?.parentElement;
+    if (box) box.scrollTop = box.scrollHeight;
   }, [lines]);
 
   const stop = () => {
