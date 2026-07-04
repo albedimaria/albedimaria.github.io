@@ -63,6 +63,23 @@ body {
   15%, 70% { outline-color: var(--color-oxblood); }
 }
 
+/* Enticing CTA: a diagonal light sweep on hover (motion-safe) */
+.cta-shine::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 246, 240, 0.22) 50%, transparent 65%);
+  transform: translateX(-130%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+.cta-shine:hover::before {
+  transform: translateX(130%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-shine::before { transition: none; }
+}
+
 /* Visible keyboard focus for accessibility */
 a:focus-visible,
 button:focus-visible {

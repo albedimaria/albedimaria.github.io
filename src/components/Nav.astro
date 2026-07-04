@@ -16,11 +16,11 @@ const navItems = [
 ---
 
 <header class="sticky top-0 z-30 border-b border-bone/10 bg-ink/80 backdrop-blur">
-  <nav class="flex items-center gap-4 px-5 py-4 md:px-8" aria-label="Primary">
+  <nav class="relative flex items-center gap-4 px-5 py-4 md:px-8" aria-label="Primary">
     <BrandMark />
 
-    <!-- desktop nav (centered) -->
-    <ul class="hidden flex-1 justify-center gap-9 font-mono text-[14px] lowercase tracking-wide text-text-muted md:flex">
+    <!-- desktop nav — absolutely centered on the page, independent of side widths -->
+    <ul class="hidden gap-9 font-mono text-[14px] lowercase tracking-wide text-text-muted md:flex md:absolute md:left-1/2 md:-translate-x-1/2">
       {navItems.map((i) => (
         <li><a href={i.href} class="transition hover:text-bone">{i.label}</a></li>
       ))}
@@ -30,9 +30,10 @@ const navItems = [
     <div class="ml-auto hidden items-center gap-5 md:flex">
       <a
         href="#contact"
-        class="rounded-[var(--radius-btn)] bg-oxblood px-4.5 py-2.5 font-mono text-[13px] text-[#f6dfe4] transition hover:bg-oxblood/85"
+        class="cta-shine group relative inline-flex items-center gap-2 overflow-hidden rounded-[var(--radius-btn)] bg-oxblood px-5 py-2.5 font-mono text-[13px] text-[#f8e6ea] transition-colors hover:bg-oxblood-soft"
       >
-        {t.nav_cta}
+        <span>{t.nav_cta}</span>
+        <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">&#8594;</span>
       </a>
       <div class="relative">
         <button id="lang-btn" type="button" class="flex items-center gap-1.5 font-mono text-[13px] text-bone" aria-haspopup="true" aria-expanded="false" aria-label="Change language">
@@ -75,8 +76,9 @@ const navItems = [
           <li><a href={i.href} class="inline-block transition hover:text-white">{i.label}</a></li>
         ))}
         <li class="pt-2">
-          <a href="#contact" class="inline-block rounded-[var(--radius-btn)] bg-oxblood px-5 py-3 font-mono text-[15px] text-[#f6dfe4] transition hover:bg-oxblood/85">
-            {t.nav_cta}
+          <a href="#contact" class="group inline-flex items-center gap-2 rounded-[var(--radius-btn)] bg-oxblood px-5 py-3 font-mono text-[15px] text-[#f8e6ea] transition-colors hover:bg-oxblood-soft">
+            <span>{t.nav_cta}</span>
+            <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">&#8594;</span>
           </a>
         </li>
       </ul>

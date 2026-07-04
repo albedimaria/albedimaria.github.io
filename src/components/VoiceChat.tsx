@@ -20,9 +20,9 @@ const STR: Record<Lang, Record<string, string>> = {
 // Conversation starters — double duty: give the panel presence and tell the
 // visitor what D10S can actually do. Clicking one starts a text session.
 const CHIPS: Record<Lang, string[]> = {
-  en: ['show me the projects', 'what does Alberto build?', 'how do we work together?'],
-  it: ['fammi vedere i progetti', 'cosa costruisce Alberto?', 'come si lavora insieme?'],
-  es: ['enséñame los proyectos', '¿qué construye Alberto?', '¿cómo trabajamos juntos?'],
+  en: ['show me the projects', 'why do I need a voice agent?', 'how do we work together?'],
+  it: ['fammi vedere i progetti', 'perché mi serve un voice agent?', 'come si lavora insieme?'],
+  es: ['enséñame los proyectos', '¿por qué necesito un agente de voz?', '¿cómo trabajamos juntos?'],
 };
 
 const MicIcon = () => (

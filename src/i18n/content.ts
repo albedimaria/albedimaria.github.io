@@ -77,6 +77,7 @@ interface UI {
   hero_cta_secondary: string;
   hero_cta_cv: string;
   work_title: string;
+  work_lead: string;
   filter_labels: Record<string, string>;
   filter_desc: Record<string, string>;
   show_all: string;
@@ -104,6 +105,7 @@ export const ui: Record<Lang, UI> = {
     hero_cta_secondary: 'View work ↓',
     hero_cta_cv: 'Download CV',
     work_title: 'Selected work',
+    work_lead: 'A few things I’ve shipped — products in production, research and experiments.',
     filter_labels: { All: 'All', Products: 'Products', Research: 'Research', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML' },
     filter_desc: {
       All: '',
@@ -140,6 +142,7 @@ export const ui: Record<Lang, UI> = {
     hero_cta_secondary: 'Vedi i lavori ↓',
     hero_cta_cv: 'Scarica il CV',
     work_title: 'Lavori selezionati',
+    work_lead: 'Qualche cosa che ho spedito — prodotti in produzione, ricerca ed esperimenti.',
     filter_labels: { All: 'Tutti', Products: 'Prodotti', Research: 'Ricerca', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML' },
     filter_desc: {
       All: '',
@@ -176,6 +179,7 @@ export const ui: Record<Lang, UI> = {
     hero_cta_secondary: 'Ver proyectos ↓',
     hero_cta_cv: 'Descargar CV',
     work_title: 'Trabajos seleccionados',
+    work_lead: 'Algunas cosas que he entregado — productos en producción, investigación y experimentos.',
     filter_labels: { All: 'Todos', Products: 'Productos', Research: 'Investigación', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML' },
     filter_desc: {
       All: '',
