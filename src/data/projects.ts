@@ -26,7 +26,7 @@ export interface Engineering {
 export interface Project {
   id: string;
   title: string;
-  category: 'Products' | 'Research' | 'Experiments';
+  category: 'Client work' | 'Hackathon' | 'Products' | 'Research' | 'Experiments';
   /** chips this project appears under in the work filter */
   filters: string[];
   featured: boolean;
@@ -44,10 +44,36 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 'alex-bartok',
+    title: 'Alex Bartok Music',
+    category: 'Client work',
+    filters: ['Client work'],
+    featured: true,
+    badge: '✓ commissioned',
+    oneliner: 'Commissioned vibe-coding cleanup: a PHP site rebuilt into a secure React app + client portal.',
+    bullets: [
+      'Hired to clean up and productionize a client’s vibe-coded site — migrated the PHP monolith to a unified React SPA (public site + authenticated client portal), served static and trilingual (IT/EN/ES).',
+      'Client portal with project rooms, versioned audio and timestamped feedback, gated by an ownership + is_paid RLS paywall with signed-URL downloads; two cross-tenant read leaks found and fixed.',
+      'Shipped with a CI gate (typecheck/lint/build/tests), hardened headers (HSTS/CSP) and a rate-limited reCAPTCHA contact endpoint.',
+    ],
+    stack: ['React', 'TypeScript', 'Supabase', 'Vite', 'Tailwind'],
+    engineering: {
+      summary: 'RLS-secured · CI-gated · hardened',
+      stats: [
+        { value: '2', label: 'RLS leaks closed' },
+        { value: '4', label: 'tests · CI gate' },
+        { value: 'HSTS·CSP', label: 'headers' },
+      ],
+      note: 'ownership + is_paid RLS paywall · signed-URL downloads · GitHub Actions typecheck/lint/build/test gate',
+    },
+    cover: '/images/alex-bartok.webp',
+    links: [{ label: 'visit site ↗', href: 'https://alexbartokmusic.com' }],
+  },
+  {
     id: 'lyra',
     title: 'Lyra',
-    category: 'Products',
-    filters: ['Products', 'Audio / ML'],
+    category: 'Hackathon',
+    filters: ['Hackathons', 'Audio / ML'],
     featured: true,
     badge: 'Musixmatch Musicathon',
     oneliner: 'Lyrics-first music discovery — a playlist that travels your emotions.',
@@ -67,8 +93,8 @@ export const projects: Project[] = [
   {
     id: 'beat-store',
     title: 'Beat Store',
-    category: 'Products',
-    filters: ['Products'],
+    category: 'Client work',
+    filters: ['Client work'],
     featured: true,
     badge: '✓ acquired',
     oneliner: 'Full-stack music e-commerce platform for a producer.',
@@ -94,36 +120,10 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'alex-bartok',
-    title: 'Alex Bartok Music',
-    category: 'Products',
-    filters: ['Products'],
-    featured: true,
-    badge: '✓ live',
-    oneliner: 'Full-stack site + secure client portal for a mixing & mastering engineer.',
-    bullets: [
-      'Migrated a PHP monolith to a unified React SPA — public marketing site and an authenticated client portal — served static and trilingual (IT/EN/ES).',
-      'Client portal with project rooms, versioned audio and timestamped feedback, gated by an ownership + is_paid RLS paywall with signed-URL downloads; two cross-tenant read leaks found and fixed.',
-      'Shipped with a CI gate (typecheck/lint/build/tests), hardened headers (HSTS/CSP) and a rate-limited reCAPTCHA contact endpoint.',
-    ],
-    stack: ['React', 'TypeScript', 'Supabase', 'Vite', 'Tailwind'],
-    engineering: {
-      summary: 'RLS-secured · CI-gated · hardened',
-      stats: [
-        { value: '2', label: 'RLS leaks closed' },
-        { value: '4', label: 'tests · CI gate' },
-        { value: 'HSTS·CSP', label: 'headers' },
-      ],
-      note: 'ownership + is_paid RLS paywall · signed-URL downloads · GitHub Actions typecheck/lint/build/test gate',
-    },
-    cover: '/images/alex-bartok.webp',
-    links: [{ label: 'visit site ↗', href: 'https://alexbartokmusic.com' }],
-  },
-  {
     id: 'company-brain',
     title: 'Company Brain',
-    category: 'Products',
-    filters: ['Products'],
+    category: 'Hackathon',
+    filters: ['Hackathons'],
     featured: true,
     badge: '★ Top 10',
     oneliner: 'Agentic AI over a company’s live business data.',
@@ -143,8 +143,8 @@ export const projects: Project[] = [
   {
     id: 'dance-voice-agent',
     title: 'Ritmo Tropicale Voice Agent',
-    category: 'Products',
-    filters: ['Products', 'Voice AI'],
+    category: 'Client work',
+    filters: ['Client work', 'Voice AI'],
     featured: true,
     oneliner: 'Inbound AI phone assistant for a dance school, 24/7.',
     bullets: [
@@ -288,8 +288,8 @@ export const projects: Project[] = [
   {
     id: 'skyitalia-voice-agent',
     title: 'SkyItalia Voice Agent',
-    category: 'Experiments',
-    filters: ['Experiments', 'Voice AI'],
+    category: 'Hackathon',
+    filters: ['Hackathons', 'Voice AI'],
     featured: false,
     oneliner: 'Dual voice-agent airline support with live escalation — Yellow Tech × ElevenLabs.',
     bullets: [
@@ -364,7 +364,7 @@ export function frameLabelFor(p: Project): string {
   return p.category;
 }
 
-export const workFilters = ['All', 'Products', 'Research', 'Voice AI', 'Audio / ML'] as const;
+export const workFilters = ['All', 'Client work', 'Hackathons', 'Voice AI', 'Audio / ML', 'Research'] as const;
 
 export const featuredProjects = projects.filter((p) => p.featured);
 export const gridProjects = projects.filter((p) => !p.featured);

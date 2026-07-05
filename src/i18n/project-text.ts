@@ -26,9 +26,9 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
       ],
     },
     'alex-bartok': {
-      oneliner: 'Sito full-stack + area clienti sicura per un ingegnere di mix & master.',
+      oneliner: 'Cleanup vibe-coding commissionato: un sito PHP ricostruito in una React app sicura + area clienti.',
       bullets: [
-        'Migrato un monolite PHP a una React SPA unificata — sito vetrina pubblico e area clienti autenticata — servita statica e trilingue (IT/EN/ES).',
+        'Incaricato di ripulire e mettere in produzione il sito vibe-coded di un cliente — monolite PHP migrato a una React SPA unificata (sito pubblico + area clienti autenticata), servita statica e trilingue (IT/EN/ES).',
         'Area clienti con project room, audio versionato e feedback col timestamp, protetta da un paywall RLS (ownership + is_paid) con download a URL firmati; due fughe di lettura cross-tenant trovate e chiuse.',
         'Rilasciato con un gate CI (typecheck/lint/build/test), header hardened (HSTS/CSP) e un endpoint contatti con reCAPTCHA e rate-limit.',
       ],
@@ -138,9 +138,9 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
       ],
     },
     'alex-bartok': {
-      oneliner: 'Sitio full-stack + área de clientes segura para un ingeniero de mezcla y máster.',
+      oneliner: 'Limpieza de vibe-coding por encargo: un sitio PHP reconstruido en una React app segura + área de clientes.',
       bullets: [
-        'Migré un monolito PHP a una React SPA unificada — sitio público y área de clientes autenticada — servida estática y trilingüe (IT/EN/ES).',
+        'Contratado para limpiar y poner en producción el sitio vibe-coded de un cliente — monolito PHP migrado a una React SPA unificada (sitio público + área de clientes autenticada), servida estática y trilingüe (IT/EN/ES).',
         'Área de clientes con project rooms, audio versionado y feedback con timestamp, protegida por un paywall RLS (ownership + is_paid) con descargas por URLs firmadas; dos fugas de lectura cross-tenant encontradas y corregidas.',
         'Publicado con un gate de CI (typecheck/lint/build/test), cabeceras endurecidas (HSTS/CSP) y un endpoint de contacto con reCAPTCHA y rate-limit.',
       ],

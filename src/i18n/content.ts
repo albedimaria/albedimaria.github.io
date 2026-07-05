@@ -67,7 +67,7 @@ export const contactHeadline: Record<Lang, { pre: string; accent: string }> = {
   es: { pre: 'Trabajemos ', accent: 'juntos.' },
 };
 
-export const filterCanonical = ['All', 'Products', 'Research', 'Voice AI', 'Audio / ML'] as const;
+export const filterCanonical = ['All', 'Client work', 'Hackathons', 'Voice AI', 'Audio / ML', 'Research'] as const;
 
 interface UI {
   nav: { work: string; services: string; about: string; contact: string };
@@ -106,13 +106,14 @@ export const ui: Record<Lang, UI> = {
     hero_cta_cv: 'Download CV',
     work_title: 'Selected work',
     work_lead: 'A few things I’ve shipped — products in production, research and experiments.',
-    filter_labels: { All: 'All', Products: 'Products', Research: 'Research', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML' },
+    filter_labels: { All: 'All', 'Client work': 'Client work', Hackathons: 'Hackathons', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML', Research: 'Research' },
     filter_desc: {
       All: '',
-      Products: 'deployed, client-facing applications',
-      Research: 'academic & advanced technical work',
+      'Client work': 'commissioned, sold client projects',
+      Hackathons: 'competition builds — placed & awarded',
       'Voice AI': 'real-time conversational phone agents',
       'Audio / ML': 'audio analysis & generative models',
+      Research: 'academic & advanced technical work',
     },
     show_all: 'Show all projects',
     services_title: 'What I build',
@@ -143,13 +144,14 @@ export const ui: Record<Lang, UI> = {
     hero_cta_cv: 'Scarica il CV',
     work_title: 'Lavori selezionati',
     work_lead: 'Qualche cosa che ho spedito — prodotti in produzione, ricerca ed esperimenti.',
-    filter_labels: { All: 'Tutti', Products: 'Prodotti', Research: 'Ricerca', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML' },
+    filter_labels: { All: 'Tutti', 'Client work': 'Su commissione', Hackathons: 'Hackathon', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML', Research: 'Ricerca' },
     filter_desc: {
       All: '',
-      Products: 'applicazioni live, rivolte al cliente',
-      Research: 'lavoro accademico e tecnico avanzato',
+      'Client work': 'progetti su commissione, venduti',
+      Hackathons: 'progetti da competition — premiati',
       'Voice AI': 'agenti telefonici conversazionali real-time',
       'Audio / ML': 'analisi audio e modelli generativi',
+      Research: 'lavoro accademico e tecnico avanzato',
     },
     show_all: 'Mostra tutti i progetti',
     services_title: 'Cosa costruisco',
@@ -180,13 +182,14 @@ export const ui: Record<Lang, UI> = {
     hero_cta_cv: 'Descargar CV',
     work_title: 'Trabajos seleccionados',
     work_lead: 'Algunas cosas que he entregado — productos en producción, investigación y experimentos.',
-    filter_labels: { All: 'Todos', Products: 'Productos', Research: 'Investigación', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML' },
+    filter_labels: { All: 'Todos', 'Client work': 'Por encargo', Hackathons: 'Hackathons', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML', Research: 'Investigación' },
     filter_desc: {
       All: '',
-      Products: 'aplicaciones desplegadas, de cara al cliente',
-      Research: 'trabajo académico y técnico avanzado',
+      'Client work': 'proyectos por encargo, vendidos',
+      Hackathons: 'proyectos de competición — premiados',
       'Voice AI': 'agentes telefónicos conversacionales en tiempo real',
       'Audio / ML': 'análisis de audio y modelos generativos',
+      Research: 'trabajo académico y técnico avanzado',
     },
     show_all: 'Ver todos los proyectos',
     services_title: 'Qué construyo',
