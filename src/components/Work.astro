@@ -36,7 +36,7 @@ const hiddenCount = Math.max(0, projects.length - VISIBLE);
       <span id="filter-desc" class="w-full font-mono text-[12px] uppercase tracking-[0.08em] text-text-dim md:ml-auto md:w-auto md:self-center"></span>
     </div>
 
-    <div class="mt-8 space-y-6">
+    <div id="work-list" class="mt-8 space-y-6">
       {projects.map((p, i) => <ProjectCard project={p} index={i} extra={i >= VISIBLE} lang={lang} />)}
     </div>
 
@@ -59,12 +59,25 @@ const hiddenCount = Math.max(0, projects.length - VISIBLE);
   const cards = Array.from(document.querySelectorAll('.project-card'));
   const showAll = document.getElementById('show-all');
   const filterDesc = document.getElementById('filter-desc');
+  const list = document.getElementById('work-list');
+
+  let scrolled = false;
+  function enterScrollMode() {
+    if (scrolled || !list) return;
+    scrolled = true;
+    list.classList.add('work-scroll');
+    // keyboard users can focus the region and arrow-scroll through it
+    list.setAttribute('tabindex', '0');
+    list.setAttribute('role', 'region');
+    list.setAttribute('aria-label', 'All projects, scroll to browse');
+  }
 
   function revealExtras() {
     cards.forEach((c) => {
       if ((c as HTMLElement).dataset.extra === 'true') (c as HTMLElement).style.display = '';
     });
     if (showAll) showAll.style.display = 'none';
+    enterScrollMode();
   }
 
   showAll?.addEventListener('click', revealExtras);
