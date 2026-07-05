@@ -94,6 +94,32 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: 'alex-bartok',
+    title: 'Alex Bartok Music',
+    category: 'Products',
+    filters: ['Products'],
+    featured: true,
+    badge: '✓ live',
+    oneliner: 'Full-stack site + secure client portal for a mixing & mastering engineer.',
+    bullets: [
+      'Migrated a PHP monolith to a unified React SPA — public marketing site and an authenticated client portal — served static and trilingual (IT/EN/ES).',
+      'Client portal with project rooms, versioned audio and timestamped feedback, gated by an ownership + is_paid RLS paywall with signed-URL downloads; two cross-tenant read leaks found and fixed.',
+      'Shipped with a CI gate (typecheck/lint/build/tests), hardened headers (HSTS/CSP) and a rate-limited reCAPTCHA contact endpoint.',
+    ],
+    stack: ['React', 'TypeScript', 'Supabase', 'Vite', 'Tailwind'],
+    engineering: {
+      summary: 'RLS-secured · CI-gated · hardened',
+      stats: [
+        { value: '2', label: 'RLS leaks closed' },
+        { value: '4', label: 'tests · CI gate' },
+        { value: 'HSTS·CSP', label: 'headers' },
+      ],
+      note: 'ownership + is_paid RLS paywall · signed-URL downloads · GitHub Actions typecheck/lint/build/test gate',
+    },
+    cover: '/images/alex-bartok.webp',
+    links: [{ label: 'visit site ↗', href: 'https://alexbartokmusic.com' }],
+  },
+  {
     id: 'company-brain',
     title: 'Company Brain',
     category: 'Products',

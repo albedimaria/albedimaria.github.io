@@ -25,6 +25,14 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
         'Stack zero-egress: audio su Cloudflare R2 servito direttamente al browser, deployato in CI su Netlify.',
       ],
     },
+    'alex-bartok': {
+      oneliner: 'Sito full-stack + area clienti sicura per un ingegnere di mix & master.',
+      bullets: [
+        'Migrato un monolite PHP a una React SPA unificata — sito vetrina pubblico e area clienti autenticata — servita statica e trilingue (IT/EN/ES).',
+        'Area clienti con project room, audio versionato e feedback col timestamp, protetta da un paywall RLS (ownership + is_paid) con download a URL firmati; due fughe di lettura cross-tenant trovate e chiuse.',
+        'Rilasciato con un gate CI (typecheck/lint/build/test), header hardened (HSTS/CSP) e un endpoint contatti con reCAPTCHA e rate-limit.',
+      ],
+    },
     'company-brain': {
       oneliner: 'AI agentica sui dati aziendali in tempo reale.',
       bullets: [
@@ -127,6 +135,14 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
         'Catálogo de beats con previsualizaciones a waveform, carrito multi-licencia (MP3 / WAV / stems / exclusive) y checkout de Stripe en página.',
         'Webhook de Stripe idempotente, RLS en todas las tablas, admin API protegida con JWT, descargas con URLs firmadas bajo demanda.',
         'Stack zero-egress: audio desde Cloudflare R2 servido directamente al navegador, desplegado en CI sobre Netlify.',
+      ],
+    },
+    'alex-bartok': {
+      oneliner: 'Sitio full-stack + área de clientes segura para un ingeniero de mezcla y máster.',
+      bullets: [
+        'Migré un monolito PHP a una React SPA unificada — sitio público y área de clientes autenticada — servida estática y trilingüe (IT/EN/ES).',
+        'Área de clientes con project rooms, audio versionado y feedback con timestamp, protegida por un paywall RLS (ownership + is_paid) con descargas por URLs firmadas; dos fugas de lectura cross-tenant encontradas y corregidas.',
+        'Publicado con un gate de CI (typecheck/lint/build/test), cabeceras endurecidas (HSTS/CSP) y un endpoint de contacto con reCAPTCHA y rate-limit.',
       ],
     },
     'company-brain': {
