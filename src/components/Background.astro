@@ -18,12 +18,12 @@ const lists = [
 ];
 ---
 
-<section id="experience" class="border-t border-bone/10">
+<section id="experience" class="sec-line">
   <div class="mx-auto grid max-w-5xl gap-14 px-6 py-14 md:grid-cols-2 md:py-16">
     {lists.map((list) => (
       <div>
-        <h2 class="font-mono text-[13px] uppercase tracking-[0.22em] text-bone">{list.title}</h2>
-        <ol class="mt-7 space-y-7" data-list={list.id}>
+        <h2 data-reveal class="font-mono text-[13px] uppercase tracking-[0.22em] text-bone">{list.title}</h2>
+        <ol class="mt-7 space-y-7" data-list={list.id} data-reveal-stagger>
           {list.items.map((e, i) => (
             <li
               class:list={['border-l border-oxblood/40 pl-5', i >= VISIBLE && 'is-extra']}

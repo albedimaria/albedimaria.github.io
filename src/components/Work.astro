@@ -13,12 +13,12 @@ const VISIBLE = 2;
 const hiddenCount = Math.max(0, projects.length - VISIBLE);
 ---
 
-<section id="work" class="relative border-t border-bone/10 bg-ink-2">
+<section id="work" class="sec-line relative bg-ink-2">
   <div class="mx-auto max-w-5xl px-6 py-20 md:py-24">
-    <p class="font-mono text-[13px] uppercase tracking-[0.22em] text-bone"><span class="mr-3 text-oxblood-soft">02</span>{t.work_title}</p>
-    <h2 class="mt-4 max-w-2xl font-display text-3xl leading-snug text-bone md:text-4xl">{t.work_lead}</h2>
+    <p data-reveal class="font-mono text-[13px] uppercase tracking-[0.22em] text-bone"><span class="mr-3 text-oxblood-soft">02</span>{t.work_title}</p>
+    <h2 data-reveal class="mt-4 max-w-2xl font-display text-3xl leading-snug text-bone md:text-4xl">{t.work_lead}</h2>
 
-    <div class="mt-8 flex flex-wrap items-center gap-x-2 gap-y-3">
+    <div data-reveal class="mt-8 flex flex-wrap items-center gap-x-2 gap-y-3">
       {filterCanonical.map((f, i) => (
         <button
           type="button"
@@ -36,7 +36,7 @@ const hiddenCount = Math.max(0, projects.length - VISIBLE);
       <span id="filter-desc" class="w-full font-mono text-[12px] uppercase tracking-[0.08em] text-text-dim md:ml-auto md:w-auto md:self-center"></span>
     </div>
 
-    <div id="work-list" class="mt-8 space-y-6">
+    <div id="work-list" data-reveal-stagger class="mt-8 space-y-6">
       {projects.map((p, i) => <ProjectCard project={p} index={i} extra={i >= VISIBLE} lang={lang} />)}
     </div>
 

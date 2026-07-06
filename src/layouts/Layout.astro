@@ -39,9 +39,33 @@ const skipText = { en: 'Skip to content', it: 'Vai al contenuto', es: 'Ir al con
     <link rel="alternate" hreflang="it" href={`${site}/it/`} />
     <link rel="alternate" hreflang="es" href={`${site}/es/`} />
     <link rel="alternate" hreflang="x-default" href={`${site}/`} />
+    <!-- Gate entrance-hidden states behind JS availability (no-JS/crawlers see everything) -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body class="min-h-screen antialiased">
     <a href="#top" class="skip-link">{skipText}</a>
     <slot />
+    <!-- Section entrances: one tiny observer, fire-once per element -->
+    <script is:inline>
+      (() => {
+        const els = document.querySelectorAll('[data-reveal],[data-reveal-stagger],.sec-line');
+        if (!('IntersectionObserver' in window)) {
+          els.forEach((el) => el.classList.add('is-in'));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-in');
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+        );
+        els.forEach((el) => io.observe(el));
+      })();
+    </script>
   </body>
 </html>

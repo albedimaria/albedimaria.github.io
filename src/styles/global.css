@@ -21,6 +21,13 @@
 
   --radius-btn: 4px;
   --radius-card: 8px;
+
+  /* Motion language — ONE ease, three durations. Every transition on the
+     site speaks this dialect; coherence is what reads as "designed". */
+  --ease-sig: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 220ms;
+  --dur-med: 420ms;
+  --dur-slow: 800ms;
 }
 
 html {
@@ -125,6 +132,87 @@ html::-webkit-scrollbar-thumb:hover {
 @keyframes proj-pulse {
   0%, 100% { outline-color: transparent; }
   15%, 70% { outline-color: var(--color-oxblood); }
+}
+
+/* ============================================================
+   Section entrances — fade + 12px rise, staggered 60ms per child.
+   Hidden state only when JS is available (html.js), so no-JS users
+   and crawlers always see content. IntersectionObserver adds .is-in.
+   ============================================================ */
+.js [data-reveal],
+.js [data-reveal-stagger] > * {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity var(--dur-slow) var(--ease-sig),
+    transform var(--dur-slow) var(--ease-sig);
+}
+[data-reveal].is-in,
+[data-reveal-stagger].is-in > * {
+  opacity: 1;
+  transform: none;
+}
+[data-reveal-stagger].is-in > :nth-child(2) { transition-delay: 60ms; }
+[data-reveal-stagger].is-in > :nth-child(3) { transition-delay: 120ms; }
+[data-reveal-stagger].is-in > :nth-child(4) { transition-delay: 180ms; }
+[data-reveal-stagger].is-in > :nth-child(5) { transition-delay: 240ms; }
+[data-reveal-stagger].is-in > :nth-child(6) { transition-delay: 300ms; }
+[data-reveal-stagger].is-in > :nth-child(n + 7) { transition-delay: 360ms; }
+
+/* Section hairline that draws itself left→right on entrance */
+.sec-line { position: relative; }
+.sec-line::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-bone) 10%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1100ms var(--ease-sig);
+}
+.js .sec-line.is-in::before,
+html:not(.js) .sec-line::before { transform: scaleX(1); }
+
+/* Link underline that draws itself (secondary text links) */
+.link-draw {
+  background: linear-gradient(currentColor, currentColor) no-repeat left bottom / 0% 1px;
+  transition: background-size var(--dur-med) var(--ease-sig);
+  padding-bottom: 2px;
+}
+.link-draw:hover { background-size: 100% 1px; }
+
+/* Project card: slow, quiet cover zoom inside its frame */
+.project-card figure { overflow: hidden; }
+.project-card figure img { transition: transform 1200ms var(--ease-sig); }
+.project-card:hover figure img { transform: scale(1.03); }
+
+/* Timeline entries: the oxblood spine brightens and thickens on hover */
+#experience li { transition: border-color var(--dur-fast) var(--ease-sig); }
+#experience li:hover { border-color: var(--color-oxblood-soft); }
+
+/* Services items: the hairline above warms on hover */
+.svc-item { transition: border-color var(--dur-fast) var(--ease-sig); }
+.svc-item:hover { border-color: color-mix(in srgb, var(--color-oxblood-soft) 45%, transparent); }
+
+/* <details> (engineering block): animated open/close where supported
+   (interpolate-size + ::details-content); elsewhere falls back to instant. */
+.project-card details { interpolate-size: allow-keywords; }
+.project-card details::details-content {
+  block-size: 0;
+  overflow-y: clip;
+  transition:
+    block-size var(--dur-med) var(--ease-sig),
+    content-visibility var(--dur-med) allow-discrete;
+}
+.project-card details[open]::details-content { block-size: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal],
+  .js [data-reveal-stagger] > * { opacity: 1; transform: none; transition: none; }
+  .sec-line::before { transform: scaleX(1); transition: none; }
+  .project-card figure img,
+  .project-card details::details-content { transition: none; }
 }
 
 /* Enticing CTA: a soft oxblood glow that pulses on hover (motion-safe) */
