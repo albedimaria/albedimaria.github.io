@@ -54,6 +54,7 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
       bullets: [
         'Conversa con l’utente via browser per raccogliere i dettagli della prenotazione.',
         'Chiama autonomamente il ristorante via Twilio, gestendo l’intera conversazione telefonica end-to-end.',
+        'Memoria persistente cross-sessione che sopravvive alle conversazioni stateless di ElevenLabs — riconosce i clienti di ritorno e propone «il solito».',
         'Dashboard admin con analytics sulle sessioni e tracking dei ricavi.',
       ],
     },
@@ -166,6 +167,7 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
       bullets: [
         'Conversa con el usuario vía navegador para recopilar los detalles de la reserva.',
         'Llama autónomamente al restaurante vía Twilio, gestionando toda la conversación telefónica end-to-end.',
+        'Memoria persistente entre sesiones que sobrevive a las conversaciones stateless de ElevenLabs — reconoce a los clientes recurrentes y propone «lo de siempre».',
         'Dashboard de administración con analíticas de sesiones y seguimiento de ingresos.',
       ],
     },

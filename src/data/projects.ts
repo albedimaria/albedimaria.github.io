@@ -179,6 +179,7 @@ export const projects: Project[] = [
     bullets: [
       'Chats with the user in the browser to collect booking details.',
       'Autonomously calls the restaurant via Twilio, handling the full phone conversation end-to-end.',
+      'Persistent cross-session memory that survives ElevenLabs’ stateless conversations — recognises returning customers and proposes “the usual”.',
       'Admin dashboard with session analytics and revenue tracking.',
     ],
     stack: ['Python', 'FastAPI', 'Twilio', 'Supabase', 'Stripe', 'Next.js', 'Vercel'],
