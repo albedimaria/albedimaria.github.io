@@ -44,9 +44,9 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
     'dance-voice-agent': {
       oneliner: 'Assistente telefonico AI inbound per una scuola di ballo, 24/7.',
       bullets: [
-        'Identifica gli studenti, prenota lezioni, gestisce recuperi e lezioni di prova — interamente al telefono.',
-        'Pipeline vocale real-time con barge-in: Deepgram STT → GPT-4o con tool calling parallelo → ElevenLabs TTS streaming (IT/ES).',
-        'Dashboard admin con analytics sulle chiamate, trend prenotazioni e gestione studenti.',
+        'Gestisce l’intera chiamata end-to-end: riconosce lo studente, dà info sui corsi, prenota, disdice e sposta lezioni, recuperi e prove — con trasferimento a una persona quando serve.',
+        'Pipeline vocale real-time con barge-in: Deepgram STT → GPT-4o con tool calling parallelo → ElevenLabs TTS su WebSocket persistente (IT/ES); conferme SMS e promemoria pre-lezione.',
+        'Hardening di produzione: chiusura chiamata dall’agente, fallback sugli errori API, suite di eval riproducibile e dashboard admin con observability latenza/costo.',
       ],
     },
     'shy-order': {
@@ -157,9 +157,9 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
     'dance-voice-agent': {
       oneliner: 'Asistente telefónico de IA inbound para una escuela de baile, 24/7.',
       bullets: [
-        'Identifica alumnos, reserva clases, gestiona recuperaciones y lecciones de prueba — todo por teléfono.',
-        'Pipeline de voz en tiempo real con barge-in: Deepgram STT → GPT-4o con tool calling paralelo → ElevenLabs TTS streaming (IT/ES).',
-        'Dashboard admin con analíticas de llamadas, tendencias de reservas y gestión de alumnos.',
+        'Gestiona toda la llamada end-to-end: identifica al alumno, informa de cursos, reserva, cancela y reprograma clases, recuperaciones y pruebas — con transferencia a una persona cuando hace falta.',
+        'Pipeline de voz en tiempo real con barge-in: Deepgram STT → GPT-4o con tool calling paralelo → ElevenLabs TTS sobre WebSocket persistente (IT/ES); confirmaciones por SMS y recordatorios previos a la clase.',
+        'Hardening de producción: colgado iniciado por el agente, fallback ante errores de API, suite de evals reproducible y dashboard admin con observabilidad de latencia/coste.',
       ],
     },
     'shy-order': {

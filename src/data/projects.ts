@@ -148,16 +148,16 @@ export const projects: Project[] = [
     featured: true,
     oneliner: 'Inbound AI phone assistant for a dance school, 24/7.',
     bullets: [
-      'Identifies students, books classes, schedules makeup sessions and handles trial-lesson requests — entirely over the phone.',
-      'Real-time voice pipeline with barge-in: Deepgram STT → GPT-4o with parallel tool calling → ElevenLabs TTS streaming (IT/ES).',
-      'Admin dashboard with call analytics, booking trends and student management.',
+      'Handles the full call end-to-end: student lookup, course info, bookings, cancellations & rescheduling, makeup and trial-lesson requests — plus a live transfer to a human when needed.',
+      'Real-time voice pipeline with barge-in: Deepgram STT → GPT-4o with parallel tool calling → ElevenLabs TTS over a persistent WebSocket (IT/ES); SMS confirmations and pre-lesson reminders.',
+      'Production-hardened: agent-initiated hangup, API-failure fallback, a reproducible eval suite and an admin dashboard with latency/cost observability.',
     ],
     stack: ['Python', 'FastAPI', 'Twilio', 'Supabase', 'Next.js', 'Render', 'Vercel'],
     ai: ['GPT-4o', 'Deepgram', 'ElevenLabs'],
     engineering: {
       summary: 'evaluated · instrumented · cost-tracked',
       stats: [
-        { value: '6/6', label: 'scenario evals' },
+        { value: '9/9', label: 'scenario evals' },
         { value: '4.2s', label: 'p50 latency' },
         { value: '6.3s', label: 'p95 latency' },
       ],
