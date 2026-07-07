@@ -6,23 +6,18 @@ import {
   useConversationClientTool,
 } from '@elevenlabs/react';
 import { searchPortfolio as ragSearch, warmRag } from '../lib/rag-client';
+import { voiceUi } from '../i18n/content';
 
 const AGENT_ID = 'agent_5701kw21ga79ex9b72p9fbbc6xsv';
 type Lang = 'en' | 'it' | 'es';
+/** What to trigger on mount: 'voice', 'text', or a chip's text. */
+type AutoStart = 'voice' | 'text' | (string & {}) | null;
 type Line = { source: 'user' | 'ai'; text: string };
 
 const STR: Record<Lang, Record<string, string>> = {
   en: { heading: 'talk to my work', sub: 'ask about my projects — by voice or text', talk: 'talk', type: 'type', placeholder: 'type a message…', end: 'end', limit: "You've hit today's session limit — try again tomorrow.", mic: 'Microphone blocked — use “type” or allow the mic in your browser.', disclosure: 'D10S is an AI assistant — you’re talking to an automated system, not a person.' },
   it: { heading: 'parla con il mio lavoro', sub: 'chiedi dei miei progetti — a voce o per iscritto', talk: 'parla', type: 'scrivi', placeholder: 'scrivi un messaggio…', end: 'fine', limit: 'Hai raggiunto il limite di sessioni per oggi — riprova domani.', mic: 'Microfono bloccato — usa “scrivi” o consenti il microfono.', disclosure: 'D10S è un assistente AI — parli con un sistema automatico, non con una persona.' },
   es: { heading: 'habla con mi trabajo', sub: 'pregunta por mis proyectos — por voz o texto', talk: 'habla', type: 'escribe', placeholder: 'escribe un mensaje…', end: 'fin', limit: 'Has alcanzado el límite de sesiones de hoy — vuelve mañana.', mic: 'Micrófono bloqueado — usa “escribe” o permite el micrófono.', disclosure: 'D10S es un asistente de IA — hablas con un sistema automático, no con una persona.' },
-};
-
-// Conversation starters — double duty: give the panel presence and tell the
-// visitor what D10S can actually do. Clicking one starts a text session.
-const CHIPS: Record<Lang, string[]> = {
-  en: ['show me the projects', 'why do I need a voice agent?', 'how do we work together?'],
-  it: ['fammi vedere i progetti', 'perché mi serve un voice agent?', 'come si lavora insieme?'],
-  es: ['enséñame los proyectos', '¿por qué necesito un agente de voz?', '¿cómo trabajamos juntos?'],
 };
 
 const MicIcon = () => (
@@ -86,14 +81,17 @@ function Panel({
   lang,
   lines,
   appendUser,
+  autostart,
 }: {
   lang: Lang;
   lines: Line[];
   appendUser: (t: string) => void;
+  autostart?: AutoStart;
 }) {
   const controls = useConversationControls();
   const { status, message } = useConversationStatus();
   const t = STR[lang];
+  const vu = voiceUi[lang];
   const [text, setText] = useState('');
   const [mode, setMode] = useState<'voice' | 'text' | null>(null);
   const [err, setErr] = useState<string | null>(null);
@@ -236,11 +234,25 @@ function Panel({
     setText('');
   };
 
+  // Fire the action the visitor clicked in the static shell, once, on mount.
+  const started = useRef(false);
+  useEffect(() => {
+    if (started.current || !autostart) return;
+    started.current = true;
+    if (autostart === 'voice') startVoice();
+    else if (autostart === 'text') startText();
+    else {
+      setPending(autostart);
+      startText();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const connected = status === 'connected';
   const shownErr = err ?? (status === 'error' ? message : null);
 
   return (
-    <div className="mx-auto w-full max-w-xl rounded-[var(--radius-card)] border border-bone/10 bg-surface p-4 shadow-[0_0_50px_rgba(0,0,0,0.4)] sm:p-5">
+    <div>
       {connected && (
         <div className="mb-3 flex items-center gap-2">
           <span
@@ -284,7 +296,7 @@ function Panel({
               className="flex items-center gap-2 rounded-full bg-oxblood px-6 py-2.5 font-mono text-[13px] uppercase tracking-[0.15em] text-[#f6dfe4] transition hover:bg-oxblood/85 disabled:opacity-50"
             >
               <MicIcon />
-              {status === 'connecting' ? '…' : t.talk}
+              {status === 'connecting' ? '…' : vu.talk}
             </button>
             <button
               onClick={startText}
@@ -292,11 +304,11 @@ function Panel({
               className="flex items-center gap-2 rounded-full border border-bone/35 px-5 py-2.5 font-mono text-[13px] uppercase tracking-[0.15em] text-text-muted transition hover:border-bone/60 hover:text-bone disabled:opacity-50"
             >
               <KeysIcon />
-              {t.type}
+              {vu.type}
             </button>
           </div>
           <div className="flex flex-wrap justify-center gap-2 pt-0.5">
-            {CHIPS[lang].map((c) => (
+            {vu.chips.map((c) => (
               <button
                 key={c}
                 type="button"
@@ -346,7 +358,7 @@ function Panel({
 
 type Part = { type: 'start' | 'delta' | 'stop'; text: string };
 
-export default function VoiceChat({ lang = 'en' }: { lang?: Lang }) {
+export default function VoiceChat({ lang = 'en', autostart = null }: { lang?: Lang; autostart?: AutoStart }) {
   const [lines, setLines] = useState<Line[]>([]);
   const t = STR[lang];
 
@@ -373,7 +385,7 @@ export default function VoiceChat({ lang = 'en' }: { lang?: Lang }) {
       onMessage={onMessage}
       onAgentChatResponsePart={onPart as (p: unknown) => void}
     >
-      <Panel lang={lang} lines={lines} appendUser={appendUser} />
+      <Panel lang={lang} lines={lines} appendUser={appendUser} autostart={autostart} />
     </ConversationProvider>
   );
 }

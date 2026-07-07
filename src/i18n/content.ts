@@ -60,6 +60,14 @@ export const voiceDemo: Record<Lang, { title: string; desc: string }> = {
   },
 };
 
+// Voice panel labels + chips — shared by the static Astro shell (renders with
+// zero JS) and the React island (mounted on first interaction).
+export const voiceUi: Record<Lang, { talk: string; type: string; chips: string[] }> = {
+  en: { talk: 'talk', type: 'type', chips: ['show me the projects', 'why do I need a voice agent?', 'how do we work together?'] },
+  it: { talk: 'parla', type: 'scrivi', chips: ['fammi vedere i progetti', 'perché mi serve un voice agent?', 'come si lavora insieme?'] },
+  es: { talk: 'habla', type: 'escribe', chips: ['enséñame los proyectos', '¿por qué necesito un agente de voz?', '¿cómo trabajamos juntos?'] },
+};
+
 // Contact headline split so the last word carries the italic accent.
 export const contactHeadline: Record<Lang, { pre: string; accent: string }> = {
   en: { pre: "Let's work ", accent: 'together.' },

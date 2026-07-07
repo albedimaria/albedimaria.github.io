@@ -65,6 +65,12 @@ const skipText = { en: 'Skip to content', it: 'Vai al contenuto', es: 'Ir al con
           { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
         );
         els.forEach((el) => io.observe(el));
+        // Safety net: if NOTHING has revealed after 4s the observer is dead —
+        // reveal everything. If it's working (first section reveals on load),
+        // this no-ops and on-scroll reveals keep playing.
+        setTimeout(() => {
+          if (!document.querySelector('.is-in')) els.forEach((el) => el.classList.add('is-in'));
+        }, 4000);
       })();
     </script>
   </body>
