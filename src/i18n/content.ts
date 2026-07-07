@@ -80,6 +80,7 @@ export const filterCanonical = ['All', 'Client work', 'Hackathons', 'Voice AI', 
 interface UI {
   nav: { work: string; services: string; about: string; contact: string };
   nav_cta: string;
+  hero_available: string;
   hero_role: string;
   hero_cta_primary: string;
   hero_cta_secondary: string;
@@ -108,6 +109,7 @@ export const ui: Record<Lang, UI> = {
   en: {
     nav: { work: 'work', services: 'services', about: 'about', contact: 'contact' },
     nav_cta: "let's work together",
+    hero_available: 'available for new projects',
     hero_role: 'AI PRODUCT ENGINEER · agentic AI, voice agents & audio',
     hero_cta_primary: "Let's work together →",
     hero_cta_secondary: 'View work ↓',
@@ -146,6 +148,7 @@ export const ui: Record<Lang, UI> = {
   it: {
     nav: { work: 'lavori', services: 'servizi', about: 'chi sono', contact: 'contatti' },
     nav_cta: 'lavoriamo insieme',
+    hero_available: 'disponibile per nuovi progetti',
     hero_role: 'AI PRODUCT ENGINEER · AI agentica, voice agent & audio',
     hero_cta_primary: 'Lavoriamo insieme →',
     hero_cta_secondary: 'Vedi i lavori ↓',
@@ -184,6 +187,7 @@ export const ui: Record<Lang, UI> = {
   es: {
     nav: { work: 'trabajo', services: 'servicios', about: 'sobre mí', contact: 'contacto' },
     nav_cta: 'trabajemos juntos',
+    hero_available: 'disponible para nuevos proyectos',
     hero_role: 'AI PRODUCT ENGINEER · IA agéntica, agentes de voz & audio',
     hero_cta_primary: 'Trabajemos juntos →',
     hero_cta_secondary: 'Ver proyectos ↓',

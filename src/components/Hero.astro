@@ -17,9 +17,13 @@ const vu = voiceUi[lang];
   <WaveSignature top="70%" />
 
   <div
-    class="relative z-10 mx-auto grid max-w-6xl items-center gap-y-12 px-6 pb-16 pt-16 md:pb-20 md:pt-24 lg:min-h-[min(calc(100svh-65px),820px)] lg:grid-cols-[1fr_0.92fr] lg:gap-x-16"
+    class="relative z-10 mx-auto grid max-w-6xl items-center gap-y-12 px-6 pb-16 pt-16 md:pb-20 md:pt-24 lg:min-h-[min(calc(100svh-220px),680px)] lg:grid-cols-[1fr_0.92fr] lg:gap-x-16"
   >
     <div class="min-w-0">
+      <p class="mb-6 flex items-center gap-2.5 font-mono text-[13px] lowercase tracking-wide text-text-muted">
+        <span class="h-2 w-2 rounded-full bg-[#57c98a]" aria-hidden="true"></span>
+        {t.hero_available}
+      </p>
       <h1 class="font-display text-6xl font-semibold leading-[0.92] tracking-tight text-bone md:text-8xl xl:text-[104px]">
         Alberto<br />Di Maria
       </h1>
@@ -40,6 +44,10 @@ const vu = voiceUi[lang];
           class="mx-auto w-full max-w-xl rounded-[var(--radius-card)] border border-bone/10 bg-surface p-4 shadow-[0_0_50px_rgba(0,0,0,0.4)] sm:p-5"
         >
           <div class="space-y-3">
+            <div class="flex items-center gap-2 px-1 pb-1">
+              <span class="h-1.5 w-1.5 rounded-full bg-oxblood-soft motion-safe:animate-pulse" aria-hidden="true"></span>
+              <span class="font-mono text-[12px] uppercase tracking-[0.18em] text-text-dim">D10S · online</span>
+            </div>
             <div class="flex flex-wrap items-center justify-center gap-2.5">
               <button
                 type="button"
