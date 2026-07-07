@@ -47,15 +47,15 @@ export const heroLine: Record<Lang, { pre: string; accent: string; post: string 
 // D10S guide claim — heading + sub of the hero's right column.
 export const voiceDemo: Record<Lang, { title: string; desc: string }> = {
   en: {
-    title: "I'm D10S — your AI voice assistant and guide to this site.",
+    title: 'Your AI voice guide to this site.',
     desc: '',
   },
   it: {
-    title: 'Sono D10S — il tuo assistente vocale AI e la tua guida al sito.',
+    title: 'La tua guida vocale AI al sito.',
     desc: '',
   },
   es: {
-    title: 'Soy D10S — tu asistente de voz IA y tu guía del sitio.',
+    title: 'Tu guía de voz IA del sitio.',
     desc: '',
   },
 };
@@ -109,7 +109,7 @@ export const ui: Record<Lang, UI> = {
   en: {
     nav: { work: 'work', services: 'services', about: 'about', contact: 'contact' },
     nav_cta: "let's work together",
-    hero_available: 'available for new projects',
+    hero_available: 'available for work',
     hero_role: 'AI PRODUCT ENGINEER · agentic AI, voice agents & audio',
     hero_cta_primary: "Let's work together →",
     hero_cta_secondary: 'View work ↓',
@@ -148,7 +148,7 @@ export const ui: Record<Lang, UI> = {
   it: {
     nav: { work: 'lavori', services: 'servizi', about: 'chi sono', contact: 'contatti' },
     nav_cta: 'lavoriamo insieme',
-    hero_available: 'disponibile per nuovi progetti',
+    hero_available: 'disponibile per collaborazioni',
     hero_role: 'AI PRODUCT ENGINEER · AI agentica, voice agent & audio',
     hero_cta_primary: 'Lavoriamo insieme →',
     hero_cta_secondary: 'Vedi i lavori ↓',
@@ -187,7 +187,7 @@ export const ui: Record<Lang, UI> = {
   es: {
     nav: { work: 'trabajo', services: 'servicios', about: 'sobre mí', contact: 'contacto' },
     nav_cta: 'trabajemos juntos',
-    hero_available: 'disponible para nuevos proyectos',
+    hero_available: 'disponible para colaboraciones',
     hero_role: 'AI PRODUCT ENGINEER · IA agéntica, agentes de voz & audio',
     hero_cta_primary: 'Trabajemos juntos →',
     hero_cta_secondary: 'Ver proyectos ↓',
