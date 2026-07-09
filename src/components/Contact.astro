@@ -1,6 +1,6 @@
 ---
 import WaveSignature from './WaveSignature.astro';
-import { ui, contactReply, contactHeadline, type Lang } from '../i18n/content';
+import { ui, contactReply, contactHeadline, contactForm, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
@@ -8,28 +8,134 @@ interface Props {
 const { lang } = Astro.props;
 const t = ui[lang];
 const headline = contactHeadline[lang];
+const f = contactForm[lang];
+
+// Web3Forms access key — free, tied to Alberto's inbox. Static-site friendly:
+// the form posts to Web3Forms and the reply lands in the linked email. Swap the
+// placeholder with the real key (https://web3forms.com → enter email → get key).
+const WEB3FORMS_KEY = '730cfe53-7f78-4bb5-90cf-ee5be2bae7c7';
 ---
 
 <section id="contact" class="sec-line relative overflow-hidden bg-ink-2">
   <WaveSignature />
-  <div data-reveal-stagger class="relative z-10 mx-auto max-w-5xl px-6 py-24 md:py-32">
-    <p class="font-mono text-[13px] uppercase tracking-[0.22em] text-bone">
-      <span class="mr-3 text-oxblood-soft">04</span>{t.contact_title}
-    </p>
-    <p class="mt-6 font-display text-5xl font-semibold leading-[1.02] tracking-tight text-bone md:text-7xl xl:text-8xl">
-      {headline.pre}<em class="italic text-oxblood-soft">{headline.accent}</em>
-    </p>
-    <p class="mt-6 max-w-xl text-[16px] leading-relaxed text-text-muted">{t.contact_lead}</p>
-    <p class="mt-2 font-mono text-[13px] text-text-dim">{contactReply[lang]}</p>
-
-    <div class="mt-9 flex flex-wrap items-center gap-3">
-      <a
-        href="mailto:ing.albedimaria@gmail.com"
-        class="rounded-[var(--radius-btn)] bg-bone px-7 py-4 font-mono text-[15px] font-medium text-ink transition hover:opacity-90"
-      >
-        {t.contact_email}
-      </a>
-      <!-- room for a second CTA later (e.g. book a call / Calendly) -->
+  <div data-reveal-stagger class="relative z-10 mx-auto grid max-w-6xl gap-x-16 gap-y-12 px-6 py-24 md:py-32 lg:grid-cols-[1fr_minmax(0,460px)]">
+    <div class="min-w-0">
+      <p class="font-mono text-[13px] uppercase tracking-[0.22em] text-bone">
+        <span class="mr-3 text-oxblood-soft">04</span>{t.contact_title}
+      </p>
+      <p class="mt-6 font-display text-5xl font-semibold leading-[1.02] tracking-tight text-bone md:text-7xl xl:text-8xl">
+        {headline.pre}<em class="italic text-oxblood-soft">{headline.accent}</em>
+      </p>
+      <p class="mt-6 max-w-xl text-[16px] leading-relaxed text-text-muted">{t.contact_lead}</p>
+      <p class="mt-2 font-mono text-[13px] text-text-dim">{contactReply[lang]}</p>
     </div>
+
+    <!-- Contact form — no-JS fallback: posts straight to Web3Forms. With JS the
+         inline script intercepts and shows status without leaving the page. -->
+    <form
+      id="contact-form"
+      action="https://api.web3forms.com/submit"
+      method="POST"
+      class="min-w-0 lg:self-center"
+    >
+      <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+      <input type="hidden" name="subject" value="New message from albedimaria.github.io" />
+      <input type="hidden" name="from_name" value="Portfolio · D10S" />
+      <!-- honeypot: bots fill it, humans never see it -->
+      <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <label class="block">
+          <span class="mb-1.5 block font-mono text-[12px] uppercase tracking-wider text-text-muted">{f.name}</span>
+          <input
+            type="text"
+            name="name"
+            required
+            placeholder={f.namePh}
+            class="w-full rounded-[var(--radius-btn)] border border-bone/15 bg-transparent px-4 py-3 font-mono text-[14px] text-bone placeholder:text-text-dim focus:border-oxblood focus:outline-none"
+          />
+        </label>
+        <label class="block">
+          <span class="mb-1.5 block font-mono text-[12px] uppercase tracking-wider text-text-muted">{f.email}</span>
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder={f.emailPh}
+            autocomplete="email"
+            class="w-full rounded-[var(--radius-btn)] border border-bone/15 bg-transparent px-4 py-3 font-mono text-[14px] text-bone placeholder:text-text-dim focus:border-oxblood focus:outline-none"
+          />
+        </label>
+      </div>
+
+      <label class="mt-4 block">
+        <span class="mb-1.5 block font-mono text-[12px] uppercase tracking-wider text-text-muted">{f.message}</span>
+        <textarea
+          name="message"
+          required
+          rows="4"
+          placeholder={f.messagePh}
+          class="w-full resize-y rounded-[var(--radius-btn)] border border-bone/15 bg-transparent px-4 py-3 font-mono text-[14px] leading-relaxed text-bone placeholder:text-text-dim focus:border-oxblood focus:outline-none"
+        ></textarea>
+      </label>
+
+      <div class="mt-5 flex flex-wrap items-center gap-4">
+        <button
+          type="submit"
+          data-send={f.send}
+          data-sending={f.sending}
+          class="cta-glow rounded-[var(--radius-btn)] bg-bone px-7 py-3.5 font-mono text-[14px] font-medium text-ink transition hover:opacity-90 disabled:opacity-60"
+        >
+          {f.send}
+        </button>
+        <a href="mailto:ing.albedimaria@gmail.com" class="link-draw font-mono text-[13px] text-text-muted transition hover:text-bone">
+          {f.orEmail}
+        </a>
+      </div>
+
+      <p
+        id="contact-status"
+        role="status"
+        aria-live="polite"
+        class="mt-4 hidden font-mono text-[13px]"
+        data-success={f.success}
+        data-error={f.error}
+      ></p>
+    </form>
   </div>
 </section>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('contact-status');
+  if (form && status) {
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const label = btn.dataset.send!;
+    const sending = btn.dataset.sending!;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = sending;
+      status.classList.add('hidden');
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const ok = res.ok;
+        status.textContent = ok ? status.dataset.success! : status.dataset.error!;
+        status.classList.remove('hidden');
+        status.style.color = ok ? 'var(--color-bone)' : 'var(--color-oxblood-soft)';
+        if (ok) form.reset();
+      } catch {
+        status.textContent = status.dataset.error!;
+        status.classList.remove('hidden');
+        status.style.color = 'var(--color-oxblood-soft)';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = label;
+      }
+    });
+  }
+</script>

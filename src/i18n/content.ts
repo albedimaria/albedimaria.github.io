@@ -30,6 +30,63 @@ export const contactReply: Record<Lang, string> = {
   es: 'Suelo responder en un día.',
 };
 
+export const contactForm: Record<
+  Lang,
+  {
+    name: string;
+    namePh: string;
+    email: string;
+    emailPh: string;
+    message: string;
+    messagePh: string;
+    send: string;
+    sending: string;
+    success: string;
+    error: string;
+    orEmail: string;
+  }
+> = {
+  en: {
+    name: 'Name',
+    namePh: 'your name',
+    email: 'Email',
+    emailPh: 'you@company.com',
+    message: 'Message',
+    messagePh: 'what are you building? a couple of lines is enough.',
+    send: 'Send message',
+    sending: 'Sending…',
+    success: 'Thanks — your message is on its way. I’ll get back to you soon.',
+    error: 'Something went wrong. Try again, or email me directly.',
+    orEmail: 'or email me directly',
+  },
+  it: {
+    name: 'Nome',
+    namePh: 'il tuo nome',
+    email: 'Email',
+    emailPh: 'tu@azienda.com',
+    message: 'Messaggio',
+    messagePh: 'cosa stai costruendo? bastano due righe.',
+    send: 'Invia messaggio',
+    sending: 'Invio…',
+    success: 'Grazie — il messaggio è partito. Ti rispondo a breve.',
+    error: 'Qualcosa è andato storto. Riprova, o scrivimi direttamente.',
+    orEmail: 'oppure scrivimi direttamente',
+  },
+  es: {
+    name: 'Nombre',
+    namePh: 'tu nombre',
+    email: 'Email',
+    emailPh: 'tu@empresa.com',
+    message: 'Mensaje',
+    messagePh: '¿qué estás construyendo? con un par de líneas basta.',
+    send: 'Enviar mensaje',
+    sending: 'Enviando…',
+    success: 'Gracias — tu mensaje está en camino. Te respondo pronto.',
+    error: 'Algo salió mal. Inténtalo de nuevo, o escríbeme directamente.',
+    orEmail: 'o escríbeme directamente',
+  },
+};
+
 export const servicesCta: Record<Lang, string> = {
   en: 'See it live ↗',
   it: 'Guardalo live ↗',
