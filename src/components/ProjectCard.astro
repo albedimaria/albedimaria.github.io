@@ -6,112 +6,107 @@ import type { Lang } from '../i18n/content';
 
 interface Props {
   project: Project;
-  index: number;
-  extra?: boolean;
   lang: Lang;
 }
-const { project, index, extra = false, lang } = Astro.props;
+const { project, lang } = Astro.props;
 const frameLabel = frameLabelFor(project);
 
 const override = lang !== 'en' ? projectText[lang]?.[project.id] : undefined;
 const oneliner = override?.oneliner ?? project.oneliner;
 const bullets = override?.bullets ?? project.bullets;
 
-// Only show the browser-window chrome (dots) when the label is a real host;
-// otherwise render a neutral caption strip (no fake URL metaphor).
+// Only show the browser-window chrome (dots) when the label is a real host.
 const looksLikeHost = /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(frameLabel);
-
-void index;
 ---
 
 <article
   id={`proj-${project.id}`}
   data-filters={project.filters.join('|')}
-  data-extra={extra ? 'true' : 'false'}
-  class:list={['project-card pcard', extra && 'is-extra']}
-  style={extra ? 'display:none' : undefined}
+  class="project-card pslide"
   aria-labelledby={`proj-${project.id}-title`}
 >
-  <!-- INTRO: kicker + title + outcome, above the cover -->
-  <div class="pc-intro">
-    <div class="pc-head">
-      <span class="pc-kick">{project.category}</span>
-      {project.badge && <span class="pc-stamp">{project.badge}</span>}
-    </div>
-    <h3 class="pc-title" id={`proj-${project.id}-title`}>{project.title}</h3>
-    <p class="pc-outcome">{oneliner}</p>
+  <!-- kicker (category) -->
+  <div class="ps-top">
+    <span class="ps-kick">{project.category}</span>
   </div>
 
-  <!-- COVER: prominent, full-bleed band -->
-  <div class="pc-cover">
-    <div class="pc-bar">
-      {looksLikeHost && (
-        <>
-          <span class="pc-dot pc-dot-a"></span>
-          <span class="pc-dot pc-dot-b"></span>
-          <span class="pc-dot pc-dot-b"></span>
-        </>
+  <!-- title + stamp + outcome, above the cover -->
+  <div class="ps-headline">
+    <h3 class="ps-title" id={`proj-${project.id}-title`}>{project.title}</h3>{
+      project.badge && <span class="ps-stamp">{project.badge}</span>
+    }
+    <p class="ps-outcome">{oneliner}</p>
+  </div>
+
+  <!-- cover (left) | detail (right) -->
+  <div class="ps-grid">
+    <figure class="ps-cover">
+      <div class="ps-bar">
+        {looksLikeHost && (
+          <>
+            <span class="ps-dot ps-dot-a"></span>
+            <span class="ps-dot ps-dot-b"></span>
+            <span class="ps-dot ps-dot-b"></span>
+          </>
+        )}
+        <span class:list={['ps-host', looksLikeHost && 'has-dots']}>{frameLabel}</span>
+      </div>
+      <div class="ps-well">
+        <img src={project.cover} alt={`${project.title} — preview`} loading="lazy" />
+      </div>
+    </figure>
+
+    <div class="ps-detail">
+      <ul class="ps-feats" role="list">
+        {bullets.map((b, i) => (
+          <li class="ps-feat">
+            <span class="ps-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            {typeof b === 'string'
+              ? <p>{b}</p>
+              : <p><b>{b.lead}</b> — {b.body}</p>}
+          </li>
+        ))}
+      </ul>
+
+      <div class="ps-chips">
+        {project.stack.map((s) => <span class="ps-chip">{s}</span>)}
+        {project.ai?.map((s) => <span class="ps-chip is-ai">{s}</span>)}
+        {project.hardware?.map((s) => <span class="ps-chip">{s}</span>)}
+      </div>
+
+      {project.engineering && (
+        <details class="ps-rigor">
+          <summary>
+            <span class="ps-lab">engineering</span>
+            <span>{project.engineering.summary}</span>
+            <span class="ps-chev"><span class="c">apri&nbsp;↓</span><span class="o">chiudi&nbsp;↑</span></span>
+          </summary>
+          <div class="ps-stats">
+            {project.engineering.stats.map((s) => (
+              <div class="ps-stat">
+                <div class="v">{s.value}</div>
+                <div class="l">{s.label}</div>
+              </div>
+            ))}
+          </div>
+          {project.engineering.note && <p class="ps-note">{project.engineering.note}</p>}
+        </details>
       )}
-      <span class:list={['pc-host', looksLikeHost && 'has-dots']}>{frameLabel}</span>
-    </div>
-    <div class="pc-well">
-      <img src={project.cover} alt={`${project.title} — preview`} loading="lazy" />
-    </div>
-  </div>
 
-  <!-- BODY: features + chips + engineering drawer + CTA -->
-  <div class="pc-body">
-    <ul class="pc-feats" role="list">
-      {bullets.map((b, i) => (
-        <li class="pc-feat">
-          <span class="pc-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-          {typeof b === 'string'
-            ? <p>{b}</p>
-            : <p><b>{b.lead}</b> — {b.body}</p>}
-        </li>
-      ))}
-    </ul>
-
-    <div class="pc-chips">
-      {project.stack.map((s) => <span class="pc-chip">{s}</span>)}
-      {project.ai?.map((s) => <span class="pc-chip is-ai">{s}</span>)}
-      {project.hardware?.map((s) => <span class="pc-chip">{s}</span>)}
-    </div>
-
-    {project.engineering && (
-      <details class="pc-rigor">
-        <summary>
-          <span class="pc-lab">engineering</span>
-          <span>{project.engineering.summary}</span>
-          <span class="pc-chev">
-            <span class="c">apri&nbsp;↓</span><span class="o">chiudi&nbsp;↑</span>
-          </span>
-        </summary>
-        <div class="pc-stats">
-          {project.engineering.stats.map((s) => (
-            <div class="pc-stat">
-              <div class="v">{s.value}</div>
-              <div class="l">{s.label}</div>
-            </div>
+      {project.links.length > 0 && (
+        <div class="ps-cta">
+          {project.links.map((l, i) => (
+            <a
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class:list={['ps-a', i === 0 ? 'ps-a-p' : 'ps-a-s']}
+            >
+              {l.label}
+            </a>
           ))}
         </div>
-        {project.engineering.note && <p class="pc-note">{project.engineering.note}</p>}
-      </details>
-    )}
-
-    {project.links.length > 0 && (
-      <div class="pc-cta">
-        {project.links.map((l, i) => (
-          <a
-            href={l.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            class:list={['pc-a', i === 0 ? 'pc-a-p' : 'pc-a-s']}
-          >
-            {l.label}
-          </a>
-        ))}
-      </div>
-    )}
+      )}
+    </div>
   </div>
 </article>
