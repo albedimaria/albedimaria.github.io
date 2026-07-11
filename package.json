@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/albedimaria/albedimaria.github.io#readme",
   "dependencies": {
-    "@astrojs/react": "^6.0.0",
+    "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.7.3",
     "@elevenlabs/react": "^1.9.0",
     "@fontsource-variable/fraunces": "^5.2.9",
