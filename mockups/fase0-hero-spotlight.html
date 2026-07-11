@@ -85,8 +85,9 @@
   .hero-ctas { margin-top: 40px; display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
 
   .hero-photo { grid-column: 10 / 13; align-self: start; margin-top: 52px; }
-  .photo-frame { position: relative; aspect-ratio: 1 / 1; border: 1px solid color-mix(in srgb, var(--color-bone) 14%, transparent); border-radius: var(--radius-card); overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,.45); }
-  .photo-frame img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.04) saturate(0.94); }
+  /* z-70: la foto sta SOPRA la grana di pagina (z-60) — resta nitida, niente effetto "AI enhanced" */
+  .photo-frame { position: relative; z-index: 70; aspect-ratio: 1 / 1; border: 1px solid color-mix(in srgb, var(--color-bone) 14%, transparent); border-radius: var(--radius-card); overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,.45); }
+  .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
   .photo-caption { margin-top: 14px; }
   .photo-caption .name { font-family: var(--font-display); font-size: 20px; font-weight: 550; color: var(--color-bone); }
   .photo-caption .role { margin-top: 4px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-dim); white-space: nowrap; }
@@ -190,7 +191,7 @@
     <div class="hero-copy">
       <p class="avail">disponibile per nuovi progetti</p>
       <h1>Ancora tutto<br /><em>a mano?</em></h1>
-      <p class="hero-sub"><span class="w">Siti, automazioni e agenti AI per la tua attività</span><br /><span class="g">— li costruisco e li sistemo io.</span></p>
+      <p class="hero-sub"><span class="w">Siti, automazioni e agenti AI per la tua attività</span><br /><span class="g">li costruisco e li sistemo io.</span></p>
       <div class="hero-ctas">
         <a class="btn-cta" href="#contact">lavoriamo insieme →</a>
         <a class="link-draw" href="#services">guarda cosa faccio ↓</a>
