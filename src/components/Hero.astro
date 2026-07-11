@@ -9,14 +9,16 @@ const { lang } = Astro.props;
 const t = ui[lang];
 const hook = heroHook[lang];
 const sub = heroSub[lang];
+const cueLabel: Record<Lang, string> = { en: 'Meet my agent', it: 'Vai al mio agente', es: 'Ir a mi agente' };
 ---
 
 <!-- Hero: business-first question hook + photo. The D10S agent moved to its
      own full-width band below (see AgentDemo.astro). -->
-<section id="top" class="hero-glow relative overflow-hidden">
-  <WaveSignature top="74%" />
+<section id="top" class="hero-glow relative flex min-h-[100svh] flex-col overflow-hidden">
+  <WaveSignature top="68%" />
 
-  <div class="relative z-10 mx-auto grid-12 max-w-6xl px-6 pb-14 pt-20 md:pt-24">
+  <div class="relative z-10 flex flex-1 items-center">
+    <div class="mx-auto grid-12 w-full max-w-6xl px-6 pb-6 pt-24">
     <!-- copy -->
     <div class="col-span-12 lg:col-span-7">
       <p class="mb-7 flex items-center gap-2.5 font-mono text-[13px] lowercase tracking-wide text-text-muted">
@@ -59,5 +61,12 @@ const sub = heroSub[lang];
         </div>
       </div>
     </div>
+    </div>
+  </div>
+
+  <div class="relative z-10 flex justify-center pb-9">
+    <a href="#agent-demo" class="scroll-cue" aria-label={cueLabel[lang]}>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14" /><path d="M5 12l7 7 7-7" /></svg>
+    </a>
   </div>
 </section>
