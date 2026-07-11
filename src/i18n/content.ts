@@ -101,6 +101,32 @@ export const heroLine: Record<Lang, { pre: string; accent: string; post: string 
   es: { pre: 'Construyo productos de IA end-to-end — y ', accent: 'D10S', post: ', aquí mismo, es uno de ellos.' },
 };
 
+// Hero (restyle) — question hook (accent = Fraunces italic, oxblood) + a
+// business-first one-liner split into a white lead and a muted follow.
+export const heroHook: Record<Lang, { line1: string; accent: string }> = {
+  en: { line1: 'Still doing it all', accent: 'by hand?' },
+  it: { line1: 'Ancora tutto', accent: 'a mano?' },
+  es: { line1: '¿Todavía todo', accent: 'a mano?' },
+};
+export const heroSub: Record<Lang, { lead: string; follow: string }> = {
+  en: { lead: 'Websites, automation and AI agents for your business', follow: 'I build them and I fix them.' },
+  it: { lead: 'Siti, automazioni e agenti AI per la tua attività', follow: 'li costruisco e li sistemo io.' },
+  es: { lead: 'Webs, automatización y agentes IA para tu negocio', follow: 'los construyo y los arreglo yo.' },
+};
+export const heroPhotoRole: Record<Lang, string> = {
+  en: 'AI product engineer · Milan',
+  it: 'AI product engineer · Milano',
+  es: 'AI product engineer · Milán',
+};
+
+// Agent band (D10S) — full-width section under the hero. Kicker + question
+// title (\n splits the two lines) + one-line description.
+export const agentBand: Record<Lang, { kicker: string; title: string; desc: string }> = {
+  en: { kicker: 'live demo', title: 'Still answering everything yourself?\nAsk my agent.', desc: 'It knows every project on this site. Ask it anything — by voice or text.' },
+  it: { kicker: 'demo dal vivo', title: 'Rispondi ancora tu a tutto?\nChiedi al mio agente.', desc: 'Conosce ogni progetto di questo sito. Fagli una domanda — a voce o per iscritto.' },
+  es: { kicker: 'demo en vivo', title: '¿Respondes todavía tú a todo?\nPregunta a mi agente.', desc: 'Conoce cada proyecto de este sitio. Pregúntale lo que quieras — por voz o texto.' },
+};
+
 // D10S guide claim — heading + sub of the hero's right column.
 export const voiceDemo: Record<Lang, { title: string; desc: string }> = {
   en: {
@@ -119,10 +145,12 @@ export const voiceDemo: Record<Lang, { title: string; desc: string }> = {
 
 // Voice panel labels + chips — shared by the static Astro shell (renders with
 // zero JS) and the React island (mounted on first interaction).
+// Chips: business-first, and each is answerable from the RAG corpus. The
+// "draft my contact message" chip lands in phase 6 with the prefill tool.
 export const voiceUi: Record<Lang, { talk: string; type: string; chips: string[] }> = {
-  en: { talk: 'talk', type: 'type', chips: ['show me the projects', 'why do I need a voice agent?', 'how do we work together?'] },
-  it: { talk: 'parla', type: 'scrivi', chips: ['fammi vedere i progetti', 'perché mi serve un voice agent?', 'come si lavora insieme?'] },
-  es: { talk: 'habla', type: 'escribe', chips: ['enséñame los proyectos', '¿por qué necesito un agente de voz?', '¿cómo trabajamos juntos?'] },
+  en: { talk: 'talk', type: 'type', chips: ['what can you do for my business?', 'show me the projects', 'what is it like to work with Alberto?'] },
+  it: { talk: 'parla', type: 'scrivi', chips: ['cosa puoi fare per la mia attività?', 'portami ai progetti', "com'è lavorare con Alberto?"] },
+  es: { talk: 'habla', type: 'escribe', chips: ['¿qué puedes hacer por mi negocio?', 'llévame a los proyectos', '¿cómo es trabajar con Alberto?'] },
 };
 
 // Contact headline split so the last word carries the italic accent.

@@ -42,7 +42,7 @@ const skipText = { en: 'Skip to content', it: 'Vai al contenuto', es: 'Ir al con
     <!-- Gate entrance-hidden states behind JS availability (no-JS/crawlers see everything) -->
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
-  <body class="min-h-screen antialiased">
+  <body class="page-grain min-h-screen antialiased">
     <a href="#top" class="skip-link">{skipText}</a>
     <slot />
     <!-- Section entrances: one tiny observer, fire-once per element -->

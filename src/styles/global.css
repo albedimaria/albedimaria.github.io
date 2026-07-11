@@ -64,6 +64,40 @@ body {
   .grid-12 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 }
 
+/* ============================================================
+   Restyle phase 2 — hero + D10S band. Atmosphere over flatness:
+   a whole-page film grain, a radial oxblood glow behind the photo,
+   the photo lifted ABOVE the grain so it stays crisp.
+   ============================================================ */
+.page-grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+}
+.hero-glow { position: relative; }
+.hero-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(52% 46% at 79% 32%, rgba(122, 18, 40, 0.22), transparent 70%);
+}
+/* photo sits above the page grain (z-60) so it never looks "AI-enhanced" */
+.hero-photo-frame { position: relative; z-index: 61; }
+
+/* Section eyebrow with a trailing hairline (restyle) */
+.kicker-rule { display: flex; align-items: center; gap: 14px; }
+.kicker-rule::after {
+  content: "";
+  flex: 0 0 56px;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-oxblood-soft) 60%, transparent);
+}
+
 /* Global page scrollbar — oxblood, inset on ink */
 html {
   scrollbar-width: thin;
