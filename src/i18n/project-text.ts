@@ -1,8 +1,9 @@
 import type { Lang } from './content';
+import type { Bullet } from '../data/projects';
 
 export interface ProjectText {
   oneliner: string;
-  bullets: string[];
+  bullets: Bullet[];
 }
 
 // IT/ES overrides for project copy. EN lives in src/data/projects.ts.
@@ -20,33 +21,33 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
     'beat-store': {
       oneliner: 'Il negozio online di un producer: beat in vendita con anteprima, licenze e pagamento in pagina.',
       bullets: [
-        'Catalogo con anteprima audio a waveform, carrello multi-licenza (MP3 / WAV / stems / exclusive) e pagamento Stripe senza uscire dalla pagina.',
-        'Ogni acquisto si consegna da solo: link di download privati, validi solo per chi ha comprato.',
-        'Costi di gestione ridotti all’osso: l’audio viaggia da Cloudflare direttamente al browser, senza server in mezzo.',
+        { lead: 'Pagamento in pagina', body: 'anteprima audio a waveform, carrello multi-licenza (MP3 / WAV / stems / exclusive) e Stripe senza uscire dalla pagina.' },
+        { lead: 'Si consegna da solo', body: 'ogni acquisto manda link di download privati, validi solo per chi ha comprato.' },
+        { lead: 'Costi ridotti all’osso', body: 'l’audio viaggia da Cloudflare direttamente al browser, senza server in mezzo.' },
       ],
     },
     'alex-bartok': {
       oneliner: 'Il sito di un musicista che funzionava male, ricostruito da zero — veloce, sicuro, trilingue, con area clienti a pagamento.',
       bullets: [
-        'Il sito era stato fatto in fretta e funzionava male: l’ho ripulito e ricostruito come app moderna — sito pubblico + area clienti riservata — in tre lingue (IT/EN/ES).',
-        'Nell’area clienti ogni progetto ha la sua stanza: audio versionati, commenti puntati al secondo esatto, download riservati a chi ha pagato.',
-        'Consegnato con controlli automatici a ogni modifica, sicurezza rinforzata e modulo contatti anti-spam; due falle di accesso trovate e chiuse.',
+        { lead: 'Ricostruito come app moderna', body: 'sito pubblico + area clienti riservata, in tre lingue (IT/EN/ES) — da un sito che funzionava male.' },
+        { lead: 'Ogni progetto ha la sua stanza', body: 'audio versionati, commenti puntati al secondo esatto, download riservati a chi ha pagato.' },
+        { lead: 'Consegnato blindato', body: 'controlli automatici a ogni modifica, sicurezza rinforzata, form contatti anti-spam; due falle di accesso trovate e chiuse.' },
       ],
     },
     'company-brain': {
       oneliner: 'Un agente AI che risponde a domande sui dati veri dell’azienda — numeri esatti, niente di inventato.',
       bullets: [
-        'Fai una domanda in linguaggio naturale su clienti, ordini o chiamate: l’agente consulta CRM, gestionale e documenti, e risponde citando le fonti.',
-        'I conti li fa il codice, non l’AI: il modello sceglie solo dove guardare e come spiegare — i numeri sono sempre esatti.',
-        'Top 10 all’hackathon Cursor × Yellow Tech → qualificato alla Lega Nazionale Italiana degli Hackathon.',
+        { lead: 'Risponde dai dati veri', body: 'chiedi in linguaggio naturale su clienti, ordini o chiamate — l’agente consulta CRM, gestionale e documenti e cita le fonti.' },
+        { lead: 'I conti li fa il codice, non l’AI', body: 'il modello sceglie solo dove guardare e come spiegare; i numeri sono sempre esatti.' },
+        { lead: 'Top 10 all’hackathon Cursor × Yellow Tech', body: 'qualificato alla Lega Nazionale Italiana degli Hackathon.' },
       ],
     },
     'dance-voice-agent': {
       oneliner: 'L’assistente telefonico AI di una scuola di ballo: risponde 24/7, prenota, sposta, informa.',
       bullets: [
-        'Gestisce la chiamata da solo: riconosce lo studente, dà info sui corsi, prenota, disdice e sposta lezioni — e passa a una persona quando serve.',
-        'Parla italiano e spagnolo, risponde al volo senza sovrapporsi; conferme e promemoria arrivano via SMS.',
-        'Testato su scenari reali prima di andare in linea (9/9 superati), con un pannello che tiene d’occhio tempi e costi di ogni chiamata.',
+        { lead: 'Gestisce la chiamata da solo', body: 'riconosce lo studente, dà info sui corsi, prenota, disdice e sposta lezioni — e passa a una persona quando serve.' },
+        { lead: 'Italiano e spagnolo, senza sovrapporsi', body: 'risponde al volo; conferme e promemoria arrivano via SMS.' },
+        { lead: 'Testato prima di andare in linea', body: '9/9 scenari reali superati, con un pannello che tiene d’occhio tempi e costi di ogni chiamata.' },
       ],
     },
     'shy-order': {
@@ -133,33 +134,33 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
     'beat-store': {
       oneliner: 'La tienda online de un producer: beats a la venta con preescucha, licencias y pago en página.',
       bullets: [
-        'Catálogo con preescucha en waveform, carrito multi-licencia (MP3 / WAV / stems / exclusive) y pago con Stripe sin salir de la página.',
-        'Cada compra se entrega sola: enlaces de descarga privados, válidos solo para quien ha comprado.',
-        'Costes de gestión al mínimo: el audio viaja de Cloudflare directo al navegador, sin servidor en medio.',
+        { lead: 'Pago en página', body: 'preescucha en waveform, carrito multi-licencia (MP3 / WAV / stems / exclusive) y Stripe sin salir de la página.' },
+        { lead: 'Se entrega sola', body: 'cada compra manda enlaces de descarga privados, válidos solo para quien ha comprado.' },
+        { lead: 'Costes al mínimo', body: 'el audio viaja de Cloudflare directo al navegador, sin servidor en medio.' },
       ],
     },
     'alex-bartok': {
       oneliner: 'La web de un músico que funcionaba mal, reconstruida desde cero — rápida, segura, trilingüe, con área de clientes de pago.',
       bullets: [
-        'La web estaba hecha deprisa y funcionaba mal: la limpié y la reconstruí como una app moderna — sitio público + área de clientes reservada — en tres idiomas (IT/EN/ES).',
-        'En el área de clientes cada proyecto tiene su sala: audio versionado, comentarios fijados al segundo exacto, descargas reservadas a quien ha pagado.',
-        'Entregada con controles automáticos en cada cambio, seguridad reforzada y formulario de contacto anti-spam; dos fugas de acceso encontradas y cerradas.',
+        { lead: 'Reconstruida como app moderna', body: 'sitio público + área de clientes reservada, en tres idiomas (IT/EN/ES) — desde una web que funcionaba mal.' },
+        { lead: 'Cada proyecto tiene su sala', body: 'audio versionado, comentarios fijados al segundo exacto, descargas reservadas a quien ha pagado.' },
+        { lead: 'Entregada reforzada', body: 'controles automáticos en cada cambio, seguridad reforzada, formulario anti-spam; dos fugas de acceso encontradas y cerradas.' },
       ],
     },
     'company-brain': {
       oneliner: 'Un agente de IA que responde preguntas sobre los datos reales de la empresa — números exactos, nada inventado.',
       bullets: [
-        'Pregunta en lenguaje natural sobre clientes, pedidos o llamadas: el agente consulta el CRM, el gestor y los documentos, y responde citando las fuentes.',
-        'Las cuentas las hace el código, no la IA: el modelo solo elige dónde mirar y cómo explicarlo — los números son siempre exactos.',
-        'Top 10 en el hackathon Cursor × Yellow Tech → clasificado para la Liga Nacional Italiana de Hackathons.',
+        { lead: 'Responde con datos reales', body: 'pregunta en lenguaje natural sobre clientes, pedidos o llamadas — el agente consulta el CRM, el gestor y los documentos y cita las fuentes.' },
+        { lead: 'Las cuentas las hace el código, no la IA', body: 'el modelo solo elige dónde mirar y cómo explicarlo; los números son siempre exactos.' },
+        { lead: 'Top 10 en Cursor × Yellow Tech', body: 'clasificado para la Liga Nacional Italiana de Hackathons.' },
       ],
     },
     'dance-voice-agent': {
       oneliner: 'El asistente telefónico IA de una escuela de baile: responde 24/7, reserva, cambia, informa.',
       bullets: [
-        'Gestiona la llamada solo: reconoce al alumno, informa de cursos, reserva, cancela y cambia clases — y pasa a una persona cuando hace falta.',
-        'Habla italiano y español, responde al instante sin pisar a nadie; confirmaciones y recordatorios llegan por SMS.',
-        'Probado en escenarios reales antes de salir en vivo (9/9 superados), con un panel que vigila tiempos y costes de cada llamada.',
+        { lead: 'Gestiona la llamada solo', body: 'reconoce al alumno, informa de cursos, reserva, cancela y cambia clases — y pasa a una persona cuando hace falta.' },
+        { lead: 'Italiano y español, sin pisar', body: 'responde al instante; confirmaciones y recordatorios llegan por SMS.' },
+        { lead: 'Probado antes de salir en vivo', body: '9/9 escenarios reales superados, con un panel que vigila tiempos y costes de cada llamada.' },
       ],
     },
     'shy-order': {

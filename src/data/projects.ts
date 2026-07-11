@@ -7,6 +7,11 @@ export interface ProjectLink {
   href: string;
 }
 
+/** A feature line. A plain string renders as-is; the {lead, body} form
+ *  bolds a short lead ("what it is") before the rest — used on the
+ *  flagship/services-referenced projects for scannability. */
+export type Bullet = string | { lead: string; body: string };
+
 /** One numeric proof point, revealed when the engineering block is expanded. */
 export interface EngineeringStat {
   value: string;
@@ -33,7 +38,7 @@ export interface Project {
   badge?: string;
   /** short subtitle, used in both featured and grid cards */
   oneliner: string;
-  bullets: string[];
+  bullets: Bullet[];
   stack: string[];
   ai?: string[];
   hardware?: string[];
@@ -52,9 +57,9 @@ export const projects: Project[] = [
     badge: '✓ commissioned',
     oneliner: 'A musician’s broken website rebuilt from scratch — fast, secure, trilingual, with a paid client area.',
     bullets: [
-      'The site had been thrown together and barely worked: I cleaned it up and rebuilt it as a modern app — public site + private client area — in three languages (IT/EN/ES).',
-      'Inside the client area every project gets its own room: versioned audio, comments pinned to the exact second, downloads reserved for paying clients.',
-      'Delivered with automatic checks on every change, hardened security and an anti-spam contact form; two access leaks found and closed.',
+      { lead: 'Rebuilt as a modern app', body: 'public site + private client area, in three languages (IT/EN/ES) — from a site that barely worked.' },
+      { lead: 'Every project gets its own room', body: 'versioned audio, comments pinned to the exact second, downloads reserved for paying clients.' },
+      { lead: 'Delivered hardened', body: 'automatic checks on every change, secured, anti-spam contact form; two access leaks found and closed.' },
     ],
     stack: ['React', 'TypeScript', 'Supabase', 'Vite', 'Tailwind'],
     engineering: {
@@ -99,9 +104,9 @@ export const projects: Project[] = [
     badge: '✓ acquired',
     oneliner: 'A producer’s online store: beats for sale with previews, licensing and in-page checkout.',
     bullets: [
-      'Catalog with waveform previews, a multi-license cart (MP3 / WAV / stems / exclusive) and Stripe checkout without leaving the page.',
-      'Every purchase delivers itself: private download links, valid only for the buyer.',
-      'Running costs cut to the bone: audio flies from Cloudflare straight to the browser, no server in between.',
+      { lead: 'In-page checkout', body: 'waveform previews, a multi-license cart (MP3 / WAV / stems / exclusive) and Stripe without leaving the page.' },
+      { lead: 'Delivers itself', body: 'every purchase sends private download links, valid only for the buyer.' },
+      { lead: 'Running costs cut to the bone', body: 'audio flies from Cloudflare straight to the browser, no server in between.' },
     ],
     stack: ['Next.js 16', 'TypeScript', 'Supabase', 'Stripe', 'Cloudflare R2', 'Resend', 'Netlify'],
     ai: ['Claude API'],
@@ -128,9 +133,9 @@ export const projects: Project[] = [
     badge: '★ Top 10',
     oneliner: 'An AI agent that answers questions about a company’s real data — exact numbers, nothing made up.',
     bullets: [
-      'Ask in plain language about clients, orders or calls: the agent reads the CRM, the ERP and the documents, and answers citing its sources.',
-      'The math is done by code, not by the AI: the model only picks where to look and how to explain — the numbers are always exact.',
-      'Top 10 at the Cursor × Yellow Tech hackathon → qualified for the Italian National Hackathon League.',
+      { lead: 'Answers from real data', body: 'ask in plain language about clients, orders or calls — the agent reads the CRM, the ERP and the documents and cites its sources.' },
+      { lead: 'Math done by code, not the AI', body: 'the model only picks where to look and how to explain; the numbers are always exact.' },
+      { lead: 'Top 10 at Cursor × Yellow Tech', body: 'qualified for the Italian National Hackathon League.' },
     ],
     stack: ['Python', 'FastAPI', 'Docker', 'Render'],
     ai: ['LLM tool-calling (Mistral via Regolo)', 'BM25 retrieval'],
@@ -148,9 +153,9 @@ export const projects: Project[] = [
     featured: true,
     oneliner: 'A dance school’s AI phone assistant: answers 24/7, books, reschedules, informs.',
     bullets: [
-      'Handles the call on its own: recognises the student, gives course info, books, cancels and reschedules — and hands over to a human when needed.',
-      'Speaks Italian and Spanish, answers instantly without talking over people; confirmations and reminders go out by SMS.',
-      'Tested on real scenarios before going live (9/9 passed), with a panel tracking the time and cost of every call.',
+      { lead: 'Handles the call on its own', body: 'recognises the student, gives course info, books, cancels and reschedules — and hands to a human when needed.' },
+      { lead: 'Italian and Spanish, no talk-over', body: 'answers instantly; confirmations and reminders go out by SMS.' },
+      { lead: 'Tested before going live', body: '9/9 real scenarios passed, with a panel tracking the time and cost of every call.' },
     ],
     stack: ['Python', 'FastAPI', 'Twilio', 'Supabase', 'Next.js', 'Render', 'Vercel'],
     ai: ['GPT-4o', 'Deepgram', 'ElevenLabs'],

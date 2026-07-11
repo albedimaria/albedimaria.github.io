@@ -137,6 +137,175 @@ body {
   .svc-card, .svc-card:hover { transform: none; }
 }
 
+/* ============================================================
+   Restyle — project case-study card (cover-prominent, editorial).
+   Title + italic outcome ABOVE the cover; the cover is a prominent
+   full-bleed band; features / chips / rigor drawer / CTA BELOW it.
+   Replaces the old two-column ProjectCard. Keeps .project-card hooks
+   for the filter/show-all/focusProject JS.
+   ============================================================ */
+.pcard {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-bone) 10%, transparent);
+  border-radius: 14px;
+  background: linear-gradient(158deg, #1e1318, #150d11 70%);
+  transition:
+    transform var(--dur-med) var(--ease-sig),
+    border-color var(--dur-fast) var(--ease-sig),
+    box-shadow var(--dur-med) var(--ease-sig);
+}
+.pcard::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px; z-index: 2;
+  background: linear-gradient(180deg, var(--color-oxblood), transparent 60%);
+}
+.pcard:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--color-oxblood-soft) 50%, transparent);
+  box-shadow: 0 26px 64px rgba(0, 0, 0, 0.5), 0 0 36px rgba(156, 51, 64, 0.13);
+}
+
+.pc-intro { padding: 28px 34px 22px; }
+.pc-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.pc-kick {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--color-text-dim);
+}
+.pc-kick::before {
+  content: ""; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--color-oxblood-soft);
+}
+.pc-stamp {
+  margin-left: auto;
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 1px solid color-mix(in srgb, var(--color-oxblood-soft) 60%, transparent);
+  border-radius: 999px; padding: 5px 12px;
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.09em;
+  text-transform: uppercase; color: #eeb9c1;
+  background: color-mix(in srgb, var(--color-oxblood) 20%, transparent);
+}
+.pc-title {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.4vw, 34px); line-height: 1.06; font-weight: 560;
+  color: var(--color-bone); letter-spacing: -0.015em;
+}
+.pc-outcome {
+  margin-top: 13px;
+  font-family: var(--font-display); font-style: italic; font-weight: 340;
+  font-size: 20px; line-height: 1.4; color: var(--color-text); max-width: 62ch;
+}
+
+.pc-cover {
+  border-top: 1px solid color-mix(in srgb, var(--color-bone) 10%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-bone) 10%, transparent);
+}
+.pc-bar {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--color-ink-2); padding: 11px 18px;
+}
+.pc-dot { height: 9px; width: 9px; border-radius: 50%; flex: none; }
+.pc-dot-a { background: color-mix(in srgb, var(--color-oxblood) 72%, transparent); }
+.pc-dot-b { background: color-mix(in srgb, var(--color-bone) 15%, transparent); }
+.pc-host {
+  font-family: var(--font-mono); font-size: 12.5px; color: var(--color-text-dim);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.pc-host.has-dots { margin-left: 12px; }
+.pc-well {
+  aspect-ratio: 16 / 9; width: 100%;
+  background: var(--color-surface-2); overflow: hidden;
+}
+.pc-well img {
+  height: 100%; width: 100%; object-fit: contain; object-position: center top;
+  transition: transform 1200ms var(--ease-sig);
+}
+.pcard:hover .pc-well img { transform: scale(1.025); }
+
+.pc-body { padding: 26px 34px 34px; }
+.pc-feats { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.pc-feat {
+  display: grid; grid-template-columns: 30px 1fr; gap: 16px; padding: 15px 0;
+  border-top: 1px solid color-mix(in srgb, var(--color-bone) 8%, transparent);
+}
+.pc-feat:first-child { border-top: 0; padding-top: 0; }
+.pc-feat .pc-n {
+  font-family: var(--font-mono); font-size: 12px; color: var(--color-accent-txt);
+  padding-top: 4px; font-variant-numeric: tabular-nums;
+}
+.pc-feat p { font-size: 16px; line-height: 1.6; color: var(--color-text-muted); max-width: 66ch; }
+.pc-feat p b { color: var(--color-bone); font-weight: 500; }
+
+.pc-chips { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 8px; }
+.pc-chip {
+  font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.02em;
+  color: var(--color-text-muted);
+  border: 1px solid color-mix(in srgb, var(--color-bone) 13%, transparent);
+  border-radius: 999px; padding: 6px 12px;
+  background: color-mix(in srgb, var(--color-bone) 3%, transparent);
+}
+.pc-chip.is-ai {
+  border-color: color-mix(in srgb, var(--color-oxblood-soft) 45%, transparent);
+  color: #e79aa4;
+}
+
+.pc-rigor { margin-top: 22px; border-top: 1px solid color-mix(in srgb, var(--color-bone) 8%, transparent); }
+.pc-rigor summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 15px 0 3px;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
+  color: var(--color-text-dim); min-height: 44px;
+}
+.pc-rigor summary::-webkit-details-marker { display: none; }
+.pc-rigor summary .pc-lab { color: var(--color-accent-txt); }
+.pc-rigor summary .pc-chev { margin-left: auto; color: var(--color-accent-txt); white-space: nowrap; }
+.pc-rigor summary .pc-chev .o { display: none; }
+.pc-rigor[open] summary .pc-chev .c { display: none; }
+.pc-rigor[open] summary .pc-chev .o { display: inline; }
+.pc-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; padding: 14px 0 4px; }
+.pc-stat { border-left: 1px solid color-mix(in srgb, var(--color-bone) 12%, transparent); padding-left: 16px; }
+.pc-stat:first-child { border-left: 0; padding-left: 0; }
+.pc-stat .v {
+  font-family: var(--font-display); font-size: 25px; line-height: 1;
+  color: var(--color-bone); font-variant-numeric: tabular-nums;
+}
+.pc-stat .l {
+  margin-top: 8px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--color-text-dim);
+}
+.pc-note { margin-top: 12px; font-family: var(--font-mono); font-size: 12px; line-height: 1.6; color: var(--color-text-dim); max-width: 70ch; }
+
+.pc-cta { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 11px; }
+.pc-a {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  min-height: 44px; border-radius: 6px; padding: 0 20px;
+  font-family: var(--font-mono); font-size: 13px; text-decoration: none;
+  transition:
+    box-shadow var(--dur-fast) var(--ease-sig),
+    border-color var(--dur-fast) var(--ease-sig),
+    color var(--dur-fast) var(--ease-sig);
+}
+.pc-a-p { background: var(--color-oxblood); color: #f6dde2; border: 1px solid var(--color-oxblood); }
+.pc-a-p:hover { box-shadow: 0 0 22px 2px rgba(156, 51, 64, 0.5); }
+.pc-a-s { border: 1px solid color-mix(in srgb, var(--color-bone) 17%, transparent); color: var(--color-text-muted); }
+.pc-a-s:hover { color: var(--color-bone); border-color: color-mix(in srgb, var(--color-bone) 42%, transparent); }
+
+@media (max-width: 640px) {
+  .pc-intro { padding: 22px 20px 18px; }
+  .pc-body { padding: 22px 20px 26px; }
+  .pc-outcome { font-size: 18px; }
+  .pc-stats { grid-template-columns: 1fr; gap: 14px; }
+  .pc-stat { border-left: 0; padding-left: 0; border-top: 1px solid color-mix(in srgb, var(--color-bone) 10%, transparent); padding-top: 10px; }
+  .pc-stat:first-child { border-top: 0; padding-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pcard, .pcard:hover { transform: none; }
+  .pc-well img, .pcard:hover .pc-well img { transition: none; transform: none; }
+}
+
 /* Global page scrollbar — oxblood, inset on ink */
 html {
   scrollbar-width: thin;

@@ -28,98 +28,90 @@ void index;
   id={`proj-${project.id}`}
   data-filters={project.filters.join('|')}
   data-extra={extra ? 'true' : 'false'}
-  class:list={[
-    'project-card grid gap-x-9 gap-y-6 rounded-[var(--radius-card)] border border-bone/10 bg-surface p-5 transition-colors duration-300 hover:border-oxblood-soft/50 md:grid-cols-[1fr_minmax(0,340px)] md:items-start md:p-7',
-    extra && 'is-extra',
-  ]}
+  class:list={['project-card pcard', extra && 'is-extra']}
   style={extra ? 'display:none' : undefined}
+  aria-labelledby={`proj-${project.id}-title`}
 >
-  <!-- LEFT: the substance -->
-  <div class="flex min-w-0 flex-col">
-    <div class="flex items-baseline gap-3">
-      <span class="font-mono text-[12px] uppercase tracking-wider text-text-muted">{project.category}</span>
-      {project.badge && (
-        <span class="ml-auto rounded-[4px] bg-oxblood px-2 py-0.5 font-mono text-[10px] font-medium tracking-wide text-[#f0d7dc]">
-          {project.badge}
-        </span>
-      )}
+  <!-- INTRO: kicker + title + outcome, above the cover -->
+  <div class="pc-intro">
+    <div class="pc-head">
+      <span class="pc-kick">{project.category}</span>
+      {project.badge && <span class="pc-stamp">{project.badge}</span>}
     </div>
-    <h3 class="mt-2 font-display text-2xl font-semibold text-bone md:text-[28px]">{project.title}</h3>
-    <p class="mt-1.5 font-mono text-[14px] text-text-muted">{oneliner}</p>
+    <h3 class="pc-title" id={`proj-${project.id}-title`}>{project.title}</h3>
+    <p class="pc-outcome">{oneliner}</p>
+  </div>
 
-    <ul class="mt-5 space-y-2 text-[15px] leading-relaxed text-text-muted">
-      {bullets.map((b) => (
-        <li class="flex gap-2">
-          <span class="text-oxblood-soft" aria-hidden="true">—</span>
-          <span>{b}</span>
+  <!-- COVER: prominent, full-bleed band -->
+  <div class="pc-cover">
+    <div class="pc-bar">
+      {looksLikeHost && (
+        <>
+          <span class="pc-dot pc-dot-a"></span>
+          <span class="pc-dot pc-dot-b"></span>
+          <span class="pc-dot pc-dot-b"></span>
+        </>
+      )}
+      <span class:list={['pc-host', looksLikeHost && 'has-dots']}>{frameLabel}</span>
+    </div>
+    <div class="pc-well">
+      <img src={project.cover} alt={`${project.title} — preview`} loading="lazy" />
+    </div>
+  </div>
+
+  <!-- BODY: features + chips + engineering drawer + CTA -->
+  <div class="pc-body">
+    <ul class="pc-feats" role="list">
+      {bullets.map((b, i) => (
+        <li class="pc-feat">
+          <span class="pc-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          {typeof b === 'string'
+            ? <p>{b}</p>
+            : <p><b>{b.lead}</b> — {b.body}</p>}
         </li>
       ))}
     </ul>
 
+    <div class="pc-chips">
+      {project.stack.map((s) => <span class="pc-chip">{s}</span>)}
+      {project.ai?.map((s) => <span class="pc-chip is-ai">{s}</span>)}
+      {project.hardware?.map((s) => <span class="pc-chip">{s}</span>)}
+    </div>
+
     {project.engineering && (
-      <details class="group mt-5 border-t border-bone/[0.08] pt-3">
-        <summary class="flex cursor-pointer list-none items-center gap-x-2 font-mono text-[12px] text-text-dim [&::-webkit-details-marker]:hidden">
-          <span class="text-oxblood-soft">engineering</span>
-          <span class="text-text-muted">{project.engineering.summary}</span>
-          <span class="ml-auto whitespace-nowrap text-oxblood-soft">
-            <span class="group-open:hidden">show ↓</span>
-            <span class="hidden group-open:inline">hide ↑</span>
+      <details class="pc-rigor">
+        <summary>
+          <span class="pc-lab">engineering</span>
+          <span>{project.engineering.summary}</span>
+          <span class="pc-chev">
+            <span class="c">apri&nbsp;↓</span><span class="o">chiudi&nbsp;↑</span>
           </span>
         </summary>
-        <div class="mt-4 grid grid-cols-3 gap-x-3.5">
+        <div class="pc-stats">
           {project.engineering.stats.map((s) => (
-            <div class="border-l border-bone/10 pl-3.5 first:border-l-0 first:pl-0">
-              <div class="font-display text-[22px] leading-none text-bone">{s.value}</div>
-              <div class="mt-1.5 font-mono text-[11px] uppercase tracking-wide text-text-dim">{s.label}</div>
+            <div class="pc-stat">
+              <div class="v">{s.value}</div>
+              <div class="l">{s.label}</div>
             </div>
           ))}
         </div>
-        {project.engineering.note && (
-          <p class="mt-3.5 font-mono text-[12px] leading-relaxed text-text-dim">{project.engineering.note}</p>
-        )}
+        {project.engineering.note && <p class="pc-note">{project.engineering.note}</p>}
       </details>
     )}
 
     {project.links.length > 0 && (
-      <div class="mt-6 flex flex-wrap gap-2.5">
+      <div class="pc-cta">
         {project.links.map((l, i) => (
           <a
             href={l.href}
             target="_blank"
             rel="noopener noreferrer"
-            class:list={[
-              'rounded-[4px] px-3.5 py-2 font-mono text-[13px] transition',
-              i === 0
-                ? 'border border-oxblood text-bone hover:bg-oxblood/15'
-                : 'border border-bone/15 text-text-muted hover:text-bone',
-            ]}
+            class:list={['pc-a', i === 0 ? 'pc-a-p' : 'pc-a-s']}
           >
             {l.label}
           </a>
         ))}
       </div>
     )}
-  </div>
-
-  <!-- RIGHT: cover, with the stack line sitting under it so the column reads as a unit -->
-  <div class="flex min-w-0 flex-col">
-    <figure class="m-0 overflow-hidden rounded-[6px] border border-bone/10">
-      <div class="flex items-center gap-1.5 border-b border-bone/10 bg-ink-2 px-3.5 py-2">
-        {looksLikeHost && (
-          <>
-            <span class="h-2 w-2 rounded-full bg-oxblood/70"></span>
-            <span class="h-2 w-2 rounded-full bg-bone/15"></span>
-            <span class="h-2 w-2 rounded-full bg-bone/15"></span>
-          </>
-        )}
-        <span class:list={['truncate font-mono text-[12px] text-text-dim', looksLikeHost && 'ml-2.5']}>{frameLabel}</span>
-      </div>
-      <div class="aspect-[16/10] w-full bg-surface-2">
-        <img src={project.cover} alt={`${project.title} preview`} loading="lazy" class="h-full w-full object-contain object-top" />
-      </div>
-    </figure>
-    <p class="mt-4 font-mono text-[13px] leading-relaxed text-text-dim">
-      <span class="text-oxblood-soft">stack</span>&nbsp;&nbsp;{project.stack.join(' · ')}
-    </p>
   </div>
 </article>
