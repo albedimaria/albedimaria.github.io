@@ -235,7 +235,7 @@ body {
 .ps-stat .l { margin-top: 7px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-text-dim); }
 .ps-note { margin-top: 10px; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.55; color: var(--color-text-dim); }
 .ps-left { display: flex; flex-direction: column; gap: 16px; }
-.ps-cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.ps-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
 
 /* ---- shared button system (restyle) ----
    primary = refined oxblood (deep gradient + hairline, NO alarm glow);
@@ -421,8 +421,7 @@ html:not(.js) .sec-line::before { transform: scaleX(1); }
 
 /* Project card: slow, quiet cover zoom inside its frame */
 .project-card figure { overflow: hidden; }
-.project-card figure img { transition: transform 1200ms var(--ease-sig); }
-.project-card:hover figure img { transform: scale(1.03); }
+/* cover stays static — hover zoom removed (broke the "real screenshot" read) */
 
 /* Timeline entries: the oxblood spine brightens and thickens on hover */
 #experience li { transition: border-color var(--dur-fast) var(--ease-sig); }
