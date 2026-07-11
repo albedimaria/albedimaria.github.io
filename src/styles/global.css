@@ -209,14 +209,13 @@ body {
 .ps-host { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ps-host.has-dots { margin-left: 10px; }
 .ps-well { aspect-ratio: 16 / 10; width: 100%; background: var(--color-surface-2); overflow: hidden; }
-.ps-well img { width: 100%; height: 100%; object-fit: contain; object-position: center top; transition: transform 1200ms var(--ease-sig); }
-.pslide:hover .ps-well img { transform: scale(1.02); }
+.ps-well img { width: 100%; height: 100%; object-fit: contain; object-position: center top; }
 
 .ps-feats { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
 .ps-feat { display: grid; grid-template-columns: 26px 1fr; gap: 14px; padding: 12px 0; border-top: 1px solid color-mix(in srgb, var(--color-bone) 8%, transparent); }
 .ps-feat:first-child { border-top: 0; padding-top: 0; }
 .ps-feat .ps-n { font-family: var(--font-mono); font-size: 12px; color: var(--color-accent-txt); padding-top: 3px; font-variant-numeric: tabular-nums; }
-.ps-feat p { font-size: 15px; line-height: 1.55; color: var(--color-text-muted); }
+.ps-feat p { font-size: 16px; line-height: 1.6; color: var(--color-text-muted); }
 .ps-feat p b { color: var(--color-bone); font-weight: 500; }
 .ps-chips { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 7px; }
 .ps-chip { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.02em; color: var(--color-text-muted); border: 1px solid color-mix(in srgb, var(--color-bone) 13%, transparent); border-radius: 999px; padding: 5px 11px; }
@@ -235,12 +234,33 @@ body {
 .ps-stat .v { font-family: var(--font-display); font-size: 22px; line-height: 1; color: var(--color-bone); font-variant-numeric: tabular-nums; }
 .ps-stat .l { margin-top: 7px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-text-dim); }
 .ps-note { margin-top: 10px; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.55; color: var(--color-text-dim); }
-.ps-cta { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; }
-.ps-a { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; border-radius: 6px; padding: 0 18px; font-family: var(--font-mono); font-size: 13px; text-decoration: none; transition: box-shadow var(--dur-fast) var(--ease-sig), border-color var(--dur-fast) var(--ease-sig), color var(--dur-fast) var(--ease-sig); }
-.ps-a-p { background: var(--color-oxblood); color: #f6dde2; border: 1px solid var(--color-oxblood); }
-.ps-a-p:hover { box-shadow: 0 0 22px 2px rgba(156, 51, 64, 0.5); }
-.ps-a-s { border: 1px solid color-mix(in srgb, var(--color-bone) 17%, transparent); color: var(--color-text-muted); }
-.ps-a-s:hover { color: var(--color-bone); border-color: color-mix(in srgb, var(--color-bone) 42%, transparent); }
+.ps-left { display: flex; flex-direction: column; gap: 16px; }
+.ps-cta { display: flex; flex-wrap: wrap; gap: 10px; }
+
+/* ---- shared button system (restyle) ----
+   primary = refined oxblood (deep gradient + hairline, NO alarm glow);
+   ghost = bordered secondary (per-project 'visit site'). */
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-height: 44px; padding: 0 22px; border-radius: 8px;
+  font-family: var(--font-mono); font-size: 13px; text-decoration: none; cursor: pointer;
+  color: #f7e2e6; background: linear-gradient(180deg, #7d1329, #611021);
+  border: 1px solid color-mix(in srgb, var(--color-bone) 22%, transparent);
+  transition: border-color var(--dur-fast) var(--ease-sig), box-shadow var(--dur-fast) var(--ease-sig);
+}
+.btn-primary:hover { border-color: color-mix(in srgb, var(--color-bone) 38%, transparent); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); }
+.btn-primary .btn-arw { transition: transform var(--dur-fast) var(--ease-sig); }
+.btn-primary:hover .btn-arw { transform: translateX(2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 18px; border-radius: 8px;
+  font-family: var(--font-mono); font-size: 13px; text-decoration: none; cursor: pointer;
+  color: var(--color-text); background: transparent;
+  border: 1px solid color-mix(in srgb, var(--color-bone) 24%, transparent);
+  transition: border-color var(--dur-fast) var(--ease-sig), background-color var(--dur-fast) var(--ease-sig), color var(--dur-fast) var(--ease-sig);
+}
+.btn-ghost:hover { border-color: var(--color-oxblood-soft); background: color-mix(in srgb, var(--color-oxblood) 12%, transparent); color: var(--color-bone); }
+@media (prefers-reduced-motion: reduce) { .btn-primary .btn-arw { transition: none; } }
 
 .ws-dots { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px; padding: 6px 0 20px; }
 .ws-dot { width: 24px; height: 24px; padding: 0; border: 0; background: transparent; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
@@ -261,7 +281,6 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
   .pslide.is-active { animation: none; }
-  .ps-well img, .pslide:hover .ps-well img { transition: none; transform: none; }
 }
 
 /* Global page scrollbar — oxblood, inset on ink */

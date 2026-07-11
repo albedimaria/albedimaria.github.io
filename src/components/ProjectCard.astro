@@ -38,23 +38,33 @@ const looksLikeHost = /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(frameLabel);
     <p class="ps-outcome">{oneliner}</p>
   </div>
 
-  <!-- cover (left) | detail (right) -->
+  <!-- LEFT: cover + visit-site  |  RIGHT: detail -->
   <div class="ps-grid">
-    <figure class="ps-cover">
-      <div class="ps-bar">
-        {looksLikeHost && (
-          <>
-            <span class="ps-dot ps-dot-a"></span>
-            <span class="ps-dot ps-dot-b"></span>
-            <span class="ps-dot ps-dot-b"></span>
-          </>
-        )}
-        <span class:list={['ps-host', looksLikeHost && 'has-dots']}>{frameLabel}</span>
-      </div>
-      <div class="ps-well">
-        <img src={project.cover} alt={`${project.title} — preview`} loading="lazy" />
-      </div>
-    </figure>
+    <div class="ps-left">
+      <figure class="ps-cover">
+        <div class="ps-bar">
+          {looksLikeHost && (
+            <>
+              <span class="ps-dot ps-dot-a"></span>
+              <span class="ps-dot ps-dot-b"></span>
+              <span class="ps-dot ps-dot-b"></span>
+            </>
+          )}
+          <span class:list={['ps-host', looksLikeHost && 'has-dots']}>{frameLabel}</span>
+        </div>
+        <div class="ps-well">
+          <img src={project.cover} alt={`${project.title} — preview`} loading="lazy" />
+        </div>
+      </figure>
+
+      {project.links.length > 0 && (
+        <div class="ps-cta">
+          {project.links.map((l) => (
+            <a href={l.href} target="_blank" rel="noopener noreferrer" class="btn-ghost">{l.label}</a>
+          ))}
+        </div>
+      )}
+    </div>
 
     <div class="ps-detail">
       <ul class="ps-feats" role="list">
@@ -91,21 +101,6 @@ const looksLikeHost = /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(frameLabel);
           </div>
           {project.engineering.note && <p class="ps-note">{project.engineering.note}</p>}
         </details>
-      )}
-
-      {project.links.length > 0 && (
-        <div class="ps-cta">
-          {project.links.map((l, i) => (
-            <a
-              href={l.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              class:list={['ps-a', i === 0 ? 'ps-a-p' : 'ps-a-s']}
-            >
-              {l.label}
-            </a>
-          ))}
-        </div>
       )}
     </div>
   </div>
