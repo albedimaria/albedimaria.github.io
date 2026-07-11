@@ -131,6 +131,32 @@ function Panel({
     window.open('/cv.pdf', '_blank', 'noopener');
     return 'CV opened in a new tab';
   });
+  // Contact assist: pre-fill the contact form with what the visitor told the
+  // agent. The agent NEVER sends — the visitor reviews and presses send.
+  useConversationClientTool(
+    'prefillContactForm',
+    (p: { name?: string; email?: string; budget?: string; message?: string }) => {
+      const form = document.getElementById('contact-form') as HTMLFormElement | null;
+      if (!form) return 'contact form not found on this page';
+      const set = (sel: string, v?: string) => {
+        if (!v) return;
+        const el = form.querySelector<HTMLInputElement | HTMLTextAreaElement>(sel);
+        if (el) el.value = v;
+      };
+      set('input[name="name"]', p?.name);
+      set('input[name="email"]', p?.email);
+      set('textarea[name="message"]', p?.message);
+      if (p?.budget) {
+        const s = form.querySelector<HTMLSelectElement>('select[name="budget"]');
+        const opt = s && [...s.options].find((o) => o.value === p.budget || o.text.toLowerCase().includes(p.budget!.toLowerCase()));
+        if (s && opt) s.value = opt.value;
+      }
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      form.classList.add('proj-focus');
+      setTimeout(() => form.classList.remove('proj-focus'), 2400);
+      return 'form pre-filled — tell the visitor to review it and press send themselves';
+    }
+  );
 
   // pulse the speaking dot from output volume (direct DOM mutation, no setState)
   // and drive the hero waves: --d10s-vol makes the signature waves breathe
