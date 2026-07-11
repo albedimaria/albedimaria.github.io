@@ -1,5 +1,5 @@
 ---
-import { ui, type Lang } from '../i18n/content';
+import { ui, aboutPhotoCaption, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
@@ -13,8 +13,11 @@ const t = ui[lang];
     <p data-reveal class="font-mono text-[13px] uppercase tracking-[0.22em] text-bone"><span class="mr-3 text-oxblood-soft">03</span>{t.about_title}</p>
 
     <div data-reveal-stagger class="mt-8 grid gap-10 md:grid-cols-[250px_1fr] md:items-start">
-      <div class="overflow-hidden rounded-[var(--radius-card)] border border-bone/10 bg-surface">
-        <img src="/images/propic.webp" alt="Alberto Di Maria" loading="lazy" width="500" height="625" class="aspect-[4/5] w-full object-cover" />
+      <div>
+        <div class="overflow-hidden rounded-[var(--radius-card)] border border-bone/10 bg-surface">
+          <img src="/images/propic.webp" alt="Alberto Di Maria" loading="lazy" width="500" height="625" class="aspect-[4/5] w-full object-cover" />
+        </div>
+        <p class="mt-2.5 font-mono text-[12px] lowercase text-text-dim">{aboutPhotoCaption[lang]}</p>
       </div>
 
       <div class="min-w-0">

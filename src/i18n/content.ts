@@ -87,6 +87,50 @@ export const contactForm: Record<
   },
 };
 
+// About (restyle) — playful caption under the small photo, and the
+// learning-philosophy line that reframes the Training list as proof.
+export const aboutPhotoCaption: Record<Lang, string> = {
+  en: 'better photo coming — I know.',
+  it: 'foto migliore in arrivo — lo so.',
+  es: 'mejor foto en camino — lo sé.',
+};
+export const trainingIntro: Record<Lang, string> = {
+  en: 'This craft reinvents itself every six months: I keep up by doing — workshops, hackathons, continuous training.',
+  it: 'Il mestiere cambia ogni sei mesi: resto sul pezzo facendo — workshop, hackathon, formazione continua.',
+  es: 'Este oficio se reinventa cada seis meses: me mantengo al día haciendo — workshops, hackathons, formación continua.',
+};
+
+// How-we-work strip (inside Contact, not a standalone section) — four
+// qualitative steps, no binding promises.
+export const processSteps: Record<Lang, { title: string; desc: string }[]> = {
+  en: [
+    { title: 'Intro call', desc: 'free, half an hour — we see if you actually need it' },
+    { title: 'Clear proposal', desc: 'fixed price, agreed upfront, no surprises' },
+    { title: 'Build', desc: 'you watch it take shape, demos along the way' },
+    { title: 'Delivery', desc: 'with hand-holding — I don’t vanish' },
+  ],
+  it: [
+    { title: 'Chiamata conoscitiva', desc: 'gratuita, mezz’ora — capiamo se ti serve davvero' },
+    { title: 'Proposta chiara', desc: 'prezzo fisso, concordato prima, niente sorprese' },
+    { title: 'Costruzione', desc: 'vedi il lavoro mentre nasce, demo intermedie' },
+    { title: 'Consegna', desc: 'con affiancamento — non sparisco' },
+  ],
+  es: [
+    { title: 'Llamada inicial', desc: 'gratuita, media hora — vemos si de verdad hace falta' },
+    { title: 'Propuesta clara', desc: 'precio fijo, acordado antes, sin sorpresas' },
+    { title: 'Construcción', desc: 'ves el trabajo mientras nace, demos intermedias' },
+    { title: 'Entrega', desc: 'con acompañamiento — no desaparezco' },
+  ],
+};
+
+// Optional budget select in the contact form — expectation filter, anchored
+// at the €2k list floor (never advertise below it).
+export const budgetField: Record<Lang, { label: string; optional: string; placeholder: string; options: string[] }> = {
+  en: { label: 'Rough budget', optional: 'optional', placeholder: '—', options: ['under €2,000', '€2,000 – €5,000', 'over €5,000', 'not sure yet'] },
+  it: { label: 'Budget indicativo', optional: 'opzionale', placeholder: '—', options: ['fino a €2.000', '€2.000 – €5.000', 'oltre €5.000', 'non lo so ancora'] },
+  es: { label: 'Presupuesto orientativo', optional: 'opcional', placeholder: '—', options: ['menos de €2.000', '€2.000 – €5.000', 'más de €5.000', 'aún no lo sé'] },
+};
+
 export const servicesCta: Record<Lang, string> = {
   en: 'See it live ↗',
   it: 'Guardalo live ↗',
@@ -260,13 +304,13 @@ export const ui: Record<Lang, UI> = {
       { title: 'Audio & ML', desc: 'Generative audio, music information retrieval and deep-learning models — from research prototype to interactive demo.' },
     ],
     about_title: 'About',
-    about_text: 'MSc in Music and Acoustic Engineering. I build agentic AI products: full-stack, voice agents, and automation pipelines. Background in deep learning for audio, generative models, and signal analysis. Also active as a trainer in computer science and electronics.',
-    about_closing: 'Currently freelance and open to new projects, based in Milan.',
+    about_text: 'Engineer by training (MSc, Politecnico di Milano), builder by trade. I make websites, automation and AI agents for real businesses — and when something digital is broken, I fix it.',
+    about_closing: 'You talk directly to the person who builds — no agency, no middlemen. Freelance in Milan, open to new projects.',
     experience_title: 'Experience',
     training_title: 'Training',
     contact_title: 'Contact',
     contact_headline: 'Let’s work together.',
-    contact_lead: 'Available for freelance projects — voice agents, full-stack AI products and audio tools. Based in Milan, working remotely.',
+    contact_lead: 'Available for new projects — websites, automation and AI agents. Based in Milan, working remotely.',
     contact_email: 'Email me',
     footer_built: 'Milan, Italy · built with Astro',
   },
@@ -299,13 +343,13 @@ export const ui: Record<Lang, UI> = {
       { title: 'Audio e ML', desc: 'Audio generativo, music information retrieval e modelli deep-learning — dal prototipo di ricerca alla demo interattiva.' },
     ],
     about_title: 'Chi sono',
-    about_text: 'Laureato magistrale in Music and Acoustic Engineering. Sviluppo prodotti AI agentici: full-stack, voice agent, pipeline di automazione. Background in deep learning per audio, modelli generativi e analisi del segnale. Attivo anche come formatore in ambito informatico ed elettronico.',
-    about_closing: 'Attualmente freelance e aperto a nuovi progetti, con base a Milano.',
+    about_text: 'Ingegnere di formazione (MSc, Politecnico di Milano), costruttore di mestiere. Faccio siti, automazioni e agenti AI per attività reali — e quando qualcosa di digitale è rotto, lo sistemo.',
+    about_closing: 'Parli direttamente con chi costruisce — niente agenzia, niente intermediari. Freelance a Milano, disponibile per nuovi progetti.',
     experience_title: 'Esperienze',
     training_title: 'Formazione',
     contact_title: 'Contatti',
     contact_headline: 'Lavoriamo insieme.',
-    contact_lead: 'Disponibile per progetti freelance — voice agent, prodotti AI full-stack e strumenti audio. Con base a Milano, lavoro da remoto.',
+    contact_lead: 'Disponibile per nuovi progetti — siti, automazioni e agenti AI. Con base a Milano, lavoro da remoto.',
     contact_email: 'Scrivimi →',
     footer_built: 'Milano, Italia · costruito con Astro',
   },
@@ -338,13 +382,13 @@ export const ui: Record<Lang, UI> = {
       { title: 'Audio y ML', desc: 'Audio generativo, music information retrieval y modelos de deep-learning — del prototipo de investigación a la demo interactiva.' },
     ],
     about_title: 'Sobre mí',
-    about_text: 'Máster en Music and Acoustic Engineering. Desarrollo productos de IA agéntica: full-stack, agentes de voz y pipelines de automatización. Formación en deep learning para audio, modelos generativos y análisis de señal. También activo como formador en informática y electrónica.',
-    about_closing: 'Actualmente freelance y abierto a nuevos proyectos, con base en Milán.',
+    about_text: 'Ingeniero de formación (MSc, Politecnico di Milano), constructor de oficio. Hago webs, automatización y agentes IA para negocios reales — y cuando algo digital está roto, lo arreglo.',
+    about_closing: 'Hablas directamente con quien construye — sin agencia, sin intermediarios. Freelance en Milán, abierto a nuevos proyectos.',
     experience_title: 'Experiencia',
     training_title: 'Formación',
     contact_title: 'Contacto',
     contact_headline: 'Trabajemos juntos.',
-    contact_lead: 'Disponible para proyectos freelance — agentes de voz, productos de IA full-stack y herramientas de audio. Con base en Milán, trabajo en remoto.',
+    contact_lead: 'Disponible para nuevos proyectos — webs, automatización y agentes IA. Con base en Milán, trabajo en remoto.',
     contact_email: 'Escríbeme →',
     footer_built: 'Milán, Italia · hecho con Astro',
   },
