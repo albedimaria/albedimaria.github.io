@@ -18,35 +18,35 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
       ],
     },
     'beat-store': {
-      oneliner: 'Piattaforma e-commerce musicale full-stack per un producer.',
+      oneliner: 'Il negozio online di un producer: beat in vendita con anteprima, licenze e pagamento in pagina.',
       bullets: [
-        'Catalogo di beat con preview a waveform, carrello multi-licenza (MP3 / WAV / stems / exclusive) e checkout Stripe in pagina.',
-        'Webhook Stripe idempotente, RLS su tutte le tabelle, admin API protetta da JWT, download a URL firmati on-demand.',
-        'Stack zero-egress: audio su Cloudflare R2 servito direttamente al browser, deployato in CI su Netlify.',
+        'Catalogo con anteprima audio a waveform, carrello multi-licenza (MP3 / WAV / stems / exclusive) e pagamento Stripe senza uscire dalla pagina.',
+        'Ogni acquisto si consegna da solo: link di download privati, validi solo per chi ha comprato.',
+        'Costi di gestione ridotti all’osso: l’audio viaggia da Cloudflare direttamente al browser, senza server in mezzo.',
       ],
     },
     'alex-bartok': {
-      oneliner: 'Cleanup vibe-coding commissionato: un sito PHP ricostruito in una React app sicura + area clienti.',
+      oneliner: 'Il sito di un musicista che funzionava male, ricostruito da zero — veloce, sicuro, trilingue, con area clienti a pagamento.',
       bullets: [
-        'Incaricato di ripulire e mettere in produzione il sito vibe-coded di un cliente — monolite PHP migrato a una React SPA unificata (sito pubblico + area clienti autenticata), servita statica e trilingue (IT/EN/ES).',
-        'Area clienti con project room, audio versionato e feedback col timestamp, protetta da un paywall RLS (ownership + is_paid) con download a URL firmati; due fughe di lettura cross-tenant trovate e chiuse.',
-        'Rilasciato con un gate CI (typecheck/lint/build/test), header hardened (HSTS/CSP) e un endpoint contatti con reCAPTCHA e rate-limit.',
+        'Il sito era stato fatto in fretta e funzionava male: l’ho ripulito e ricostruito come app moderna — sito pubblico + area clienti riservata — in tre lingue (IT/EN/ES).',
+        'Nell’area clienti ogni progetto ha la sua stanza: audio versionati, commenti puntati al secondo esatto, download riservati a chi ha pagato.',
+        'Consegnato con controlli automatici a ogni modifica, sicurezza rinforzata e modulo contatti anti-spam; due falle di accesso trovate e chiuse.',
       ],
     },
     'company-brain': {
-      oneliner: 'AI agentica sui dati aziendali in tempo reale.',
+      oneliner: 'Un agente AI che risponde a domande sui dati veri dell’azienda — numeri esatti, niente di inventato.',
       bullets: [
+        'Fai una domanda in linguaggio naturale su clienti, ordini o chiamate: l’agente consulta CRM, gestionale e documenti, e risponde citando le fonti.',
+        'I conti li fa il codice, non l’AI: il modello sceglie solo dove guardare e come spiegare — i numeri sono sempre esatti.',
         'Top 10 all’hackathon Cursor × Yellow Tech → qualificato alla Lega Nazionale Italiana degli Hackathon.',
-        'Agente FastAPI su CRM, ERP, log chiamate e knowledge base: l’LLM sceglie solo i tool e scrive la risposta mentre Python fa ogni conteggio e somma — numeri esatti, provenienza delle fonti, zero allucinazioni.',
-        'RAG zero-infrastruttura (BM25 su documenti interi) più un knowledge graph interattivo; multilingua IT/EN/ES.',
       ],
     },
     'dance-voice-agent': {
-      oneliner: 'Assistente telefonico AI inbound per una scuola di ballo, 24/7.',
+      oneliner: 'L’assistente telefonico AI di una scuola di ballo: risponde 24/7, prenota, sposta, informa.',
       bullets: [
-        'Gestisce l’intera chiamata end-to-end: riconosce lo studente, dà info sui corsi, prenota, disdice e sposta lezioni, recuperi e prove — con trasferimento a una persona quando serve.',
-        'Pipeline vocale real-time con barge-in: Deepgram STT → GPT-4o con tool calling parallelo → ElevenLabs TTS su WebSocket persistente (IT/ES); conferme SMS e promemoria pre-lezione.',
-        'Hardening di produzione: chiusura chiamata dall’agente, fallback sugli errori API, suite di eval riproducibile e dashboard admin con observability latenza/costo.',
+        'Gestisce la chiamata da solo: riconosce lo studente, dà info sui corsi, prenota, disdice e sposta lezioni — e passa a una persona quando serve.',
+        'Parla italiano e spagnolo, risponde al volo senza sovrapporsi; conferme e promemoria arrivano via SMS.',
+        'Testato su scenari reali prima di andare in linea (9/9 superati), con un pannello che tiene d’occhio tempi e costi di ogni chiamata.',
       ],
     },
     'shy-order': {
@@ -131,35 +131,35 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
       ],
     },
     'beat-store': {
-      oneliner: 'Plataforma de e-commerce musical full-stack para un productor.',
+      oneliner: 'La tienda online de un producer: beats a la venta con preescucha, licencias y pago en página.',
       bullets: [
-        'Catálogo de beats con previsualizaciones a waveform, carrito multi-licencia (MP3 / WAV / stems / exclusive) y checkout de Stripe en página.',
-        'Webhook de Stripe idempotente, RLS en todas las tablas, admin API protegida con JWT, descargas con URLs firmadas bajo demanda.',
-        'Stack zero-egress: audio desde Cloudflare R2 servido directamente al navegador, desplegado en CI sobre Netlify.',
+        'Catálogo con preescucha en waveform, carrito multi-licencia (MP3 / WAV / stems / exclusive) y pago con Stripe sin salir de la página.',
+        'Cada compra se entrega sola: enlaces de descarga privados, válidos solo para quien ha comprado.',
+        'Costes de gestión al mínimo: el audio viaja de Cloudflare directo al navegador, sin servidor en medio.',
       ],
     },
     'alex-bartok': {
-      oneliner: 'Limpieza de vibe-coding por encargo: un sitio PHP reconstruido en una React app segura + área de clientes.',
+      oneliner: 'La web de un músico que funcionaba mal, reconstruida desde cero — rápida, segura, trilingüe, con área de clientes de pago.',
       bullets: [
-        'Contratado para limpiar y poner en producción el sitio vibe-coded de un cliente — monolito PHP migrado a una React SPA unificada (sitio público + área de clientes autenticada), servida estática y trilingüe (IT/EN/ES).',
-        'Área de clientes con project rooms, audio versionado y feedback con timestamp, protegida por un paywall RLS (ownership + is_paid) con descargas por URLs firmadas; dos fugas de lectura cross-tenant encontradas y corregidas.',
-        'Publicado con un gate de CI (typecheck/lint/build/test), cabeceras endurecidas (HSTS/CSP) y un endpoint de contacto con reCAPTCHA y rate-limit.',
+        'La web estaba hecha deprisa y funcionaba mal: la limpié y la reconstruí como una app moderna — sitio público + área de clientes reservada — en tres idiomas (IT/EN/ES).',
+        'En el área de clientes cada proyecto tiene su sala: audio versionado, comentarios fijados al segundo exacto, descargas reservadas a quien ha pagado.',
+        'Entregada con controles automáticos en cada cambio, seguridad reforzada y formulario de contacto anti-spam; dos fugas de acceso encontradas y cerradas.',
       ],
     },
     'company-brain': {
-      oneliner: 'IA agéntica sobre los datos de empresa en vivo.',
+      oneliner: 'Un agente de IA que responde preguntas sobre los datos reales de la empresa — números exactos, nada inventado.',
       bullets: [
+        'Pregunta en lenguaje natural sobre clientes, pedidos o llamadas: el agente consulta el CRM, el gestor y los documentos, y responde citando las fuentes.',
+        'Las cuentas las hace el código, no la IA: el modelo solo elige dónde mirar y cómo explicarlo — los números son siempre exactos.',
         'Top 10 en el hackathon Cursor × Yellow Tech → clasificado para la Liga Nacional Italiana de Hackathons.',
-        'Agente FastAPI sobre el CRM, ERP, registros de llamadas y base de conocimiento: el LLM solo elige las herramientas y redacta la respuesta mientras Python hace cada conteo y suma — cifras exactas, procedencia de las fuentes, cero alucinaciones.',
-        'RAG sin infraestructura (BM25 sobre documentos completos) más un grafo de conocimiento interactivo; multilingüe IT/EN/ES.',
       ],
     },
     'dance-voice-agent': {
-      oneliner: 'Asistente telefónico de IA inbound para una escuela de baile, 24/7.',
+      oneliner: 'El asistente telefónico IA de una escuela de baile: responde 24/7, reserva, cambia, informa.',
       bullets: [
-        'Gestiona toda la llamada end-to-end: identifica al alumno, informa de cursos, reserva, cancela y reprograma clases, recuperaciones y pruebas — con transferencia a una persona cuando hace falta.',
-        'Pipeline de voz en tiempo real con barge-in: Deepgram STT → GPT-4o con tool calling paralelo → ElevenLabs TTS sobre WebSocket persistente (IT/ES); confirmaciones por SMS y recordatorios previos a la clase.',
-        'Hardening de producción: colgado iniciado por el agente, fallback ante errores de API, suite de evals reproducible y dashboard admin con observabilidad de latencia/coste.',
+        'Gestiona la llamada solo: reconoce al alumno, informa de cursos, reserva, cancela y cambia clases — y pasa a una persona cuando hace falta.',
+        'Habla italiano y español, responde al instante sin pisar a nadie; confirmaciones y recordatorios llegan por SMS.',
+        'Probado en escenarios reales antes de salir en vivo (9/9 superados), con un panel que vigila tiempos y costes de cada llamada.',
       ],
     },
     'shy-order': {
