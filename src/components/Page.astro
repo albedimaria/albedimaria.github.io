@@ -9,6 +9,7 @@ import About from './About.astro';
 import Background from './Background.astro';
 import Contact from './Contact.astro';
 import BackToTop from './BackToTop.astro';
+import D10SDock from './D10SDock.astro';
 import { ui, type Lang } from '../i18n/content';
 
 interface Props {
@@ -38,4 +39,5 @@ const t = ui[lang];
   </footer>
 
   <BackToTop />
+  <D10SDock lang={lang} />
 </Layout>

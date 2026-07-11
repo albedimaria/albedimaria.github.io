@@ -68,9 +68,15 @@ function sessionAllowed(): boolean {
 }
 
 function focusProjectCard(id: string): boolean {
+  // The work section is a carousel now: prefer its controller, which activates
+  // the right slide (switching filter if needed) before scrolling.
+  const go = (window as unknown as { workGoToProject?: (id: string) => void }).workGoToProject;
+  if (typeof go === 'function') {
+    go(id);
+    return true;
+  }
   const el = document.getElementById(`proj-${id}`);
   if (!el) return false;
-  if (el.getAttribute('data-extra') === 'true') (el as HTMLElement).style.display = '';
   el.scrollIntoView({ behavior: 'smooth', block: 'center' });
   el.classList.add('proj-focus');
   setTimeout(() => el.classList.remove('proj-focus'), 2400);

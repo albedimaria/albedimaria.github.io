@@ -262,6 +262,53 @@ body {
 .btn-ghost:hover { border-color: var(--color-oxblood-soft); background: color-mix(in srgb, var(--color-oxblood) 12%, transparent); color: var(--color-bone); }
 @media (prefers-reduced-motion: reduce) { .btn-primary .btn-arw { transition: none; } }
 
+/* ---- D10S in-section panel (restyle) — editorial: greeting + suggestions
+   + text/voice bar. No orb, no soundwaves. Width tuned to its column. ---- */
+.d10s {
+  max-width: 400px; margin-left: auto; position: relative; overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-oxblood-soft) 30%, transparent);
+  border-radius: 16px;
+  background: linear-gradient(158deg, #221319, #160e11 78%);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 34px rgba(122, 18, 40, 0.16);
+  padding: 20px 20px 18px;
+}
+.d10s-bar { display: flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-text-dim); }
+.d10s-bar b { color: var(--color-bone); font-weight: 500; }
+.d10s-live { width: 7px; height: 7px; border-radius: 50%; background: var(--color-oxblood-soft); box-shadow: 0 0 0 0 rgba(156, 51, 64, 0.55); animation: d10s-beat 2.4s var(--ease-sig) infinite; }
+@keyframes d10s-beat { 0%, 100% { box-shadow: 0 0 0 0 rgba(156, 51, 64, 0.5); } 50% { box-shadow: 0 0 0 6px rgba(156, 51, 64, 0); } }
+.d10s-say { margin-top: 14px; font-family: var(--font-display); font-style: italic; font-weight: 340; font-size: 18px; line-height: 1.4; color: var(--color-text); }
+.d10s-sugg { margin-top: 16px; }
+.d10s-sugg .lb { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-dim); }
+.d10s-sugg button { display: block; width: 100%; text-align: left; margin: 0; padding: 9px 0; border: 0; border-top: 1px solid color-mix(in srgb, var(--color-bone) 8%, transparent); background: transparent; font-family: var(--font-mono); font-size: 12.5px; color: var(--color-text-muted); cursor: pointer; transition: color var(--dur-fast) var(--ease-sig); min-height: 40px; }
+.d10s-sugg button:first-of-type { margin-top: 8px; }
+.d10s-sugg button:hover { color: var(--color-bone); }
+.d10s-sugg button::before { content: "→ "; color: var(--color-accent-txt); }
+.d10s-input { margin-top: 16px; display: flex; align-items: center; gap: 8px; padding: 7px 7px 7px 14px; border-radius: 11px; border: 1px solid color-mix(in srgb, var(--color-bone) 16%, transparent); background: color-mix(in srgb, #000 22%, transparent); cursor: text; transition: border-color var(--dur-fast) var(--ease-sig); }
+.d10s-input:hover { border-color: color-mix(in srgb, var(--color-bone) 28%, transparent); }
+.d10s-input .ph { flex: 1; font-family: var(--font-mono); font-size: 12.5px; color: var(--color-text-dim); }
+.d10s-mic { width: 36px; height: 36px; flex: none; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #f7e2e6; background: linear-gradient(180deg, #7d1329, #611021); border: 1px solid color-mix(in srgb, var(--color-bone) 22%, transparent); cursor: pointer; transition: border-color var(--dur-fast) var(--ease-sig); }
+.d10s-mic:hover { border-color: color-mix(in srgb, var(--color-bone) 38%, transparent); }
+.d10s-input:focus-visible, .d10s-sugg button:focus-visible, .d10s-mic:focus-visible { outline: 2px solid var(--color-oxblood-soft); outline-offset: 2px; }
+@media (max-width: 767px) { .d10s { max-width: none; } }
+@media (prefers-reduced-motion: reduce) { .d10s-live { animation: none; } }
+
+/* Floating D10S launcher — living red sphere, bottom-right */
+.d10s-dock {
+  position: fixed; bottom: 20px; right: 20px; z-index: 40;
+  width: 52px; height: 52px; border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-oxblood-soft) 55%, transparent);
+  background: radial-gradient(circle at 40% 35%, #b8455a, #7a1228 46%, #3f0a17);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 26px rgba(122, 18, 40, 0.4);
+  cursor: pointer; opacity: 0; transform: translateY(10px) scale(0.9); pointer-events: none;
+  transition: opacity var(--dur-med) var(--ease-sig), transform var(--dur-med) var(--ease-sig), box-shadow var(--dur-fast) var(--ease-sig);
+}
+.d10s-dock.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.d10s-dock:hover { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 36px rgba(156, 51, 64, 0.7); }
+.d10s-dock-core { position: absolute; inset: 0; border-radius: 50%; animation: dock-pulse 2.6s var(--ease-sig) infinite; }
+@keyframes dock-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(156, 51, 64, 0.5); } 50% { box-shadow: 0 0 0 9px rgba(156, 51, 64, 0); } }
+.d10s-dock:focus-visible { outline: 2px solid var(--color-oxblood-soft); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .d10s-dock-core { animation: none; } .d10s-dock { transition: opacity var(--dur-med) linear; } }
+
 .ws-dots { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px; padding: 6px 0 20px; }
 .ws-dot { width: 24px; height: 24px; padding: 0; border: 0; background: transparent; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
 .ws-dot::before { content: ""; width: 8px; height: 8px; border-radius: 999px; background: color-mix(in srgb, var(--color-bone) 22%, transparent); transition: width var(--dur-fast) var(--ease-sig), background-color var(--dur-fast) var(--ease-sig); }
