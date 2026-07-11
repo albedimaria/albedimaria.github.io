@@ -79,13 +79,13 @@
   .hero-sub strong { color: var(--color-bone); font-weight: 500; }
   .hero-ctas { margin-top: 36px; display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
 
-  .hero-photo { grid-column: 9 / 13; }
-  .photo-frame { position: relative; aspect-ratio: 1 / 1; border: 1px solid color-mix(in srgb, var(--color-bone) 14%, transparent); border-radius: var(--radius-card); overflow: hidden; }
+  .hero-photo { grid-column: 10 / 13; align-self: stretch; display: flex; flex-direction: column; padding-top: 4px; }
+  .photo-frame { position: relative; flex: 1; min-height: 0; border: 1px solid color-mix(in srgb, var(--color-bone) 14%, transparent); border-radius: var(--radius-card); overflow: hidden; }
   .photo-frame img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.04) saturate(0.94); }
   .photo-frame::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 -46px 60px -30px rgba(18,12,11,0.55); pointer-events: none; }
   .photo-caption { margin-top: 16px; }
   .photo-caption .name { font-family: var(--font-display); font-size: 21px; font-weight: 600; color: var(--color-bone); }
-  .photo-caption .role { margin-top: 4px; font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-dim); }
+  .photo-caption .role { margin-top: 4px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-dim); white-space: nowrap; }
 
   /* onde firma — verbatim dal sito (WaveSignature.astro) */
   .wave-field { position: absolute; left: 0; top: 70%; width: 100%; height: 260px; transform: translateY(-50%); pointer-events: none; z-index: 0; overflow: hidden; }
@@ -102,7 +102,7 @@
   .d10s-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; align-items: center; padding-block: 72px; }
   .d10s-copy { grid-column: 1 / 7; }
   .d10s-copy h2 { margin-top: 16px; font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 3vw, 34px); line-height: 1.18; color: var(--color-bone); }
-  .d10s-copy p { margin-top: 14px; max-width: 30em; font-size: 16px; line-height: 1.6; color: var(--color-text-muted); }
+  .d10s-copy p { margin-top: 14px; max-width: 28em; font-size: 16px; line-height: 1.6; color: var(--color-text-muted); }
   .d10s-panel { grid-column: 8 / 13; background: var(--color-surface); border: 1px solid color-mix(in srgb, var(--color-bone) 10%, transparent); border-radius: var(--radius-card); padding: 20px; box-shadow: 0 0 50px rgba(0,0,0,0.4); }
   .d10s-status { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-text-dim); padding: 0 4px 4px; }
   .d10s-status::before { content: ""; width: 6px; height: 6px; border-radius: 999px; background: var(--color-oxblood-soft); }
@@ -120,23 +120,18 @@
   .services { padding-block: 96px 40px; }
   .services-lead { margin-top: 16px; max-width: 42rem; font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 3.2vw, 36px); line-height: 1.3; color: var(--color-bone); }
 
-  .svc { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; align-items: center; padding-block: 64px; border-top: 1px solid color-mix(in srgb, var(--color-bone) 10%, transparent); }
-  .svc:first-of-type { border-top: 0; }
-  .svc-copy { grid-column: 1 / 7; }
-  .svc:nth-of-type(even) .svc-copy { grid-column: 7 / 13; order: 2; }
-  .svc-visual { grid-column: 8 / 13; }
-  .svc:nth-of-type(even) .svc-visual { grid-column: 1 / 6; order: 1; }
-  .svc-n { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-text-dim); }
-  .svc h3 { margin-top: 14px; font-family: var(--font-display); font-weight: 600; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.1; letter-spacing: -0.005em; color: var(--color-bone); max-width: 14em; }
-  .svc h3 em { font-style: italic; font-weight: 500; color: var(--accent-lg); }
-  .svc-desc { margin-top: 16px; max-width: 30em; font-size: 16px; line-height: 1.65; color: var(--color-text-muted); }
-  .svc-desc strong { color: var(--color-bone); font-weight: 500; }
-  .svc-proof { margin-top: 22px; display: flex; align-items: baseline; gap: 10px; font-family: var(--font-mono); font-size: 13px; color: var(--color-text-dim); }
-  .svc-proof::before { content: ""; align-self: center; width: 22px; height: 1px; background: var(--color-oxblood-soft); flex: none; }
-  .svc-links { margin-top: 24px; display: flex; align-items: baseline; gap: 28px; flex-wrap: wrap; }
-
-  .svc-visual .panel { position: relative; aspect-ratio: 5 / 4; border: 1px solid color-mix(in srgb, var(--color-bone) 10%, transparent); border-radius: var(--radius-card); background: color-mix(in srgb, var(--color-ink) 55%, #000 10%); overflow: hidden; }
+  .svc-band { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; padding-block: 48px 80px; }
+  .svc-card { grid-column: span 4; border-top: 1px solid color-mix(in srgb, var(--color-bone) 10%, transparent); padding-top: 22px; display: flex; flex-direction: column; transition: border-color var(--dur-fast) var(--ease-sig); }
+  .svc-card:hover { border-color: color-mix(in srgb, var(--color-oxblood-soft) 45%, transparent); }
+  .svc-card .panel { aspect-ratio: 16 / 9; border: 1px solid color-mix(in srgb, var(--color-bone) 10%, transparent); border-radius: var(--radius-card); background: color-mix(in srgb, var(--color-ink) 55%, #000 10%); overflow: hidden; }
   .panel svg { width: 100%; height: 100%; }
+  .svc-n { margin-top: 18px; font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-text-dim); }
+  .svc-card h3 { margin-top: 10px; font-family: var(--font-display); font-weight: 600; font-size: 23px; line-height: 1.18; color: var(--color-bone); }
+  .svc-card h3 em { font-style: italic; font-weight: 500; color: var(--accent-lg); }
+  .svc-desc { margin-top: 10px; font-size: 16px; line-height: 1.6; color: var(--color-text-muted); }
+  .svc-proof { margin-top: 14px; display: flex; align-items: baseline; gap: 10px; font-family: var(--font-mono); font-size: 13px; line-height: 1.5; color: var(--color-text-dim); }
+  .svc-proof::before { content: ""; align-self: center; width: 22px; height: 1px; background: var(--color-oxblood-soft); flex: none; }
+  .svc-links { margin-top: auto; padding-top: 18px; display: flex; align-items: baseline; gap: 24px; flex-wrap: wrap; }
 
   .note { padding: 48px 24px 64px; font-family: var(--font-mono); font-size: 13px; color: var(--color-text-dim); text-align: center; }
 
@@ -146,21 +141,19 @@
     .btn-cta:hover { animation: none; }
   }
   @media (max-width: 900px) {
-    .hero-grid, .d10s-grid, .svc { grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .hero-copy, .hero-photo, .d10s-copy, .d10s-panel, .svc-copy, .svc-visual,
-    .svc:nth-of-type(even) .svc-copy, .svc:nth-of-type(even) .svc-visual { grid-column: 1 / -1; order: unset; }
-    .hero-photo { max-width: 380px; }
+    .hero-grid, .d10s-grid, .svc-band { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .hero-copy, .hero-photo, .d10s-copy, .d10s-panel, .svc-card { grid-column: 1 / -1; }
+    .hero-photo { max-width: 380px; align-self: start; }
+    .photo-frame { flex: none; aspect-ratio: 1 / 1; }
     .nav-center { display: none; }
     header.site nav { padding: 12px 16px; gap: 12px; }
     .nav-right { gap: 10px; }
     .nav-right .btn-cta { font-size: 13px; padding: 10px 14px; }
-    .hero-grid { padding-block: 56px 72px; }
+    .hero-grid { padding-block: 56px 72px; min-height: 0; }
     .d10s-grid { padding-block: 48px; }
-    .svc { padding-block: 48px; }
-    .services { padding-block: 64px 24px; }
-    .wave-field { top: auto; bottom: -30px; height: 140px; transform: none; }
+    .svc-band { padding-block: 32px 56px; row-gap: 40px; }
+    .services { padding-block: 64px 0; }
     h1 { font-size: clamp(42px, 12vw, 52px); }
-    .svc h3 br { display: none; }
   }
 </style>
 </head>
@@ -174,7 +167,7 @@
       </svg>
     </a>
     <div class="nav-center">
-      <a href="#services">servizi</a><a href="#work">lavori</a><a href="#process">come lavoro</a><a href="#about">chi sono</a>
+      <a href="#services">servizi</a><a href="#work">lavori</a><a href="#about">chi sono</a>
     </div>
     <div class="nav-right">
       <a class="btn-cta" href="#contact">lavoriamo insieme</a>
@@ -188,7 +181,7 @@
     <div class="hero-copy">
       <p class="avail">disponibile per nuovi progetti</p>
       <h1>Ancora tutto<br /><em>a mano?</em></h1>
-      <p class="hero-sub">Siti, automazioni e agenti AI per la tua attività — <strong>li costruisco e li sistemo io.</strong> Prenotazioni che si gestiscono da sole, lavoro ripetitivo che sparisce, un sito che finalmente lavora per te.</p>
+      <p class="hero-sub">Siti, automazioni e agenti AI per la tua attività — <strong>li costruisco e li sistemo io.</strong></p>
       <div class="hero-ctas">
         <a class="btn-cta" href="#contact">lavoriamo insieme →</a>
         <a class="link-draw" href="#services">guarda cosa faccio ↓</a>
@@ -222,7 +215,7 @@
     <div class="d10s-copy">
       <p class="kicker">demo dal vivo</p>
       <h2>Rispondi ancora tu a tutto?<br />Chiedi al mio agente.</h2>
-      <p>D10S conosce ogni progetto di questo sito. Fagli una domanda — a voce o per iscritto — e guarda come lavora un agente AI fatto bene.</p>
+      <p>Conosce ogni progetto di questo sito. Fagli una domanda — a voce o per iscritto.</p>
     </div>
     <div class="d10s-panel">
       <p class="d10s-status">D10S · online</p>
@@ -241,100 +234,87 @@
 <section class="services sec-line" id="services">
   <div class="wrap-5">
     <p class="kicker"><span class="n">01</span>cosa faccio per te</p>
-    <p class="services-lead">Tre modi per far lavorare la tecnologia al posto tuo — ognuno collegato a un progetto vero, live nella sezione lavori.</p>
-  </div>
+    <p class="services-lead">Tre modi per far lavorare la tecnologia al posto tuo.</p>
 
-  <div class="wrap-5">
-    <article class="svc">
-      <div class="svc-copy">
-        <p class="svc-n">servizio · 01</p>
-        <h3>Il tuo sito lavora <em>per te</em> <br />o contro di te?</h3>
-        <p class="svc-desc">Siti ed e-commerce costruiti per <strong>vendere e semplificarti la vita</strong>: prenotazioni gestite internamente — con i dati che restano tuoi — pagamenti, area clienti. E se un sito ce l'hai già ma funziona male, <strong>lo sistemo e lo metto in sicurezza.</strong></p>
-        <p class="svc-proof">e-commerce live in produzione · 34 test a guardia del checkout</p>
-        <div class="svc-links">
-          <a class="link-draw" href="#contact">parliamone →</a>
-          <a class="link-draw" href="#work">nei lavori: Beat Store ↓</a>
-        </div>
-      </div>
-      <div class="svc-visual" aria-hidden="true">
-        <div class="panel">
-          <!-- wireframe sito: struttura pagina in line-art -->
-          <svg viewBox="0 0 300 240" fill="none">
-            <rect x="46" y="30" width="208" height="180" rx="6" stroke="#c3b5a9" stroke-opacity=".55" stroke-width="1.5"/>
-            <line x1="46" y1="54" x2="254" y2="54" stroke="#c3b5a9" stroke-opacity=".35" stroke-width="1.5"/>
-            <circle cx="58" cy="42" r="2.5" stroke="#9c3340" stroke-width="1.5"/>
-            <circle cx="68" cy="42" r="2.5" stroke="#9c3340" stroke-width="1.5" opacity=".6"/>
-            <rect x="60" y="68" width="88" height="10" rx="2" fill="#9c3340" fill-opacity=".8"/>
-            <rect x="60" y="86" width="120" height="6" rx="2" fill="#c3b5a9" fill-opacity=".35"/>
-            <rect x="60" y="98" width="104" height="6" rx="2" fill="#c3b5a9" fill-opacity=".25"/>
-            <rect x="60" y="116" width="56" height="18" rx="3" stroke="#9c3340" stroke-width="1.5"/>
-            <rect x="196" y="68" width="44" height="44" rx="4" stroke="#c3b5a9" stroke-opacity=".45" stroke-width="1.5"/>
-            <path d="M196 104l14-14 12 10 18-18" stroke="#9c3340" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="60" y="150" width="180" height="1.5" fill="#c3b5a9" fill-opacity=".25"/>
-            <rect x="60" y="164" width="52" height="30" rx="3" stroke="#c3b5a9" stroke-opacity=".45" stroke-width="1.5"/>
-            <rect x="124" y="164" width="52" height="30" rx="3" stroke="#c3b5a9" stroke-opacity=".45" stroke-width="1.5"/>
-            <rect x="188" y="164" width="52" height="30" rx="3" stroke="#9c3340" stroke-width="1.5"/>
+    <div class="svc-band">
+      <article class="svc-card">
+        <div class="panel" aria-hidden="true">
+          <!-- wireframe sito in line-art -->
+          <svg viewBox="0 0 300 168" fill="none">
+            <rect x="70" y="22" width="160" height="124" rx="6" stroke="#c3b5a9" stroke-opacity=".55" stroke-width="1.5"/>
+            <line x1="70" y1="42" x2="230" y2="42" stroke="#c3b5a9" stroke-opacity=".35" stroke-width="1.5"/>
+            <circle cx="80" cy="32" r="2.2" stroke="#9c3340" stroke-width="1.5"/>
+            <circle cx="89" cy="32" r="2.2" stroke="#9c3340" stroke-width="1.5" opacity=".6"/>
+            <rect x="82" y="54" width="64" height="8" rx="2" fill="#9c3340" fill-opacity=".8"/>
+            <rect x="82" y="70" width="84" height="5" rx="2" fill="#c3b5a9" fill-opacity=".35"/>
+            <rect x="82" y="81" width="72" height="5" rx="2" fill="#c3b5a9" fill-opacity=".25"/>
+            <rect x="82" y="96" width="40" height="14" rx="3" stroke="#9c3340" stroke-width="1.5"/>
+            <rect x="178" y="54" width="40" height="40" rx="4" stroke="#c3b5a9" stroke-opacity=".45" stroke-width="1.5"/>
+            <path d="M178 86l12-12 10 8 16-16" stroke="#9c3340" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="82" y="120" width="40" height="16" rx="3" stroke="#c3b5a9" stroke-opacity=".45" stroke-width="1.5"/>
+            <rect x="130" y="120" width="40" height="16" rx="3" stroke="#c3b5a9" stroke-opacity=".45" stroke-width="1.5"/>
+            <rect x="178" y="120" width="40" height="16" rx="3" stroke="#9c3340" stroke-width="1.5"/>
           </svg>
         </div>
-      </div>
-    </article>
+        <p class="svc-n">servizio · 01</p>
+        <h3>Il tuo sito lavora <em>per te</em> o contro di te?</h3>
+        <p class="svc-desc">E-commerce e prenotazioni con i dati che restano tuoi. E se funziona male, lo sistemo.</p>
+        <p class="svc-proof">live in produzione · 34 test sul checkout</p>
+        <div class="svc-links">
+          <a class="link-draw" href="#contact">parliamone →</a>
+          <a class="link-draw" href="#work">Beat Store ↓</a>
+        </div>
+      </article>
 
-    <article class="svc">
-      <div class="svc-copy">
+      <article class="svc-card">
+        <div class="panel" aria-hidden="true">
+          <!-- flusso automazione: nodi collegati -->
+          <svg viewBox="0 0 300 168" fill="none">
+            <circle cx="86" cy="52" r="12" stroke="#c3b5a9" stroke-opacity=".55" stroke-width="1.5"/>
+            <circle cx="86" cy="116" r="12" stroke="#c3b5a9" stroke-opacity=".55" stroke-width="1.5"/>
+            <circle cx="150" cy="84" r="16" stroke="#9c3340" stroke-width="1.5"/>
+            <circle cx="150" cy="84" r="6" stroke="#9c3340" stroke-width="1.5" opacity=".7"/>
+            <circle cx="214" cy="52" r="12" stroke="#c3b5a9" stroke-opacity=".55" stroke-width="1.5"/>
+            <circle cx="214" cy="116" r="12" stroke="#c3b5a9" stroke-opacity=".55" stroke-width="1.5"/>
+            <path d="M97 57l38 21M97 111l38-21M165 77l38-21M165 91l38 21" stroke="#c3b5a9" stroke-opacity=".4" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M81 49h10M86 44v10" stroke="#c3b5a9" stroke-opacity=".7" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M81 116h10" stroke="#c3b5a9" stroke-opacity=".7" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M209 48l4 5 7-9" stroke="#9c3340" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M209 112l4 5 7-9" stroke="#9c3340" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
         <p class="svc-n">servizio · 02</p>
         <h3>Quante ore ti mangia <em>la burocrazia?</em></h3>
-        <p class="svc-desc">Fatture che si emettono da sole, email che partono al momento giusto, calendari e gestionali che si parlano. <strong>Il lavoro ripetitivo lo fa la macchina</strong> — e un agente AI risponde alle domande sui tuoi dati, con i numeri esatti.</p>
-        <p class="svc-proof">in uso ogni giorno: fatturazione, promemoria e prenotazioni automatiche</p>
+        <p class="svc-desc">Fatture, email e calendari che si gestiscono da soli — e un agente che risponde sui tuoi dati.</p>
+        <p class="svc-proof">in uso ogni giorno: fatture e prenotazioni</p>
         <div class="svc-links">
           <a class="link-draw" href="#contact">parliamone →</a>
-          <a class="link-draw" href="#work">nei lavori: Company Brain ↓</a>
+          <a class="link-draw" href="#work">Company Brain ↓</a>
         </div>
-      </div>
-      <div class="svc-visual" aria-hidden="true">
-        <div class="panel">
-          <!-- flusso automazione: nodi collegati in line-art -->
-          <svg viewBox="0 0 300 240" fill="none">
-            <circle cx="70" cy="70" r="14" stroke="#c3b5a9" stroke-opacity=".55" stroke-width="1.5"/>
-            <circle cx="70" cy="170" r="14" stroke="#c3b5a9" stroke-opacity=".55" stroke-width="1.5"/>
-            <circle cx="150" cy="120" r="18" stroke="#9c3340" stroke-width="1.5"/>
-            <circle cx="150" cy="120" r="7" stroke="#9c3340" stroke-width="1.5" opacity=".7"/>
-            <circle cx="234" cy="70" r="14" stroke="#c3b5a9" stroke-opacity=".55" stroke-width="1.5"/>
-            <circle cx="234" cy="170" r="14" stroke="#c3b5a9" stroke-opacity=".55" stroke-width="1.5"/>
-            <path d="M83 76l50 36M83 164l50-36M167 112l53-36M167 128l53 36" stroke="#c3b5a9" stroke-opacity=".4" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M64 67h12M70 61v12" stroke="#c3b5a9" stroke-opacity=".7" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M64 170h12" stroke="#c3b5a9" stroke-opacity=".7" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M229 65l4 5 7-9" stroke="#9c3340" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M229 165l4 5 7-9" stroke="#9c3340" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </article>
+
+      <article class="svc-card">
+        <div class="panel" aria-hidden="true">
+          <!-- voce: cornetta + onde -->
+          <svg viewBox="0 0 300 168" fill="none">
+            <path d="M104 56c0-6 5-11 11-11h8c5 0 8 3 9 7l2 11c1 4-1 7-4 9l-5 4c6 14 17 25 31 31l4-5c2-3 5-5 9-4l11 2c4 1 7 4 7 9v8c0 6-5 11-11 11-48 0-72-39-72-72z" stroke="#c3b5a9" stroke-opacity=".6" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M192 62c6 6 9 14 9 22M204 50c9 9 15 21 15 34M216 38c13 13 20 30 20 47" stroke="#9c3340" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
         </div>
-      </div>
-    </article>
-
-    <article class="svc">
-      <div class="svc-copy">
         <p class="svc-n">servizio · 03</p>
         <h3>Chi risponde <em>quando non puoi?</em></h3>
-        <p class="svc-desc">Un assistente telefonico AI che risponde 24 ore su 24: <strong>prenota, sposta, informa</strong> — nella tua lingua e con la tua agenda. E quando serve un umano, passa la chiamata a te.</p>
-        <p class="svc-proof">risponde 24/7 per una scuola di danza · 9/9 scenari d'esame superati</p>
+        <p class="svc-desc">Un assistente telefonico 24/7: prenota, sposta, informa. Quando serve, passa a te.</p>
+        <p class="svc-proof">24/7 per una scuola di danza · 9/9 scenari superati</p>
         <div class="svc-links">
           <a class="link-draw" href="#contact">parliamone →</a>
-          <a class="link-draw" href="#work">nei lavori: Ritmo Tropicale ↓</a>
+          <a class="link-draw" href="#work">Ritmo Tropicale ↓</a>
         </div>
-      </div>
-      <div class="svc-visual" aria-hidden="true">
-        <div class="panel">
-          <!-- voce: cornetta + onde firma in line-art -->
-          <svg viewBox="0 0 300 240" fill="none">
-            <path d="M84 78c0-8 6-14 14-14h10c6 0 10 4 11 9l3 14c1 5-1 9-5 12l-7 5c8 18 22 32 40 40l5-7c3-4 7-6 12-5l14 3c5 1 9 5 9 11v10c0 8-6 14-14 14-62 0-112-50-112-112z" stroke="#c3b5a9" stroke-opacity=".6" stroke-width="1.5" stroke-linejoin="round"/>
-            <path d="M196 84c8 8 12 18 12 28M212 68c12 12 19 27 19 44M228 52c17 17 26 39 26 60" stroke="#9c3340" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-      </div>
-    </article>
+      </article>
+    </div>
   </div>
 </section>
 
-<p class="note">mockup fase 0 · v2 — hero + banda D10S + sezione servizi (3 spotlight) · identità e token 1:1 col sito</p>
+<p class="note">mockup fase 0 · v3 — hero (foto = altezza colonna testo) + banda D10S + servizi in banda orizzontale (3 card) · identità e token 1:1 col sito</p>
 
 <script>
   // BrandMark octaedro — verbatim dal componente del sito
