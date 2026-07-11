@@ -127,6 +127,46 @@ export const agentBand: Record<Lang, { kicker: string; title: string; desc: stri
   es: { kicker: 'demo en vivo', title: '¿Respondes todavía tú a todo?\nPregunta a mi agente.', desc: 'Conoce cada proyecto de este sitio. Pregúntale lo que quieras — por voz o texto.' },
 };
 
+// Services band (restyle) — three statement cards. Titles are affirmations
+// (the questions live in the hero and the agent band), one-line client-level
+// descriptions, and a quiet reference link into the work section.
+export interface ServiceCard {
+  cat: string;
+  pre: string;
+  accent: string;
+  desc: string;
+  ref: string;
+}
+export const servicesBand: Record<Lang, { kicker: string; cta: string; cards: ServiceCard[] }> = {
+  en: {
+    kicker: 'what I do for you',
+    cta: "got something in mind? let's talk →",
+    cards: [
+      { cat: 'sites & platforms', pre: 'A website that works', accent: 'for you.', desc: 'E-commerce, bookings, client areas — and if yours is broken, I fix it.', ref: '→ Beat Store, live' },
+      { cat: 'automation & AI', pre: 'Paperwork that does', accent: 'itself.', desc: 'Invoices, emails and calendars that talk to each other — without you in the middle.', ref: '→ Company Brain, live' },
+      { cat: 'voice agents', pre: 'It answers,', accent: "when you can't.", desc: 'A 24/7 phone assistant that books, reschedules and informs.', ref: '→ Ritmo Tropicale, live' },
+    ],
+  },
+  it: {
+    kicker: 'cosa faccio per te',
+    cta: 'hai in mente qualcosa? parliamone →',
+    cards: [
+      { cat: 'siti & piattaforme', pre: 'Un sito che lavora', accent: 'per te.', desc: 'E-commerce, prenotazioni, area clienti — e se funziona male, lo sistemo.', ref: '→ Beat Store, live' },
+      { cat: 'automazioni & AI', pre: 'La burocrazia si fa', accent: 'da sola.', desc: 'Fatture, email e calendari che si parlano — senza di te in mezzo.', ref: '→ Company Brain, live' },
+      { cat: 'voice agents', pre: 'Risponde lui,', accent: 'quando non puoi.', desc: 'Un assistente telefonico 24/7 che prenota, sposta e informa.', ref: '→ Ritmo Tropicale, live' },
+    ],
+  },
+  es: {
+    kicker: 'qué hago por ti',
+    cta: '¿tienes algo en mente? hablemos →',
+    cards: [
+      { cat: 'webs & plataformas', pre: 'Una web que trabaja', accent: 'para ti.', desc: 'E-commerce, reservas, área de clientes — y si funciona mal, la arreglo.', ref: '→ Beat Store, live' },
+      { cat: 'automatización & IA', pre: 'El papeleo se hace', accent: 'solo.', desc: 'Facturas, emails y calendarios que se hablan — sin ti en medio.', ref: '→ Company Brain, live' },
+      { cat: 'voice agents', pre: 'Responde él,', accent: 'cuando tú no puedes.', desc: 'Un asistente telefónico 24/7 que reserva, cambia e informa.', ref: '→ Ritmo Tropicale, live' },
+    ],
+  },
+};
+
 // D10S guide claim — heading + sub of the hero's right column.
 export const voiceDemo: Record<Lang, { title: string; desc: string }> = {
   en: {

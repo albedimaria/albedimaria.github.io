@@ -98,6 +98,45 @@ body {
   background: color-mix(in srgb, var(--color-oxblood-soft) 60%, transparent);
 }
 
+/* ============================================================
+   Restyle phase 3 — services band. Cards are real surfaces
+   (gradient + border + hover lift with an oxblood glow), with a
+   giant ghost number behind the section header.
+   ============================================================ */
+.svc-card {
+  background: linear-gradient(165deg, #1e1318, #140d10 72%);
+  border: 1px solid color-mix(in srgb, var(--color-bone) 9%, transparent);
+  transition:
+    transform var(--dur-med) var(--ease-sig),
+    border-color var(--dur-fast) var(--ease-sig),
+    box-shadow var(--dur-med) var(--ease-sig);
+}
+.svc-card:hover {
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--color-oxblood-soft) 55%, transparent);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 34px rgba(156, 51, 64, 0.14);
+}
+.ghost-num {
+  position: absolute;
+  top: 34px;
+  right: 3vw;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(120px, 16vw, 230px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--color-bone) 9%, transparent);
+  user-select: none;
+  pointer-events: none;
+}
+@media (max-width: 767px) {
+  .ghost-num { top: 20px; font-size: 110px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .svc-card, .svc-card:hover { transform: none; }
+}
+
 /* Global page scrollbar — oxblood, inset on ink */
 html {
   scrollbar-width: thin;
