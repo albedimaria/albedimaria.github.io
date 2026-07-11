@@ -1,11 +1,13 @@
 ---
-import { servicesBand, type Lang } from '../i18n/content';
+import { servicesBand, processSteps, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const band = servicesBand[lang];
+const steps = processSteps[lang];
+const stepsTitle = { en: 'how we work', it: 'come lavoro', es: 'cómo trabajo' }[lang];
 
 // Line-art glyphs (draft — refined in the motion pass). One per card, in the
 // brand language: bone strokes + oxblood accents, stroke 1.5.
@@ -70,6 +72,20 @@ const nn = ['01', '02', '03'];
           </p>
         </article>
       ))}
+    </div>
+
+    <!-- How we work — quiet strip under the cards, before the CTA -->
+    <div data-reveal class="mt-16 border-t border-bone/10 pt-10">
+      <p class="font-mono text-[12px] uppercase tracking-[0.22em] text-text-dim">{stepsTitle}</p>
+      <ol data-reveal-stagger class="mt-6 grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+        {steps.map((s, i) => (
+          <li class="border-l border-oxblood/40 pl-4">
+            <p class="font-mono text-[12px] tracking-[0.18em] text-accent-txt">0{i + 1}</p>
+            <h3 class="mt-1 font-display text-[18px] font-semibold text-bone">{s.title}</h3>
+            <p class="mt-1 text-[16px] leading-snug text-text-muted">{s.desc}</p>
+          </li>
+        ))}
+      </ol>
     </div>
 
     <div data-reveal class="mt-12 flex justify-center">

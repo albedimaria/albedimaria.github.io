@@ -89,15 +89,11 @@ export const contactForm: Record<
 
 // About (restyle) — playful caption under the small photo, and the
 // learning-philosophy line that reframes the Training list as proof.
+// Small playful chip ON the photo (Miranda-style label, not a museum caption)
 export const aboutPhotoCaption: Record<Lang, string> = {
-  en: 'better photo coming — I know.',
-  it: 'foto migliore in arrivo — lo so.',
-  es: 'mejor foto en camino — lo sé.',
-};
-export const trainingIntro: Record<Lang, string> = {
-  en: 'This craft reinvents itself every six months: I keep up by doing — workshops, hackathons, continuous training.',
-  it: 'Il mestiere cambia ogni sei mesi: resto sul pezzo facendo — workshop, hackathon, formazione continua.',
-  es: 'Este oficio se reinventa cada seis meses: me mantengo al día haciendo — workshops, hackathons, formación continua.',
+  en: 'proper photo: wip',
+  it: 'foto seria: wip',
+  es: 'foto seria: wip',
 };
 
 // How-we-work strip (inside Contact, not a standalone section) — four
@@ -304,8 +300,8 @@ export const ui: Record<Lang, UI> = {
       { title: 'Audio & ML', desc: 'Generative audio, music information retrieval and deep-learning models — from research prototype to interactive demo.' },
     ],
     about_title: 'About',
-    about_text: 'Engineer by training (MSc, Politecnico di Milano), builder by trade. I make websites, automation and AI agents for real businesses — and when something digital is broken, I fix it.',
-    about_closing: 'You talk directly to the person who builds — no agency, no middlemen. Freelance in Milan, open to new projects.',
+    about_text: 'Engineer (MSc, Politecnico di Milano). I build websites, automation and AI agents for real businesses — and when something digital is broken, I fix it.',
+    about_closing: 'You talk directly to the person who builds. I stay sharp by doing — workshops, hackathons, continuous training. Freelance in Milan, open to new projects.',
     experience_title: 'Experience',
     training_title: 'Training',
     contact_title: 'Contact',
@@ -343,8 +339,8 @@ export const ui: Record<Lang, UI> = {
       { title: 'Audio e ML', desc: 'Audio generativo, music information retrieval e modelli deep-learning — dal prototipo di ricerca alla demo interattiva.' },
     ],
     about_title: 'Chi sono',
-    about_text: 'Ingegnere di formazione (MSc, Politecnico di Milano), costruttore di mestiere. Faccio siti, automazioni e agenti AI per attività reali — e quando qualcosa di digitale è rotto, lo sistemo.',
-    about_closing: 'Parli direttamente con chi costruisce — niente agenzia, niente intermediari. Freelance a Milano, disponibile per nuovi progetti.',
+    about_text: 'Ingegnere (MSc, Politecnico di Milano). Faccio siti, automazioni e agenti AI per attività reali — e quando qualcosa di digitale è rotto, lo sistemo.',
+    about_closing: 'Parli direttamente con chi costruisce. Mi tengo aggiornato facendo — workshop, hackathon, formazione continua. Freelance a Milano, disponibile per nuovi progetti.',
     experience_title: 'Esperienze',
     training_title: 'Formazione',
     contact_title: 'Contatti',
@@ -382,8 +378,8 @@ export const ui: Record<Lang, UI> = {
       { title: 'Audio y ML', desc: 'Audio generativo, music information retrieval y modelos de deep-learning — del prototipo de investigación a la demo interactiva.' },
     ],
     about_title: 'Sobre mí',
-    about_text: 'Ingeniero de formación (MSc, Politecnico di Milano), constructor de oficio. Hago webs, automatización y agentes IA para negocios reales — y cuando algo digital está roto, lo arreglo.',
-    about_closing: 'Hablas directamente con quien construye — sin agencia, sin intermediarios. Freelance en Milán, abierto a nuevos proyectos.',
+    about_text: 'Ingeniero (MSc, Politecnico di Milano). Hago webs, automatización y agentes IA para negocios reales — y cuando algo digital está roto, lo arreglo.',
+    about_closing: 'Hablas directamente con quien construye. Me mantengo al día haciendo — workshops, hackathons, formación continua. Freelance en Milán, abierto a nuevos proyectos.',
     experience_title: 'Experiencia',
     training_title: 'Formación',
     contact_title: 'Contacto',

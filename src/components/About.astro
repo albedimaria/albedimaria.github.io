@@ -8,16 +8,17 @@ const { lang } = Astro.props;
 const t = ui[lang];
 ---
 
-<section id="about" class="sec-line bg-ink-2">
+<section id="about" class="sec-line relative bg-ink-2">
+  <span class="ghost-num" aria-hidden="true">03</span>
   <div class="mx-auto max-w-5xl px-6 py-20 md:py-24">
     <p data-reveal class="font-mono text-[13px] uppercase tracking-[0.22em] text-bone"><span class="mr-3 text-oxblood-soft">03</span>{t.about_title}</p>
 
     <div data-reveal-stagger class="mt-8 grid gap-10 md:grid-cols-[250px_1fr] md:items-start">
-      <div>
-        <div class="overflow-hidden rounded-[var(--radius-card)] border border-bone/10 bg-surface">
-          <img src="/images/propic.webp" alt="Alberto Di Maria" loading="lazy" width="500" height="625" class="aspect-[4/5] w-full object-cover" />
-        </div>
-        <p class="mt-2.5 font-mono text-[12px] lowercase text-text-dim">{aboutPhotoCaption[lang]}</p>
+      <div class="relative overflow-hidden rounded-[var(--radius-card)] border border-bone/10 bg-surface">
+        <img src="/images/propic.webp" alt="Alberto Di Maria" loading="lazy" width="500" height="625" class="aspect-[4/5] w-full object-cover" />
+        <span class="absolute bottom-2.5 left-2.5 rounded-full border border-bone/15 bg-ink/75 px-2.5 py-1 font-mono text-[11px] lowercase text-text-muted backdrop-blur-sm">
+          {aboutPhotoCaption[lang]}
+        </span>
       </div>
 
       <div class="min-w-0">

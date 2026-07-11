@@ -1,6 +1,6 @@
 ---
 import WaveSignature from './WaveSignature.astro';
-import { ui, contactReply, contactHeadline, contactForm, processSteps, budgetField, type Lang } from '../i18n/content';
+import { ui, contactReply, contactHeadline, contactForm, budgetField, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
@@ -9,7 +9,6 @@ const { lang } = Astro.props;
 const t = ui[lang];
 const headline = contactHeadline[lang];
 const f = contactForm[lang];
-const steps = processSteps[lang];
 const budget = budgetField[lang];
 
 // Web3Forms access key — free, tied to Alberto's inbox. Static-site friendly:
@@ -19,6 +18,7 @@ const WEB3FORMS_KEY = '730cfe53-7f78-4bb5-90cf-ee5be2bae7c7';
 ---
 
 <section id="contact" class="sec-line relative overflow-hidden bg-ink-2">
+  <span class="ghost-num" aria-hidden="true">04</span>
   <WaveSignature />
   <div data-reveal-stagger class="relative z-10 mx-auto grid max-w-6xl gap-x-16 gap-y-12 px-6 py-24 md:py-32 lg:grid-cols-[1fr_minmax(0,460px)]">
     <div class="min-w-0">
@@ -30,17 +30,6 @@ const WEB3FORMS_KEY = '730cfe53-7f78-4bb5-90cf-ee5be2bae7c7';
       </p>
       <p class="mt-6 max-w-xl text-[16px] leading-relaxed text-text-muted">{t.contact_lead}</p>
       <p class="mt-2 font-mono text-[13px] text-text-dim">{contactReply[lang]}</p>
-
-      <!-- How we work — four qualitative steps, inline strip (not a section) -->
-      <ol class="mt-10 grid max-w-xl grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-        {steps.map((s, i) => (
-          <li class="border-l border-oxblood/40 pl-4">
-            <p class="font-mono text-[12px] tracking-[0.18em] text-accent-txt">0{i + 1}</p>
-            <h3 class="mt-1 font-display text-[18px] font-semibold text-bone">{s.title}</h3>
-            <p class="mt-1 text-[16px] leading-snug text-text-muted">{s.desc}</p>
-          </li>
-        ))}
-      </ol>
     </div>
 
     <!-- Contact form — no-JS fallback: posts straight to Web3Forms. With JS the

@@ -1,5 +1,5 @@
 ---
-import { ui, experience, training, trainingIntro, type Lang } from '../i18n/content';
+import { ui, experience, training, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
@@ -23,9 +23,6 @@ const lists = [
     {lists.map((list) => (
       <div>
         <h2 data-reveal class="font-mono text-[13px] uppercase tracking-[0.22em] text-bone">{list.title}</h2>
-        {list.id === 'train' && (
-          <p data-reveal class="mt-4 max-w-[44ch] font-display text-[17px] italic leading-snug text-text-muted">{trainingIntro[lang]}</p>
-        )}
         <ol class="mt-7 space-y-7" data-list={list.id} data-reveal-stagger>
           {list.items.map((e, i) => (
             <li
