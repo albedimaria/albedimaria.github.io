@@ -3,6 +3,18 @@
 Branch `freelance-restyle`. `main` resta deployabile (il workflow Pages scatta solo su `main`).
 Standard estetico congelato: `mockups/fase0-hero-spotlight.html` (v4.1).
 
+## ⚠️ Regole vincolanti (post-review Alberto 2026-07-11)
+1. **Skill design (frontend-design + ui-ux-pro-max) caricate in OGNI fase di build**, non solo al mockup.
+2. **Loop estetico per sezione**: screenshot → confronto vs mockup v4 + reference (Miranda/diventaredesigner) → scoring spazi/gerarchia → iterazione. PRIMA di mostrare.
+3. Copy sobria: niente formule "carine" (bocciata "costruttore di mestiere"). Caption = chip piccola sulla foto, non didascalie.
+4. Misurare anche i **gap tra sezioni** (banda nera spuria = bug), non solo gli allineamenti interni.
+
+## Item aperti (in ordine di priorità, da fare PRIMA di fase 7)
+- [ ] **Estetica pannello D10S** — bocciata due volte, va riprogettata (con skill + loop)
+- [ ] **Restyle sezione Lavori** allo standard v4 (oggi ferma al vecchio stile)
+- [ ] Freccia/scroll-hint sotto il hero (indica la sezione dopo)
+- [ ] Rifinitura glifi card servizi (draft, fase motion)
+
 ## Regole del loop
 - Ogni fase ha un **contratto** (input → output → gate). Si itera finché il gate è verde.
 - **Gate oggettivi** via `node scripts/restyle-gate.mjs` (contrasto WCAG + build + overflow/allineamenti dove applicabile).
