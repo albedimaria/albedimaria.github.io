@@ -8,7 +8,12 @@
   --color-surface-2: #140c10;    /* cover wells / insets */
 
   --color-oxblood: #7a1228;      /* primary accent */
-  --color-oxblood-soft: #9c3340; /* secondary wave / accents */
+  --color-oxblood-soft: #9c3340; /* secondary wave / accents — NB: 2.6:1 on ink, NOT for text */
+
+  /* Accessible red-family text accents (restyle). oxblood-soft fails on ink
+     even for large text, so any RED TEXT uses these instead: */
+  --color-accent-lg: #b8455a;    /* ≥3:1 on ink — large display text / italic accents only */
+  --color-accent-txt: #cf7683;   /* ≥4.5:1 on ink — links & small text */
 
   --color-bone: #faf3e8;         /* light / inverse surfaces (bright) */
   --color-text: #f9f2e9;         /* body text */
@@ -44,6 +49,19 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+}
+
+/* Rigorous 12-column grid (restyle). Explicit gap; collapses to 4 cols on
+   mobile. Sections opt in with .grid-12; children place with col-span-* /
+   col-start-*. minmax(0,1fr) prevents blowout on min-content children. */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+}
+.grid-12 > * { min-width: 0; }
+@media (max-width: 767px) {
+  .grid-12 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 }
 
 /* Global page scrollbar — oxblood, inset on ink */
