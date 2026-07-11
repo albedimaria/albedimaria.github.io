@@ -1,11 +1,11 @@
 export type Lang = 'en' | 'it' | 'es';
 
-export const langs: Lang[] = ['en', 'it', 'es'];
-export const defaultLang: Lang = 'en';
+export const langs: Lang[] = ['it', 'en', 'es'];
+export const defaultLang: Lang = 'it';
 export const langLabels: Record<Lang, string> = { en: 'EN', it: 'IT', es: 'ES' };
 
-/** Path for a locale: en at root, it/es prefixed. */
-export const localizedHome: Record<Lang, string> = { en: '/', it: '/it/', es: '/es/' };
+/** Path for a locale: IT at root (primary audience), en/es prefixed. */
+export const localizedHome: Record<Lang, string> = { it: '/', en: '/en/', es: '/es/' };
 
 export const ogLocale: Record<Lang, string> = { en: 'en_US', it: 'it_IT', es: 'es_ES' };
 

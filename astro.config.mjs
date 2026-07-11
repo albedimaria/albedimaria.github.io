@@ -7,10 +7,14 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://albedimaria.github.io',
+  // Old indexed /it/ URLs → new IT root (static meta-refresh page)
+  redirects: {
+    '/it/': '/',
+  },
   integrations: [sitemap(), react()],
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'it', 'es'],
+    defaultLocale: 'it',
+    locales: ['it', 'en', 'es'],
     routing: {
       prefixDefaultLocale: false,
     },
