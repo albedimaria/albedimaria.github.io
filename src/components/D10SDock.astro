@@ -7,8 +7,8 @@ import type { Lang } from '../i18n/content';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const label: Record<Lang, string> = { en: 'Back to D10S', it: 'Torna a D10S', es: 'Volver a D10S' };
-const seal: Record<Lang, string> = { en: 'ask d10s', it: 'chiedi a d10s', es: 'pregunta a d10s' };
-const ring = `${seal[lang]} · ${seal[lang]} · `;
+const seal: Record<Lang, string> = { en: 'ask the agent', it: 'chiedi all’agente', es: 'pregunta al agente' };
+const ring = `${seal[lang]} · · · `;
 ---
 
 <button id="d10s-dock" type="button" class="d10s-dock" aria-label={label[lang]}>

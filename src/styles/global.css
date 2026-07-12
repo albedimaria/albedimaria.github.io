@@ -320,7 +320,7 @@ body {
 
 /* rotating text seal — reveals on hover/focus, the words are the affordance */
 .d10s-seal { position: absolute; inset: -19px; opacity: 0; pointer-events: none; transition: opacity var(--dur-med) var(--ease-sig); }
-.d10s-seal text { font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 2px; fill: var(--color-accent-txt); }
+.d10s-seal text { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase; fill: var(--color-accent-txt); font-weight: 500; }
 .d10s-dock:hover .d10s-seal, .d10s-dock:focus-visible .d10s-seal { opacity: 1; animation: seal-spin 13s linear infinite; }
 @keyframes seal-spin { to { transform: rotate(360deg); } }
 
