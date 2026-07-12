@@ -261,6 +261,34 @@ body {
 .ps-credit a { color: var(--color-text-muted); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--color-bone) 22%, transparent); transition: color var(--dur-fast) var(--ease-sig); }
 .ps-credit a:hover { color: var(--color-bone); }
 
+/* ---- About: count-up credibility strip ---- */
+.stat { position: relative; }
+.stat + .stat { padding-left: 24px; border-left: 1px solid color-mix(in srgb, var(--color-bone) 8%, transparent); }
+.stat-num {
+  font-family: var(--font-display); font-weight: 550; line-height: 1;
+  font-size: clamp(38px, 5vw, 56px); letter-spacing: -0.02em; color: var(--color-bone);
+  font-variant-numeric: tabular-nums;
+}
+.stat-label { margin-top: 8px; font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-txt); }
+
+/* ---- About: timeline as a continuous spine with node dots ---- */
+.tl { position: relative; display: flex; flex-direction: column; gap: 28px; margin-left: 5px; padding-left: 24px; border-left: 1px solid color-mix(in srgb, var(--color-oxblood-soft) 30%, transparent); }
+.tl-item { position: relative; }
+.tl-item::before {
+  content: ""; position: absolute; left: -28.5px; top: 7px; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--color-oxblood-soft); box-shadow: 0 0 0 3px var(--color-ink-2);
+}
+.tl-meta { font-variant-numeric: tabular-nums; }
+.tl-item.is-now::before {
+  box-shadow: 0 0 0 3px var(--color-ink-2), 0 0 0 4px rgba(156, 51, 64, 0.5);
+  animation: tl-now 2.4s var(--ease-sig) infinite;
+}
+@keyframes tl-now {
+  0%, 100% { box-shadow: 0 0 0 3px var(--color-ink-2), 0 0 0 4px rgba(156, 51, 64, 0.5); }
+  50% { box-shadow: 0 0 0 3px var(--color-ink-2), 0 0 0 9px rgba(156, 51, 64, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .tl-item.is-now::before { animation: none; } }
+
 /* ---- shared button system (restyle) ----
    primary = refined oxblood (deep gradient + hairline, NO alarm glow);
    ghost = bordered secondary (per-project 'visit site'). */
