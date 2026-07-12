@@ -162,6 +162,8 @@ body {
   .proc-step::before { content: ""; position: absolute; top: -4px; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--color-oxblood-soft); }
 }
 .svc-card:hover .svc-ico { color: #eeb9c1; border-color: color-mix(in srgb, var(--color-oxblood-soft) 55%, transparent); }
+.svc-ref { transition: color var(--dur-fast) var(--ease-sig), transform var(--dur-fast) var(--ease-sig); }
+.svc-card:hover .svc-ref { transform: translateX(4px); }
 .ghost-num {
   position: absolute;
   top: 34px;
