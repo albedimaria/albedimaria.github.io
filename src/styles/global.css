@@ -293,22 +293,42 @@ body {
 @media (max-width: 767px) { .d10s { max-width: none; } }
 @media (prefers-reduced-motion: reduce) { .d10s-live { animation: none; } }
 
-/* Floating D10S launcher — living red sphere, bottom-right */
+/* Floating D10S launcher — living red sphere (waveform at rest, rotating
+   "chiedi a d10s" seal on hover), bottom-right */
 .d10s-dock {
-  position: fixed; bottom: 20px; right: 20px; z-index: 40;
+  position: fixed; bottom: 24px; right: 24px; z-index: 40;
   width: 52px; height: 52px; border-radius: 50%;
   border: 1px solid color-mix(in srgb, var(--color-oxblood-soft) 55%, transparent);
   background: radial-gradient(circle at 40% 35%, #b8455a, #7a1228 46%, #3f0a17);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 26px rgba(122, 18, 40, 0.4);
-  cursor: pointer; opacity: 0; transform: translateY(10px) scale(0.9); pointer-events: none;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateY(10px) scale(0.9); pointer-events: none;
   transition: opacity var(--dur-med) var(--ease-sig), transform var(--dur-med) var(--ease-sig), box-shadow var(--dur-fast) var(--ease-sig);
 }
 .d10s-dock.is-on { opacity: 1; transform: none; pointer-events: auto; }
-.d10s-dock:hover { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 36px rgba(156, 51, 64, 0.7); }
-.d10s-dock-core { position: absolute; inset: 0; border-radius: 50%; animation: dock-pulse 2.6s var(--ease-sig) infinite; }
-@keyframes dock-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(156, 51, 64, 0.5); } 50% { box-shadow: 0 0 0 9px rgba(156, 51, 64, 0); } }
-.d10s-dock:focus-visible { outline: 2px solid var(--color-oxblood-soft); outline-offset: 3px; }
-@media (prefers-reduced-motion: reduce) { .d10s-dock-core { animation: none; } .d10s-dock { transition: opacity var(--dur-med) linear; } }
+.d10s-dock:hover, .d10s-dock:focus-visible { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(156, 51, 64, 0.78); }
+.d10s-dock:focus-visible { outline: 2px solid var(--color-oxblood-soft); outline-offset: 7px; }
+
+/* waveform glyph — 'voice, alive' at rest */
+.d10s-dock-glyph { display: flex; align-items: center; gap: 2.5px; height: 16px; }
+.d10s-dock-glyph i { width: 2.5px; height: 6px; border-radius: 2px; background: #f6dfe4; animation: dock-eq 1.3s var(--ease-sig) infinite; }
+.d10s-dock-glyph i:nth-child(2) { height: 14px; animation-delay: .12s; }
+.d10s-dock-glyph i:nth-child(3) { height: 9px; animation-delay: .24s; }
+.d10s-dock-glyph i:nth-child(4) { height: 16px; animation-delay: .36s; }
+.d10s-dock-glyph i:nth-child(5) { height: 7px; animation-delay: .48s; }
+@keyframes dock-eq { 0%, 100% { transform: scaleY(.5); } 50% { transform: scaleY(1); } }
+
+/* rotating text seal — reveals on hover/focus, the words are the affordance */
+.d10s-seal { position: absolute; inset: -19px; opacity: 0; pointer-events: none; transition: opacity var(--dur-med) var(--ease-sig); }
+.d10s-seal text { font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 2px; fill: var(--color-accent-txt); }
+.d10s-dock:hover .d10s-seal, .d10s-dock:focus-visible .d10s-seal { opacity: 1; animation: seal-spin 13s linear infinite; }
+@keyframes seal-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .d10s-dock-glyph i { animation: none; }
+  .d10s-dock:hover .d10s-seal, .d10s-dock:focus-visible .d10s-seal { animation: none; }
+  .d10s-dock { transition: opacity var(--dur-med) linear; }
+}
 
 /* Hero scroll cue — bouncing chevron into the next section (Natura/Michele) */
 .scroll-cue {
