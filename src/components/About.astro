@@ -63,8 +63,10 @@ const lists = [
       </div>
     </div>
 
-    <!-- Experience + training — a quiet continuation, aligned under the bio -->
-    <div id="experience" class="mt-16 grid gap-x-10 gap-y-12 border-t border-bone/10 pt-12 md:grid-cols-2 md:pl-[290px]">
+    <!-- Experience + training — a quiet full-width continuation (no indent: the
+         bio and the timeline read as one section, but the timeline uses the
+         whole grid so there's no dead gutter on the left). -->
+    <div id="experience" class="mt-16 grid gap-x-16 gap-y-12 border-t border-bone/10 pt-12 md:grid-cols-2">
       {lists.map((list) => (
         <div>
           <h2 data-reveal class="font-mono text-[13px] uppercase tracking-[0.22em] text-accent-txt">{list.title}</h2>
