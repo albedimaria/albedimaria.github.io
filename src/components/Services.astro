@@ -9,32 +9,20 @@ const band = servicesBand[lang];
 const steps = processSteps[lang];
 const stepsTitle = { en: 'how we work', it: 'come lavoro', es: 'cómo trabajo' }[lang];
 
-// Line-art glyphs — one coherent family: 48×48, stroke 1.6, one oxblood
-// accent each, matched visual weight, left-aligned to the card text.
+// Lucide icons — one coherent family (24×24, stroke 1.8, currentColor set to
+// oxblood by the .svc-ico tile). Sit in a rounded tile for presence.
 const glyphs = [
-  // 01 — browser / site
-  `<svg viewBox="0 0 48 48" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <rect x="7" y="11" width="34" height="26" rx="3.5" stroke="#c3b5a9" stroke-opacity=".6"/>
-    <path d="M7 18h34" stroke="#c3b5a9" stroke-opacity=".55"/>
-    <circle cx="11.5" cy="14.5" r="1.1" fill="#b8455a" stroke="none"/>
-    <circle cx="15.2" cy="14.5" r="1.1" fill="#c3b5a9" fill-opacity=".45" stroke="none"/>
-    <path d="M12 25.5h13" stroke="#b8455a" stroke-width="2.1"/>
-    <path d="M12 30.5h17" stroke="#c3b5a9" stroke-opacity=".4"/>
-    <path d="M33 24.5v8" stroke="#c3b5a9" stroke-opacity=".4"/>
+  // 01 — app-window (sites & platforms)
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8h20"/><path d="M6 4v4"/><path d="M10 4v4"/>
   </svg>`,
-  // 02 — automation: self-running cycle + spark
-  `<svg viewBox="0 0 48 48" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M13 17a11.5 11.5 0 0 1 20-3.5" stroke="#c3b5a9" stroke-opacity=".6"/>
-    <path d="M35 31a11.5 11.5 0 0 1-20 3.5" stroke="#c3b5a9" stroke-opacity=".6"/>
-    <path d="M33 8.5v6h-6" stroke="#c3b5a9" stroke-opacity=".6"/>
-    <path d="M15 39.5v-6h6" stroke="#c3b5a9" stroke-opacity=".6"/>
-    <path d="M25.5 18l-4 7h5l-4 7" stroke="#b8455a" stroke-width="1.9"/>
+  // 02 — workflow (automations & AI: things that talk to each other)
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <rect x="3" y="3" width="8" height="8" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect x="13" y="13" width="8" height="8" rx="2"/>
   </svg>`,
-  // 03 — handset + signal waves
-  `<svg viewBox="0 0 48 48" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-    <path d="M13 14.5c-.1-1.4 1-2.6 2.4-2.6h3.1c1.2 0 2.2.8 2.4 2l.7 3.9c.2 1-.2 2-1 2.6l-1.7 1.2c1.9 3.8 5 6.9 8.8 8.8l1.2-1.7c.6-.8 1.6-1.2 2.6-1l3.9.7c1.2.2 2 1.2 2 2.4v3.1c0 1.4-1.2 2.5-2.6 2.4C21 40.2 12.6 31.8 13 14.5z" stroke="#c3b5a9" stroke-opacity=".6"/>
-    <path d="M30 16.5c2.4 1.3 4 3.7 4.4 6.5" stroke="#b8455a"/>
-    <path d="M30.5 10c4.6 1.7 8 5.9 8.6 10.9" stroke="#b8455a" stroke-opacity=".55"/>
+  // 03 — audio-lines (voice agents — the brand wave motif)
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/>
   </svg>`,
 ];
 const nn = ['01', '02', '03'];
@@ -50,7 +38,7 @@ const nn = ['01', '02', '03'];
     <div data-reveal-stagger class="grid-12 mt-14">
       {band.cards.map((c, i) => (
         <article class="svc-card col-span-12 flex flex-col rounded-[var(--radius-card)] p-6 pt-7 sm:col-span-6 lg:col-span-4">
-          <div class="mb-6 h-[46px] w-[46px] [&_svg]:h-full [&_svg]:w-full" set:html={glyphs[i]} />
+          <div class="svc-ico mb-6" set:html={glyphs[i]} />
           <p class="font-mono text-[12.5px] uppercase tracking-[0.2em] text-accent-txt">{nn[i]} · {c.cat}</p>
           <h3 class="mt-3 font-display text-[27px] font-[550] leading-[1.14] text-bone">
             {c.pre} <em class="font-[420] italic text-accent-lg">{c.accent}</em>
@@ -63,15 +51,15 @@ const nn = ['01', '02', '03'];
       ))}
     </div>
 
-    <!-- How we work — quiet strip under the cards, before the CTA -->
-    <div data-reveal class="mt-16 border-t border-bone/10 pt-10">
-      <p class="font-mono text-[12px] uppercase tracking-[0.22em] text-text-dim">{stepsTitle}</p>
-      <ol data-reveal-stagger class="mt-6 grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
+    <!-- How we work — strip under the cards, before the CTA -->
+    <div data-reveal class="mt-20 border-t border-bone/10 pt-12">
+      <p class="font-mono text-[13px] uppercase tracking-[0.22em] text-accent-txt">{stepsTitle}</p>
+      <ol data-reveal-stagger class="mt-8 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
         {steps.map((s, i) => (
-          <li class="border-l border-oxblood/40 pl-4">
-            <p class="font-mono text-[12px] tracking-[0.18em] text-accent-txt">0{i + 1}</p>
-            <h3 class="mt-1 font-display text-[18px] font-semibold text-bone">{s.title}</h3>
-            <p class="mt-1 text-[16px] leading-snug text-text-muted">{s.desc}</p>
+          <li class="border-l border-oxblood/40 pl-5">
+            <p class="font-mono text-[13px] tracking-[0.18em] text-oxblood-soft">0{i + 1}</p>
+            <h3 class="mt-2 font-display text-[21px] font-semibold leading-tight text-bone">{s.title}</h3>
+            <p class="mt-1.5 text-[16px] leading-snug text-text-muted">{s.desc}</p>
           </li>
         ))}
       </ol>

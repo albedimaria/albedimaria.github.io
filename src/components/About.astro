@@ -1,13 +1,24 @@
 ---
-import { ui, aboutPhotoCaption, type Lang } from '../i18n/content';
+import { ui, aboutPhotoCaption, experience, training, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = ui[lang];
+const exp = experience[lang];
+const tr = training[lang];
+
+const VISIBLE = 2;
+const moreLabel = { en: 'show more', it: 'mostra altri', es: 'ver más' }[lang];
+const lists = [
+  { id: 'exp', title: t.experience_title, items: exp },
+  { id: 'train', title: t.training_title, items: tr },
+];
 ---
 
+<!-- Chi sono + Esperienza — one continuous section (no divider between the bio
+     and the timeline: the two read as a single "about" block). -->
 <section id="about" class="sec-line relative bg-ink-2">
   <span class="ghost-num" aria-hidden="true">03</span>
   <div class="mx-auto max-w-5xl px-6 py-20 md:py-24">
@@ -51,5 +62,47 @@ const t = ui[lang];
         </div>
       </div>
     </div>
+
+    <!-- Experience + training — a quiet continuation, aligned under the bio -->
+    <div id="experience" class="mt-16 grid gap-x-10 gap-y-12 border-t border-bone/10 pt-12 md:grid-cols-2 md:pl-[290px]">
+      {lists.map((list) => (
+        <div>
+          <h2 data-reveal class="font-mono text-[13px] uppercase tracking-[0.22em] text-accent-txt">{list.title}</h2>
+          <ol class="mt-6 space-y-6" data-list={list.id} data-reveal-stagger>
+            {list.items.map((e, i) => (
+              <li
+                class:list={['border-l border-oxblood/40 pl-5', i >= VISIBLE && 'is-extra']}
+                style={i >= VISIBLE ? 'display:none' : undefined}
+              >
+                <h3 class="font-display text-lg font-semibold text-bone">{e.title}</h3>
+                <p class="mt-0.5 font-mono text-[12px] text-text-dim">{e.meta}</p>
+                <p class="mt-1.5 text-[16px] leading-relaxed text-text-muted">{e.desc}</p>
+              </li>
+            ))}
+          </ol>
+          {list.items.length > VISIBLE && (
+            <button
+              type="button"
+              data-list={list.id}
+              class="more-btn mt-5 font-mono text-[12px] text-text-muted underline-offset-4 transition hover:text-bone hover:underline"
+            >
+              {moreLabel} (+{list.items.length - VISIBLE})
+            </button>
+          )}
+        </div>
+      ))}
+    </div>
   </div>
 </section>
+
+<script>
+  document.querySelectorAll('.more-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-list');
+      document
+        .querySelectorAll(`ol[data-list="${id}"] .is-extra`)
+        .forEach((el) => ((el as HTMLElement).style.display = ''));
+      (btn as HTMLElement).style.display = 'none';
+    });
+  });
+</script>

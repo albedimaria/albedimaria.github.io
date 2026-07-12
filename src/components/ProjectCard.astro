@@ -32,9 +32,10 @@ const looksLikeHost = /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(frameLabel);
 
   <!-- title + stamp + outcome, above the cover -->
   <div class="ps-headline">
-    <h3 class="ps-title" id={`proj-${project.id}-title`}>{project.title}</h3>{
-      project.badge && <span class="ps-stamp">{project.badge}</span>
-    }
+    <div class="ps-titlerow">
+      <h3 class="ps-title" id={`proj-${project.id}-title`}>{project.title}</h3>
+      {project.badge && <span class="ps-stamp">{project.badge}</span>}
+    </div>
     <p class="ps-outcome">{oneliner}</p>
   </div>
 

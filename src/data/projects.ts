@@ -54,7 +54,6 @@ export const projects: Project[] = [
     category: 'Client work',
     filters: ['Client work'],
     featured: true,
-    badge: '✓ commissioned',
     oneliner: 'A musician’s broken website rebuilt from scratch — fast, secure, trilingual, with a paid client area.',
     bullets: [
       { lead: 'Rebuilt as a modern app', body: 'public site + private client area, in three languages (IT/EN/ES) — from a site that barely worked.' },
@@ -101,7 +100,6 @@ export const projects: Project[] = [
     category: 'Client work',
     filters: ['Client work'],
     featured: true,
-    badge: '✓ acquired',
     oneliner: 'A producer’s online store: beats for sale with previews, licensing and in-page checkout.',
     bullets: [
       { lead: 'In-page checkout', body: 'waveform previews, a multi-license cart (MP3 / WAV / stems / exclusive) and Stripe without leaving the page.' },

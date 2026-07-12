@@ -7,8 +7,15 @@ interface Props {
 const { lang } = Astro.props;
 const band = agentBand[lang];
 const vu = voiceUi[lang];
-const [titleA, titleB] = band.title.split('\n');
 
+// Concept A — the panel IS the section. One centered column, the live agent as
+// the focal object. Headline is a statement (not a question), the greeting lives
+// only inside the panel: no duplicated copy, no stacked questions.
+const headline: Record<Lang, string> = {
+  en: 'Ask my agent.',
+  it: 'Chiedi al mio agente.',
+  es: 'Pregunta a mi agente.',
+};
 const greeting: Record<Lang, string> = {
   en: 'Hi, I’m D10S. I know every project on this site — ask me anything.',
   it: 'Ciao, sono D10S. Conosco ogni progetto di questo sito — chiedimi quello che vuoi.',
@@ -23,36 +30,31 @@ const micLabel: Record<Lang, string> = { en: 'Talk to D10S', it: 'Parla con D10S
      shell (zero JS) that mounts the ~680 KB React + ElevenLabs island only on
      the first interaction (boot script below). -->
 <section id="agent-demo" class="sec-line bg-ink-2">
-  <div class="mx-auto grid-12 max-w-5xl items-center px-6 py-[76px]">
-    <div class="col-span-12 md:col-span-6">
-      <p class="kicker-rule font-mono text-[13px] uppercase tracking-[0.22em] text-bone">{band.kicker}</p>
-      <h2 class="mt-4 font-display text-[clamp(26px,3.2vw,38px)] font-[550] leading-[1.14] text-bone">
-        {titleA}<br />{titleB}
-      </h2>
-      <p class="mt-3.5 max-w-[32ch] text-[16px] leading-relaxed text-text-muted">{band.desc}</p>
-    </div>
+  <div class="mx-auto max-w-2xl px-6 py-[84px] text-center">
+    <p data-reveal class="kicker-rule kicker-center font-mono text-[13px] uppercase tracking-[0.22em] text-bone">{band.kicker}</p>
+    <h2 data-reveal class="mx-auto mt-5 max-w-[16ch] font-display text-[clamp(30px,4.4vw,46px)] font-[550] leading-[1.06] tracking-[-0.01em] text-bone">
+      {headline[lang]}
+    </h2>
 
-    <div class="col-span-12 mt-8 md:col-span-6 md:mt-0">
-      <div id="d10s-panel" data-lang={lang} class="d10s">
-        <div class="d10s-bar"><span class="d10s-live" aria-hidden="true"></span><span><b>D10S</b> · online</span></div>
+    <div data-reveal id="d10s-panel" data-lang={lang} class="d10s d10s-solo mt-9 text-left">
+      <div class="d10s-bar"><span class="d10s-live" aria-hidden="true"></span><span><b>D10S</b> · online</span></div>
 
-        <p class="d10s-say">{greeting[lang]}</p>
+      <p class="d10s-say">{greeting[lang]}</p>
 
-        <div class="d10s-sugg">
-          <div class="lb">{tryLabel[lang]}</div>
-          {vu.chips.map((c) => (
-            <button type="button" data-d10s="chip" data-chip={c}>{c}</button>
-          ))}
-        </div>
+      <div class="d10s-sugg">
+        <div class="lb">{tryLabel[lang]}</div>
+        {vu.chips.map((c) => (
+          <button type="button" data-d10s="chip" data-chip={c}>{c}</button>
+        ))}
+      </div>
 
-        <div class="d10s-input">
-          <button type="button" class="d10s-input-text" data-d10s="text" aria-label={inputPh[lang]}>{inputPh[lang]}</button>
-          <button type="button" class="d10s-mic" data-d10s="voice" aria-label={micLabel[lang]}>
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-              <rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0" /><path d="M12 18v3" />
-            </svg>
-          </button>
-        </div>
+      <div class="d10s-input">
+        <button type="button" class="d10s-input-text" data-d10s="text" aria-label={inputPh[lang]}>{inputPh[lang]}</button>
+        <button type="button" class="d10s-mic" data-d10s="voice" aria-label={micLabel[lang]}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0" /><path d="M12 18v3" />
+          </svg>
+        </button>
       </div>
     </div>
   </div>
