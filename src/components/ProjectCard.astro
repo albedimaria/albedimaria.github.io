@@ -65,6 +65,15 @@ const looksLikeHost = /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(frameLabel);
           ))}
         </div>
       )}
+
+      {project.credit && (
+        <p class="ps-credit">
+          <span>{project.credit.role}</span>
+          {project.credit.href
+            ? <a href={project.credit.href} target="_blank" rel="noopener noreferrer">{project.credit.name} ↗</a>
+            : project.credit.name}
+        </p>
+      )}
     </div>
 
     <div class="ps-detail">

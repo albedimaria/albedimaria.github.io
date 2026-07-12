@@ -36,6 +36,8 @@ export interface Project {
   filters: string[];
   featured: boolean;
   badge?: string;
+  /** collaboration credit (e.g. the designer), shown under the cover */
+  credit?: { role: string; name: string; href?: string };
   /** short subtitle, used in both featured and grid cards */
   oneliner: string;
   bullets: Bullet[];
@@ -100,6 +102,8 @@ export const projects: Project[] = [
     category: 'Client work',
     filters: ['Client work'],
     featured: true,
+    badge: '★ first client',
+    credit: { role: 'design', name: 'Laura Zanchetta' },
     oneliner: 'A producer’s online store: beats for sale with previews, licensing and in-page checkout.',
     bullets: [
       { lead: 'In-page checkout', body: 'waveform previews, a multi-license cart (MP3 / WAV / stems / exclusive) and Stripe without leaving the page.' },

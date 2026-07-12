@@ -256,6 +256,10 @@ body {
 .ps-note { margin-top: 10px; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.55; color: var(--color-text-dim); }
 .ps-left { display: flex; flex-direction: column; gap: 16px; }
 .ps-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.ps-credit { margin-top: 12px; text-align: center; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.06em; color: var(--color-text-dim); }
+.ps-credit span { text-transform: uppercase; letter-spacing: 0.16em; color: var(--color-accent-txt); margin-right: 8px; }
+.ps-credit a { color: var(--color-text-muted); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--color-bone) 22%, transparent); transition: color var(--dur-fast) var(--ease-sig); }
+.ps-credit a:hover { color: var(--color-bone); }
 
 /* ---- shared button system (restyle) ----
    primary = refined oxblood (deep gradient + hairline, NO alarm glow);
