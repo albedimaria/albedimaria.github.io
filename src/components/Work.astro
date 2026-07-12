@@ -95,7 +95,7 @@ const nextLabel: Record<Lang, string> = { en: 'Next project', it: 'Progetto succ
       if (pos >= set.length) pos = 0;
     }
 
-    function render() {
+    function render(dir = 0) {
       slides.forEach((s) => {
         s.hidden = true;
         s.classList.remove('is-active');
@@ -107,6 +107,8 @@ const nextLabel: Record<Lang, string> = { en: 'Next project', it: 'Progetto succ
       }
       const active = set[pos];
       active.hidden = false;
+      // Directional entrance — new slide enters from the side you're heading to.
+      active.style.setProperty('--slide-from', dir > 0 ? '36px' : dir < 0 ? '-36px' : '0px');
       active.classList.add('is-active');
 
       counter.innerHTML = `<b>${String(pos + 1).padStart(2, '0')}</b> / ${String(set.length).padStart(2, '0')}`;
@@ -119,7 +121,7 @@ const nextLabel: Record<Lang, string> = { en: 'Next project', it: 'Progetto succ
         d.setAttribute('role', 'tab');
         d.setAttribute('aria-selected', String(i === pos));
         d.setAttribute('aria-label', `${i + 1} / ${set.length}`);
-        d.addEventListener('click', () => { pos = i; render(); });
+        d.addEventListener('click', () => { const dir = i > pos ? 1 : i < pos ? -1 : 0; pos = i; render(dir); });
         dotsWrap.appendChild(d);
       });
 
@@ -134,7 +136,7 @@ const nextLabel: Record<Lang, string> = { en: 'Next project', it: 'Progetto succ
     function go(delta: number) {
       if (set.length < 2) return;
       pos = (pos + delta + set.length) % set.length;
-      render();
+      render(delta);
     }
 
     prevBtn.addEventListener('click', () => go(-1));
@@ -143,6 +145,16 @@ const nextLabel: Record<Lang, string> = { en: 'Next project', it: 'Progetto succ
       if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
       else if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
     });
+
+    // Touch swipe (mobile) — horizontal drag flips the project; ignore mostly
+    // vertical moves so the page still scrolls.
+    let tx = 0, ty = 0;
+    stage.addEventListener('touchstart', (e) => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, { passive: true });
+    stage.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - tx;
+      const dy = e.changedTouches[0].clientY - ty;
+      if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? 1 : -1);
+    }, { passive: true });
 
     chips.forEach((chip) => {
       chip.addEventListener('click', () => {

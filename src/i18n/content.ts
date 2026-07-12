@@ -284,7 +284,7 @@ export const ui: Record<Lang, UI> = {
     filter_labels: { All: 'All', 'Client work': 'Client work', Hackathons: 'Hackathons', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML', Research: 'Research' },
     filter_desc: {
       All: '',
-      'Client work': 'commissioned, sold client projects',
+      'Client work': 'real clients, in production',
       Hackathons: 'competition builds — placed & awarded',
       'Voice AI': 'real-time conversational phone agents',
       'Audio / ML': 'audio analysis & generative models',
@@ -323,7 +323,7 @@ export const ui: Record<Lang, UI> = {
     filter_labels: { All: 'Tutti', 'Client work': 'Su commissione', Hackathons: 'Hackathon', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML', Research: 'Ricerca' },
     filter_desc: {
       All: '',
-      'Client work': 'progetti su commissione, venduti',
+      'Client work': 'clienti reali, in produzione',
       Hackathons: 'progetti da competition — premiati',
       'Voice AI': 'agenti telefonici conversazionali real-time',
       'Audio / ML': 'analisi audio e modelli generativi',
@@ -362,7 +362,7 @@ export const ui: Record<Lang, UI> = {
     filter_labels: { All: 'Todos', 'Client work': 'Por encargo', Hackathons: 'Hackathons', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML', Research: 'Investigación' },
     filter_desc: {
       All: '',
-      'Client work': 'proyectos por encargo, vendidos',
+      'Client work': 'clientes reales, en producción',
       Hackathons: 'proyectos de competición — premiados',
       'Voice AI': 'agentes telefónicos conversacionales en tiempo real',
       'Audio / ML': 'análisis de audio y modelos generativos',

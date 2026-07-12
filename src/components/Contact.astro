@@ -15,6 +15,19 @@ const budget = budgetField[lang];
 // the form posts to Web3Forms and the reply lands in the linked email. Swap the
 // placeholder with the real key (https://web3forms.com → enter email → get key).
 const WEB3FORMS_KEY = '730cfe53-7f78-4bb5-90cf-ee5be2bae7c7';
+
+// Inline-validation messages + a low-friction trust line under the copy.
+const fErr: Record<Lang, { name: string; email: string; message: string }> = {
+  en: { name: 'Your name?', email: 'A valid email, please', message: 'A line or two?' },
+  it: { name: 'Il tuo nome?', email: 'Un’email valida, per favore', message: 'Due righe?' },
+  es: { name: '¿Tu nombre?', email: 'Un email válido, por favor', message: '¿Dos líneas?' },
+};
+const e = fErr[lang];
+const freeCall: Record<Lang, string> = {
+  en: 'Free intro call · 30 min, no strings',
+  it: 'Prima call gratuita · 30 min, nessun impegno',
+  es: 'Primera llamada gratis · 30 min, sin compromiso',
+};
 ---
 
 <section id="contact" class="sec-line relative overflow-hidden bg-ink-2">
@@ -30,6 +43,11 @@ const WEB3FORMS_KEY = '730cfe53-7f78-4bb5-90cf-ee5be2bae7c7';
       </p>
       <p class="mt-6 max-w-xl text-[16px] leading-relaxed text-text-muted">{t.contact_lead}</p>
       <p class="mt-2 font-mono text-[13px] text-text-dim">{contactReply[lang]}</p>
+
+      <div class="mt-8 inline-flex items-center gap-2.5 rounded-[var(--radius-btn)] border border-bone/12 bg-ink/40 px-4 py-3 font-mono text-[13px] text-text-muted">
+        <span class="h-2 w-2 flex-none rounded-full bg-[#57c98a]" aria-hidden="true"></span>
+        {freeCall[lang]}
+      </div>
     </div>
 
     <!-- Contact form — no-JS fallback: posts straight to Web3Forms. With JS the
@@ -54,8 +72,11 @@ const WEB3FORMS_KEY = '730cfe53-7f78-4bb5-90cf-ee5be2bae7c7';
             name="name"
             required
             placeholder={f.namePh}
-            class="w-full rounded-[var(--radius-btn)] border border-bone/15 bg-transparent px-4 py-3 font-mono text-[14px] text-bone placeholder:text-text-dim focus:border-oxblood focus:outline-none"
+            data-err-msg={e.name}
+            aria-describedby="err-name"
+            class="contact-input w-full rounded-[var(--radius-btn)] border border-bone/15 bg-transparent px-4 py-3 font-mono text-[14px] text-bone placeholder:text-text-dim focus:border-oxblood focus:outline-none"
           />
+          <span id="err-name" class="ferr" data-err aria-live="polite"></span>
         </label>
         <label class="block">
           <span class="mb-1.5 block font-mono text-[12px] uppercase tracking-wider text-text-muted">{f.email}</span>
@@ -65,8 +86,11 @@ const WEB3FORMS_KEY = '730cfe53-7f78-4bb5-90cf-ee5be2bae7c7';
             required
             placeholder={f.emailPh}
             autocomplete="email"
-            class="w-full rounded-[var(--radius-btn)] border border-bone/15 bg-transparent px-4 py-3 font-mono text-[14px] text-bone placeholder:text-text-dim focus:border-oxblood focus:outline-none"
+            data-err-msg={e.email}
+            aria-describedby="err-email"
+            class="contact-input w-full rounded-[var(--radius-btn)] border border-bone/15 bg-transparent px-4 py-3 font-mono text-[14px] text-bone placeholder:text-text-dim focus:border-oxblood focus:outline-none"
           />
+          <span id="err-email" class="ferr" data-err aria-live="polite"></span>
         </label>
       </div>
 
@@ -90,8 +114,11 @@ const WEB3FORMS_KEY = '730cfe53-7f78-4bb5-90cf-ee5be2bae7c7';
           required
           rows="4"
           placeholder={f.messagePh}
-          class="w-full resize-y rounded-[var(--radius-btn)] border border-bone/15 bg-transparent px-4 py-3 font-mono text-[14px] leading-relaxed text-bone placeholder:text-text-dim focus:border-oxblood focus:outline-none"
+          data-err-msg={e.message}
+          aria-describedby="err-message"
+          class="contact-input w-full resize-y rounded-[var(--radius-btn)] border border-bone/15 bg-transparent px-4 py-3 font-mono text-[14px] leading-relaxed text-bone placeholder:text-text-dim focus:border-oxblood focus:outline-none"
         ></textarea>
+        <span id="err-message" class="ferr" data-err aria-live="polite"></span>
       </label>
 
       <div class="mt-5 flex flex-wrap items-center gap-4">
@@ -139,9 +166,10 @@ const WEB3FORMS_KEY = '730cfe53-7f78-4bb5-90cf-ee5be2bae7c7';
           body: new FormData(form),
         });
         const ok = res.ok;
-        status.textContent = ok ? status.dataset.success! : status.dataset.error!;
+        status.textContent = ok ? '✓ ' + status.dataset.success! : status.dataset.error!;
         status.classList.remove('hidden');
-        status.style.color = ok ? 'var(--color-bone)' : 'var(--color-oxblood-soft)';
+        status.classList.toggle('is-ok', ok);
+        status.style.color = ok ? 'var(--color-bone)' : 'var(--color-accent-txt)';
         if (ok) form.reset();
       } catch {
         status.textContent = status.dataset.error!;
@@ -151,6 +179,34 @@ const WEB3FORMS_KEY = '730cfe53-7f78-4bb5-90cf-ee5be2bae7c7';
         btn.disabled = false;
         btn.textContent = label;
       }
+    });
+
+    // Inline validation — checks on blur, clears as the user fixes it.
+    const rules: Record<string, (v: string) => boolean> = {
+      name: (v) => v.trim().length > 0,
+      email: (v) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.trim()),
+      message: (v) => v.trim().length >= 4,
+    };
+    (['name', 'email', 'message'] as const).forEach((n) => {
+      const input = form.elements.namedItem(n) as HTMLInputElement | HTMLTextAreaElement | null;
+      if (!input) return;
+      const err = document.getElementById(`err-${n}`);
+      const check = () => {
+        const bad = input.value.length > 0 && !rules[n](input.value);
+        const empty = input.value.trim().length === 0;
+        const show = bad || empty;
+        if (err) err.textContent = show ? (input.dataset.errMsg || '') : '';
+        input.classList.toggle('is-invalid', show);
+        input.setAttribute('aria-invalid', show ? 'true' : 'false');
+      };
+      input.addEventListener('blur', check);
+      input.addEventListener('input', () => {
+        if (input.classList.contains('is-invalid') && rules[n](input.value)) {
+          if (err) err.textContent = '';
+          input.classList.remove('is-invalid');
+          input.setAttribute('aria-invalid', 'false');
+        }
+      });
     });
   }
 </script>
