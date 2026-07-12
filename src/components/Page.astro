@@ -17,6 +17,7 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = ui[lang];
+const navShortcuts: Record<Lang, string> = { en: 'Page shortcuts', it: 'Scorciatoie pagina', es: 'Atajos de página' };
 ---
 
 <Layout lang={lang}>
@@ -38,6 +39,8 @@ const t = ui[lang];
     </div>
   </footer>
 
-  <BackToTop />
-  <D10SDock lang={lang} />
+  <nav aria-label={navShortcuts[lang]}>
+    <BackToTop />
+    <D10SDock lang={lang} />
+  </nav>
 </Layout>

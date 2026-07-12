@@ -45,8 +45,8 @@ const micLabel: Record<Lang, string> = { en: 'Talk to D10S', it: 'Parla con D10S
           ))}
         </div>
 
-        <div class="d10s-input" data-d10s="text" role="button" tabindex="0" aria-label={inputPh[lang]}>
-          <span class="ph">{inputPh[lang]}</span>
+        <div class="d10s-input">
+          <button type="button" class="d10s-input-text" data-d10s="text" aria-label={inputPh[lang]}>{inputPh[lang]}</button>
           <button type="button" class="d10s-mic" data-d10s="voice" aria-label={micLabel[lang]}>
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
               <rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0" /><path d="M12 18v3" />
@@ -69,18 +69,9 @@ const micLabel: Record<Lang, string> = { en: 'Talk to D10S', it: 'Parla con D10S
         const { mount } = await import('./voice-mount');
         mount(panel, (panel.dataset.lang as 'en' | 'it' | 'es') || 'en', action);
       };
-      panel.querySelectorAll<HTMLElement>('[data-d10s]').forEach((b) => {
-        b.addEventListener('click', (e) => {
-          // the mic button lives inside the input row — don't double-fire
-          if (b.dataset.d10s === 'text' && (e.target as HTMLElement).closest('[data-d10s="voice"]')) return;
-          boot(b);
-        });
-        if (b.getAttribute('role') === 'button') {
-          b.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); boot(b); }
-          });
-        }
-      });
+      panel.querySelectorAll<HTMLElement>('[data-d10s]').forEach((b) =>
+        b.addEventListener('click', () => boot(b))
+      );
     }
   </script>
 </section>

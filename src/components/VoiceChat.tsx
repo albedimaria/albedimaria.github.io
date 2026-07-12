@@ -325,7 +325,7 @@ function Panel({
             <button
               onClick={startVoice}
               disabled={status === 'connecting'}
-              className="flex items-center gap-2 rounded-full bg-oxblood px-6 py-2.5 font-mono text-[13px] uppercase tracking-[0.15em] text-[#f6dfe4] transition hover:bg-oxblood/85 disabled:opacity-50"
+              className="btn-primary font-mono text-[13px] uppercase tracking-[0.12em] disabled:opacity-50"
             >
               <MicIcon />
               {status === 'connecting' ? '…' : vu.talk}
@@ -333,7 +333,7 @@ function Panel({
             <button
               onClick={startText}
               disabled={status === 'connecting'}
-              className="flex items-center gap-2 rounded-full border border-bone/35 px-5 py-2.5 font-mono text-[13px] uppercase tracking-[0.15em] text-text-muted transition hover:border-bone/60 hover:text-bone disabled:opacity-50"
+              className="btn-ghost font-mono text-[13px] uppercase tracking-[0.12em] disabled:opacity-50"
             >
               <KeysIcon />
               {vu.type}
@@ -361,7 +361,7 @@ function Panel({
           <button
             type="button"
             onClick={stop}
-            className="rounded-full border border-bone/25 px-5 py-2.5 font-mono text-[13px] uppercase tracking-[0.12em] text-bone transition hover:bg-bone/10"
+            className="btn-ghost font-mono text-[13px] uppercase tracking-[0.12em]"
           >
             {t.end}
           </button>
@@ -378,7 +378,7 @@ function Panel({
           <button
             type="button"
             onClick={stop}
-            className="shrink-0 rounded-full border border-bone/25 px-4 py-2.5 font-mono text-[13px] uppercase tracking-[0.12em] text-bone transition hover:bg-bone/10"
+            className="btn-ghost shrink-0 font-mono text-[13px] uppercase tracking-[0.12em]"
           >
             {t.end}
           </button>
