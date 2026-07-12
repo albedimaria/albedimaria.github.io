@@ -33,6 +33,12 @@ const KeysIcon = () => (
     <path d="M7 11h.01M11 11h.01M15 11h.01M17 11h.01M7 15h10" />
   </svg>
 );
+const SendIcon = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M5 12h14" />
+    <path d="M13 6l6 6-6 6" />
+  </svg>
+);
 
 const DAILY_LIMIT = 6;
 const SESSION_MAX_MS = 110_000;
@@ -176,7 +182,7 @@ function Panel({
         smooth = smooth * 0.82 + v * 0.18; // low-pass: waves sway, never jitter
         if (dotRef.current) {
           dotRef.current.style.transform = `scale(${1 + v * 1.6})`;
-          dotRef.current.style.opacity = String(0.5 + v * 0.5);
+          dotRef.current.style.opacity = String(0.7 + v * 0.3);
         }
         root.style.setProperty('--d10s-vol', smooth.toFixed(3));
       } catch {}
@@ -282,108 +288,113 @@ function Panel({
 
   const connected = status === 'connected';
   const shownErr = err ?? (status === 'error' ? message : null);
+  const barLabel = connected ? (mode === 'voice' ? 'live' : 'chat') : status === 'connecting' ? '…' : 'online';
 
   return (
-    <div>
-      {connected && (
-        <div className="mb-3 flex items-center gap-2">
-          <span
-            ref={dotRef}
-            className="inline-block h-2.5 w-2.5 rounded-full bg-oxblood transition-transform"
-            aria-hidden="true"
-          />
-          <span className="font-mono text-[12px] uppercase tracking-wider text-text-muted">
-            D10S · {mode === 'voice' ? 'live' : 'chat'}
-          </span>
-        </div>
-      )}
+    <div className="d10s-live-root">
+      {/* status bar — same language as the presentation shell, always present */}
+      <div className="d10s-bar">
+        <span
+          ref={dotRef}
+          className="inline-block h-[7px] w-[7px] rounded-full bg-oxblood-soft transition-transform"
+          aria-hidden="true"
+        />
+        <span><b>D10S</b> · {barLabel}</span>
+      </div>
 
-      {lines.some((l) => l.text.trim()) && (
-        <div className="chat-scroll mb-3 max-h-56 space-y-2 overflow-y-auto pr-1.5">
-          {lines.filter((l) => l.text.trim()).map((l, i) => (
-            <div key={i} className={`flex ${l.source === 'ai' ? 'justify-end' : 'justify-start'}`}>
-              <div
-                className={`max-w-[82%] rounded-2xl px-3 py-2 text-[13px] leading-snug ${
-                  l.source === 'ai'
-                    ? 'rounded-br-sm bg-oxblood/20 text-bone'
-                    : 'rounded-bl-sm bg-bone/[0.06] text-text-muted'
-                }`}
-              >
-                {l.text}
-              </div>
+      {/* transcript fills the middle and scrolls internally — the panel height
+          never changes */}
+      <div className="chat-scroll mt-3.5 min-h-0 flex-1 space-y-2 overflow-y-auto pr-1.5">
+        {lines.filter((l) => l.text.trim()).map((l, i) => (
+          <div key={i} className={`flex ${l.source === 'ai' ? 'justify-start' : 'justify-end'}`}>
+            <div
+              className={`max-w-[82%] rounded-2xl px-3 py-2 text-[13px] leading-snug ${
+                l.source === 'ai'
+                  ? 'rounded-bl-sm bg-oxblood/20 text-bone'
+                  : 'rounded-br-sm bg-bone/[0.06] text-text-muted'
+              }`}
+            >
+              {l.text}
             </div>
-          ))}
-          <div ref={endRef} />
-        </div>
-      )}
-
-      {shownErr && <p className="mb-2 px-1 font-mono text-[11px] text-oxblood-soft">{shownErr}</p>}
-
-      {!connected ? (
-        <div className="space-y-3">
-          <div className="flex flex-wrap items-center justify-center gap-2.5">
-            <button
-              onClick={startVoice}
-              disabled={status === 'connecting'}
-              className="btn-primary font-mono text-[13px] uppercase tracking-[0.12em] disabled:opacity-50"
-            >
-              <MicIcon />
-              {status === 'connecting' ? '…' : vu.talk}
-            </button>
-            <button
-              onClick={startText}
-              disabled={status === 'connecting'}
-              className="btn-ghost font-mono text-[13px] uppercase tracking-[0.12em] disabled:opacity-50"
-            >
-              <KeysIcon />
-              {vu.type}
-            </button>
           </div>
-          <div className="flex flex-wrap justify-center gap-2 pt-0.5">
-            {vu.chips.map((c) => (
+        ))}
+        <div ref={endRef} />
+      </div>
+
+      {shownErr && <p className="mt-2 px-1 font-mono text-[11px] text-oxblood-soft">{shownErr}</p>}
+
+      {/* controls pinned to the bottom */}
+      <div className="mt-3.5">
+        {!connected ? (
+          <>
+            <div className="flex flex-wrap items-center gap-2.5">
               <button
-                key={c}
-                type="button"
-                onClick={() => {
-                  setPending(c);
-                  startText();
-                }}
+                onClick={startVoice}
                 disabled={status === 'connecting'}
-                className="rounded-full border border-bone/12 bg-bone/[0.04] px-3 py-1.5 font-mono text-[12px] text-text-muted transition hover:border-oxblood-soft/60 hover:text-bone disabled:opacity-50"
+                className="btn-primary font-mono text-[13px] uppercase tracking-[0.12em] disabled:opacity-50"
               >
-                {c}
+                <MicIcon />
+                {status === 'connecting' ? '…' : vu.talk}
               </button>
-            ))}
+              <button
+                onClick={startText}
+                disabled={status === 'connecting'}
+                className="btn-ghost font-mono text-[13px] uppercase tracking-[0.12em] disabled:opacity-50"
+              >
+                <KeysIcon />
+                {vu.type}
+              </button>
+            </div>
+            <div className="d10s-sugg">
+              {vu.chips.map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  disabled={status === 'connecting'}
+                  onClick={() => {
+                    setPending(c);
+                    startText();
+                  }}
+                >
+                  {c}
+                </button>
+              ))}
+            </div>
+          </>
+        ) : mode === 'voice' ? (
+          <div className="flex justify-center">
+            <button
+              type="button"
+              onClick={stop}
+              className="btn-ghost font-mono text-[13px] uppercase tracking-[0.12em]"
+            >
+              {t.end}
+            </button>
           </div>
-        </div>
-      ) : mode === 'voice' ? (
-        <div className="flex justify-center">
-          <button
-            type="button"
-            onClick={stop}
-            className="btn-ghost font-mono text-[13px] uppercase tracking-[0.12em]"
-          >
-            {t.end}
-          </button>
-        </div>
-      ) : (
-        <form onSubmit={send} className="flex items-center gap-2">
-          <input
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder={t.placeholder}
-            autoFocus
-            className="min-w-0 flex-1 rounded-full border border-bone/15 bg-transparent px-4 py-2.5 font-mono text-[13px] text-bone placeholder:text-text-dim focus:border-oxblood focus:outline-none"
-          />
-          <button
-            type="button"
-            onClick={stop}
-            className="btn-ghost shrink-0 font-mono text-[13px] uppercase tracking-[0.12em]"
-          >
-            {t.end}
-          </button>
-        </form>
-      )}
+        ) : (
+          <>
+            <form onSubmit={send} className="d10s-input !mt-0">
+              <input
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder={t.placeholder}
+                autoFocus
+                className="min-w-0 flex-1 border-0 bg-transparent p-0 font-mono text-[13px] text-bone placeholder:text-text-dim focus:outline-none"
+              />
+              <button type="submit" className="d10s-mic" aria-label={t.type}>
+                <SendIcon />
+              </button>
+            </form>
+            <button
+              type="button"
+              onClick={stop}
+              className="mt-2.5 block w-full text-center font-mono text-[11px] uppercase tracking-[0.14em] text-text-dim transition hover:text-bone"
+            >
+              {t.end}
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 }

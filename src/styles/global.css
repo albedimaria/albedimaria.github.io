@@ -360,7 +360,14 @@ body {
   background: linear-gradient(158deg, #221319, #160e11 78%);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 34px rgba(122, 18, 40, 0.16);
   padding: 20px 20px 18px;
+  /* Fixed height across shell AND live conversation so the panel never resizes
+     between states (presentation → connecting → voice/text). */
+  min-height: 354px;
+  display: flex;
+  flex-direction: column;
 }
+/* live conversation island fills the panel; controls pin to the bottom */
+.d10s-live-root { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; }
 .d10s-bar { display: flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-text-dim); }
 .d10s-bar b { color: var(--color-bone); font-weight: 500; }
 .d10s-live { width: 7px; height: 7px; border-radius: 50%; background: var(--color-oxblood-soft); box-shadow: 0 0 0 0 rgba(156, 51, 64, 0.55); animation: d10s-beat 2.4s var(--ease-sig) infinite; }
