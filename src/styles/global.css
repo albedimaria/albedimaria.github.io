@@ -156,10 +156,17 @@ body {
 .ferr:empty { margin-top: 0; }
 .contact-input.is-invalid { border-color: var(--color-accent-txt); }
 #contact-status.is-ok { color: var(--color-bone); }
-/* "come lavoro" as a connected process — node dot at each step start (desktop) */
+/* "come lavoro" — editorial number-led stepper with flow arrows */
+.proc-num { font-family: var(--font-display); font-size: clamp(40px, 4vw, 52px); font-weight: 500; line-height: 1; letter-spacing: -0.02em; color: var(--color-accent-lg); font-variant-numeric: tabular-nums; }
+.proc-t { margin-top: 14px; font-family: var(--font-display); font-size: 19px; font-weight: 600; line-height: 1.15; color: var(--color-bone); }
+.proc-d { margin-top: 8px; font-size: 16px; line-height: 1.45; color: var(--color-text-muted); }
 @media (min-width: 1024px) {
   .proc-step { position: relative; }
-  .proc-step::before { content: ""; position: absolute; top: -4px; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--color-oxblood-soft); }
+  .proc-step:not(:last-child)::after {
+    content: "→"; position: absolute; top: 12px; right: -25px;
+    font-family: var(--font-mono); font-size: 18px; line-height: 1;
+    color: color-mix(in srgb, var(--color-oxblood-soft) 45%, transparent);
+  }
 }
 .svc-card:hover .svc-ico { color: #eeb9c1; border-color: color-mix(in srgb, var(--color-oxblood-soft) 55%, transparent); }
 .svc-ref { transition: color var(--dur-fast) var(--ease-sig), transform var(--dur-fast) var(--ease-sig); }
