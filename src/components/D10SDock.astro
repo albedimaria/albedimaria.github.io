@@ -28,13 +28,17 @@ const ring = `${seal[lang]} · · · `;
     dock.addEventListener('click', () =>
       target.scrollIntoView({ behavior: 'smooth', block: 'center' })
     );
-    const io = new IntersectionObserver(
-      ([e]) => {
-        const passed = !e.isIntersecting && e.boundingClientRect.top < 0;
-        dock.classList.toggle('is-on', passed);
-      },
-      { threshold: 0 }
-    );
-    io.observe(target);
+    // Show as soon as the agent starts leaving upward — when its bottom rises
+    // past ~60% of the viewport you're already moving into the next section.
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const r = target.getBoundingClientRect();
+      dock.classList.toggle('is-on', r.bottom < window.innerHeight * 0.6);
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
   }
 </script>

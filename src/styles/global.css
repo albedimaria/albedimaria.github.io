@@ -381,7 +381,7 @@ body {
 /* Floating D10S launcher — living red sphere (waveform at rest, rotating
    "chiedi a d10s" seal on hover), bottom-right */
 .d10s-dock {
-  position: fixed; bottom: 24px; right: 24px; z-index: 40;
+  position: fixed; bottom: 24px; right: 32px; z-index: 40;
   width: 52px; height: 52px; border-radius: 50%;
   border: 1px solid color-mix(in srgb, var(--color-oxblood-soft) 55%, transparent);
   background: radial-gradient(circle at 40% 35%, #b8455a, #7a1228 46%, #3f0a17);

@@ -24,9 +24,9 @@ const fErr: Record<Lang, { name: string; email: string; message: string }> = {
 };
 const e = fErr[lang];
 const freeCall: Record<Lang, string> = {
-  en: 'Free intro call · 30 min, no strings',
-  it: 'Prima call gratuita · 30 min, nessun impegno',
-  es: 'Primera llamada gratis · 30 min, sin compromiso',
+  en: 'First call is free',
+  it: 'Prima chiamata gratuita',
+  es: 'Primera llamada gratis',
 };
 ---
 
@@ -56,7 +56,7 @@ const freeCall: Record<Lang, string> = {
       id="contact-form"
       action="https://api.web3forms.com/submit"
       method="POST"
-      class="min-w-0 lg:self-center"
+      class="min-w-0 lg:self-start"
     >
       <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
       <input type="hidden" name="subject" value="New message from albedimaria.github.io" />

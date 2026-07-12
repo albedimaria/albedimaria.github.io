@@ -89,6 +89,8 @@ const micLabel: Record<Lang, string> = { en: 'Talk to D10S', it: 'Parla con D10S
           entries.forEach((e) => {
             if (!e.isIntersecting || done) return;
             io.unobserve(e.target);
+            // Reserve the final height so typing doesn't shift the panel (CLS).
+            say.style.minHeight = say.offsetHeight + 'px';
             say.textContent = '';
             say.classList.add('is-typing');
             let i = 0;
