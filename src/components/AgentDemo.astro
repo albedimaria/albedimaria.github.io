@@ -39,7 +39,7 @@ const micLabel: Record<Lang, string> = { en: 'Talk to D10S', it: 'Parla con D10S
     <div data-reveal id="d10s-panel" data-lang={lang} class="d10s d10s-solo mt-9 text-left">
       <div class="d10s-bar"><span class="d10s-live" aria-hidden="true"></span><span><b>D10S</b> · online</span></div>
 
-      <p class="d10s-say">{greeting[lang]}</p>
+      <p class="d10s-say" data-typewriter>{greeting[lang]}</p>
 
       <div class="d10s-sugg">
         <div class="lb">{tryLabel[lang]}</div>
@@ -74,6 +74,35 @@ const micLabel: Record<Lang, string> = { en: 'Talk to D10S', it: 'Parla con D10S
       panel.querySelectorAll<HTMLElement>('[data-d10s]').forEach((b) =>
         b.addEventListener('click', () => boot(b))
       );
+
+      // Idle liveness — D10S "types" its greeting once, the first time the
+      // panel scrolls into view. Any interaction (or reduced-motion) reveals
+      // the full text immediately.
+      const say = panel.querySelector<HTMLElement>('[data-typewriter]');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (say && !reduce) {
+        const full = say.textContent || '';
+        let done = false;
+        const finish = () => { if (done) return; done = true; say.textContent = full; say.classList.remove('is-typing'); };
+        panel.querySelectorAll<HTMLElement>('[data-d10s]').forEach((b) => b.addEventListener('click', finish));
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (!e.isIntersecting || done) return;
+            io.unobserve(e.target);
+            say.textContent = '';
+            say.classList.add('is-typing');
+            let i = 0;
+            const tick = () => {
+              if (done) return;
+              say.textContent = full.slice(0, ++i);
+              if (i < full.length) setTimeout(tick, 22);
+              else { say.classList.remove('is-typing'); done = true; }
+            };
+            tick();
+          });
+        }, { threshold: 0.5 });
+        io.observe(panel);
+      }
     }
   </script>
 </section>

@@ -88,6 +88,23 @@ body {
 }
 /* photo sits above the page grain (z-60) so it never looks "AI-enhanced" */
 .hero-photo-frame { position: relative; z-index: 61; }
+/* subtle brand grade on the hero portrait — warm oxblood floor, ties it in */
+.hero-photo-grade {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(to top, color-mix(in srgb, var(--color-oxblood) 34%, transparent) 0%, transparent 46%),
+    radial-gradient(120% 80% at 50% 0%, transparent 60%, rgba(0,0,0,0.28) 100%);
+  mix-blend-mode: normal;
+}
+
+/* Hero entrance — one orchestrated load-in, staggered by --d */
+.hero-rise { opacity: 0; animation: hero-rise 0.7s var(--ease-sig) both; animation-delay: var(--d, 0ms); }
+@keyframes hero-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.hero-cue-in { opacity: 0; animation: hero-cue-in 0.6s var(--ease-sig) both; animation-delay: var(--d, 0ms); }
+@keyframes hero-cue-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise, .hero-cue-in { opacity: 1; animation: none; }
+}
 
 /* Section eyebrow with a trailing hairline (restyle) */
 .kicker-rule { display: flex; align-items: center; gap: 14px; }
@@ -331,10 +348,13 @@ body {
 .d10s-say { margin-top: 14px; font-family: var(--font-display); font-style: italic; font-weight: 340; font-size: 18px; line-height: 1.4; color: var(--color-text); }
 .d10s-sugg { margin-top: 16px; }
 .d10s-sugg .lb { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-dim); }
-.d10s-sugg button { display: block; width: 100%; text-align: left; margin: 0; padding: 9px 0; border: 0; border-top: 1px solid color-mix(in srgb, var(--color-bone) 8%, transparent); background: transparent; font-family: var(--font-mono); font-size: 12.5px; color: var(--color-text-muted); cursor: pointer; transition: color var(--dur-fast) var(--ease-sig); min-height: 40px; }
+.d10s-sugg button { display: block; width: 100%; text-align: left; margin: 0; padding: 9px 0; border: 0; border-top: 1px solid color-mix(in srgb, var(--color-bone) 8%, transparent); background: transparent; font-family: var(--font-mono); font-size: 12.5px; color: var(--color-text-muted); cursor: pointer; transition: color var(--dur-fast) var(--ease-sig), transform var(--dur-fast) var(--ease-sig); min-height: 40px; }
 .d10s-sugg button:first-of-type { margin-top: 8px; }
-.d10s-sugg button:hover { color: var(--color-bone); }
+.d10s-sugg button:hover { color: var(--color-bone); transform: translateX(4px); }
 .d10s-sugg button::before { content: "→ "; color: var(--color-accent-txt); }
+/* typewriter caret while D10S "speaks" its greeting */
+.d10s-say.is-typing::after { content: "▍"; margin-left: 1px; color: var(--color-oxblood-soft); animation: d10s-caret 0.9s steps(1) infinite; }
+@keyframes d10s-caret { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
 .d10s-input { margin-top: 16px; display: flex; align-items: center; gap: 8px; padding: 7px 7px 7px 14px; border-radius: 11px; border: 1px solid color-mix(in srgb, var(--color-bone) 16%, transparent); background: color-mix(in srgb, #000 22%, transparent); transition: border-color var(--dur-fast) var(--ease-sig); }
 .d10s-input:hover { border-color: color-mix(in srgb, var(--color-bone) 28%, transparent); }
 .d10s-input-text { flex: 1; text-align: left; background: transparent; border: 0; padding: 0; min-height: 40px; font-family: var(--font-mono); font-size: 12.5px; color: var(--color-text-dim); cursor: text; transition: color var(--dur-fast) var(--ease-sig); }
