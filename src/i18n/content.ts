@@ -12,7 +12,7 @@ export const ogLocale: Record<Lang, string> = { en: 'en_US', it: 'it_IT', es: 'e
 export const seo: Record<Lang, { title: string; description: string }> = {
   en: {
     title: 'Alberto Di Maria — AI Product Engineer',
-    description: 'Freelance AI product engineer in Milan. I design and ship agentic AI products — voice agents, full-stack platforms and audio tools.',
+    description: 'Websites, automation and AI voice agents for your business. Freelance in Milan: less manual work, more time and more clients.',
   },
   it: {
     title: 'Alberto Di Maria — AI Product Engineer',
@@ -20,7 +20,7 @@ export const seo: Record<Lang, { title: string; description: string }> = {
   },
   es: {
     title: 'Alberto Di Maria — AI Product Engineer',
-    description: 'AI product engineer freelance en Milán. Diseño y entrego productos de IA agéntica — agentes de voz, plataformas full-stack y herramientas de audio.',
+    description: 'Webs, automatización y agentes de voz IA para tu negocio. Freelance en Milán: menos trabajo manual, más tiempo y más clientes.',
   },
 };
 
@@ -52,7 +52,7 @@ export const contactForm: Record<
     email: 'Email',
     emailPh: 'you@company.com',
     message: 'Message',
-    messagePh: 'what are you building? a couple of lines is enough.',
+    messagePh: 'what do you need? a couple of lines is enough.',
     send: 'Send message',
     sending: 'Sending…',
     success: 'Thanks — your message is on its way. I’ll get back to you soon.',
@@ -78,7 +78,7 @@ export const contactForm: Record<
     email: 'Email',
     emailPh: 'tu@empresa.com',
     message: 'Mensaje',
-    messagePh: '¿qué estás construyendo? con un par de líneas basta.',
+    messagePh: '¿qué necesitas? con un par de líneas basta.',
     send: 'Enviar mensaje',
     sending: 'Enviando…',
     success: 'Gracias — tu mensaje está en camino. Te respondo pronto.',
@@ -100,10 +100,10 @@ export const aboutPhotoCaption: Record<Lang, string> = {
 // qualitative steps, no binding promises.
 export const processSteps: Record<Lang, { title: string; desc: string }[]> = {
   en: [
-    { title: 'Intro call', desc: 'free, half an hour — we see if you actually need it' },
+    { title: 'Intro call', desc: 'free, to understand the problem' },
     { title: 'Clear proposal', desc: 'fixed price, agreed upfront, no surprises' },
-    { title: 'Build', desc: 'you watch it take shape, demos along the way' },
-    { title: 'Delivery', desc: 'with hand-holding — I don’t vanish' },
+    { title: 'Build', desc: 'demos and updates along the way' },
+    { title: 'Delivery', desc: 'training on use, and support after release' },
   ],
   it: [
     { title: 'Chiamata conoscitiva', desc: 'gratuita, per capire il problema' },
@@ -112,10 +112,10 @@ export const processSteps: Record<Lang, { title: string; desc: string }[]> = {
     { title: 'Consegna', desc: 'formazione all’uso e assistenza dopo il rilascio' },
   ],
   es: [
-    { title: 'Llamada inicial', desc: 'gratuita, media hora — vemos si de verdad hace falta' },
+    { title: 'Llamada inicial', desc: 'gratuita, para entender el problema' },
     { title: 'Propuesta clara', desc: 'precio fijo, acordado antes, sin sorpresas' },
-    { title: 'Construcción', desc: 'ves el trabajo mientras nace, demos intermedias' },
-    { title: 'Entrega', desc: 'con acompañamiento — no desaparezco' },
+    { title: 'Construcción', desc: 'demos y actualizaciones durante el proceso' },
+    { title: 'Entrega', desc: 'formación de uso y asistencia tras la entrega' },
   ],
 };
 
@@ -149,9 +149,9 @@ export const heroHook: Record<Lang, { line1: string; accent: string }> = {
   es: { line1: '¿Todavía todo', accent: 'a mano?' },
 };
 export const heroSub: Record<Lang, { lead: string; follow: string }> = {
-  en: { lead: 'Websites, automation and AI agents for your business', follow: 'I build them and I fix them.' },
+  en: { lead: 'Websites, automation and AI agents for your business', follow: 'less manual work, more time and more clients.' },
   it: { lead: 'Siti, automazioni e agenti AI per la tua attività', follow: 'meno lavoro manuale, più tempo e clienti.' },
-  es: { lead: 'Webs, automatización y agentes IA para tu negocio', follow: 'los construyo y los arreglo yo.' },
+  es: { lead: 'Webs, automatización y agentes IA para tu negocio', follow: 'menos trabajo manual, más tiempo y más clientes.' },
 };
 export const heroPhotoRole: Record<Lang, string> = {
   en: 'AI product engineer · Milan',
@@ -182,8 +182,8 @@ export const servicesBand: Record<Lang, { kicker: string; cta: string; cards: Se
     kicker: 'what I do for you',
     cta: "got something in mind? let's talk →",
     cards: [
-      { cat: 'sites & platforms', pre: 'A website that works', accent: 'for you.', desc: 'E-commerce, bookings, client areas — and if yours is broken, I fix it.', ref: '→ Beat Store, live' },
-      { cat: 'automation & AI', pre: 'Paperwork that does', accent: 'itself.', desc: 'Invoices, emails and calendars that talk to each other — without you in the middle.', ref: '→ Company Brain, live' },
+      { cat: 'sites & platforms', pre: 'A website that works', accent: 'for you.', desc: 'E-commerce, bookings, client areas. Or the rescue of a site that no longer works.', ref: '→ Beat Store, live' },
+      { cat: 'automation & AI', pre: 'Paperwork that does', accent: 'itself.', desc: 'Invoices, emails and calendars that talk to each other: repetitive work closes itself.', ref: '→ Company Brain, live' },
       { cat: 'voice agents', pre: 'It answers,', accent: "when you can't.", desc: 'A 24/7 phone assistant that books, reschedules and informs.', ref: '→ Ritmo Tropicale, live' },
     ],
   },
@@ -200,8 +200,8 @@ export const servicesBand: Record<Lang, { kicker: string; cta: string; cards: Se
     kicker: 'qué hago por ti',
     cta: '¿tienes algo en mente? hablemos →',
     cards: [
-      { cat: 'webs & plataformas', pre: 'Una web que trabaja', accent: 'para ti.', desc: 'E-commerce, reservas, área de clientes — y si funciona mal, la arreglo.', ref: '→ Beat Store, live' },
-      { cat: 'automatización & IA', pre: 'El papeleo se hace', accent: 'solo.', desc: 'Facturas, emails y calendarios que se hablan — sin ti en medio.', ref: '→ Company Brain, live' },
+      { cat: 'webs & plataformas', pre: 'Una web que trabaja', accent: 'para ti.', desc: 'E-commerce, reservas, área de clientes. O el rescate de una web que ya no funciona.', ref: '→ Beat Store, live' },
+      { cat: 'automatización & IA', pre: 'El papeleo se hace', accent: 'solo.', desc: 'Facturas, emails y calendarios que se hablan: las tareas repetitivas se cierran solas.', ref: '→ Company Brain, live' },
       { cat: 'voice agents', pre: 'Responde él,', accent: 'cuando tú no puedes.', desc: 'Un asistente telefónico 24/7 que reserva, cambia e informa.', ref: '→ Ritmo Tropicale, live' },
     ],
   },
@@ -228,9 +228,9 @@ export const voiceDemo: Record<Lang, { title: string; desc: string }> = {
 // Chips: business-first, and each is answerable from the RAG corpus. The
 // "draft my contact message" chip lands in phase 6 with the prefill tool.
 export const voiceUi: Record<Lang, { talk: string; type: string; chips: string[] }> = {
-  en: { talk: 'talk', type: 'type', chips: ['what can you do for my business?', 'show me the projects', 'what is it like to work with Alberto?'] },
+  en: { talk: 'talk', type: 'type', chips: ['what can you do for my business?', 'show me a project for a client', 'write the message to Alberto for me'] },
   it: { talk: 'parla', type: 'scrivi', chips: ['cosa puoi fare per la mia attività?', 'mostrami un lavoro per un cliente', 'scrivi tu il messaggio per Alberto'] },
-  es: { talk: 'habla', type: 'escribe', chips: ['¿qué puedes hacer por mi negocio?', 'llévame a los proyectos', '¿cómo es trabajar con Alberto?'] },
+  es: { talk: 'habla', type: 'escribe', chips: ['¿qué puedes hacer por mi negocio?', 'muéstrame un proyecto de cliente', 'escribe tú el mensaje para Alberto'] },
 };
 
 // Contact headline split so the last word carries the italic accent.
@@ -274,13 +274,13 @@ export const ui: Record<Lang, UI> = {
   en: {
     nav: { work: 'work', services: 'services', about: 'about', contact: 'contact' },
     nav_cta: "let's work together",
-    hero_available: 'available for work',
+    hero_available: 'available for new projects',
     hero_role: 'AI PRODUCT ENGINEER · agentic AI, voice agents & audio',
     hero_cta_primary: "Let's work together →",
     hero_cta_secondary: 'View work ↓',
     hero_cta_cv: 'Download CV',
     work_title: 'Selected work',
-    work_lead: 'A few things I’ve shipped — products in production, research and experiments.',
+    work_lead: 'Client work, products online, research.',
     filter_labels: { All: 'All', 'Client work': 'Client work', Hackathons: 'Hackathons', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML', Research: 'Research' },
     filter_desc: {
       All: '',
@@ -300,13 +300,13 @@ export const ui: Record<Lang, UI> = {
       { title: 'Audio & ML', desc: 'Generative audio, music information retrieval and deep-learning models — from research prototype to interactive demo.' },
     ],
     about_title: 'About',
-    about_text: 'Engineer (MSc, Politecnico di Milano). I build websites, automation and AI agents for real businesses — and when something digital is broken, I fix it.',
-    about_closing: 'You talk directly to the person who builds. I stay sharp by doing — workshops, hackathons, continuous training. Freelance in Milan, open to new projects.',
+    about_text: 'Engineer (MSc, Politecnico di Milano). I build websites, automation and AI agents for businesses and small companies — from the first line of code to launch, and I keep looking after them afterwards.',
+    about_closing: 'I follow what comes out as soon as it does, and I try it: workshops, hackathons, continuous training. Freelance in Milan, working remotely too.',
     experience_title: 'Experience',
     training_title: 'Training',
     contact_title: 'Contact',
     contact_headline: 'Let’s work together.',
-    contact_lead: 'Available for new projects — websites, automation and AI agents. Based in Milan, working remotely.',
+    contact_lead: 'Write me a couple of lines about what you need. I’ll reply with a first idea of how I’d approach it.',
     contact_email: 'Email me',
     footer_built: 'Milan, Italy · built with Astro',
   },
@@ -352,13 +352,13 @@ export const ui: Record<Lang, UI> = {
   es: {
     nav: { work: 'trabajo', services: 'servicios', about: 'sobre mí', contact: 'contacto' },
     nav_cta: 'trabajemos juntos',
-    hero_available: 'disponible para colaboraciones',
+    hero_available: 'disponible para nuevos proyectos',
     hero_role: 'AI PRODUCT ENGINEER · IA agéntica, agentes de voz & audio',
     hero_cta_primary: 'Trabajemos juntos →',
     hero_cta_secondary: 'Ver proyectos ↓',
     hero_cta_cv: 'Descargar CV',
     work_title: 'Trabajos seleccionados',
-    work_lead: 'Algunas cosas que he entregado — productos en producción, investigación y experimentos.',
+    work_lead: 'Trabajos por encargo, productos online, investigación.',
     filter_labels: { All: 'Todos', 'Client work': 'Por encargo', Hackathons: 'Hackathons', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML', Research: 'Investigación' },
     filter_desc: {
       All: '',
@@ -378,13 +378,13 @@ export const ui: Record<Lang, UI> = {
       { title: 'Audio y ML', desc: 'Audio generativo, music information retrieval y modelos de deep-learning — del prototipo de investigación a la demo interactiva.' },
     ],
     about_title: 'Sobre mí',
-    about_text: 'Ingeniero (MSc, Politecnico di Milano). Hago webs, automatización y agentes IA para negocios reales — y cuando algo digital está roto, lo arreglo.',
-    about_closing: 'Hablas directamente con quien construye. Me mantengo al día haciendo — workshops, hackathons, formación continua. Freelance en Milán, abierto a nuevos proyectos.',
+    about_text: 'Ingeniero (MSc, Politecnico di Milano). Construyo webs, automatización y agentes IA para negocios y pequeñas empresas — desde la primera línea de código hasta la puesta en línea, y los sigo también después.',
+    about_closing: 'Sigo las novedades en cuanto salen y las pruebo: workshops, hackathons, formación continua. Freelance en Milán, también en remoto.',
     experience_title: 'Experiencia',
     training_title: 'Formación',
     contact_title: 'Contacto',
     contact_headline: 'Trabajemos juntos.',
-    contact_lead: 'Disponible para nuevos proyectos — webs, automatización y agentes IA. Con base en Milán, trabajo en remoto.',
+    contact_lead: 'Escríbeme dos líneas sobre lo que necesitas. Te respondo con una primera idea de cómo lo abordaría.',
     contact_email: 'Escríbeme →',
     footer_built: 'Milán, Italia · hecho con Astro',
   },
