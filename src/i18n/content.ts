@@ -106,10 +106,10 @@ export const processSteps: Record<Lang, { title: string; desc: string }[]> = {
     { title: 'Delivery', desc: 'with hand-holding — I don’t vanish' },
   ],
   it: [
-    { title: 'Chiamata conoscitiva', desc: 'gratuita, mezz’ora — capiamo se ti serve davvero' },
+    { title: 'Chiamata conoscitiva', desc: 'gratuita, per capire il problema' },
     { title: 'Proposta chiara', desc: 'prezzo fisso, concordato prima, niente sorprese' },
-    { title: 'Costruzione', desc: 'vedi il lavoro mentre nasce, demo intermedie' },
-    { title: 'Consegna', desc: 'con affiancamento — non sparisco' },
+    { title: 'Costruzione', desc: 'demo e aggiornamenti durante il processo' },
+    { title: 'Consegna', desc: 'formazione all’uso e assistenza dopo il rilascio' },
   ],
   es: [
     { title: 'Llamada inicial', desc: 'gratuita, media hora — vemos si de verdad hace falta' },
@@ -150,7 +150,7 @@ export const heroHook: Record<Lang, { line1: string; accent: string }> = {
 };
 export const heroSub: Record<Lang, { lead: string; follow: string }> = {
   en: { lead: 'Websites, automation and AI agents for your business', follow: 'I build them and I fix them.' },
-  it: { lead: 'Siti, automazioni e agenti AI per la tua attività', follow: 'li costruisco e li sistemo io.' },
+  it: { lead: 'Siti, automazioni e agenti AI per la tua attività', follow: 'meno lavoro manuale, più tempo e clienti.' },
   es: { lead: 'Webs, automatización y agentes IA para tu negocio', follow: 'los construyo y los arreglo yo.' },
 };
 export const heroPhotoRole: Record<Lang, string> = {
@@ -191,8 +191,8 @@ export const servicesBand: Record<Lang, { kicker: string; cta: string; cards: Se
     kicker: 'cosa faccio per te',
     cta: 'hai in mente qualcosa? parliamone →',
     cards: [
-      { cat: 'siti & piattaforme', pre: 'Un sito che lavora', accent: 'per te.', desc: 'E-commerce, prenotazioni, area clienti — e se funziona male, lo sistemo.', ref: '→ Beat Store, live' },
-      { cat: 'automazioni & AI', pre: 'La burocrazia si fa', accent: 'da sola.', desc: 'Fatture, email e calendari che si parlano — senza di te in mezzo.', ref: '→ Company Brain, live' },
+      { cat: 'siti & piattaforme', pre: 'Un sito che lavora', accent: 'per te.', desc: 'E-commerce, prenotazioni, area clienti. Oppure il recupero di un sito che non funziona più.', ref: '→ Beat Store, live' },
+      { cat: 'automazioni & AI', pre: 'La burocrazia si fa', accent: 'da sola.', desc: 'Fatture, email e calendari che si parlano: le operazioni ripetitive si chiudono da sole.', ref: '→ Company Brain, live' },
       { cat: 'voice agents', pre: 'Risponde lui,', accent: 'quando non puoi.', desc: 'Un assistente telefonico 24/7 che prenota, sposta e informa.', ref: '→ Ritmo Tropicale, live' },
     ],
   },
@@ -229,7 +229,7 @@ export const voiceDemo: Record<Lang, { title: string; desc: string }> = {
 // "draft my contact message" chip lands in phase 6 with the prefill tool.
 export const voiceUi: Record<Lang, { talk: string; type: string; chips: string[] }> = {
   en: { talk: 'talk', type: 'type', chips: ['what can you do for my business?', 'show me the projects', 'what is it like to work with Alberto?'] },
-  it: { talk: 'parla', type: 'scrivi', chips: ['cosa puoi fare per la mia attività?', 'portami ai progetti', "com'è lavorare con Alberto?"] },
+  it: { talk: 'parla', type: 'scrivi', chips: ['cosa puoi fare per la mia attività?', 'mostrami un lavoro per un cliente', 'scrivi tu il messaggio per Alberto'] },
   es: { talk: 'habla', type: 'escribe', chips: ['¿qué puedes hacer por mi negocio?', 'llévame a los proyectos', '¿cómo es trabajar con Alberto?'] },
 };
 
@@ -313,7 +313,7 @@ export const ui: Record<Lang, UI> = {
   it: {
     nav: { work: 'lavori', services: 'servizi', about: 'chi sono', contact: 'contatti' },
     nav_cta: 'lavoriamo insieme',
-    hero_available: 'disponibile per collaborazioni',
+    hero_available: 'disponibile per nuovi progetti',
     hero_role: 'AI PRODUCT ENGINEER · AI agentica, voice agent & audio',
     hero_cta_primary: 'Lavoriamo insieme →',
     hero_cta_secondary: 'Vedi i lavori ↓',
