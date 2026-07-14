@@ -24,6 +24,7 @@ const greeting: Record<Lang, string> = {
 const tryLabel: Record<Lang, string> = { en: 'try asking', it: 'prova a chiedere', es: 'prueba a preguntar' };
 const inputPh: Record<Lang, string> = { en: 'type a message…', it: 'scrivi un messaggio…', es: 'escribe un mensaje…' };
 const micLabel: Record<Lang, string> = { en: 'Talk to D10S', it: 'Parla con D10S', es: 'Habla con D10S' };
+const minLabel: Record<Lang, string> = { en: 'Minimise D10S', it: 'Riduci D10S', es: 'Reducir D10S' };
 ---
 
 <!-- D10S live-agent band — full width under the hero. The panel is a static
@@ -41,7 +42,17 @@ const micLabel: Record<Lang, string> = { en: 'Talk to D10S', it: 'Parla con D10S
       {headline[lang]}
     </h2>
 
-    <div data-reveal id="d10s-panel" data-lang={lang} class="d10s d10s-solo mt-9 text-left">
+    <!-- The wrapper is what detaches: when the section leaves the viewport and
+         a conversation is running, it goes position:fixed into the corner. Same
+         DOM node throughout — React never unmounts, so the ElevenLabs session,
+         the mic grant and the transcript survive the move. -->
+    <div data-reveal id="d10s-wrap" class="d10s-wrap mt-9">
+      <button id="d10s-min" type="button" class="d10s-min" aria-label={minLabel[lang]}>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+      <div id="d10s-panel" data-lang={lang} class="d10s d10s-solo text-left">
       <div class="d10s-bar"><span class="d10s-live" aria-hidden="true"></span><span><b>D10S</b> · online</span></div>
 
       <p class="d10s-say" data-typewriter>{greeting[lang]}</p>
@@ -61,24 +72,97 @@ const micLabel: Record<Lang, string> = { en: 'Talk to D10S', it: 'Parla con D10S
           </svg>
         </button>
       </div>
+      </div>
     </div>
   </div>
 
   <script>
     // Load the voice SDK only on the first interaction with the panel.
     const panel = document.getElementById('d10s-panel');
-    if (panel) {
+    const wrap = document.getElementById('d10s-wrap');
+    const section = document.getElementById('agent-demo');
+    if (panel && wrap && section) {
       let booted = false;
-      const boot = async (btn: HTMLElement) => {
+      const boot = async (action: string | null) => {
         if (booted) return;
         booted = true;
-        const action = btn.dataset.d10s === 'chip' ? btn.dataset.chip! : btn.dataset.d10s!;
         const { mount } = await import('./voice-mount');
         mount(panel, (panel.dataset.lang as 'en' | 'it' | 'es') || 'en', action);
+        sync();
       };
       panel.querySelectorAll<HTMLElement>('[data-d10s]').forEach((b) =>
-        b.addEventListener('click', () => boot(b))
+        b.addEventListener('click', () =>
+          boot(b.dataset.d10s === 'chip' ? b.dataset.chip! : b.dataset.d10s!)
+        )
       );
+
+      /* ----------------------------------------------------------------
+         Dock orchestration. One panel, two homes.
+
+         In the section  → the big panel, as before.
+         Scrolled past it, with a live conversation → the SAME element goes
+         fixed into the corner and keeps talking; the site stays fully visible
+         behind it, because the whole point is watching the agent move the
+         carousel and fill the form while it speaks.
+
+         The seal (D10SDock) and the panel are mutually exclusive: whichever is
+         showing, the other is not.
+      ---------------------------------------------------------------- */
+      const dock = document.getElementById('d10s-dock');
+      const minBtn = document.getElementById('d10s-min');
+      let past = false; // scrolled BELOW the agent section
+      let open = false; // corner panel expanded — NEVER by itself, only on click
+
+      const sync = () => {
+        const showCorner = booted && past && open;
+        wrap.classList.toggle('is-docked', showCorner);
+        // seal and corner panel are mutually exclusive
+        dock?.classList.toggle('is-on', past && !showCorner);
+        dock?.classList.toggle('is-live', booted && !open);
+        // the back-to-top arrow would collide with a docked panel
+        document.body.classList.toggle('d10s-docked', showCorner);
+      };
+
+      let ticking = false;
+      const measure = () => {
+        ticking = false;
+        const r = section.getBoundingClientRect();
+        const now = r.bottom < window.innerHeight * 0.6;
+        if (now === past) return;
+        past = now;
+        // Leaving the section never pops the panel open on its own: the seal is
+        // the resting state. Coming back in, the panel is home again anyway.
+        open = false;
+        sync();
+      };
+      const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(measure); } };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      measure();
+      sync();
+
+      // Seal click: open the agent RIGHT HERE. It must not drag the visitor
+      // back up the page — that was the whole complaint.
+      dock?.addEventListener('click', () => {
+        open = true;
+        if (!booted) boot(null);
+        else sync();
+      });
+      minBtn?.addEventListener('click', () => { open = false; sync(); });
+
+      // Light dismiss: a small floating panel closes when you click away from it
+      // or press Escape. The click that OPENED it bubbles up here too, hence the
+      // #d10s-dock guard — without it the panel would close on its own opening.
+      document.addEventListener('click', (e) => {
+        if (!open) return;
+        const el = e.target as HTMLElement;
+        if (el.closest('#d10s-wrap') || el.closest('#d10s-dock')) return;
+        open = false;
+        sync();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && open) { open = false; sync(); }
+      });
 
       // Idle liveness — D10S "types" its greeting once, the first time the
       // panel scrolls into view. Any interaction (or reduced-motion) reveals

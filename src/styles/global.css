@@ -355,8 +355,12 @@ body {
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 34px rgba(122, 18, 40, 0.16);
   padding: 20px 20px 18px;
   /* Fixed height across shell AND live conversation so the panel never resizes
-     between states (presentation → connecting → voice/text). */
+     between states (presentation → connecting → voice/text). Capped as well as
+     floored: without a ceiling the transcript grows the panel, the panel grows
+     the section and the whole PAGE stretches — overflow-y on the transcript is
+     dead weight until its container's height is actually bounded. */
   min-height: 354px;
+  max-height: 354px;
   display: flex;
   flex-direction: column;
 }
@@ -386,6 +390,62 @@ body {
 /* Concept A — panel as the centered focal object of the section */
 .d10s-solo { max-width: 560px; margin-left: auto; margin-right: auto; }
 @media (max-width: 767px) { .d10s, .d10s-solo { max-width: none; } }
+
+/* ---- the panel detaches ------------------------------------------------
+   Scrolled past the agent section with a live conversation, the SAME element
+   goes fixed into the corner. Small, in the foreground, glass UNDER the panel
+   only: the page behind stays perfectly visible, because watching the agent
+   drive the carousel and fill the form IS the demo. Dimming the page would
+   hide the very thing the panel exists to show. */
+.d10s-wrap { position: relative; }
+.d10s-wrap.is-docked {
+  position: fixed; right: 26px; bottom: 24px; z-index: 60;
+  width: min(384px, calc(100vw - 32px));
+  margin: 0;
+  transform: none;
+}
+/* the landing animation lives on the panel, NOT on the wrapper: a transform on
+   an ancestor becomes the backdrop root and silently kills backdrop-filter on
+   everything inside it — the glass would blur nothing and the page text would
+   read straight through the chat. */
+.d10s-wrap.is-docked > .d10s {
+  max-width: none; min-height: 0; max-height: none; height: auto;
+  /* near-opaque on purpose: legibility must not depend on the blur landing */
+  background: color-mix(in srgb, var(--color-ink-2) 96%, transparent);
+  backdrop-filter: blur(18px) saturate(1.2);
+  border: 1px solid rgba(250, 243, 232, 0.09);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.66);
+  animation: d10s-land var(--dur-med) var(--ease-sig) both;
+}
+@keyframes d10s-land {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+/* a command bar, not a chat: only the last exchange stays on screen */
+.d10s-wrap.is-docked .chat-scroll { max-height: 148px; }
+.d10s-wrap.is-docked .d10s-say { display: none; }
+
+/* minimise — only exists once docked */
+.d10s-min {
+  position: absolute; top: -11px; right: -11px; z-index: 2;
+  display: none; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-bone) 14%, transparent);
+  background: var(--color-ink);
+  color: var(--color-text-muted); cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-sig), border-color var(--dur-fast) var(--ease-sig);
+}
+.d10s-wrap.is-docked .d10s-min { display: flex; }
+.d10s-min:hover { color: var(--color-bone); border-color: color-mix(in srgb, var(--color-oxblood-soft) 60%, transparent); }
+.d10s-min:focus-visible { outline: 2px solid var(--color-oxblood-soft); outline-offset: 2px; }
+
+/* the back-to-top arrow is just noise while the agent is up */
+body.d10s-docked #back-to-top { opacity: 0 !important; pointer-events: none; }
+
+@media (max-width: 640px) {
+  .d10s-wrap.is-docked { right: 12px; left: 12px; bottom: 12px; width: auto; }
+  .d10s-wrap.is-docked .chat-scroll { max-height: 116px; }
+}
 @media (prefers-reduced-motion: reduce) { .d10s-live { animation: none; } }
 
 /* Floating D10S launcher — red sphere inside a STATIC seal. The words are
@@ -406,19 +466,21 @@ body {
 
 /* the seal — two arcs so top AND bottom read upright; never rotates */
 .d10s-seal { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+/* The seal is the nameplate, not the button surface. It does NOT change colour
+   on hover: rose → bone shifts hue and value at once, so the whole ring flashes
+   instead of responding — and it fires alongside the orb's scale, which reads as
+   two events at once. The orb growing IS the feedback; the text only breathes. */
 .d10s-seal text {
   font-family: var(--font-mono); font-size: 9px; font-weight: 500;
   text-transform: uppercase;
   fill: var(--color-accent-txt);
-  transition: fill var(--dur-fast) var(--ease-sig);
+  opacity: 0.9;
+  transition: opacity 280ms cubic-bezier(0.33, 1, 0.68, 1);
 }
-/* same angular span on both arcs (the bottom one has the longer radius, so it
-   needs looser tracking to cover the same degrees) → the side dots land exactly
-   halfway between the two texts */
-.d10s-seal .seal-t { letter-spacing: 0.02px; }
-.d10s-seal .seal-b { letter-spacing: 0.96px; }
+/* tracking is computed per arc AND per language in D10SDock.astro (inline
+   style): same angle on both arcs → dots equidistant from the two texts */
 .d10s-seal .seal-dot { fill: var(--color-accent-txt); opacity: 0.75; }
-.d10s-dock:hover .d10s-seal text, .d10s-dock:focus-visible .d10s-seal text { fill: var(--color-bone); }
+.d10s-dock:hover .d10s-seal text, .d10s-dock:focus-visible .d10s-seal text { opacity: 1; }
 
 .d10s-dock-orb {
   grid-area: 1 / 1;
@@ -427,11 +489,13 @@ body {
   border: 1px solid color-mix(in srgb, var(--color-oxblood-soft) 55%, transparent);
   background: radial-gradient(circle at 40% 35%, #b8455a, #7a1228 46%, #3f0a17);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  transition: transform var(--dur-fast) var(--ease-sig);
+  /* softer than --ease-sig (an ease-out quint: it lunges and slams). On an
+     entrance that snap is the point; on a hover it just reads as a twitch. */
+  transition: transform 300ms cubic-bezier(0.33, 1, 0.68, 1);
 }
-.d10s-dock:hover .d10s-dock-orb { transform: scale(1.1); }
+.d10s-dock:hover .d10s-dock-orb { transform: scale(1.06); }
 .d10s-dock:focus-visible .d10s-dock-orb {
-  transform: scale(1.1);
+  transform: scale(1.06);
   outline: 2px solid var(--color-oxblood-soft); outline-offset: 6px;
 }
 
