@@ -23,10 +23,13 @@ const fErr: Record<Lang, { name: string; email: string; message: string }> = {
   es: { name: '¿Tu nombre?', email: 'Un email válido, por favor', message: '¿Dos líneas?' },
 };
 const e = fErr[lang];
+// "Consulenza", not "chiamata": the pill names what the visitor gets, not the
+// medium that delivers it — and it matches the lead right above ("ti rispondo
+// con una prima idea di come lo affronterei"), which is exactly a consultation.
 const freeCall: Record<Lang, string> = {
-  en: 'First call is free',
-  it: 'Prima chiamata gratuita',
-  es: 'Primera llamada gratis',
+  en: 'First consultation is free',
+  it: 'Prima consulenza gratuita',
+  es: 'Primera consulta gratis',
 };
 ---
 

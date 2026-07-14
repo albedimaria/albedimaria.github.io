@@ -1,8 +1,12 @@
 ---
-// Floating D10S launcher — bottom-right. A living red sphere (tiny voice
-// waveform) preceded by an always-visible label: the words are what make the
-// sphere legible, so they never hide behind hover. Pressed, it carries the
-// visitor back to the agent. Appears once the agent section is scrolled past.
+// Floating D10S launcher — bottom-right. A red sphere (living voice waveform)
+// inside a STATIC seal: "chiedi all'agente" curved above and below, dots at the
+// sides. The words never hide behind hover — a sphere on its own is mystery
+// meat. Two separate arcs, not one full circle: on a single circular path the
+// bottom half of the text renders upside-down. The top arc runs left→right over
+// the top (glyphs fall outward); the bottom arc runs left→right through the
+// bottom (glyphs fall inward), so both read upright and the two text bands are
+// symmetric around the sphere.
 import type { Lang } from '../i18n/content';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -11,7 +15,17 @@ const cta: Record<Lang, string> = { en: 'ask the agent', it: 'chiedi all’agent
 ---
 
 <button id="d10s-dock" type="button" class="d10s-dock" aria-label={label[lang]}>
-  <span class="d10s-dock-label" aria-hidden="true">{cta[lang]}</span>
+  <svg class="d10s-seal" viewBox="0 0 100 100" aria-hidden="true">
+    <defs>
+      <path id="seal-top" d="M 15,50 A 35,35 0 0 1 85,50" />
+      <path id="seal-bottom" d="M 5,50 A 45,45 0 0 0 95,50" />
+    </defs>
+    <text><textPath href="#seal-top" startOffset="50%" text-anchor="middle">{cta[lang]}</textPath></text>
+    <text><textPath href="#seal-bottom" startOffset="50%" text-anchor="middle">{cta[lang]}</textPath></text>
+    <circle class="seal-dot" cx="10" cy="50" r="1.4" />
+    <circle class="seal-dot" cx="90" cy="50" r="1.4" />
+  </svg>
+
   <span class="d10s-dock-orb" aria-hidden="true">
     <span class="d10s-dock-glyph"><i></i><i></i><i></i><i></i><i></i></span>
   </span>

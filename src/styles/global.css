@@ -86,16 +86,10 @@ body {
   pointer-events: none;
   background: radial-gradient(52% 46% at 79% 32%, rgba(122, 18, 40, 0.22), transparent 70%);
 }
-/* photo sits above the page grain (z-60) so it never looks "AI-enhanced" */
+/* photo sits above the page grain (z-60) so it never looks "AI-enhanced".
+   No brand grade on top of it: the portrait is content, not decoration —
+   an oxblood wash over a face reads as a stain, not as art direction. */
 .hero-photo-frame { position: relative; z-index: 61; }
-/* subtle brand grade on the hero portrait — warm oxblood floor, ties it in */
-.hero-photo-grade {
-  position: absolute; inset: 0; pointer-events: none;
-  background:
-    linear-gradient(to top, color-mix(in srgb, var(--color-oxblood) 34%, transparent) 0%, transparent 46%),
-    radial-gradient(120% 80% at 50% 0%, transparent 60%, rgba(0,0,0,0.28) 100%);
-  mix-blend-mode: normal;
-}
 
 /* Hero entrance — one orchestrated load-in, staggered by --d */
 .hero-rise { opacity: 0; animation: hero-rise 0.7s var(--ease-sig) both; animation-delay: var(--d, 0ms); }
@@ -394,12 +388,15 @@ body {
 @media (max-width: 767px) { .d10s, .d10s-solo { max-width: none; } }
 @media (prefers-reduced-motion: reduce) { .d10s-live { animation: none; } }
 
-/* Floating D10S launcher — living red sphere (waveform) + a label that is
-   ALWAYS legible: the sphere alone is mystery meat, so the words never hide
-   behind hover. Whole thing is one button. Bottom-right. */
+/* Floating D10S launcher — red sphere inside a STATIC seal. The words are
+   always legible (a sphere on its own is mystery meat) and they never move:
+   a text ring spinning forever in the viewport is noise, not an affordance.
+   No red glow anywhere — the sphere is already red; a halo around it reads as
+   an alarm. Hover only enlarges. */
 .d10s-dock {
-  position: fixed; bottom: 24px; right: 32px; z-index: 40;
-  display: flex; align-items: center; gap: 11px;
+  position: fixed; bottom: 24px; right: 26px; z-index: 40;
+  width: 112px; height: 112px; border-radius: 50%;
+  display: grid; place-items: center;
   padding: 0; border: 0; background: none; cursor: pointer;
   opacity: 0; transform: translateY(10px) scale(0.96); pointer-events: none;
   transition: opacity var(--dur-med) var(--ease-sig), transform var(--dur-med) var(--ease-sig);
@@ -407,39 +404,30 @@ body {
 .d10s-dock.is-on { opacity: 1; transform: none; pointer-events: auto; }
 .d10s-dock:focus-visible { outline: none; }
 
-/* the words — always on, so the sphere reads as "an agent you can ask" */
-.d10s-dock-label {
-  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
-  letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap;
-  color: var(--color-text-muted);
-  padding: 8px 14px; border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--color-bone) 12%, transparent);
-  background: color-mix(in srgb, var(--color-ink) 84%, transparent);
-  backdrop-filter: blur(8px);
-  transition: color var(--dur-fast) var(--ease-sig), border-color var(--dur-fast) var(--ease-sig), transform var(--dur-fast) var(--ease-sig);
+/* the seal — two arcs so top AND bottom read upright; never rotates */
+.d10s-seal { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.d10s-seal text {
+  font-family: var(--font-mono); font-size: 9px; font-weight: 500;
+  letter-spacing: 0.7px; text-transform: uppercase;
+  fill: var(--color-accent-txt);
+  transition: fill var(--dur-fast) var(--ease-sig);
 }
-.d10s-dock:hover .d10s-dock-label,
-.d10s-dock:focus-visible .d10s-dock-label {
-  color: var(--color-bone);
-  border-color: color-mix(in srgb, var(--color-oxblood-soft) 60%, transparent);
-  transform: translateX(-2px);
-}
+.d10s-seal .seal-dot { fill: var(--color-accent-txt); opacity: 0.75; }
+.d10s-dock:hover .d10s-seal text, .d10s-dock:focus-visible .d10s-seal text { fill: var(--color-bone); }
 
 .d10s-dock-orb {
-  flex: none; width: 52px; height: 52px; border-radius: 50%;
+  grid-area: 1 / 1;
+  width: 52px; height: 52px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   border: 1px solid color-mix(in srgb, var(--color-oxblood-soft) 55%, transparent);
   background: radial-gradient(circle at 40% 35%, #b8455a, #7a1228 46%, #3f0a17);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 26px rgba(122, 18, 40, 0.4);
-  transition: box-shadow var(--dur-fast) var(--ease-sig), transform var(--dur-fast) var(--ease-sig);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: transform var(--dur-fast) var(--ease-sig);
 }
-.d10s-dock:hover .d10s-dock-orb {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(156, 51, 64, 0.78);
-  transform: scale(1.05);
-}
+.d10s-dock:hover .d10s-dock-orb { transform: scale(1.1); }
 .d10s-dock:focus-visible .d10s-dock-orb {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(156, 51, 64, 0.78);
-  outline: 2px solid var(--color-oxblood-soft); outline-offset: 7px;
+  transform: scale(1.1);
+  outline: 2px solid var(--color-oxblood-soft); outline-offset: 6px;
 }
 
 /* waveform glyph — 'voice, alive' at rest */
@@ -452,8 +440,7 @@ body {
 @keyframes dock-eq { 0%, 100% { transform: scaleY(.5); } 50% { transform: scaleY(1); } }
 
 @media (max-width: 480px) {
-  .d10s-dock { right: 18px; bottom: 18px; gap: 9px; }
-  .d10s-dock-label { font-size: 11px; padding: 7px 11px; letter-spacing: 0.1em; }
+  .d10s-dock { right: 12px; bottom: 12px; width: 100px; height: 100px; }
   .d10s-dock-orb { width: 46px; height: 46px; }
 }
 
