@@ -158,10 +158,18 @@ function Panel({
       set('input[name="name"]', p?.name);
       set('input[name="email"]', p?.email);
       set('textarea[name="message"]', p?.message);
+      // Budget arrives as a language-independent code. Matching on the option's
+      // TEXT would break the moment the visitor is on /en/ or /es/ (the labels
+      // are translated) or the moment the agent phrases it its own way.
       if (p?.budget) {
         const s = form.querySelector<HTMLSelectElement>('select[name="budget"]');
-        const opt = s && [...s.options].find((o) => o.value === p.budget || o.text.toLowerCase().includes(p.budget!.toLowerCase()));
-        if (s && opt) s.value = opt.value;
+        const slot: Record<string, number> = { 'under-2k': 1, '2k-5k': 2, 'over-5k': 3, unknown: 4 };
+        const i = slot[p.budget.trim().toLowerCase()];
+        const byText = [...(s?.options ?? [])].find(
+          (o) => o.value && o.text.toLowerCase().includes(p.budget!.toLowerCase())
+        );
+        if (s && i !== undefined && s.options[i]) s.value = s.options[i].value;
+        else if (s && byText) s.value = byText.value;
       }
       form.scrollIntoView({ behavior: 'smooth', block: 'center' });
       form.classList.add('proj-focus');
