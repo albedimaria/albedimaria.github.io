@@ -10,6 +10,15 @@ export interface ProjectText {
 // Reuses Alberto's existing translations (languages/it.json, es.json) where the EN matches.
 export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
   it: {
+    'parlando': {
+      oneliner: 'Un tutor di lingue con cui si parla — un’app Android che ascolta, corregge e si ricorda di te.',
+      bullets: [
+        { lead: 'Impari parlando', body: 'una conversazione vera, a voce, in inglese o spagnolo — dal primo minuto. Quasi senza testo, di proposito.' },
+        { lead: 'Si ricorda di te', body: 'da ogni chiamata estrae gli errori che hai fatto davvero; la ripetizione spaziata li fa riemergere e sceglie lo scenario di domani.' },
+        { lead: 'Quattro agenti, non un prompt', body: 'chi parte da zero ha un agente tutto suo: voce più lenta, ripeti-dopo-di-me, zero correzioni.' },
+        { lead: 'Minuti prepagati', body: 'un registro append-only conta ogni secondo di voce e non può spendere due volte.' },
+      ],
+    },
     'lyra': {
       oneliner: 'Scoperta musicale lyrics-first — una playlist che attraversa le tue emozioni.',
       bullets: [
@@ -123,6 +132,15 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
     },
   },
   es: {
+    'parlando': {
+      oneliner: 'Un tutor de idiomas con el que se habla — una app Android que escucha, corrige y se acuerda de ti.',
+      bullets: [
+        { lead: 'Aprendes hablando', body: 'una conversación de verdad, en voz alta, en inglés o español — desde el primer minuto. Casi sin texto, a propósito.' },
+        { lead: 'Se acuerda de ti', body: 'de cada llamada extrae los errores que cometiste de verdad; la repetición espaciada los hace resurgir y elige el escenario de mañana.' },
+        { lead: 'Cuatro agentes, no un prompt', body: 'quien empieza de cero tiene su propio agente: voz más lenta, escucha-y-repite, cero correcciones.' },
+        { lead: 'Minutos prepagados', body: 'un libro append-only cuenta cada segundo de voz y no puede gastar dos veces.' },
+      ],
+    },
     'lyra': {
       oneliner: 'Descubrimiento musical desde la letra — una playlist que recorre tus emociones.',
       bullets: [

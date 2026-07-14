@@ -76,6 +76,33 @@ export const projects: Project[] = [
     links: [{ label: 'visit site ↗', href: 'https://alexbartokmusic.com' }],
   },
   {
+    id: 'parlando',
+    title: 'Parlando',
+    category: 'Products',
+    filters: ['Products', 'Voice AI'],
+    featured: true,
+    oneliner: 'A language tutor you talk to — an Android app that listens, corrects, and remembers.',
+    bullets: [
+      { lead: 'You learn by speaking', body: 'a real conversation, out loud, in English or Spanish — from minute one. Almost no text, by design.' },
+      { lead: 'It remembers you', body: 'every call is mined for the mistakes you actually made; spaced repetition resurfaces the weak ones and picks tomorrow’s scenario.' },
+      { lead: 'Four agents, not one prompt', body: 'absolute beginners get an agent of their own — slower voice, listen-and-repeat, no corrections.' },
+      { lead: 'Prepaid minutes', body: 'an append-only ledger meters every second of voice and cannot double-spend.' },
+    ],
+    stack: ['React Native (Expo)', 'TypeScript', 'Supabase', 'Edge Functions', 'Next.js', 'Vercel', 'EAS + OTA'],
+    ai: ['ElevenLabs Agents', 'GPT-4o mini'],
+    engineering: {
+      summary: 'measured · adversarially tested · scored in production',
+      stats: [
+        { value: '89 / 95', label: 'extractor recall / precision %' },
+        { value: '127', label: 'unit tests on the pure core' },
+        { value: '20', label: 'criteria scoring live calls' },
+      ],
+      note: 'adversarial agent-test suite, every case repeated — a pass-rate, not one lucky green run · prompt-injection defence on user-written text entering the agent prompt (rejected 6/6) · native evaluation criteria score real conversations in production, not just simulations',
+    },
+    cover: '/images/parlando.webp',
+    links: [],
+  },
+  {
     id: 'lyra',
     title: 'Lyra',
     category: 'Hackathon',
@@ -349,6 +376,8 @@ export const projects: Project[] = [
 ];
 
 const frameLabelOverrides: Record<string, string> = {
+  // niente link pubblico: l'APK non si distribuisce (chi lo installa consuma minuti di voce reali)
+  parlando: 'Android · private beta',
   thesis: 'MSc · Politecnico di Milano',
   'invoice-agent': 'internal automation',
   'wdf-h9000': 'MATLAB · VSig3 · H9000',
