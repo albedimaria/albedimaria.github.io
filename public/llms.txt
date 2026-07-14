@@ -19,7 +19,7 @@
 - Geometry in Music (MSc thesis): pipeline from audio analysis to prompt-free music generation; comparative benchmark of generative models.
 
 ## Contact
-- Email: ing.albedimaria@gmail.com
+- Email: ing.albertodimaria@gmail.com
 - Portfolio: https://albertodimaria.com
 - CV (PDF): https://albertodimaria.com/cv.pdf
 - GitHub: https://github.com/albedimaria
