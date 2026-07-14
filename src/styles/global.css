@@ -408,10 +408,15 @@ body {
 .d10s-seal { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
 .d10s-seal text {
   font-family: var(--font-mono); font-size: 9px; font-weight: 500;
-  letter-spacing: 0.7px; text-transform: uppercase;
+  text-transform: uppercase;
   fill: var(--color-accent-txt);
   transition: fill var(--dur-fast) var(--ease-sig);
 }
+/* same angular span on both arcs (the bottom one has the longer radius, so it
+   needs looser tracking to cover the same degrees) → the side dots land exactly
+   halfway between the two texts */
+.d10s-seal .seal-t { letter-spacing: 0.02px; }
+.d10s-seal .seal-b { letter-spacing: 0.96px; }
 .d10s-seal .seal-dot { fill: var(--color-accent-txt); opacity: 0.75; }
 .d10s-dock:hover .d10s-seal text, .d10s-dock:focus-visible .d10s-seal text { fill: var(--color-bone); }
 
