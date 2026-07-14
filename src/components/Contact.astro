@@ -165,7 +165,11 @@ const freeCall: Record<Lang, string> = {
           headers: { Accept: 'application/json' },
           body: new FormData(form),
         });
-        const ok = res.ok;
+        // Web3Forms can answer HTTP 200 with { success: false } (rejected key,
+        // blocked origin…). Trusting res.ok alone would show "sent" on a message
+        // that never leaves — a silently lost lead. Trust the payload.
+        const payload = await res.json().catch(() => null);
+        const ok = res.ok && payload?.success === true;
         status.textContent = ok ? '✓ ' + status.dataset.success! : status.dataset.error!;
         status.classList.remove('hidden');
         status.classList.toggle('is-ok', ok);
