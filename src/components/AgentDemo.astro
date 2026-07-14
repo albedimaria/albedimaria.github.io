@@ -164,6 +164,18 @@ const minLabel: Record<Lang, string> = { en: 'Minimise D10S', it: 'Riduci D10S',
         if (e.key === 'Escape' && open) { open = false; sync(); }
       });
 
+      // On a phone the seal sits ON the contact form. Once Contatti is on screen
+      // the visitor has arrived where the agent was taking him, so the seal steps
+      // aside (CSS hides it under 768px only — on desktop it covers nothing, and
+      // it is the one entry point from which D10S can pre-fill the form).
+      const contact = document.getElementById('contact');
+      if (contact) {
+        new IntersectionObserver(
+          ([e]) => document.body.classList.toggle('contact-in-view', e.isIntersecting),
+          { threshold: 0.22 }
+        ).observe(contact);
+      }
+
       // Idle liveness — D10S "types" its greeting once, the first time the
       // panel scrolls into view. Any interaction (or reduced-motion) reveals
       // the full text immediately.

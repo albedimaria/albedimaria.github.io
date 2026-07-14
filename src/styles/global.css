@@ -519,6 +519,11 @@ body.d10s-docked #back-to-top { opacity: 0 !important; pointer-events: none; }
   .d10s-dock { transition: opacity var(--dur-med) linear; }
 }
 
+/* Sections are anchor targets and the nav is STICKY (it really occupies the top
+   of the screen). Without this the section's top edge lands *under* the bar and
+   the kicker is sliced in half — which is exactly what happened on Contatti. */
+section[id] { scroll-margin-top: 78px; }
+
 /* Hero scroll cue — bouncing chevron into the next section (Natura/Michele) */
 .scroll-cue {
   display: flex; align-items: center; justify-content: center;
@@ -758,4 +763,158 @@ button:focus-visible {
 }
 .skip-link:focus {
   top: 12px;
+}
+
+/* ============================================================
+   MOBILE — touch ergonomics.  MUST STAY LAST IN THIS FILE:
+   a media query adds NO specificity, so these overrides only win if they come
+   after the rules they override (learned the hard way — the carousel dots and
+   the skip-link ignored an identical block placed earlier).
+
+   Every control a thumb can hit is >=44x44 (Apple HIG / WCAG 2.5.5). The VISUAL
+   size is left alone; what grows is the HIT AREA — nothing looks chunkier, it
+   just stops being missable.  And every field goes to 16px: below that, iOS
+   zooms the whole page on focus and the visitor has to pinch back out.
+
+   Keyed on the POINTER, not on the width: a phone in landscape is 844px wide —
+   a width-only query leaves it with desktop-sized targets, but the thumb has not
+   changed size. `pointer: coarse` is the actual thing we are designing for.
+   ============================================================ */
+@media (max-width: 767px), (pointer: coarse) {
+  #lang-btn { min-height: 44px; }
+  .filter-chip { min-height: 44px; }
+  .more-btn { min-height: 44px; }
+  .d10s-sugg button { min-height: 44px; padding: 12px 0; }
+  .d10s-input-text { min-height: 44px; }
+  .d10s-mic { width: 44px; height: 44px; }
+  .ws-dot { width: 44px; height: 44px; }
+  .ws-dots { gap: 8px; }
+  /* small print: bumped a notch on phones — a 11px instruction on a handheld
+     is decoration, not information */
+  .ws-hint { font-size: 14px; }
+  .ps-note { font-size: 12.5px; }
+  .tl-meta { font-size: 13px; }
+  .skip-link { padding: 14px 18px; }
+  .hero-secondary,
+  .contact-alt { display: inline-flex; align-items: center; min-height: 44px; }
+
+  /* the 16px floor is what stops the iOS focus-zoom */
+  #contact-form input,
+  #contact-form select,
+  #contact-form textarea,
+  .d10s-live-root input { font-size: 16px; }
+
+  /* A finger has no hover. Every control here answered only to :hover, so on a
+     phone a tap produced NO feedback at all — the user cannot tell whether the
+     press registered. Give the press its own state, and drop the legacy 300ms
+     tap delay while we are here. */
+  a, button, [role="button"], input, select, textarea { touch-action: manipulation; }
+  .btn-primary:active,
+  .btn-ghost:active,
+  .filter-chip:active,
+  .more-btn:active,
+  .d10s-sugg button:active,
+  .d10s-mic:active,
+  .ws-dot:active,
+  .ws-arrow:active { transform: scale(0.96); }
+  .d10s-dock:active .d10s-dock-orb { transform: scale(0.96); }
+  .svc-card:active { border-color: color-mix(in srgb, var(--color-oxblood-soft) 55%, transparent); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .d10s-wrap.is-docked > .d10s { animation: none; }
+}
+
+/* --- mobile: the two floating objects were sitting ON the contact form --- */
+@media (max-width: 767px) {
+  /* the seal steps aside once Contatti is on screen: the visitor has arrived
+     where the agent was taking him, and the form needs the whole screen */
+  body.contact-in-view .d10s-dock {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px) scale(0.94);
+  }
+  /* back-to-top is redundant on a phone — the brand mark in the sticky nav
+     already goes to the top, and this is what was biting the left edge */
+  #back-to-top { display: none; }
+}
+
+/* --- mobile: rhythm and density ---------------------------------------
+   Section padding was carried over from desktop untouched (96 + 80 stacked at
+   a boundary = 176px of dead air, a quarter of a phone screen). The sections
+   now share ONE mobile step (56px), so the page has a rhythm instead of four
+   different ones. The floating seal also shrinks: at 116px it was sitting on
+   top of the card copy in three different sections. */
+@media (max-width: 767px) {
+  .svc-card { padding: 20px 18px 22px; }
+  .svc-ico { width: 46px; height: 46px; border-radius: 12px; }
+  .svc-ico svg { width: 23px; height: 23px; }
+
+  /* No ring on a phone. Shrunk to fit, its text lands at ~8px and turns into
+     mush over whatever card it floats above — noise, not a nameplate. The words
+     are not needed here anyway: on mobile you reach the corner sphere only after
+     scrolling through the full-screen agent section, so by then the red sphere
+     IS the agent. The ring stays on desktop, where it has room and reads. */
+  .d10s-seal { display: none; }
+  .d10s-dock { right: 18px; bottom: 18px; }
+  .d10s-dock-orb { width: 48px; height: 48px; }
+}
+
+/* --- mobile: compact the two long sections ----------------------------
+   Chi sono (3 screens) and Servizi (2.7) are long because of CONTENT, not
+   padding — so what gets tightened is the spacing INSIDE the lists, never the
+   type or the gutter. The stepper's display numerals in particular were sized
+   for a desktop row of four; stacked on a phone they were just tall. */
+@media (max-width: 767px) {
+  .tl { gap: 20px; }
+  .proc4 { row-gap: 26px !important; margin-top: 26px !important; }
+  .proc-num { font-size: 34px; }
+  .proc-t { margin-top: 8px; font-size: 18px; }
+  .proc-d { margin-top: 5px; }
+  .stat-num { font-size: 40px; }
+}
+
+/* --- mobile: the hero cue was landing ON the name/role caption ---------
+   Centered horizontally it works on a wide hero; on a phone the caption is
+   left-aligned and narrow, and the circle sat right on top of the words. */
+@media (max-width: 767px) {
+  .scroll-cue { left: auto; right: 18px; transform: none; }
+}
+
+/* --- mobile: the project card was eating 52px of an already narrow column --- */
+@media (max-width: 767px) {
+  .ps-top { padding: 16px 16px 0; }
+  .ps-headline { padding: 10px 16px 0; }
+  .ps-grid { padding: 16px 16px 8px; }
+  .ps-feat { grid-template-columns: 22px 1fr; gap: 10px; }
+}
+
+/* ============================================================
+   MOBILE — Alberto's own pass. Taste beats the rubric here.
+   ============================================================ */
+@media (max-width: 767px) {
+  /* The agent section was holding a full screen open for a panel that does not
+     need one. It now hugs its content. */
+  #agent-demo { min-height: 0; }
+
+  /* Hero portrait centred (it is the only thing in its row on a phone) */
+  .hero-photo-wrap { margin-left: auto; margin-right: auto; }
+
+  /* Second portrait, eight screens after the first one, cost half a screen and
+     said nothing new. Gone on phones; the hero already introduced the face. */
+  .about-photo { display: none; }
+
+  /* Service cards go horizontal: icon left, copy right. Half the height, and —
+     unlike a swipe carousel — all three services stay VISIBLE. Hiding two
+     thirds of the offer on the page called "what I do for you" is an own goal. */
+  .svc-card {
+    display: grid;
+    grid-template-columns: 46px 1fr;
+    column-gap: 15px;
+    padding: 18px 16px 14px;
+  }
+  .svc-card > :not(.svc-ico) { grid-column: 2; }
+  .svc-card .svc-ico { grid-column: 1; grid-row: 1 / -1; align-self: start; margin-bottom: 0; }
+  .svc-card h3 { margin-top: 7px; font-size: 22px; }
+  .svc-card > p:last-child { padding-top: 12px; }
 }

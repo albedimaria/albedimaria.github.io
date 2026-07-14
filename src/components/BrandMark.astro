@@ -13,8 +13,14 @@
 </a>
 
 <style>
+  /* the glyph is 40px, the target is 44 — it is a link (back to top), and on a
+     phone a 40px target is the difference between tapping it and missing it */
   .brand-mark {
     display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
     color: var(--color-bone);
     transition: color 0.2s;
   }

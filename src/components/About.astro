@@ -33,11 +33,13 @@ const cvLabel = { en: 'Download CV', it: 'Scarica il CV', es: 'Descargar CV' }[l
      strip, then the timeline as a real spine with node dots. -->
 <section id="about" class="sec-line relative bg-ink-2">
   <span class="ghost-num" aria-hidden="true">03</span>
-  <div class="mx-auto max-w-5xl px-6 py-20 md:py-24">
+  <div class="mx-auto max-w-5xl px-6 py-14 md:py-24">
     <p data-reveal class="font-mono text-[13px] uppercase tracking-[0.22em] text-bone"><span class="mr-3 text-oxblood-soft">03</span>{t.about_title}</p>
 
-    <div data-reveal-stagger class="mt-8 grid gap-10 md:grid-cols-[250px_1fr] md:items-start">
-      <div class="relative overflow-hidden rounded-[var(--radius-card)] border border-bone/10 bg-surface">
+    <div data-reveal-stagger class="mt-8 grid gap-7 md:grid-cols-[250px_1fr] md:gap-10 md:items-start">
+      <!-- capped on phones: full-width this becomes a 406px portrait — half a
+           screen for a face the visitor already met in the hero -->
+      <div class="about-photo relative w-[190px] overflow-hidden rounded-[var(--radius-card)] border border-bone/10 bg-surface md:w-auto">
         <img src="/images/propic.webp" alt="Alberto Di Maria" loading="lazy" width="500" height="625" class="aspect-[4/5] w-full object-cover" />
       </div>
 
@@ -47,10 +49,13 @@ const cvLabel = { en: 'Download CV', it: 'Scarica il CV', es: 'Descargar CV' }[l
         </p>
         <p class="mt-4 max-w-[60ch] text-[16px] leading-relaxed text-text-muted">{t.about_closing}</p>
 
-        <div class="mt-7 flex flex-wrap items-center gap-3">
-          <a href="/cv.pdf" class="btn-primary">{cvLabel} <span class="btn-arw" aria-hidden="true">↓</span></a>
-          <a href="https://www.linkedin.com/in/di-maria-alberto/" target="_blank" rel="noopener noreferrer" class="btn-ghost">LinkedIn ↗</a>
-          <a href="https://github.com/albedimaria" target="_blank" rel="noopener noreferrer" class="btn-ghost">GitHub ↗</a>
+        <!-- On a phone these three wrapped as 2 + 1, leaving GitHub orphaned on
+             a line of its own. As a 2-column grid the CV spans the full width
+             (it is the primary action) and the two links sit side by side. -->
+        <div class="mt-7 grid grid-cols-2 gap-3 md:flex md:flex-wrap md:items-center">
+          <a href="/cv.pdf" class="btn-primary col-span-2 justify-center md:col-auto">{cvLabel} <span class="btn-arw" aria-hidden="true">↓</span></a>
+          <a href="https://www.linkedin.com/in/di-maria-alberto/" target="_blank" rel="noopener noreferrer" class="btn-ghost justify-center">LinkedIn ↗</a>
+          <a href="https://github.com/albedimaria" target="_blank" rel="noopener noreferrer" class="btn-ghost justify-center">GitHub ↗</a>
         </div>
       </div>
     </div>
@@ -86,6 +91,7 @@ const cvLabel = { en: 'Download CV', it: 'Scarica il CV', es: 'Descargar CV' }[l
             <button
               type="button"
               data-list={list.id}
+              data-label={moreLabel}
               class="more-btn mt-6 font-mono text-[12px] text-text-muted underline-offset-4 transition hover:text-bone hover:underline"
             >
               {moreLabel} (+{list.items.length - VISIBLE})
@@ -98,6 +104,23 @@ const cvLabel = { en: 'Download CV', it: 'Scarica il CV', es: 'Descargar CV' }[l
 </section>
 
 <script>
+  // On a phone the two lists side by side become two lists stacked — four long
+  // entries in a row. Collapse to ONE entry each and let "mostra altri" do the
+  // rest: same content, half the scroll. Desktop keeps two.
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    document.querySelectorAll<HTMLElement>('ol.tl').forEach((ol) => {
+      const btn = document.querySelector<HTMLElement>(`.more-btn[data-list="${ol.dataset.list}"]`);
+      if (!btn) return; // no way to expand ⇒ never hide
+      const items = [...ol.querySelectorAll<HTMLElement>('.tl-item')];
+      items.forEach((el, i) => {
+        if (i < 1) return;
+        el.classList.add('is-extra');
+        el.style.display = 'none';
+      });
+      btn.textContent = `${btn.dataset.label} (+${items.length - 1})`;
+    });
+  }
+
   // "show more" reveals the collapsed timeline entries.
   document.querySelectorAll('.more-btn').forEach((btn) => {
     btn.addEventListener('click', () => {

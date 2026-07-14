@@ -48,7 +48,9 @@ const navItems = [
     </div>
 
     <!-- mobile hamburger -->
-    <button id="menu-btn" type="button" class="ml-auto text-bone md:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+    <!-- the icon stays 26px; the padding is what makes the TARGET 46px. A 26×26
+         hamburger is the single most-missed control on a phone. -->
+    <button id="menu-btn" type="button" class="-mr-2.5 ml-auto flex h-11 w-11 items-center justify-center text-bone md:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
         <path d="M4 7h16" /><path d="M4 12h16" /><path d="M4 17h16" />
       </svg>
@@ -60,7 +62,7 @@ const navItems = [
      not the backdrop-filtered header (which would confine and clip it) -->
 <div id="mobile-menu" class="fixed inset-0 z-50 hidden bg-ink md:hidden">
     <div class="flex items-center justify-end border-b border-bone/10 px-5 py-4">
-      <button id="menu-close" type="button" class="text-bone" aria-label="Close menu">
+      <button id="menu-close" type="button" class="-mr-2.5 flex h-11 w-11 items-center justify-center text-bone" aria-label="Close menu">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
           <path d="M6 6l12 12" /><path d="M18 6L6 18" />
         </svg>
