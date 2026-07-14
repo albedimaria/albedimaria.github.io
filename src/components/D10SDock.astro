@@ -1,24 +1,20 @@
 ---
-// Floating D10S launcher — a living red sphere on the right edge. At rest it
-// shows a tiny voice waveform; on hover a rotating "chiedi a d10s" seal spins
-// up around it (the words ARE the affordance). Pressed, it carries the visitor
-// back to the agent. Appears once the agent section has been scrolled past.
+// Floating D10S launcher — bottom-right. A living red sphere (tiny voice
+// waveform) preceded by an always-visible label: the words are what make the
+// sphere legible, so they never hide behind hover. Pressed, it carries the
+// visitor back to the agent. Appears once the agent section is scrolled past.
 import type { Lang } from '../i18n/content';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const label: Record<Lang, string> = { en: 'Back to D10S', it: 'Torna a D10S', es: 'Volver a D10S' };
-const seal: Record<Lang, string> = { en: 'ask the agent', it: 'chiedi all’agente', es: 'pregunta al agente' };
-const ring = `${seal[lang]} · · · `;
+const cta: Record<Lang, string> = { en: 'ask the agent', it: 'chiedi all’agente', es: 'pregunta al agente' };
 ---
 
 <button id="d10s-dock" type="button" class="d10s-dock" aria-label={label[lang]}>
-  <svg class="d10s-seal" viewBox="0 0 100 100" aria-hidden="true">
-    <defs>
-      <path id="d10s-seal-path" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0" />
-    </defs>
-    <text><textPath href="#d10s-seal-path" startOffset="0">{ring}</textPath></text>
-  </svg>
-  <span class="d10s-dock-glyph" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+  <span class="d10s-dock-label" aria-hidden="true">{cta[lang]}</span>
+  <span class="d10s-dock-orb" aria-hidden="true">
+    <span class="d10s-dock-glyph"><i></i><i></i><i></i><i></i><i></i></span>
+  </span>
 </button>
 
 <script>
