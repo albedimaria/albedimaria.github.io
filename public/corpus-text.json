@@ -67,22 +67,22 @@
   {
     "id": "dance-voice-agent#1",
     "source": "Dance Voice Agent",
-    "text": "Architecture — a real-time voice pipeline with barge-in: Deepgram for speech-to-text, GPT-4o with parallel tool-calling as the brain, and ElevenLabs streaming text-to-speech for the voice, in Italian and Spanish. The barge-in (letting the caller interrupt the agent) is triggered by the first interim transcript, not by a separate voice-activity event."
+    "text": "Architecture — the agent runs natively on the ElevenLabs Agents platform (ConvAI), with Gemini 2.5 Flash as the brain and Eleven v3 Conversational as the voice, in Italian and Spanish. Its thirteen tools are Postgres functions called straight over PostgREST, so the business logic lives in the database and there is no application server in the hot path. A conversation-initiation webhook (a Deno edge function) resolves the caller's number to a student before the call is even answered, which is why the agent can greet people by name instead of asking who they are halfway through. It replaced an earlier custom pipeline (Deepgram plus GPT-4o plus streaming TTS, stitched together in Python): the platform now guarantees turn-taking, barge-in and latency, which used to be Alberto's code to maintain."
   },
   {
     "id": "dance-voice-agent#2",
     "source": "Dance Voice Agent",
-    "text": "Stack: Python, FastAPI, Twilio (telephony), Supabase (data), Next.js admin dashboard, deployed on Render and Vercel."
+    "text": "Stack: ElevenLabs Agents, Gemini 2.5 Flash, Supabase (Postgres, with the agent's tools as RPC functions), Deno edge functions, Twilio for telephony, a Next.js admin dashboard on Vercel."
   },
   {
     "id": "dance-voice-agent#3",
     "source": "Dance Voice Agent",
-    "text": "What makes it a flagship is the engineering rigor. Alberto built an Eval & Observability layer: an evaluation suite that runs fixed scenarios against the real LLM and database, scoring task success (6/6 scenarios passing) and measuring latency — p50 around 4.2 seconds and p95 around 6.3 seconds, end to end. Per-turn latency is instrumented (time-to-first-token, TTS time-to-first-byte, tool time, total response) and persisted, with an admin dashboard showing call analytics, booking trends, latency and containment metrics."
+    "text": "What makes it a flagship is how it is tested. Alberto treats the agent like a model, not like a website: an adversarial suite of scenarios runs against the live agent and every scenario is repeated, because on an LLM a single green run is an anecdote rather than a result. Each change is gated by a score. What the platform can guarantee is never asked of the prompt: caller recognition and the trial-week flag are verified by deterministic checks outside the model, and the tools return a count plus one course instead of a list, so the agent physically cannot read twelve courses down the phone. Measured on real calls, the agent answers about 1.6 seconds after the caller stops speaking (p95 around 2.1s). Per-turn latency and cost are instrumented and persisted, and an admin dashboard shows call analytics, booking trends and containment."
   },
   {
     "id": "dance-voice-agent#4",
     "source": "Dance Voice Agent",
-    "text": "The repository is public (anonymized) and includes a STUDY_GUIDE documenting the architecture, latency budget and design decisions."
+    "text": "The prompt lives in git, not only on the platform: it is pulled, diffed and pushed by a sync script, so a change can be reviewed and rolled back like any other code. The repository is public (anonymized) and includes a STUDY_GUIDE documenting the architecture, the latency budget and the design decisions."
   },
   {
     "id": "lyra#0",

@@ -13,7 +13,7 @@
 ## Selected work
 - [Beat Store](https://ffinnico.netlify.app): full-stack music e-commerce for a producer (Next.js, TypeScript, Supabase, Stripe, Cloudflare R2). Acquired, live. Hardened with tests + CI + observability (86% money-path coverage, Sentry).
 - [Company Brain](https://company-brain-alberto.onrender.com): agentic AI over a company's live business data — FastAPI agent with tool-calling and zero-infra RAG; exact figures, source provenance, no hallucinations. Top 15 at the Cursor × Yellow Tech hackathon.
-- [Ritmo Tropicale Voice Agent](https://dance-voice-agent-dashboard.vercel.app): 24/7 inbound AI phone assistant for a dance school — real-time voice pipeline (Deepgram STT → GPT-4o tool calling → ElevenLabs TTS) with barge-in. Evaluated end-to-end (6/6 scenario evals, p50 4.2s / p95 6.3s).
+- [Ritmo Tropicale Voice Agent](https://dance-voice-agent-dashboard.vercel.app): 24/7 inbound AI phone assistant for a dance school, running natively on ElevenLabs Agents (Gemini 2.5 Flash brain, 13 tools as Postgres RPCs, caller recognised by webhook before pickup). Adversarially tested with every scenario repeated; ~1.6s p50 response on live calls.
 - Shy Order: autonomous voice agent that calls businesses on the user's behalf, handling the full phone conversation end-to-end (ElevenLabs, Twilio, FastAPI).
 - Beyond Space: audio generation via RAVE latent-space interpolation (PyTorch, TorchScript, FastAPI, React).
 - Geometry in Music (MSc thesis): pipeline from audio analysis to prompt-free music generation; comparative benchmark of generative models.
