@@ -1,6 +1,6 @@
 # Alberto Di Maria
 
-> AI Product Engineer and freelance AI developer based in Milan, Italy. I build AI voice agents and full-stack AI products end-to-end — from real-time voice pipelines to payment-grade web apps. This file is a machine-readable summary of my portfolio at https://albedimaria.github.io.
+> AI Product Engineer and freelance AI developer based in Milan, Italy. I build AI voice agents and full-stack AI products end-to-end — from real-time voice pipelines to payment-grade web apps. This file is a machine-readable summary of my portfolio at https://albertodimaria.com.
 
 ## About
 - Role: AI Product Engineer · agentic AI, voice agents & audio
@@ -20,6 +20,6 @@
 
 ## Contact
 - Email: ing.albedimaria@gmail.com
-- Portfolio: https://albedimaria.github.io
-- CV (PDF): https://albedimaria.github.io/cv.pdf
+- Portfolio: https://albertodimaria.com
+- CV (PDF): https://albertodimaria.com/cv.pdf
 - GitHub: https://github.com/albedimaria

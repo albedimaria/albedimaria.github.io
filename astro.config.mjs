@@ -6,7 +6,7 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://albedimaria.github.io',
+  site: 'https://albertodimaria.com',
   // Old indexed /it/ URLs → new IT root (static meta-refresh page)
   redirects: {
     '/it/': '/',
