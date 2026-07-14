@@ -29,8 +29,13 @@ const micLabel: Record<Lang, string> = { en: 'Talk to D10S', it: 'Parla con D10S
 <!-- D10S live-agent band — full width under the hero. The panel is a static
      shell (zero JS) that mounts the ~680 KB React + ElevenLabs island only on
      the first interaction (boot script below). -->
-<section id="agent-demo" class="sec-line bg-ink-2">
-  <div class="mx-auto max-w-2xl px-6 py-[84px] text-center">
+<!-- Fills the viewport MINUS the sticky nav (77px, in flow), and reserves the
+     same 77px as scroll-margin: the hero cue is a plain #anchor, so without it
+     the section top lands under the nav and the kicker sits glued to it. With
+     both, landing here shows the section framed, with no leftover band of the
+     next one. -->
+<section id="agent-demo" class="sec-line flex min-h-[calc(100svh-77px)] scroll-mt-[77px] items-center bg-ink-2">
+  <div class="mx-auto w-full max-w-2xl px-6 py-16 text-center">
     <p data-reveal class="kicker-rule kicker-center font-mono text-[13px] uppercase tracking-[0.22em] text-bone">{band.kicker}</p>
     <h2 data-reveal class="mx-auto mt-5 max-w-[16ch] font-display text-[clamp(30px,4.4vw,46px)] font-[550] leading-[1.06] tracking-[-0.01em] text-bone">
       {headline[lang]}
