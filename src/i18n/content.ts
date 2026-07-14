@@ -1,11 +1,11 @@
 export type Lang = 'en' | 'it' | 'es';
 
-export const langs: Lang[] = ['en', 'it', 'es'];
-export const defaultLang: Lang = 'en';
+export const langs: Lang[] = ['it', 'en', 'es'];
+export const defaultLang: Lang = 'it';
 export const langLabels: Record<Lang, string> = { en: 'EN', it: 'IT', es: 'ES' };
 
-/** Path for a locale: en at root, it/es prefixed. */
-export const localizedHome: Record<Lang, string> = { en: '/', it: '/it/', es: '/es/' };
+/** Path for a locale: IT at root (primary audience), en/es prefixed. */
+export const localizedHome: Record<Lang, string> = { it: '/', en: '/en/', es: '/es/' };
 
 export const ogLocale: Record<Lang, string> = { en: 'en_US', it: 'it_IT', es: 'es_ES' };
 
@@ -87,6 +87,46 @@ export const contactForm: Record<
   },
 };
 
+// About (restyle) — playful caption under the small photo, and the
+// learning-philosophy line that reframes the Training list as proof.
+// Small playful chip ON the photo (Miranda-style label, not a museum caption)
+export const aboutPhotoCaption: Record<Lang, string> = {
+  en: 'proper photo: wip',
+  it: 'foto seria: wip',
+  es: 'foto seria: wip',
+};
+
+// How-we-work strip (inside Contact, not a standalone section) — four
+// qualitative steps, no binding promises.
+export const processSteps: Record<Lang, { title: string; desc: string }[]> = {
+  en: [
+    { title: 'Intro call', desc: 'free, half an hour — we see if you actually need it' },
+    { title: 'Clear proposal', desc: 'fixed price, agreed upfront, no surprises' },
+    { title: 'Build', desc: 'you watch it take shape, demos along the way' },
+    { title: 'Delivery', desc: 'with hand-holding — I don’t vanish' },
+  ],
+  it: [
+    { title: 'Chiamata conoscitiva', desc: 'gratuita, mezz’ora — capiamo se ti serve davvero' },
+    { title: 'Proposta chiara', desc: 'prezzo fisso, concordato prima, niente sorprese' },
+    { title: 'Costruzione', desc: 'vedi il lavoro mentre nasce, demo intermedie' },
+    { title: 'Consegna', desc: 'con affiancamento — non sparisco' },
+  ],
+  es: [
+    { title: 'Llamada inicial', desc: 'gratuita, media hora — vemos si de verdad hace falta' },
+    { title: 'Propuesta clara', desc: 'precio fijo, acordado antes, sin sorpresas' },
+    { title: 'Construcción', desc: 'ves el trabajo mientras nace, demos intermedias' },
+    { title: 'Entrega', desc: 'con acompañamiento — no desaparezco' },
+  ],
+};
+
+// Optional budget select in the contact form — expectation filter, anchored
+// at the €2k list floor (never advertise below it).
+export const budgetField: Record<Lang, { label: string; optional: string; placeholder: string; options: string[] }> = {
+  en: { label: 'Rough budget', optional: 'optional', placeholder: '—', options: ['under €2,000', '€2,000 – €5,000', 'over €5,000', 'not sure yet'] },
+  it: { label: 'Budget indicativo', optional: 'opzionale', placeholder: '—', options: ['fino a €2.000', '€2.000 – €5.000', 'oltre €5.000', 'non lo so ancora'] },
+  es: { label: 'Presupuesto orientativo', optional: 'opcional', placeholder: '—', options: ['menos de €2.000', '€2.000 – €5.000', 'más de €5.000', 'aún no lo sé'] },
+};
+
 export const servicesCta: Record<Lang, string> = {
   en: 'See it live ↗',
   it: 'Guardalo live ↗',
@@ -99,6 +139,72 @@ export const heroLine: Record<Lang, { pre: string; accent: string; post: string 
   en: { pre: 'I build AI products end-to-end — and ', accent: 'D10S', post: ', right here, is one of them.' },
   it: { pre: 'Costruisco prodotti AI end-to-end — e ', accent: 'D10S', post: ', qui accanto, è uno di loro.' },
   es: { pre: 'Construyo productos de IA end-to-end — y ', accent: 'D10S', post: ', aquí mismo, es uno de ellos.' },
+};
+
+// Hero (restyle) — question hook (accent = Fraunces italic, oxblood) + a
+// business-first one-liner split into a white lead and a muted follow.
+export const heroHook: Record<Lang, { line1: string; accent: string }> = {
+  en: { line1: 'Still doing it all', accent: 'by hand?' },
+  it: { line1: 'Ancora tutto', accent: 'a mano?' },
+  es: { line1: '¿Todavía todo', accent: 'a mano?' },
+};
+export const heroSub: Record<Lang, { lead: string; follow: string }> = {
+  en: { lead: 'Websites, automation and AI agents for your business', follow: 'I build them and I fix them.' },
+  it: { lead: 'Siti, automazioni e agenti AI per la tua attività', follow: 'li costruisco e li sistemo io.' },
+  es: { lead: 'Webs, automatización y agentes IA para tu negocio', follow: 'los construyo y los arreglo yo.' },
+};
+export const heroPhotoRole: Record<Lang, string> = {
+  en: 'AI product engineer · Milan',
+  it: 'AI product engineer · Milano',
+  es: 'AI product engineer · Milán',
+};
+
+// Agent band (D10S) — full-width section under the hero. Kicker + question
+// title (\n splits the two lines) + one-line description.
+export const agentBand: Record<Lang, { kicker: string; title: string; desc: string }> = {
+  en: { kicker: 'live demo', title: 'Still answering everything yourself?\nAsk my agent.', desc: 'It knows every project on this site. Ask it anything — by voice or text.' },
+  it: { kicker: 'demo dal vivo', title: 'Rispondi ancora tu a tutto?\nChiedi al mio agente.', desc: 'Conosce ogni progetto di questo sito. Fagli una domanda — a voce o per iscritto.' },
+  es: { kicker: 'demo en vivo', title: '¿Respondes todavía tú a todo?\nPregunta a mi agente.', desc: 'Conoce cada proyecto de este sitio. Pregúntale lo que quieras — por voz o texto.' },
+};
+
+// Services band (restyle) — three statement cards. Titles are affirmations
+// (the questions live in the hero and the agent band), one-line client-level
+// descriptions, and a quiet reference link into the work section.
+export interface ServiceCard {
+  cat: string;
+  pre: string;
+  accent: string;
+  desc: string;
+  ref: string;
+}
+export const servicesBand: Record<Lang, { kicker: string; cta: string; cards: ServiceCard[] }> = {
+  en: {
+    kicker: 'what I do for you',
+    cta: "got something in mind? let's talk →",
+    cards: [
+      { cat: 'sites & platforms', pre: 'A website that works', accent: 'for you.', desc: 'E-commerce, bookings, client areas — and if yours is broken, I fix it.', ref: '→ Beat Store, live' },
+      { cat: 'automation & AI', pre: 'Paperwork that does', accent: 'itself.', desc: 'Invoices, emails and calendars that talk to each other — without you in the middle.', ref: '→ Company Brain, live' },
+      { cat: 'voice agents', pre: 'It answers,', accent: "when you can't.", desc: 'A 24/7 phone assistant that books, reschedules and informs.', ref: '→ Ritmo Tropicale, live' },
+    ],
+  },
+  it: {
+    kicker: 'cosa faccio per te',
+    cta: 'hai in mente qualcosa? parliamone →',
+    cards: [
+      { cat: 'siti & piattaforme', pre: 'Un sito che lavora', accent: 'per te.', desc: 'E-commerce, prenotazioni, area clienti — e se funziona male, lo sistemo.', ref: '→ Beat Store, live' },
+      { cat: 'automazioni & AI', pre: 'La burocrazia si fa', accent: 'da sola.', desc: 'Fatture, email e calendari che si parlano — senza di te in mezzo.', ref: '→ Company Brain, live' },
+      { cat: 'voice agents', pre: 'Risponde lui,', accent: 'quando non puoi.', desc: 'Un assistente telefonico 24/7 che prenota, sposta e informa.', ref: '→ Ritmo Tropicale, live' },
+    ],
+  },
+  es: {
+    kicker: 'qué hago por ti',
+    cta: '¿tienes algo en mente? hablemos →',
+    cards: [
+      { cat: 'webs & plataformas', pre: 'Una web que trabaja', accent: 'para ti.', desc: 'E-commerce, reservas, área de clientes — y si funciona mal, la arreglo.', ref: '→ Beat Store, live' },
+      { cat: 'automatización & IA', pre: 'El papeleo se hace', accent: 'solo.', desc: 'Facturas, emails y calendarios que se hablan — sin ti en medio.', ref: '→ Company Brain, live' },
+      { cat: 'voice agents', pre: 'Responde él,', accent: 'cuando tú no puedes.', desc: 'Un asistente telefónico 24/7 que reserva, cambia e informa.', ref: '→ Ritmo Tropicale, live' },
+    ],
+  },
 };
 
 // D10S guide claim — heading + sub of the hero's right column.
@@ -119,10 +225,12 @@ export const voiceDemo: Record<Lang, { title: string; desc: string }> = {
 
 // Voice panel labels + chips — shared by the static Astro shell (renders with
 // zero JS) and the React island (mounted on first interaction).
+// Chips: business-first, and each is answerable from the RAG corpus. The
+// "draft my contact message" chip lands in phase 6 with the prefill tool.
 export const voiceUi: Record<Lang, { talk: string; type: string; chips: string[] }> = {
-  en: { talk: 'talk', type: 'type', chips: ['show me the projects', 'why do I need a voice agent?', 'how do we work together?'] },
-  it: { talk: 'parla', type: 'scrivi', chips: ['fammi vedere i progetti', 'perché mi serve un voice agent?', 'come si lavora insieme?'] },
-  es: { talk: 'habla', type: 'escribe', chips: ['enséñame los proyectos', '¿por qué necesito un agente de voz?', '¿cómo trabajamos juntos?'] },
+  en: { talk: 'talk', type: 'type', chips: ['what can you do for my business?', 'show me the projects', 'what is it like to work with Alberto?'] },
+  it: { talk: 'parla', type: 'scrivi', chips: ['cosa puoi fare per la mia attività?', 'portami ai progetti', "com'è lavorare con Alberto?"] },
+  es: { talk: 'habla', type: 'escribe', chips: ['¿qué puedes hacer por mi negocio?', 'llévame a los proyectos', '¿cómo es trabajar con Alberto?'] },
 };
 
 // Contact headline split so the last word carries the italic accent.
@@ -176,7 +284,7 @@ export const ui: Record<Lang, UI> = {
     filter_labels: { All: 'All', 'Client work': 'Client work', Hackathons: 'Hackathons', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML', Research: 'Research' },
     filter_desc: {
       All: '',
-      'Client work': 'commissioned, sold client projects',
+      'Client work': 'real clients, in production',
       Hackathons: 'competition builds — placed & awarded',
       'Voice AI': 'real-time conversational phone agents',
       'Audio / ML': 'audio analysis & generative models',
@@ -192,13 +300,13 @@ export const ui: Record<Lang, UI> = {
       { title: 'Audio & ML', desc: 'Generative audio, music information retrieval and deep-learning models — from research prototype to interactive demo.' },
     ],
     about_title: 'About',
-    about_text: 'MSc in Music and Acoustic Engineering. I build agentic AI products: full-stack, voice agents, and automation pipelines. Background in deep learning for audio, generative models, and signal analysis. Also active as a trainer in computer science and electronics.',
-    about_closing: 'Currently freelance and open to new projects, based in Milan.',
+    about_text: 'Engineer (MSc, Politecnico di Milano). I build websites, automation and AI agents for real businesses — and when something digital is broken, I fix it.',
+    about_closing: 'You talk directly to the person who builds. I stay sharp by doing — workshops, hackathons, continuous training. Freelance in Milan, open to new projects.',
     experience_title: 'Experience',
     training_title: 'Training',
     contact_title: 'Contact',
     contact_headline: 'Let’s work together.',
-    contact_lead: 'Available for freelance projects — voice agents, full-stack AI products and audio tools. Based in Milan, working remotely.',
+    contact_lead: 'Available for new projects — websites, automation and AI agents. Based in Milan, working remotely.',
     contact_email: 'Email me',
     footer_built: 'Milan, Italy · built with Astro',
   },
@@ -215,7 +323,7 @@ export const ui: Record<Lang, UI> = {
     filter_labels: { All: 'Tutti', 'Client work': 'Su commissione', Hackathons: 'Hackathon', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML', Research: 'Ricerca' },
     filter_desc: {
       All: '',
-      'Client work': 'progetti su commissione, venduti',
+      'Client work': 'clienti reali, in produzione',
       Hackathons: 'progetti da competition — premiati',
       'Voice AI': 'agenti telefonici conversazionali real-time',
       'Audio / ML': 'analisi audio e modelli generativi',
@@ -231,13 +339,13 @@ export const ui: Record<Lang, UI> = {
       { title: 'Audio e ML', desc: 'Audio generativo, music information retrieval e modelli deep-learning — dal prototipo di ricerca alla demo interattiva.' },
     ],
     about_title: 'Chi sono',
-    about_text: 'Laureato magistrale in Music and Acoustic Engineering. Sviluppo prodotti AI agentici: full-stack, voice agent, pipeline di automazione. Background in deep learning per audio, modelli generativi e analisi del segnale. Attivo anche come formatore in ambito informatico ed elettronico.',
-    about_closing: 'Attualmente freelance e aperto a nuovi progetti, con base a Milano.',
+    about_text: 'Ingegnere (MSc, Politecnico di Milano). Faccio siti, automazioni e agenti AI per attività reali — e quando qualcosa di digitale è rotto, lo sistemo.',
+    about_closing: 'Parli direttamente con chi costruisce. Mi tengo aggiornato facendo — workshop, hackathon, formazione continua. Freelance a Milano, disponibile per nuovi progetti.',
     experience_title: 'Esperienze',
     training_title: 'Formazione',
     contact_title: 'Contatti',
     contact_headline: 'Lavoriamo insieme.',
-    contact_lead: 'Disponibile per progetti freelance — voice agent, prodotti AI full-stack e strumenti audio. Con base a Milano, lavoro da remoto.',
+    contact_lead: 'Disponibile per nuovi progetti — siti, automazioni e agenti AI. Con base a Milano, lavoro da remoto.',
     contact_email: 'Scrivimi →',
     footer_built: 'Milano, Italia · costruito con Astro',
   },
@@ -254,7 +362,7 @@ export const ui: Record<Lang, UI> = {
     filter_labels: { All: 'Todos', 'Client work': 'Por encargo', Hackathons: 'Hackathons', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML', Research: 'Investigación' },
     filter_desc: {
       All: '',
-      'Client work': 'proyectos por encargo, vendidos',
+      'Client work': 'clientes reales, en producción',
       Hackathons: 'proyectos de competición — premiados',
       'Voice AI': 'agentes telefónicos conversacionales en tiempo real',
       'Audio / ML': 'análisis de audio y modelos generativos',
@@ -270,13 +378,13 @@ export const ui: Record<Lang, UI> = {
       { title: 'Audio y ML', desc: 'Audio generativo, music information retrieval y modelos de deep-learning — del prototipo de investigación a la demo interactiva.' },
     ],
     about_title: 'Sobre mí',
-    about_text: 'Máster en Music and Acoustic Engineering. Desarrollo productos de IA agéntica: full-stack, agentes de voz y pipelines de automatización. Formación en deep learning para audio, modelos generativos y análisis de señal. También activo como formador en informática y electrónica.',
-    about_closing: 'Actualmente freelance y abierto a nuevos proyectos, con base en Milán.',
+    about_text: 'Ingeniero (MSc, Politecnico di Milano). Hago webs, automatización y agentes IA para negocios reales — y cuando algo digital está roto, lo arreglo.',
+    about_closing: 'Hablas directamente con quien construye. Me mantengo al día haciendo — workshops, hackathons, formación continua. Freelance en Milán, abierto a nuevos proyectos.',
     experience_title: 'Experiencia',
     training_title: 'Formación',
     contact_title: 'Contacto',
     contact_headline: 'Trabajemos juntos.',
-    contact_lead: 'Disponible para proyectos freelance — agentes de voz, productos de IA full-stack y herramientas de audio. Con base en Milán, trabajo en remoto.',
+    contact_lead: 'Disponible para nuevos proyectos — webs, automatización y agentes IA. Con base en Milán, trabajo en remoto.',
     contact_email: 'Escríbeme →',
     footer_built: 'Milán, Italia · hecho con Astro',
   },

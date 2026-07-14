@@ -1,8 +1,9 @@
 import type { Lang } from './content';
+import type { Bullet } from '../data/projects';
 
 export interface ProjectText {
   oneliner: string;
-  bullets: string[];
+  bullets: Bullet[];
 }
 
 // IT/ES overrides for project copy. EN lives in src/data/projects.ts.
@@ -12,112 +13,112 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
     'lyra': {
       oneliner: 'Scoperta musicale lyrics-first — una playlist che attraversa le tue emozioni.',
       bullets: [
-        'Descrivi uno stato d’animo a parole, o tocca una ruota di 12 emozioni — un agente Claude interpreta testo e tap nello stesso stato emotivo, e Lyra costruisce la playlist come una traiettoria in quello spazio, non una lista piatta.',
-        'I brani sono scelti per ciò che dicono i testi: embedding sentence-transformer collocano ogni traccia su una tassonomia emotiva valenza × energia, e viene mostrato il verso citato esatto che ha fatto match con il tuo mood, via Musixmatch lyrics/richsync.',
-        'Guidi dal vivo — more like this / change the mood / raise the energy — rimodellando la coda senza tagliare il brano in riproduzione; una bussola 3D react-three-fiber si orienta al tuo mood e traccia il percorso compiuto.',
+        { lead: 'Descrivi uno stato d’animo', body: 'a parole o tocca una ruota di 12 emozioni — un agente Claude lo risolve e Lyra costruisce la playlist come una traiettoria, non una lista piatta.' },
+        { lead: 'Scelte dai testi', body: 'embedding sentence-transformer collocano ogni traccia su una tassonomia valenza × energia; il verso esatto che ha fatto match viene mostrato.' },
+        { lead: 'Guidi dal vivo', body: 'more like this / change the mood / raise the energy — rimodelli la coda senza tagliare il brano; una bussola 3D si orienta e traccia il percorso.' },
       ],
     },
     'beat-store': {
-      oneliner: 'Piattaforma e-commerce musicale full-stack per un producer.',
+      oneliner: 'Il negozio online di un producer: beat in vendita con anteprima, licenze e pagamento in pagina.',
       bullets: [
-        'Catalogo di beat con preview a waveform, carrello multi-licenza (MP3 / WAV / stems / exclusive) e checkout Stripe in pagina.',
-        'Webhook Stripe idempotente, RLS su tutte le tabelle, admin API protetta da JWT, download a URL firmati on-demand.',
-        'Stack zero-egress: audio su Cloudflare R2 servito direttamente al browser, deployato in CI su Netlify.',
+        { lead: 'Pagamento in pagina', body: 'anteprima audio a waveform, carrello multi-licenza (MP3 / WAV / stems / exclusive) e Stripe senza uscire dalla pagina.' },
+        { lead: 'Si consegna da solo', body: 'ogni acquisto manda link di download privati, validi solo per chi ha comprato.' },
+        { lead: 'Costi ridotti all’osso', body: 'l’audio viaggia da Cloudflare direttamente al browser, senza server in mezzo.' },
       ],
     },
     'alex-bartok': {
-      oneliner: 'Cleanup vibe-coding commissionato: un sito PHP ricostruito in una React app sicura + area clienti.',
+      oneliner: 'Il sito di un musicista che funzionava male, ricostruito da zero — veloce, sicuro, trilingue, con area clienti a pagamento.',
       bullets: [
-        'Incaricato di ripulire e mettere in produzione il sito vibe-coded di un cliente — monolite PHP migrato a una React SPA unificata (sito pubblico + area clienti autenticata), servita statica e trilingue (IT/EN/ES).',
-        'Area clienti con project room, audio versionato e feedback col timestamp, protetta da un paywall RLS (ownership + is_paid) con download a URL firmati; due fughe di lettura cross-tenant trovate e chiuse.',
-        'Rilasciato con un gate CI (typecheck/lint/build/test), header hardened (HSTS/CSP) e un endpoint contatti con reCAPTCHA e rate-limit.',
+        { lead: 'Ricostruito come app moderna', body: 'sito pubblico + area clienti riservata, in tre lingue (IT/EN/ES) — da un sito che funzionava male.' },
+        { lead: 'Ogni progetto ha la sua stanza', body: 'audio versionati, commenti puntati al secondo esatto, download riservati a chi ha pagato.' },
+        { lead: 'Consegnato blindato', body: 'controlli automatici a ogni modifica, sicurezza rinforzata, form contatti anti-spam; due falle di accesso trovate e chiuse.' },
       ],
     },
     'company-brain': {
-      oneliner: 'AI agentica sui dati aziendali in tempo reale.',
+      oneliner: 'Un agente AI che risponde a domande sui dati veri dell’azienda — numeri esatti, niente di inventato.',
       bullets: [
-        'Top 10 all’hackathon Cursor × Yellow Tech → qualificato alla Lega Nazionale Italiana degli Hackathon.',
-        'Agente FastAPI su CRM, ERP, log chiamate e knowledge base: l’LLM sceglie solo i tool e scrive la risposta mentre Python fa ogni conteggio e somma — numeri esatti, provenienza delle fonti, zero allucinazioni.',
-        'RAG zero-infrastruttura (BM25 su documenti interi) più un knowledge graph interattivo; multilingua IT/EN/ES.',
+        { lead: 'Risponde dai dati veri', body: 'chiedi in linguaggio naturale su clienti, ordini o chiamate — l’agente consulta CRM, gestionale e documenti e cita le fonti.' },
+        { lead: 'I conti li fa il codice, non l’AI', body: 'il modello sceglie solo dove guardare e come spiegare; i numeri sono sempre esatti.' },
+        { lead: 'Top 10 all’hackathon Cursor × Yellow Tech', body: 'qualificato alla Lega Nazionale Italiana degli Hackathon.' },
       ],
     },
     'dance-voice-agent': {
-      oneliner: 'Assistente telefonico AI inbound per una scuola di ballo, 24/7.',
+      oneliner: 'L’assistente telefonico AI di una scuola di ballo: risponde 24/7, prenota, sposta, informa.',
       bullets: [
-        'Gestisce l’intera chiamata end-to-end: riconosce lo studente, dà info sui corsi, prenota, disdice e sposta lezioni, recuperi e prove — con trasferimento a una persona quando serve.',
-        'Pipeline vocale real-time con barge-in: Deepgram STT → GPT-4o con tool calling parallelo → ElevenLabs TTS su WebSocket persistente (IT/ES); conferme SMS e promemoria pre-lezione.',
-        'Hardening di produzione: chiusura chiamata dall’agente, fallback sugli errori API, suite di eval riproducibile e dashboard admin con observability latenza/costo.',
+        { lead: 'Gestisce la chiamata da solo', body: 'riconosce lo studente, dà info sui corsi, prenota, disdice e sposta lezioni — e passa a una persona quando serve.' },
+        { lead: 'Italiano e spagnolo, senza sovrapporsi', body: 'risponde al volo; conferme e promemoria arrivano via SMS.' },
+        { lead: 'Testato prima di andare in linea', body: '9/9 scenari reali superati, con un pannello che tiene d’occhio tempi e costi di ogni chiamata.' },
       ],
     },
     'shy-order': {
       oneliner: 'Agente vocale autonomo con chiamate in uscita.',
       bullets: [
-        'Conversa con l’utente via browser per raccogliere i dettagli della prenotazione.',
-        'Chiama autonomamente il ristorante via Twilio, gestendo l’intera conversazione telefonica end-to-end.',
-        'Memoria persistente cross-sessione che sopravvive alle conversazioni stateless di ElevenLabs — riconosce i clienti di ritorno e propone «il solito».',
-        'Dashboard admin con analytics sulle sessioni e tracking dei ricavi.',
+        { lead: 'Raccoglie via browser', body: 'conversa con l’utente per i dettagli della prenotazione.' },
+        { lead: 'Chiama il ristorante da solo', body: 'compone via Twilio e gestisce l’intera telefonata end-to-end.' },
+        { lead: 'Si ricorda di te', body: 'memoria cross-sessione che sopravvive alle chiamate stateless di ElevenLabs — riconosce i clienti di ritorno e propone «il solito».' },
+        { lead: 'Dashboard admin', body: 'analytics sulle sessioni e tracking dei ricavi.' },
       ],
     },
     'beat-agent': {
       oneliner: 'Pipeline di pubblicazione AI per Beat Store.',
       bullets: [
-        'CLI headless: gli indichi la cartella di drop del producer e pubblica ogni beat su Beat Store tramite l’API autenticata dello store.',
-        'Arricchimento di metadati e SEO via Claude API; pipeline di upload idempotente e ripristinabile.',
-        'Mostra ogni drop nel terminale e chiede conferma prima di pubblicare.',
+        { lead: 'CLI headless', body: 'gli indichi la cartella di drop del producer e pubblica ogni beat su Beat Store tramite l’API autenticata dello store.' },
+        { lead: 'Metadati + SEO AI', body: 'arricchimento via Claude API; pipeline di upload idempotente e ripristinabile.' },
+        { lead: 'Conferma prima di pubblicare', body: 'mostra ogni drop nel terminale e chiede l’ok.' },
       ],
     },
     'beyond-space': {
       oneliner: 'Generazione audio tramite interpolazione nello spazio latente RAVE.',
       bullets: [
-        'Carica fino a 4 file audio e interpola tra le loro codifiche latenti RAVE tramite una board 2D.',
-        'Ponderazione baricentrica — la posizione del click imposta il blend tra tutti gli input simultaneamente.',
-        'Backend FastAPI + TorchScript su HF Spaces, frontend React su Vercel.',
+        { lead: 'Interpola nel latente', body: 'carichi fino a 4 file audio e mescoli le loro codifiche latenti RAVE tramite una board 2D.' },
+        { lead: 'Ponderazione baricentrica', body: 'la posizione del click imposta il blend tra tutti gli input insieme.' },
+        { lead: 'FastAPI + TorchScript', body: 'backend su HF Spaces, frontend React su Vercel.' },
       ],
     },
     thesis: {
       oneliner: 'Tesi magistrale: dall’analisi audio alla generazione musicale.',
       bullets: [
-        'Pipeline a tre client che trasforma l’analisi audio in generazione musicale — visualizzazione 3D mood-based → mappatura delle emozioni → generazione senza prompt, in loop real-time.',
-        'La geometria sacra come interfaccia — il Cubo di Metatron e i solidi platonici mappano le emozioni sulle feature audio in un client 3D interattivo (React Three Fiber / Three.js).',
-        'Generazione senza prompt via Suno API; benchmark comparativo di modelli generativi (Suno, RAVE, MusicGen, Jukebox).',
+        { lead: 'Analisi → generazione', body: 'pipeline a tre client: visualizzazione 3D mood-based → mappatura emozioni → generazione senza prompt, in loop real-time.' },
+        { lead: 'Geometria sacra come interfaccia', body: 'il Cubo di Metatron e i solidi platonici mappano le emozioni sulle feature audio in un client 3D interattivo.' },
+        { lead: 'Generazione senza prompt', body: 'via Suno API; benchmark comparativo di modelli generativi (Suno, RAVE, MusicGen, Jukebox).' },
       ],
     },
     'wdf-h9000': {
       oneliner: 'Modellazione di circuiti analogici su hardware di effetti dedicato.',
       bullets: [
-        'Prima implementazione riuscita di un algoritmo Wave Digital Filter (WDF) su Eventide H9000, modellando circuiti lineari e non lineari direttamente sull’hardware tramite VSig3.',
-        'Non-linearità gestite con una rappresentazione Canonical PieceWise-Linear (CPWL); validato end-to-end con un circuito diode-clipper sul dispositivo.',
-        'Sviluppato entro i limiti del linguaggio low-level di VSig3, senza esempi in letteratura.',
+        { lead: 'Primo WDF sull’H9000', body: 'algoritmo Wave Digital Filter che modella circuiti lineari e non lineari direttamente sull’hardware tramite VSig3.' },
+        { lead: 'Non-linearità via CPWL', body: 'una rappresentazione Canonical PieceWise-Linear; validato end-to-end con un circuito diode-clipper.' },
+        { lead: 'Nessun precedente', body: 'sviluppato entro i limiti low-level di VSig3, senza esempi in letteratura.' },
       ],
     },
     'invoice-agent': {
       oneliner: 'Sistema di automazione per la gestione del tutoraggio.',
       bullets: [
-        'Automatizza la fatturazione via Fiscozen e invia email personalizzate ai clienti.',
-        'Sincronizza le sessioni di Google Calendar su Notion; prenota automaticamente sulle piattaforme.',
-        'Si aggiorna ogni giorno: fatturazione, email, log sessioni e prenotazioni.',
+        { lead: 'Automatizza la fatturazione', body: 'via Fiscozen, e invia email personalizzate ai clienti.' },
+        { lead: 'Sincronizza e prenota', body: 'sessioni Google Calendar → Notion; prenota in automatico sulle piattaforme.' },
+        { lead: 'Gira ogni giorno', body: 'fatturazione, email, log sessioni e prenotazioni.' },
       ],
     },
     'skyitalia-voice-agent': {
       oneliner: 'Supporto aereo a due voice-agent con escalation dal vivo — Yellow Tech × ElevenLabs.',
       bullets: [
-        'Aria gestisce i passeggeri in prima linea ed effettua l’escalation dei casi complessi a Marco, un agente supervisore.',
-        'Supporto conversazionale multilingue (IT / EN / ES / FR) su ElevenLabs Conversational AI.',
-        'Realizzato all’hackathon Yellow Tech × ElevenLabs.',
+        { lead: 'Due agenti, escalation live', body: 'Aria gestisce i passeggeri in prima linea e passa i casi complessi a Marco, un agente supervisore.' },
+        { lead: 'Multilingue', body: 'supporto conversazionale (IT / EN / ES / FR) su ElevenLabs Conversational AI.' },
+        { lead: 'Da hackathon', body: 'realizzato a Yellow Tech × ElevenLabs.' },
       ],
     },
     'music-genre-classifier': {
       oneliner: 'Classificazione di genere musicale con deep learning (NN / CNN / RNN-LSTM).',
       bullets: [
-        'Classifica i brani per genere da feature MFCC (librosa), addestrato sul dataset GTZAN.',
-        'Confronta architetture NN, CNN e RNN-LSTM con valutazione accuracy/loss; scalabile ad altri dataset e modelli.',
+        { lead: 'Genere dagli MFCC', body: 'classifica i brani con feature librosa, addestrato sul dataset GTZAN.' },
+        { lead: 'NN vs CNN vs RNN-LSTM', body: 'confrontate con valutazione accuracy/loss; scalabile ad altri dataset e modelli.' },
       ],
     },
     'save-the-world': {
       oneliner: 'Installazione interattiva sull’impatto ecologico delle azioni quotidiane.',
       bullets: [
-        'Gli utenti imitano azioni quotidiane e vedono il loro impatto su CO₂ e clima in tempo reale su un globo 3D reattivo.',
-        'Riconoscimento gesti in Python + visual 3D real-time in TouchDesigner + soundscape generativi in SuperCollider.',
+        { lead: 'Agisci, vedi l’impatto', body: 'gli utenti imitano azioni quotidiane e vedono l’impatto su CO₂ e clima in tempo reale su un globo 3D reattivo.' },
+        { lead: 'Gesti → visual → suono', body: 'riconoscimento gesti Python + 3D real-time TouchDesigner + soundscape generativi SuperCollider.' },
       ],
     },
   },
@@ -125,112 +126,112 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
     'lyra': {
       oneliner: 'Descubrimiento musical desde la letra — una playlist que recorre tus emociones.',
       bullets: [
-        'Describe un estado de ánimo con palabras, o toca una rueda de 12 emociones — un agente Claude interpreta texto y toques en un mismo estado emocional, y Lyra construye la playlist como una trayectoria por ese espacio, no una lista plana.',
-        'Las canciones se eligen por lo que dicen sus letras: embeddings sentence-transformer sitúan cada tema en una taxonomía emocional de valencia × energía, y se muestra el verso citado exacto que encajó con tu ánimo, vía Musixmatch lyrics/richsync.',
-        'Diriges en directo — more like this / change the mood / raise the energy — remodelando la cola sin cortar la canción en curso; una brújula 3D react-three-fiber gira hacia tu ánimo y traza el camino recorrido.',
+        { lead: 'Describe un estado de ánimo', body: 'con palabras o toca una rueda de 12 emociones — un agente Claude lo resuelve y Lyra construye la playlist como una trayectoria, no una lista plana.' },
+        { lead: 'Elegidas por las letras', body: 'embeddings sentence-transformer sitúan cada tema en una taxonomía valencia × energía; el verso exacto que encajó con tu ánimo se muestra.' },
+        { lead: 'Diriges en directo', body: 'more like this / change the mood / raise the energy — remodelas la cola sin cortar la canción; una brújula 3D gira y traza el camino.' },
       ],
     },
     'beat-store': {
-      oneliner: 'Plataforma de e-commerce musical full-stack para un productor.',
+      oneliner: 'La tienda online de un producer: beats a la venta con preescucha, licencias y pago en página.',
       bullets: [
-        'Catálogo de beats con previsualizaciones a waveform, carrito multi-licencia (MP3 / WAV / stems / exclusive) y checkout de Stripe en página.',
-        'Webhook de Stripe idempotente, RLS en todas las tablas, admin API protegida con JWT, descargas con URLs firmadas bajo demanda.',
-        'Stack zero-egress: audio desde Cloudflare R2 servido directamente al navegador, desplegado en CI sobre Netlify.',
+        { lead: 'Pago en página', body: 'preescucha en waveform, carrito multi-licencia (MP3 / WAV / stems / exclusive) y Stripe sin salir de la página.' },
+        { lead: 'Se entrega sola', body: 'cada compra manda enlaces de descarga privados, válidos solo para quien ha comprado.' },
+        { lead: 'Costes al mínimo', body: 'el audio viaja de Cloudflare directo al navegador, sin servidor en medio.' },
       ],
     },
     'alex-bartok': {
-      oneliner: 'Limpieza de vibe-coding por encargo: un sitio PHP reconstruido en una React app segura + área de clientes.',
+      oneliner: 'La web de un músico que funcionaba mal, reconstruida desde cero — rápida, segura, trilingüe, con área de clientes de pago.',
       bullets: [
-        'Contratado para limpiar y poner en producción el sitio vibe-coded de un cliente — monolito PHP migrado a una React SPA unificada (sitio público + área de clientes autenticada), servida estática y trilingüe (IT/EN/ES).',
-        'Área de clientes con project rooms, audio versionado y feedback con timestamp, protegida por un paywall RLS (ownership + is_paid) con descargas por URLs firmadas; dos fugas de lectura cross-tenant encontradas y corregidas.',
-        'Publicado con un gate de CI (typecheck/lint/build/test), cabeceras endurecidas (HSTS/CSP) y un endpoint de contacto con reCAPTCHA y rate-limit.',
+        { lead: 'Reconstruida como app moderna', body: 'sitio público + área de clientes reservada, en tres idiomas (IT/EN/ES) — desde una web que funcionaba mal.' },
+        { lead: 'Cada proyecto tiene su sala', body: 'audio versionado, comentarios fijados al segundo exacto, descargas reservadas a quien ha pagado.' },
+        { lead: 'Entregada reforzada', body: 'controles automáticos en cada cambio, seguridad reforzada, formulario anti-spam; dos fugas de acceso encontradas y cerradas.' },
       ],
     },
     'company-brain': {
-      oneliner: 'IA agéntica sobre los datos de empresa en vivo.',
+      oneliner: 'Un agente de IA que responde preguntas sobre los datos reales de la empresa — números exactos, nada inventado.',
       bullets: [
-        'Top 10 en el hackathon Cursor × Yellow Tech → clasificado para la Liga Nacional Italiana de Hackathons.',
-        'Agente FastAPI sobre el CRM, ERP, registros de llamadas y base de conocimiento: el LLM solo elige las herramientas y redacta la respuesta mientras Python hace cada conteo y suma — cifras exactas, procedencia de las fuentes, cero alucinaciones.',
-        'RAG sin infraestructura (BM25 sobre documentos completos) más un grafo de conocimiento interactivo; multilingüe IT/EN/ES.',
+        { lead: 'Responde con datos reales', body: 'pregunta en lenguaje natural sobre clientes, pedidos o llamadas — el agente consulta el CRM, el gestor y los documentos y cita las fuentes.' },
+        { lead: 'Las cuentas las hace el código, no la IA', body: 'el modelo solo elige dónde mirar y cómo explicarlo; los números son siempre exactos.' },
+        { lead: 'Top 10 en Cursor × Yellow Tech', body: 'clasificado para la Liga Nacional Italiana de Hackathons.' },
       ],
     },
     'dance-voice-agent': {
-      oneliner: 'Asistente telefónico de IA inbound para una escuela de baile, 24/7.',
+      oneliner: 'El asistente telefónico IA de una escuela de baile: responde 24/7, reserva, cambia, informa.',
       bullets: [
-        'Gestiona toda la llamada end-to-end: identifica al alumno, informa de cursos, reserva, cancela y reprograma clases, recuperaciones y pruebas — con transferencia a una persona cuando hace falta.',
-        'Pipeline de voz en tiempo real con barge-in: Deepgram STT → GPT-4o con tool calling paralelo → ElevenLabs TTS sobre WebSocket persistente (IT/ES); confirmaciones por SMS y recordatorios previos a la clase.',
-        'Hardening de producción: colgado iniciado por el agente, fallback ante errores de API, suite de evals reproducible y dashboard admin con observabilidad de latencia/coste.',
+        { lead: 'Gestiona la llamada solo', body: 'reconoce al alumno, informa de cursos, reserva, cancela y cambia clases — y pasa a una persona cuando hace falta.' },
+        { lead: 'Italiano y español, sin pisar', body: 'responde al instante; confirmaciones y recordatorios llegan por SMS.' },
+        { lead: 'Probado antes de salir en vivo', body: '9/9 escenarios reales superados, con un panel que vigila tiempos y costes de cada llamada.' },
       ],
     },
     'shy-order': {
       oneliner: 'Agente de voz autónomo con llamadas salientes.',
       bullets: [
-        'Conversa con el usuario vía navegador para recopilar los detalles de la reserva.',
-        'Llama autónomamente al restaurante vía Twilio, gestionando toda la conversación telefónica end-to-end.',
-        'Memoria persistente entre sesiones que sobrevive a las conversaciones stateless de ElevenLabs — reconoce a los clientes recurrentes y propone «lo de siempre».',
-        'Dashboard de administración con analíticas de sesiones y seguimiento de ingresos.',
+        { lead: 'Recopila vía navegador', body: 'conversa con el usuario para los detalles de la reserva.' },
+        { lead: 'Llama al restaurante solo', body: 'marca vía Twilio y gestiona toda la llamada end-to-end.' },
+        { lead: 'Se acuerda de ti', body: 'memoria entre sesiones que sobrevive a las llamadas stateless de ElevenLabs — reconoce a los clientes recurrentes y propone «lo de siempre».' },
+        { lead: 'Dashboard de administración', body: 'analíticas de sesiones y seguimiento de ingresos.' },
       ],
     },
     'beat-agent': {
       oneliner: 'Pipeline de publicación con IA para Beat Store.',
       bullets: [
-        'CLI headless: le indicas la carpeta de drop del productor y publica cada beat en Beat Store mediante la API autenticada de la tienda.',
-        'Enriquecimiento de metadatos y SEO con Claude API; pipeline de subida idempotente y reanudable.',
-        'Muestra cada drop en la terminal y pide confirmación antes de publicar.',
+        { lead: 'CLI headless', body: 'le indicas la carpeta de drop del productor y publica cada beat en Beat Store mediante la API autenticada de la tienda.' },
+        { lead: 'Metadatos + SEO con IA', body: 'enriquecimiento con Claude API; pipeline de subida idempotente y reanudable.' },
+        { lead: 'Confirmas antes de publicar', body: 'muestra cada drop en la terminal y pide el ok.' },
       ],
     },
     'beyond-space': {
       oneliner: 'Generación de audio mediante interpolación en el espacio latente RAVE.',
       bullets: [
-        'Carga hasta 4 archivos de audio e interpola entre sus codificaciones latentes RAVE mediante un tablero 2D.',
-        'Ponderación baricéntrica — la posición del clic define la mezcla entre todas las entradas simultáneamente.',
-        'Backend FastAPI + TorchScript en HF Spaces, frontend React en Vercel.',
+        { lead: 'Interpola en el latente', body: 'cargas hasta 4 archivos de audio y mezclas sus codificaciones latentes RAVE mediante un tablero 2D.' },
+        { lead: 'Ponderación baricéntrica', body: 'la posición del clic define la mezcla entre todas las entradas a la vez.' },
+        { lead: 'FastAPI + TorchScript', body: 'backend en HF Spaces, frontend React en Vercel.' },
       ],
     },
     thesis: {
       oneliner: 'Tesis de máster: del análisis de audio a la generación musical.',
       bullets: [
-        'Sistema de tres clientes que convierte el análisis de audio en generación musical — visualización 3D basada en el mood → mapeo de emociones → generación sin prompts, en bucle en tiempo real.',
-        'La geometría sagrada como interfaz — el Cubo de Metatrón y los sólidos platónicos mapean emociones a características de audio en un cliente 3D interactivo (React Three Fiber / Three.js).',
-        'Generación sin prompts mediante la API de Suno; benchmark comparativo de modelos generativos (Suno, RAVE, MusicGen, Jukebox).',
+        { lead: 'Análisis → generación', body: 'un sistema de tres clientes: visualización 3D basada en el mood → mapeo de emociones → generación sin prompts, en bucle en tiempo real.' },
+        { lead: 'Geometría sagrada como interfaz', body: 'el Cubo de Metatrón y los sólidos platónicos mapean emociones a características de audio en un cliente 3D interactivo.' },
+        { lead: 'Generación sin prompts', body: 'mediante la API de Suno; benchmark comparativo de modelos generativos (Suno, RAVE, MusicGen, Jukebox).' },
       ],
     },
     'wdf-h9000': {
       oneliner: 'Modelado de circuitos analógicos en hardware de efectos dedicado.',
       bullets: [
-        'Primera implementación exitosa de un algoritmo Wave Digital Filter (WDF) en el Eventide H9000, modelando circuitos lineales y no lineales directamente en el hardware mediante VSig3.',
-        'No linealidades tratadas con una representación Canonical PieceWise-Linear (CPWL); validado de extremo a extremo con un circuito diode-clipper en el dispositivo.',
-        'Desarrollado dentro de las limitaciones del lenguaje de bajo nivel de VSig3, sin ejemplos en la literatura.',
+        { lead: 'Primer WDF en el H9000', body: 'un algoritmo Wave Digital Filter que modela circuitos lineales y no lineales directamente en el hardware mediante VSig3.' },
+        { lead: 'No linealidades vía CPWL', body: 'una representación Canonical PieceWise-Linear; validado de extremo a extremo con un circuito diode-clipper.' },
+        { lead: 'Sin precedentes', body: 'desarrollado dentro de los límites de bajo nivel de VSig3, sin ejemplos en la literatura.' },
       ],
     },
     'invoice-agent': {
       oneliner: 'Sistema de automatización para la gestión de tutorías.',
       bullets: [
-        'Automatiza la facturación vía Fiscozen y envía correos personalizados a los clientes.',
-        'Sincroniza sesiones de Google Calendar con Notion; reserva automáticamente en las plataformas.',
-        'Se ejecuta a diario: facturación, correos, registro de sesiones y reservas.',
+        { lead: 'Automatiza la facturación', body: 'vía Fiscozen, y envía correos personalizados a los clientes.' },
+        { lead: 'Sincroniza y reserva', body: 'sesiones de Google Calendar → Notion; reserva en automático en las plataformas.' },
+        { lead: 'Corre a diario', body: 'facturación, correos, registro de sesiones y reservas.' },
       ],
     },
     'skyitalia-voice-agent': {
       oneliner: 'Soporte aéreo con dos agentes de voz y escalado en vivo — Yellow Tech × ElevenLabs.',
       bullets: [
-        'Aria atiende a los pasajeros en primera línea y escala los casos complejos a Marco, un agente supervisor.',
-        'Soporte conversacional multilingüe (IT / EN / ES / FR) en ElevenLabs Conversational AI.',
-        'Construido en el hackathon Yellow Tech × ElevenLabs.',
+        { lead: 'Dos agentes, escalado en vivo', body: 'Aria atiende a los pasajeros en primera línea y escala los casos complejos a Marco, un agente supervisor.' },
+        { lead: 'Multilingüe', body: 'soporte conversacional (IT / EN / ES / FR) en ElevenLabs Conversational AI.' },
+        { lead: 'De hackathon', body: 'construido en Yellow Tech × ElevenLabs.' },
       ],
     },
     'music-genre-classifier': {
       oneliner: 'Clasificación de género musical con deep learning (NN / CNN / RNN-LSTM).',
       bullets: [
-        'Clasifica pistas por género a partir de características MFCC (librosa), entrenado en el dataset GTZAN.',
-        'Compara arquitecturas NN, CNN y RNN-LSTM con evaluación de accuracy/loss; escalable a otros datasets y modelos.',
+        { lead: 'Género desde MFCC', body: 'clasifica pistas con características librosa, entrenado en el dataset GTZAN.' },
+        { lead: 'NN vs CNN vs RNN-LSTM', body: 'comparadas con evaluación de accuracy/loss; escalable a otros datasets y modelos.' },
       ],
     },
     'save-the-world': {
       oneliner: 'Instalación interactiva sobre el impacto ecológico de las acciones diarias.',
       bullets: [
-        'Los usuarios imitan acciones cotidianas y ven su impacto en CO₂ y clima en tiempo real sobre un globo 3D reactivo.',
-        'Reconocimiento de gestos en Python + visuales 3D en tiempo real en TouchDesigner + paisajes sonoros generativos en SuperCollider.',
+        { lead: 'Actúa, ve el impacto', body: 'los usuarios imitan acciones cotidianas y ven su impacto en CO₂ y clima en tiempo real sobre un globo 3D reactivo.' },
+        { lead: 'Gestos → visuales → sonido', body: 'reconocimiento de gestos Python + 3D en tiempo real TouchDesigner + paisajes sonoros generativos SuperCollider.' },
       ],
     },
   },

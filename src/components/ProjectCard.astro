@@ -6,120 +6,112 @@ import type { Lang } from '../i18n/content';
 
 interface Props {
   project: Project;
-  index: number;
-  extra?: boolean;
   lang: Lang;
 }
-const { project, index, extra = false, lang } = Astro.props;
+const { project, lang } = Astro.props;
 const frameLabel = frameLabelFor(project);
 
 const override = lang !== 'en' ? projectText[lang]?.[project.id] : undefined;
 const oneliner = override?.oneliner ?? project.oneliner;
 const bullets = override?.bullets ?? project.bullets;
 
-// Only show the browser-window chrome (dots) when the label is a real host;
-// otherwise render a neutral caption strip (no fake URL metaphor).
+// Only show the browser-window chrome (dots) when the label is a real host.
 const looksLikeHost = /^[a-z0-9.-]+\.[a-z]{2,}$/i.test(frameLabel);
-
-void index;
 ---
 
 <article
   id={`proj-${project.id}`}
   data-filters={project.filters.join('|')}
-  data-extra={extra ? 'true' : 'false'}
-  class:list={[
-    'project-card grid gap-x-9 gap-y-6 rounded-[var(--radius-card)] border border-bone/10 bg-surface p-5 transition-colors duration-300 hover:border-oxblood-soft/50 md:grid-cols-[1fr_minmax(0,340px)] md:items-start md:p-7',
-    extra && 'is-extra',
-  ]}
-  style={extra ? 'display:none' : undefined}
+  class="project-card pslide"
+  aria-labelledby={`proj-${project.id}-title`}
 >
-  <!-- LEFT: the substance -->
-  <div class="flex min-w-0 flex-col">
-    <div class="flex items-baseline gap-3">
-      <span class="font-mono text-[12px] uppercase tracking-wider text-text-muted">{project.category}</span>
-      {project.badge && (
-        <span class="ml-auto rounded-[4px] bg-oxblood px-2 py-0.5 font-mono text-[10px] font-medium tracking-wide text-[#f0d7dc]">
-          {project.badge}
-        </span>
-      )}
-    </div>
-    <h3 class="mt-2 font-display text-2xl font-semibold text-bone md:text-[28px]">{project.title}</h3>
-    <p class="mt-1.5 font-mono text-[14px] text-text-muted">{oneliner}</p>
-
-    <ul class="mt-5 space-y-2 text-[15px] leading-relaxed text-text-muted">
-      {bullets.map((b) => (
-        <li class="flex gap-2">
-          <span class="text-oxblood-soft" aria-hidden="true">—</span>
-          <span>{b}</span>
-        </li>
-      ))}
-    </ul>
-
-    {project.engineering && (
-      <details class="group mt-5 border-t border-bone/[0.08] pt-3">
-        <summary class="flex cursor-pointer list-none items-center gap-x-2 font-mono text-[12px] text-text-dim [&::-webkit-details-marker]:hidden">
-          <span class="text-oxblood-soft">engineering</span>
-          <span class="text-text-muted">{project.engineering.summary}</span>
-          <span class="ml-auto whitespace-nowrap text-oxblood-soft">
-            <span class="group-open:hidden">show ↓</span>
-            <span class="hidden group-open:inline">hide ↑</span>
-          </span>
-        </summary>
-        <div class="mt-4 grid grid-cols-3 gap-x-3.5">
-          {project.engineering.stats.map((s) => (
-            <div class="border-l border-bone/10 pl-3.5 first:border-l-0 first:pl-0">
-              <div class="font-display text-[22px] leading-none text-bone">{s.value}</div>
-              <div class="mt-1.5 font-mono text-[11px] uppercase tracking-wide text-text-dim">{s.label}</div>
-            </div>
-          ))}
-        </div>
-        {project.engineering.note && (
-          <p class="mt-3.5 font-mono text-[12px] leading-relaxed text-text-dim">{project.engineering.note}</p>
-        )}
-      </details>
-    )}
-
-    {project.links.length > 0 && (
-      <div class="mt-6 flex flex-wrap gap-2.5">
-        {project.links.map((l, i) => (
-          <a
-            href={l.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            class:list={[
-              'rounded-[4px] px-3.5 py-2 font-mono text-[13px] transition',
-              i === 0
-                ? 'border border-oxblood text-bone hover:bg-oxblood/15'
-                : 'border border-bone/15 text-text-muted hover:text-bone',
-            ]}
-          >
-            {l.label}
-          </a>
-        ))}
-      </div>
-    )}
+  <!-- kicker (category) -->
+  <div class="ps-top">
+    <span class="ps-kick">{project.category}</span>
   </div>
 
-  <!-- RIGHT: cover, with the stack line sitting under it so the column reads as a unit -->
-  <div class="flex min-w-0 flex-col">
-    <figure class="m-0 overflow-hidden rounded-[6px] border border-bone/10">
-      <div class="flex items-center gap-1.5 border-b border-bone/10 bg-ink-2 px-3.5 py-2">
-        {looksLikeHost && (
-          <>
-            <span class="h-2 w-2 rounded-full bg-oxblood/70"></span>
-            <span class="h-2 w-2 rounded-full bg-bone/15"></span>
-            <span class="h-2 w-2 rounded-full bg-bone/15"></span>
-          </>
-        )}
-        <span class:list={['truncate font-mono text-[12px] text-text-dim', looksLikeHost && 'ml-2.5']}>{frameLabel}</span>
+  <!-- title + stamp + outcome, above the cover -->
+  <div class="ps-headline">
+    <div class="ps-titlerow">
+      <h3 class="ps-title" id={`proj-${project.id}-title`}>{project.title}</h3>
+      {project.badge && <span class="ps-stamp">{project.badge}</span>}
+    </div>
+    <p class="ps-outcome">{oneliner}</p>
+  </div>
+
+  <!-- LEFT: cover + visit-site  |  RIGHT: detail -->
+  <div class="ps-grid">
+    <div class="ps-left">
+      <figure class="ps-cover">
+        <div class="ps-bar">
+          {looksLikeHost && (
+            <>
+              <span class="ps-dot ps-dot-a"></span>
+              <span class="ps-dot ps-dot-b"></span>
+              <span class="ps-dot ps-dot-b"></span>
+            </>
+          )}
+          <span class:list={['ps-host', looksLikeHost && 'has-dots']}>{frameLabel}</span>
+        </div>
+        <div class="ps-well">
+          <img src={project.cover} alt={`${project.title} — preview`} loading="lazy" />
+        </div>
+      </figure>
+
+      {project.links.length > 0 && (
+        <div class="ps-cta">
+          {project.links.map((l) => (
+            <a href={l.href} target="_blank" rel="noopener noreferrer" class="btn-ghost">{l.label}</a>
+          ))}
+        </div>
+      )}
+
+      {project.credit && (
+        <p class="ps-credit">
+          <span>{project.credit.role}</span>
+          {project.credit.href
+            ? <a href={project.credit.href} target="_blank" rel="noopener noreferrer">{project.credit.name} ↗</a>
+            : project.credit.name}
+        </p>
+      )}
+    </div>
+
+    <div class="ps-detail">
+      <ul class="ps-feats" role="list">
+        {bullets.map((b, i) => (
+          <li class="ps-feat">
+            <span class="ps-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            {typeof b === 'string'
+              ? <p>{b}</p>
+              : <p><b>{b.lead}</b> — {b.body}</p>}
+          </li>
+        ))}
+      </ul>
+
+      <div class="ps-chips">
+        {project.stack.map((s) => <span class="ps-chip">{s}</span>)}
+        {project.ai?.map((s) => <span class="ps-chip is-ai">{s}</span>)}
+        {project.hardware?.map((s) => <span class="ps-chip">{s}</span>)}
       </div>
-      <div class="aspect-[16/10] w-full bg-surface-2">
-        <img src={project.cover} alt={`${project.title} preview`} loading="lazy" class="h-full w-full object-contain object-top" />
-      </div>
-    </figure>
-    <p class="mt-4 font-mono text-[13px] leading-relaxed text-text-dim">
-      <span class="text-oxblood-soft">stack</span>&nbsp;&nbsp;{project.stack.join(' · ')}
-    </p>
+
+      {project.engineering && (
+        <details class="ps-rigor">
+          <summary>
+            <span class="ps-lab">engineering</span>
+            <span>{project.engineering.summary}</span>
+            <span class="ps-chev"><span class="c">apri&nbsp;↓</span><span class="o">chiudi&nbsp;↑</span></span>
+          </summary>
+          <div class="ps-stats">
+            {project.engineering.stats.map((s) => (
+              <div class="ps-stat">
+                <div class="v">{s.value}</div>
+                <div class="l">{s.label}</div>
+              </div>
+            ))}
+          </div>
+          {project.engineering.note && <p class="ps-note">{project.engineering.note}</p>}
+        </details>
+      )}
+    </div>
   </div>
 </article>

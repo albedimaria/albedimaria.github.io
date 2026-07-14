@@ -1,51 +1,136 @@
 ---
-import { ui, type Lang } from '../i18n/content';
+import { ui, experience, training, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = ui[lang];
+const exp = experience[lang];
+const tr = training[lang];
+
+// Bio: split on the em-dash so the hook clause ("…lo sistemo") can carry weight.
+const [bioLead, bioHook] = t.about_text.split(/\s—\s/);
+
+// Count-up credibility anchor. Numbers derived from real data (14 projects, site
+// trilingual); `anni` is a placeholder to confirm with Alberto.
+const stats: { to: number; suffix?: string; label: Record<Lang, string> }[] = [
+  { to: 14, label: { en: 'projects shipped', it: 'progetti spediti', es: 'proyectos' } },
+  { to: 3, label: { en: 'clients', it: 'clienti', es: 'clientes' } },
+  { to: 1, label: { en: 'year freelance', it: 'anno freelance', es: 'año freelance' } },
+];
+
+const VISIBLE = 2;
+const moreLabel = { en: 'show more', it: 'mostra altri', es: 'ver más' }[lang];
+const lists = [
+  { id: 'exp', title: t.experience_title, items: exp },
+  { id: 'train', title: t.training_title, items: tr },
+];
+const cvLabel = { en: 'Download CV', it: 'Scarica il CV', es: 'Descargar CV' }[lang];
 ---
 
-<section id="about" class="sec-line bg-ink-2">
+<!-- Chi sono + Esperienza — one continuous section: bio, a count-up credibility
+     strip, then the timeline as a real spine with node dots. -->
+<section id="about" class="sec-line relative bg-ink-2">
+  <span class="ghost-num" aria-hidden="true">03</span>
   <div class="mx-auto max-w-5xl px-6 py-20 md:py-24">
     <p data-reveal class="font-mono text-[13px] uppercase tracking-[0.22em] text-bone"><span class="mr-3 text-oxblood-soft">03</span>{t.about_title}</p>
 
     <div data-reveal-stagger class="mt-8 grid gap-10 md:grid-cols-[250px_1fr] md:items-start">
-      <div class="overflow-hidden rounded-[var(--radius-card)] border border-bone/10 bg-surface">
+      <div class="relative overflow-hidden rounded-[var(--radius-card)] border border-bone/10 bg-surface">
         <img src="/images/propic.webp" alt="Alberto Di Maria" loading="lazy" width="500" height="625" class="aspect-[4/5] w-full object-cover" />
       </div>
 
       <div class="min-w-0">
-        <p class="font-display text-2xl leading-snug text-bone md:text-[26px]">{t.about_text}</p>
-        <p class="mt-4 text-[16px] leading-relaxed text-text-muted">{t.about_closing}</p>
+        <p class="max-w-[60ch] font-display text-2xl leading-snug text-text-muted md:text-[26px]">
+          {bioLead}{bioHook && <> — <span class="text-bone">{bioHook}</span></>}
+        </p>
+        <p class="mt-4 max-w-[60ch] text-[16px] leading-relaxed text-text-muted">{t.about_closing}</p>
 
         <div class="mt-7 flex flex-wrap items-center gap-3">
-          <a
-            href="https://www.linkedin.com/in/di-maria-alberto/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="rounded-[var(--radius-btn)] border border-bone/25 px-5 py-3 font-mono text-[14px] text-bone transition hover:border-bone/60"
-          >
-            LinkedIn ↗
-          </a>
-          <a
-            href="https://github.com/albedimaria"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="rounded-[var(--radius-btn)] border border-bone/15 px-5 py-3 font-mono text-[14px] text-text-muted transition hover:text-bone"
-          >
-            GitHub ↗
-          </a>
-          <a
-            href="/cv.pdf"
-            class="rounded-[var(--radius-btn)] border border-bone/15 px-5 py-3 font-mono text-[14px] text-text-muted transition hover:text-bone"
-          >
-            {t.hero_cta_cv} ↓
-          </a>
+          <a href="/cv.pdf" class="btn-primary">{cvLabel} <span class="btn-arw" aria-hidden="true">↓</span></a>
+          <a href="https://www.linkedin.com/in/di-maria-alberto/" target="_blank" rel="noopener noreferrer" class="btn-ghost">LinkedIn ↗</a>
+          <a href="https://github.com/albedimaria" target="_blank" rel="noopener noreferrer" class="btn-ghost">GitHub ↗</a>
         </div>
       </div>
     </div>
+
+    <!-- Count-up credibility strip -->
+    <dl data-reveal class="mt-14 grid grid-cols-3 gap-6 border-t border-bone/10 pt-10">
+      {stats.map((s) => (
+        <div class="stat">
+          <dd class="stat-num" data-count-to={s.to}>0{s.suffix ?? ''}</dd>
+          <dt class="stat-label">{s.label[lang]}</dt>
+        </div>
+      ))}
+    </dl>
+
+    <!-- Experience + training — full-width timeline with a continuous spine -->
+    <div id="experience" class="mt-16 grid gap-x-16 gap-y-12 pt-2 md:grid-cols-2">
+      {lists.map((list) => (
+        <div>
+          <h2 data-reveal class="font-mono text-[13px] uppercase tracking-[0.22em] text-accent-txt">{list.title}</h2>
+          <ol class="tl mt-7" data-list={list.id} data-reveal-stagger>
+            {list.items.map((e, i) => (
+              <li
+                class:list={['tl-item', i === 0 && list.id === 'exp' && 'is-now', i >= VISIBLE && 'is-extra']}
+                style={i >= VISIBLE ? 'display:none' : undefined}
+              >
+                <h3 class="font-display text-lg font-semibold leading-tight text-bone">{e.title}</h3>
+                <p class="tl-meta mt-1 font-mono text-[12px] text-text-dim">{e.meta}</p>
+                <p class="mt-1.5 text-[16px] leading-relaxed text-text-muted">{e.desc}</p>
+              </li>
+            ))}
+          </ol>
+          {list.items.length > VISIBLE && (
+            <button
+              type="button"
+              data-list={list.id}
+              class="more-btn mt-6 font-mono text-[12px] text-text-muted underline-offset-4 transition hover:text-bone hover:underline"
+            >
+              {moreLabel} (+{list.items.length - VISIBLE})
+            </button>
+          )}
+        </div>
+      ))}
+    </div>
   </div>
 </section>
+
+<script>
+  // "show more" reveals the collapsed timeline entries.
+  document.querySelectorAll('.more-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-list');
+      document
+        .querySelectorAll(`ol[data-list="${id}"] .is-extra`)
+        .forEach((el) => ((el as HTMLElement).style.display = ''));
+      (btn as HTMLElement).style.display = 'none';
+    });
+  });
+
+  // Count-up stats — animate 0 → target when the strip scrolls into view.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const nums = document.querySelectorAll<HTMLElement>('.stat-num[data-count-to]');
+  const run = (el: HTMLElement) => {
+    const to = parseInt(el.dataset.countTo || '0', 10);
+    const suffix = (el.textContent || '').replace(/[0-9]/g, '').trim();
+    if (reduce) { el.textContent = `${to}${suffix}`; return; }
+    const dur = 1100;
+    let start = 0;
+    const step = (ts: number) => {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+      el.textContent = `${Math.round(eased * to)}${suffix}`;
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) { run(e.target as HTMLElement); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.6 });
+  nums.forEach((n) => io.observe(n));
+</script>

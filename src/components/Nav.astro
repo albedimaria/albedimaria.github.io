@@ -28,11 +28,8 @@ const navItems = [
 
     <!-- desktop right group: work-together CTA + language dropdown -->
     <div class="ml-auto hidden items-center gap-5 md:flex">
-      <a
-        href="#contact"
-        class="cta-glow inline-flex items-center rounded-[var(--radius-btn)] bg-oxblood px-5 py-2.5 font-mono text-[13px] text-[#f8e6ea] transition-colors hover:bg-oxblood-soft"
-      >
-        {t.nav_cta}
+      <a href="#contact" class="btn-primary">
+        {t.nav_cta} <span class="btn-arw" aria-hidden="true">→</span>
       </a>
       <div class="relative">
         <button id="lang-btn" type="button" class="group inline-flex items-center gap-1.5 rounded-[var(--radius-btn)] border border-bone/15 px-3.5 py-2.5 font-mono text-[13px] text-text-muted transition-colors hover:border-bone/40 hover:text-bone" aria-haspopup="true" aria-expanded="false" aria-label="Change language">
@@ -75,8 +72,8 @@ const navItems = [
           <li><a href={i.href} class="inline-block transition hover:text-white">{i.label}</a></li>
         ))}
         <li class="pt-2">
-          <a href="#contact" class="cta-glow inline-flex items-center rounded-[var(--radius-btn)] bg-oxblood px-5 py-3 font-mono text-[15px] text-[#f8e6ea] transition-colors hover:bg-oxblood-soft">
-            {t.nav_cta}
+          <a href="#contact" class="btn-primary">
+            {t.nav_cta} <span class="btn-arw" aria-hidden="true">→</span>
           </a>
         </li>
       </ul>

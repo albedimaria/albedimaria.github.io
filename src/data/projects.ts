@@ -7,6 +7,11 @@ export interface ProjectLink {
   href: string;
 }
 
+/** A feature line. A plain string renders as-is; the {lead, body} form
+ *  bolds a short lead ("what it is") before the rest — used on the
+ *  flagship/services-referenced projects for scannability. */
+export type Bullet = string | { lead: string; body: string };
+
 /** One numeric proof point, revealed when the engineering block is expanded. */
 export interface EngineeringStat {
   value: string;
@@ -31,9 +36,11 @@ export interface Project {
   filters: string[];
   featured: boolean;
   badge?: string;
+  /** collaboration credit (e.g. the designer), shown under the cover */
+  credit?: { role: string; name: string; href?: string };
   /** short subtitle, used in both featured and grid cards */
   oneliner: string;
-  bullets: string[];
+  bullets: Bullet[];
   stack: string[];
   ai?: string[];
   hardware?: string[];
@@ -49,12 +56,11 @@ export const projects: Project[] = [
     category: 'Client work',
     filters: ['Client work'],
     featured: true,
-    badge: '✓ commissioned',
-    oneliner: 'Commissioned vibe-coding cleanup: a PHP site rebuilt into a secure React app + client portal.',
+    oneliner: 'A musician’s broken website rebuilt from scratch — fast, secure, trilingual, with a paid client area.',
     bullets: [
-      'Hired to clean up and productionize a client’s vibe-coded site — migrated the PHP monolith to a unified React SPA (public site + authenticated client portal), served static and trilingual (IT/EN/ES).',
-      'Client portal with project rooms, versioned audio and timestamped feedback, gated by an ownership + is_paid RLS paywall with signed-URL downloads; two cross-tenant read leaks found and fixed.',
-      'Shipped with a CI gate (typecheck/lint/build/tests), hardened headers (HSTS/CSP) and a rate-limited reCAPTCHA contact endpoint.',
+      { lead: 'Rebuilt as a modern app', body: 'public site + private client area, in three languages (IT/EN/ES) — from a site that barely worked.' },
+      { lead: 'Every project gets its own room', body: 'versioned audio, comments pinned to the exact second, downloads reserved for paying clients.' },
+      { lead: 'Delivered hardened', body: 'automatic checks on every change, secured, anti-spam contact form; two access leaks found and closed.' },
     ],
     stack: ['React', 'TypeScript', 'Supabase', 'Vite', 'Tailwind'],
     engineering: {
@@ -78,9 +84,9 @@ export const projects: Project[] = [
     badge: 'Musixmatch Musicathon',
     oneliner: 'Lyrics-first music discovery — a playlist that travels your emotions.',
     bullets: [
-      'Describe a mood in plain language, or tap a 12-emotion wheel — a Claude agent resolves text and taps into one emotional state, and Lyra builds the playlist as a trajectory through that space, not a flat list.',
-      'Songs are chosen by what their lyrics say: sentence-transformer embeddings place each track on a valence × energy emotion taxonomy, and the exact cited line that matched your mood is surfaced via Musixmatch lyrics/richsync.',
-      'Steer live — more like this / change the mood / raise the energy — reshaping the upcoming queue without cutting the current track; a 3D react-three-fiber compass turns to your mood and traces the path travelled.',
+      { lead: 'Describe a mood', body: 'in plain language or tap a 12-emotion wheel — a Claude agent resolves it and Lyra builds the playlist as a trajectory through that space, not a flat list.' },
+      { lead: 'Chosen by the lyrics', body: 'sentence-transformer embeddings place each track on a valence × energy taxonomy; the exact cited line that matched your mood is surfaced via Musixmatch.' },
+      { lead: 'Steer live', body: 'more like this / change the mood / raise the energy — reshaping the queue without cutting the current track; a 3D compass turns to your mood and traces the path.' },
     ],
     stack: ['Next.js 16', 'TypeScript', 'react-three-fiber', 'FastAPI', 'Vercel', 'Hugging Face'],
     ai: ['Claude (Anthropic)', 'sentence-transformers (mpnet)', 'Musixmatch Pro API'],
@@ -96,12 +102,13 @@ export const projects: Project[] = [
     category: 'Client work',
     filters: ['Client work'],
     featured: true,
-    badge: '✓ acquired',
-    oneliner: 'Full-stack music e-commerce platform for a producer.',
+    badge: '★ first client',
+    credit: { role: 'design', name: 'Laura Zanchetta' },
+    oneliner: 'A producer’s online store: beats for sale with previews, licensing and in-page checkout.',
     bullets: [
-      'Beat catalog with waveform previews, multi-license cart (MP3 / WAV / stems / exclusive) and in-page Stripe checkout.',
-      'Idempotent Stripe webhook, RLS on every table, JWT-guarded admin API, downloads via on-demand signed URLs.',
-      'Zero-egress stack: audio served from Cloudflare R2 straight to the browser, CI-deployed on Netlify.',
+      { lead: 'In-page checkout', body: 'waveform previews, a multi-license cart (MP3 / WAV / stems / exclusive) and Stripe without leaving the page.' },
+      { lead: 'Delivers itself', body: 'every purchase sends private download links, valid only for the buyer.' },
+      { lead: 'Running costs cut to the bone', body: 'audio flies from Cloudflare straight to the browser, no server in between.' },
     ],
     stack: ['Next.js 16', 'TypeScript', 'Supabase', 'Stripe', 'Cloudflare R2', 'Resend', 'Netlify'],
     ai: ['Claude API'],
@@ -126,11 +133,11 @@ export const projects: Project[] = [
     filters: ['Hackathons'],
     featured: true,
     badge: '★ Top 10',
-    oneliner: 'Agentic AI over a company’s live business data.',
+    oneliner: 'An AI agent that answers questions about a company’s real data — exact numbers, nothing made up.',
     bullets: [
-      'Top 10 at the Cursor × Yellow Tech hackathon → qualified for the Italian National Hackathon League.',
-      'FastAPI agent over CRM, ERP, call logs and a knowledge base: the LLM only picks tools and writes the answer while Python does every count and sum — exact figures, source provenance, zero hallucinations.',
-      'Zero-infra RAG (BM25 over whole documents) plus an interactive knowledge graph; multilingual IT/EN/ES.',
+      { lead: 'Answers from real data', body: 'ask in plain language about clients, orders or calls — the agent reads the CRM, the ERP and the documents and cites its sources.' },
+      { lead: 'Math done by code, not the AI', body: 'the model only picks where to look and how to explain; the numbers are always exact.' },
+      { lead: 'Top 10 at Cursor × Yellow Tech', body: 'qualified for the Italian National Hackathon League.' },
     ],
     stack: ['Python', 'FastAPI', 'Docker', 'Render'],
     ai: ['LLM tool-calling (Mistral via Regolo)', 'BM25 retrieval'],
@@ -146,11 +153,11 @@ export const projects: Project[] = [
     category: 'Client work',
     filters: ['Client work', 'Voice AI'],
     featured: true,
-    oneliner: 'Inbound AI phone assistant for a dance school, 24/7.',
+    oneliner: 'A dance school’s AI phone assistant: answers 24/7, books, reschedules, informs.',
     bullets: [
-      'Handles the full call end-to-end: student lookup, course info, bookings, cancellations & rescheduling, makeup and trial-lesson requests — plus a live transfer to a human when needed.',
-      'Real-time voice pipeline with barge-in: Deepgram STT → GPT-4o with parallel tool calling → ElevenLabs TTS over a persistent WebSocket (IT/ES); SMS confirmations and pre-lesson reminders.',
-      'Production-hardened: agent-initiated hangup, API-failure fallback, a reproducible eval suite and an admin dashboard with latency/cost observability.',
+      { lead: 'Handles the call on its own', body: 'recognises the student, gives course info, books, cancels and reschedules — and hands to a human when needed.' },
+      { lead: 'Italian and Spanish, no talk-over', body: 'answers instantly; confirmations and reminders go out by SMS.' },
+      { lead: 'Tested before going live', body: '9/9 real scenarios passed, with a panel tracking the time and cost of every call.' },
     ],
     stack: ['Python', 'FastAPI', 'Twilio', 'Supabase', 'Next.js', 'Render', 'Vercel'],
     ai: ['GPT-4o', 'Deepgram', 'ElevenLabs'],
@@ -177,10 +184,10 @@ export const projects: Project[] = [
     featured: false,
     oneliner: 'Autonomous voice agent with outbound calling.',
     bullets: [
-      'Chats with the user in the browser to collect booking details.',
-      'Autonomously calls the restaurant via Twilio, handling the full phone conversation end-to-end.',
-      'Persistent cross-session memory that survives ElevenLabs’ stateless conversations — recognises returning customers and proposes “the usual”.',
-      'Admin dashboard with session analytics and revenue tracking.',
+      { lead: 'Collects the booking in-browser', body: 'chats with the user to gather the details before calling.' },
+      { lead: 'Calls the restaurant itself', body: 'autonomously dials via Twilio and handles the full phone conversation end-to-end.' },
+      { lead: 'Remembers you', body: 'persistent cross-session memory that survives ElevenLabs’ stateless calls — recognises returning customers and proposes “the usual”.' },
+      { lead: 'Admin dashboard', body: 'session analytics and revenue tracking.' },
     ],
     stack: ['Python', 'FastAPI', 'Twilio', 'Supabase', 'Stripe', 'Next.js', 'Vercel'],
     ai: ['ElevenLabs Conversational AI'],
@@ -208,9 +215,9 @@ export const projects: Project[] = [
     badge: 'v1',
     oneliner: 'AI publishing pipeline for Beat Store.',
     bullets: [
-      'Headless CLI: point it at a producer’s drop folder and it publishes each beat to Beat Store through the store’s authenticated API.',
-      'AI metadata and SEO enrichment via Claude API; idempotent, resumable upload pipeline.',
-      'Reviews every drop in the terminal and asks for confirmation before publishing.',
+      { lead: 'Headless CLI', body: 'point it at a producer’s drop folder and it publishes each beat to Beat Store through the store’s authenticated API.' },
+      { lead: 'AI metadata + SEO', body: 'enrichment via Claude API; idempotent, resumable upload pipeline.' },
+      { lead: 'You confirm before publish', body: 'it reviews every drop in the terminal and asks first.' },
     ],
     stack: ['Python', 'httpx', 'Supabase Auth', 'Cloudflare R2', 'keyring'],
     ai: ['Claude API'],
@@ -227,9 +234,9 @@ export const projects: Project[] = [
     featured: false,
     oneliner: 'Audio generation via RAVE latent-space interpolation.',
     bullets: [
-      'Upload up to 4 audio files and interpolate between their RAVE latent encodings via a 2D board.',
-      'Barycentric weighting — click position sets the blend across all inputs simultaneously.',
-      'FastAPI + TorchScript backend on HF Spaces, React frontend on Vercel.',
+      { lead: 'Interpolate in latent space', body: 'upload up to 4 audio files and blend their RAVE latent encodings via a 2D board.' },
+      { lead: 'Barycentric weighting', body: 'click position sets the blend across all inputs simultaneously.' },
+      { lead: 'FastAPI + TorchScript', body: 'backend on HF Spaces, React frontend on Vercel.' },
     ],
     stack: ['Python', 'FastAPI', 'Librosa', 'React'],
     ai: ['RAVE', 'PyTorch', 'TorchScript'],
@@ -244,9 +251,9 @@ export const projects: Project[] = [
     featured: false,
     oneliner: 'MSc thesis: from audio analysis to music generation.',
     bullets: [
-      'A three-client pipeline turning audio analysis into music generation — 3D mood visualization → emotion mapping → prompt-free AI generation, looping in real time.',
-      'Sacred geometry as an interface (Metatron’s Cube, Platonic solids) mapping emotions to audio features in an interactive 3D client.',
-      'Prompt-free generation via Suno API; comparative benchmark of generative models (Suno, RAVE, MusicGen, Jukebox).',
+      { lead: 'Analysis → generation', body: 'a three-client pipeline: 3D mood visualization → emotion mapping → prompt-free AI generation, looping in real time.' },
+      { lead: 'Sacred geometry as interface', body: 'Metatron’s Cube and Platonic solids map emotions to audio features in an interactive 3D client.' },
+      { lead: 'Prompt-free generation', body: 'via Suno API; comparative benchmark of generative models (Suno, RAVE, MusicGen, Jukebox).' },
     ],
     stack: ['Python', 'Flask', 'SocketIO', 'React Three Fiber'],
     ai: ['Essentia', 'TensorFlow (MIR)', 'Suno API'],
@@ -261,9 +268,9 @@ export const projects: Project[] = [
     featured: false,
     oneliner: 'Analog circuit modeling on dedicated effects hardware.',
     bullets: [
-      'First successful implementation of a Wave Digital Filter (WDF) algorithm on the Eventide H9000, modeling linear and nonlinear circuits directly on the hardware via VSig3.',
-      'Nonlinearities handled with a Canonical PieceWise-Linear (CPWL) representation; validated end-to-end with a diode-clipper circuit.',
-      'Built within VSig3’s low-level limits with no prior examples in the literature.',
+      { lead: 'First WDF on the H9000', body: 'a Wave Digital Filter algorithm modeling linear and nonlinear circuits directly on the hardware via VSig3.' },
+      { lead: 'Nonlinearities via CPWL', body: 'a Canonical PieceWise-Linear representation; validated end-to-end with a diode-clipper circuit.' },
+      { lead: 'No prior art', body: 'built within VSig3’s low-level limits with no examples in the literature.' },
     ],
     stack: ['MATLAB', 'VSig3'],
     hardware: ['Eventide H9000'],
@@ -278,9 +285,9 @@ export const projects: Project[] = [
     featured: false,
     oneliner: 'Teaching-management automation system.',
     bullets: [
-      'Automates invoicing via Fiscozen and sends personalized client emails.',
-      'Syncs Google Calendar sessions to Notion; auto-books on third-party platforms.',
-      'Runs daily across invoicing, email dispatch, session logging and booking.',
+      { lead: 'Automates invoicing', body: 'via Fiscozen, and sends personalized client emails.' },
+      { lead: 'Syncs & books', body: 'Google Calendar sessions → Notion; auto-books on third-party platforms.' },
+      { lead: 'Runs daily', body: 'across invoicing, email dispatch, session logging and booking.' },
     ],
     stack: ['Python', 'Playwright', 'Notion API', 'Google Calendar API', 'Gmail SMTP'],
     cover: '/images/invoice_agent_cover_v3.svg',
@@ -294,9 +301,9 @@ export const projects: Project[] = [
     featured: false,
     oneliner: 'Dual voice-agent airline support with live escalation — Yellow Tech × ElevenLabs.',
     bullets: [
-      'Aria handles passengers on the front line and escalates complex cases to Marco, a supervisor agent.',
-      'Multilingual conversational support (IT / EN / ES / FR) on ElevenLabs Conversational AI.',
-      'Built at the Yellow Tech × ElevenLabs hackathon.',
+      { lead: 'Two agents, live escalation', body: 'Aria handles passengers on the front line and escalates complex cases to Marco, a supervisor agent.' },
+      { lead: 'Multilingual', body: 'conversational support (IT / EN / ES / FR) on ElevenLabs Conversational AI.' },
+      { lead: 'Hackathon build', body: 'made at Yellow Tech × ElevenLabs.' },
     ],
     stack: ['REST APIs'],
     ai: ['ElevenLabs', 'Gemini'],
@@ -316,8 +323,8 @@ export const projects: Project[] = [
     featured: false,
     oneliner: 'Deep-learning music genre classification (NN / CNN / RNN-LSTM).',
     bullets: [
-      'Classifies tracks by genre from MFCC features (librosa) trained on the GTZAN dataset.',
-      'Compares NN, CNN and RNN-LSTM architectures with accuracy/loss evaluation; scalable to other datasets and models.',
+      { lead: 'Genre from MFCCs', body: 'classifies tracks with librosa features, trained on the GTZAN dataset.' },
+      { lead: 'NN vs CNN vs RNN-LSTM', body: 'compared with accuracy/loss evaluation; scalable to other datasets and models.' },
     ],
     stack: ['Python'],
     ai: ['TensorFlow', 'Keras'],
@@ -332,8 +339,8 @@ export const projects: Project[] = [
     featured: false,
     oneliner: 'Interactive installation on the eco-impact of daily actions.',
     bullets: [
-      'Users mimic everyday actions and see their CO₂ and climate impact in real time on a responsive 3D globe.',
-      'Python gesture recognition + TouchDesigner real-time 3D visuals + SuperCollider generative soundscapes.',
+      { lead: 'Act, see the impact', body: 'users mimic everyday actions and watch their CO₂ and climate impact in real time on a responsive 3D globe.' },
+      { lead: 'Gesture → visuals → sound', body: 'Python gesture recognition + TouchDesigner real-time 3D + SuperCollider generative soundscapes.' },
     ],
     stack: ['Python', 'TouchDesigner', 'SuperCollider'],
     cover: '/images/bigliettoCPAC.webp',

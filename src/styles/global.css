@@ -8,7 +8,12 @@
   --color-surface-2: #140c10;    /* cover wells / insets */
 
   --color-oxblood: #7a1228;      /* primary accent */
-  --color-oxblood-soft: #9c3340; /* secondary wave / accents */
+  --color-oxblood-soft: #9c3340; /* secondary wave / accents — NB: 2.6:1 on ink, NOT for text */
+
+  /* Accessible red-family text accents (restyle). oxblood-soft fails on ink
+     even for large text, so any RED TEXT uses these instead: */
+  --color-accent-lg: #b8455a;    /* ≥3:1 on ink — large display text / italic accents only */
+  --color-accent-txt: #cf7683;   /* ≥4.5:1 on ink — links & small text */
 
   --color-bone: #faf3e8;         /* light / inverse surfaces (bright) */
   --color-text: #f9f2e9;         /* body text */
@@ -44,6 +49,421 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+}
+
+/* Rigorous 12-column grid (restyle). Explicit gap; collapses to 4 cols on
+   mobile. Sections opt in with .grid-12; children place with col-span-* /
+   col-start-*. minmax(0,1fr) prevents blowout on min-content children. */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+}
+.grid-12 > * { min-width: 0; }
+@media (max-width: 767px) {
+  .grid-12 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+}
+
+/* ============================================================
+   Restyle phase 2 — hero + D10S band. Atmosphere over flatness:
+   a whole-page film grain, a radial oxblood glow behind the photo,
+   the photo lifted ABOVE the grain so it stays crisp.
+   ============================================================ */
+.page-grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+}
+.hero-glow { position: relative; }
+.hero-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(52% 46% at 79% 32%, rgba(122, 18, 40, 0.22), transparent 70%);
+}
+/* photo sits above the page grain (z-60) so it never looks "AI-enhanced" */
+.hero-photo-frame { position: relative; z-index: 61; }
+/* subtle brand grade on the hero portrait — warm oxblood floor, ties it in */
+.hero-photo-grade {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(to top, color-mix(in srgb, var(--color-oxblood) 34%, transparent) 0%, transparent 46%),
+    radial-gradient(120% 80% at 50% 0%, transparent 60%, rgba(0,0,0,0.28) 100%);
+  mix-blend-mode: normal;
+}
+
+/* Hero entrance — one orchestrated load-in, staggered by --d */
+.hero-rise { opacity: 0; animation: hero-rise 0.7s var(--ease-sig) both; animation-delay: var(--d, 0ms); }
+@keyframes hero-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.hero-cue-in { opacity: 0; animation: hero-cue-in 0.6s var(--ease-sig) both; animation-delay: var(--d, 0ms); }
+@keyframes hero-cue-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise, .hero-cue-in { opacity: 1; animation: none; }
+}
+
+/* Section eyebrow with a trailing hairline (restyle) */
+.kicker-rule { display: flex; align-items: center; gap: 14px; }
+.kicker-rule::after {
+  content: "";
+  flex: 0 0 56px;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-oxblood-soft) 60%, transparent);
+}
+/* centered variant — symmetric rules either side (used by the agent band) */
+.kicker-center { justify-content: center; }
+.kicker-center::before {
+  content: "";
+  flex: 0 0 56px;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-oxblood-soft) 60%, transparent);
+}
+
+/* ============================================================
+   Restyle phase 3 — services band. Cards are real surfaces
+   (gradient + border + hover lift with an oxblood glow), with a
+   giant ghost number behind the section header.
+   ============================================================ */
+.svc-card {
+  background: linear-gradient(165deg, #1e1318, #140d10 72%);
+  border: 1px solid color-mix(in srgb, var(--color-bone) 9%, transparent);
+  transition:
+    transform var(--dur-med) var(--ease-sig),
+    border-color var(--dur-fast) var(--ease-sig),
+    box-shadow var(--dur-med) var(--ease-sig);
+}
+.svc-card:hover {
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--color-oxblood-soft) 55%, transparent);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 34px rgba(156, 51, 64, 0.14);
+}
+/* Service icon — Lucide glyph in a rounded oxblood tile for presence */
+.svc-ico {
+  display: grid; place-items: center;
+  width: 54px; height: 54px; border-radius: 14px;
+  color: var(--color-oxblood-soft);
+  background: color-mix(in srgb, var(--color-oxblood) 16%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-oxblood-soft) 32%, transparent);
+  transition: color var(--dur-fast) var(--ease-sig), border-color var(--dur-fast) var(--ease-sig);
+}
+.svc-ico svg { width: 26px; height: 26px; }
+/* Contact inline validation */
+.ferr { display: block; margin-top: 6px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.02em; color: var(--color-accent-txt); min-height: 0; }
+.ferr:empty { margin-top: 0; }
+.contact-input.is-invalid { border-color: var(--color-accent-txt); }
+#contact-status.is-ok { color: var(--color-bone); }
+/* "come lavoro" — editorial number-led stepper with flow arrows */
+.proc-num { font-family: var(--font-display); font-size: clamp(40px, 4vw, 52px); font-weight: 500; line-height: 1; letter-spacing: -0.02em; color: var(--color-accent-lg); font-variant-numeric: tabular-nums; }
+.proc-t { margin-top: 14px; font-family: var(--font-display); font-size: 19px; font-weight: 600; line-height: 1.15; color: var(--color-bone); }
+.proc-d { margin-top: 8px; font-size: 16px; line-height: 1.45; color: var(--color-text-muted); }
+@media (min-width: 1024px) {
+  .proc-step { position: relative; }
+  .proc-step:not(:last-child)::after {
+    content: "→"; position: absolute; top: 12px; right: -25px;
+    font-family: var(--font-mono); font-size: 18px; line-height: 1;
+    color: color-mix(in srgb, var(--color-oxblood-soft) 45%, transparent);
+  }
+}
+.svc-card:hover .svc-ico { color: #eeb9c1; border-color: color-mix(in srgb, var(--color-oxblood-soft) 55%, transparent); }
+.svc-ref { transition: color var(--dur-fast) var(--ease-sig), transform var(--dur-fast) var(--ease-sig); }
+.svc-card:hover .svc-ref { transform: translateX(4px); }
+.ghost-num {
+  position: absolute;
+  top: 34px;
+  right: 3vw;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(120px, 16vw, 230px);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--color-bone) 9%, transparent);
+  user-select: none;
+  pointer-events: none;
+}
+@media (max-width: 767px) {
+  .ghost-num { top: 20px; font-size: 110px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .svc-card, .svc-card:hover { transform: none; }
+}
+
+/* ============================================================
+   Restyle — Work as a fixed-height SHOWCASE: one project per
+   screen, the page Y stays put. .pstage is the bordered stage;
+   .pslide slides are shown one at a time by the carousel JS.
+   Slide = kicker/stamp -> title+outcome -> [cover | detail].
+   ============================================================ */
+.filter-chip {
+  font-family: var(--font-mono); font-size: 12px; border-radius: 5px;
+  padding: 7px 14px; min-height: 34px;
+  border: 1px solid color-mix(in srgb, var(--color-bone) 15%, transparent);
+  color: var(--color-text-muted); background: transparent; cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-sig), border-color var(--dur-fast) var(--ease-sig);
+}
+.filter-chip:hover { color: var(--color-bone); }
+.filter-chip.is-on { background: var(--color-oxblood); border-color: transparent; color: #f0d7dc; }
+
+.pstage {
+  position: relative; margin-top: 22px; overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-bone) 10%, transparent);
+  border-radius: 16px;
+  background: linear-gradient(158deg, #1e1318, #150d11 72%);
+}
+.pstage::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; z-index: 3;
+  background: linear-gradient(180deg, var(--color-oxblood), transparent 55%);
+}
+.pstage:focus-visible { outline: 2px solid var(--color-oxblood-soft); outline-offset: 3px; }
+
+.ws-controls { position: absolute; top: 18px; right: 22px; z-index: 4; display: flex; align-items: center; gap: 14px; }
+.ws-count { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-dim); font-variant-numeric: tabular-nums; }
+.ws-count b { color: var(--color-bone); }
+.ws-arrows { display: flex; gap: 8px; }
+.ws-arrow {
+  width: 44px; height: 44px; border-radius: 9px;
+  border: 1px solid color-mix(in srgb, var(--color-bone) 16%, transparent);
+  background: transparent; color: var(--color-text-muted); font-size: 17px; line-height: 1;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-sig), border-color var(--dur-fast) var(--ease-sig);
+}
+.ws-arrow:hover:not(:disabled) { color: var(--color-bone); border-color: color-mix(in srgb, var(--color-oxblood-soft) 55%, transparent); }
+.ws-arrow:disabled { opacity: 0.4; cursor: default; }
+
+.pslide { display: none; }
+.pslide.is-active { display: block; animation: pslide-in var(--dur-med) var(--ease-sig); }
+@keyframes pslide-in { from { opacity: 0; transform: translateX(var(--slide-from, 0)); } to { opacity: 1; transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) { .pslide.is-active { animation: none; } }
+
+.ps-top { padding: 18px 26px 0; }
+.ps-kick {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-text-dim);
+}
+.ps-kick::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--color-oxblood-soft); }
+
+.ps-headline { padding: 12px 26px 0; }
+.ps-titlerow { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 13px; }
+.ps-title { font-family: var(--font-display); font-size: clamp(24px, 3.2vw, 31px); line-height: 1.05; font-weight: 560; color: var(--color-bone); letter-spacing: -0.015em; }
+.ps-stamp {
+  display: inline-flex; align-items: center; gap: 6px; transform: translateY(-2px);
+  border: 1px solid color-mix(in srgb, var(--color-oxblood-soft) 60%, transparent); border-radius: 999px; padding: 4px 11px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: #eeb9c1;
+  background: color-mix(in srgb, var(--color-oxblood) 20%, transparent); white-space: nowrap;
+}
+.ps-outcome { margin-top: 11px; font-family: var(--font-display); font-style: italic; font-weight: 340; font-size: 18px; line-height: 1.4; color: var(--color-text); max-width: 80ch; }
+
+.ps-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 30px; padding: 20px 26px 10px; align-items: start; }
+.ps-cover { margin: 0; border: 1px solid color-mix(in srgb, var(--color-bone) 10%, transparent); border-radius: 8px; overflow: hidden; }
+.ps-bar { display: flex; align-items: center; gap: 7px; background: var(--color-ink-2); padding: 9px 14px; }
+.ps-dot { height: 8px; width: 8px; border-radius: 50%; flex: none; }
+.ps-dot-a { background: color-mix(in srgb, var(--color-oxblood) 72%, transparent); }
+.ps-dot-b { background: color-mix(in srgb, var(--color-bone) 15%, transparent); }
+.ps-host { font-family: var(--font-mono); font-size: 12px; color: var(--color-text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ps-host.has-dots { margin-left: 10px; }
+.ps-well { aspect-ratio: 16 / 10; width: 100%; background: var(--color-surface-2); overflow: hidden; }
+.ps-well img { width: 100%; height: 100%; object-fit: contain; object-position: center top; }
+
+.ps-feats { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.ps-feat { display: grid; grid-template-columns: 26px 1fr; gap: 14px; padding: 12px 0; border-top: 1px solid color-mix(in srgb, var(--color-bone) 8%, transparent); }
+.ps-feat:first-child { border-top: 0; padding-top: 0; }
+.ps-feat .ps-n { font-family: var(--font-mono); font-size: 12px; color: var(--color-accent-txt); padding-top: 3px; font-variant-numeric: tabular-nums; }
+.ps-feat p { font-size: 16px; line-height: 1.6; color: var(--color-text-muted); }
+.ps-feat p b { color: var(--color-bone); font-weight: 500; }
+.ps-chips { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 7px; }
+.ps-chip { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.02em; color: var(--color-text-muted); border: 1px solid color-mix(in srgb, var(--color-bone) 13%, transparent); border-radius: 999px; padding: 5px 11px; }
+.ps-chip.is-ai { border-color: color-mix(in srgb, var(--color-oxblood-soft) 45%, transparent); color: #e79aa4; }
+.ps-rigor { margin-top: 18px; border-top: 1px solid color-mix(in srgb, var(--color-bone) 8%, transparent); }
+.ps-rigor summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 12px 0 2px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.05em; color: var(--color-text-dim); min-height: 44px; }
+.ps-rigor summary::-webkit-details-marker { display: none; }
+.ps-rigor summary .ps-lab { color: var(--color-accent-txt); }
+.ps-rigor summary .ps-chev { margin-left: auto; color: var(--color-accent-txt); white-space: nowrap; }
+.ps-rigor summary .ps-chev .o { display: none; }
+.ps-rigor[open] summary .ps-chev .c { display: none; }
+.ps-rigor[open] summary .ps-chev .o { display: inline; }
+.ps-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 12px 0 2px; }
+.ps-stat { border-left: 1px solid color-mix(in srgb, var(--color-bone) 12%, transparent); padding-left: 14px; }
+.ps-stat:first-child { border-left: 0; padding-left: 0; }
+.ps-stat .v { font-family: var(--font-display); font-size: 22px; line-height: 1; color: var(--color-bone); font-variant-numeric: tabular-nums; }
+.ps-stat .l { margin-top: 7px; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-text-dim); }
+.ps-note { margin-top: 10px; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.55; color: var(--color-text-dim); }
+.ps-left { display: flex; flex-direction: column; gap: 16px; }
+.ps-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.ps-credit { margin-top: 12px; text-align: center; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.06em; color: var(--color-text-dim); }
+.ps-credit span { text-transform: uppercase; letter-spacing: 0.16em; color: var(--color-accent-txt); margin-right: 8px; }
+.ps-credit a { color: var(--color-text-muted); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--color-bone) 22%, transparent); transition: color var(--dur-fast) var(--ease-sig); }
+.ps-credit a:hover { color: var(--color-bone); }
+
+/* ---- About: count-up credibility strip ---- */
+.stat { position: relative; }
+.stat + .stat { padding-left: 24px; border-left: 1px solid color-mix(in srgb, var(--color-bone) 8%, transparent); }
+.stat-num {
+  font-family: var(--font-display); font-weight: 550; line-height: 1;
+  font-size: clamp(38px, 5vw, 56px); letter-spacing: -0.02em; color: var(--color-bone);
+  font-variant-numeric: tabular-nums;
+}
+.stat-label { margin-top: 8px; font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-txt); }
+
+/* ---- About: timeline as a continuous spine with node dots ---- */
+.tl { position: relative; display: flex; flex-direction: column; gap: 28px; margin-left: 5px; padding-left: 24px; border-left: 1px solid color-mix(in srgb, var(--color-oxblood-soft) 30%, transparent); }
+.tl-item { position: relative; }
+.tl-item::before {
+  content: ""; position: absolute; left: -28.5px; top: 7px; width: 9px; height: 9px; border-radius: 50%;
+  background: var(--color-oxblood-soft); box-shadow: 0 0 0 3px var(--color-ink-2);
+}
+.tl-meta { font-variant-numeric: tabular-nums; }
+.tl-item.is-now::before {
+  box-shadow: 0 0 0 3px var(--color-ink-2), 0 0 0 4px rgba(156, 51, 64, 0.5);
+  animation: tl-now 2.4s var(--ease-sig) infinite;
+}
+@keyframes tl-now {
+  0%, 100% { box-shadow: 0 0 0 3px var(--color-ink-2), 0 0 0 4px rgba(156, 51, 64, 0.5); }
+  50% { box-shadow: 0 0 0 3px var(--color-ink-2), 0 0 0 9px rgba(156, 51, 64, 0); }
+}
+@media (prefers-reduced-motion: reduce) { .tl-item.is-now::before { animation: none; } }
+
+/* ---- shared button system (restyle) ----
+   primary = refined oxblood (deep gradient + hairline, NO alarm glow);
+   ghost = bordered secondary (per-project 'visit site'). */
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-height: 44px; padding: 0 22px; border-radius: 8px;
+  font-family: var(--font-mono); font-size: 13px; text-decoration: none; cursor: pointer;
+  color: #f7e2e6; background: linear-gradient(180deg, #7d1329, #611021);
+  border: 1px solid color-mix(in srgb, var(--color-bone) 22%, transparent);
+  transition: border-color var(--dur-fast) var(--ease-sig), box-shadow var(--dur-fast) var(--ease-sig);
+}
+.btn-primary:hover { border-color: color-mix(in srgb, var(--color-bone) 38%, transparent); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); }
+.btn-primary .btn-arw { transition: transform var(--dur-fast) var(--ease-sig); }
+.btn-primary:hover .btn-arw { transform: translateX(2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 18px; border-radius: 8px;
+  font-family: var(--font-mono); font-size: 13px; text-decoration: none; cursor: pointer;
+  color: var(--color-text); background: transparent;
+  border: 1px solid color-mix(in srgb, var(--color-bone) 24%, transparent);
+  transition: border-color var(--dur-fast) var(--ease-sig), background-color var(--dur-fast) var(--ease-sig), color var(--dur-fast) var(--ease-sig);
+}
+.btn-ghost:hover { border-color: var(--color-oxblood-soft); background: color-mix(in srgb, var(--color-oxblood) 12%, transparent); color: var(--color-bone); }
+@media (prefers-reduced-motion: reduce) { .btn-primary .btn-arw { transition: none; } }
+
+/* ---- D10S in-section panel (restyle) — editorial: greeting + suggestions
+   + text/voice bar. No orb, no soundwaves. Width tuned to its column. ---- */
+.d10s {
+  max-width: 400px; margin-left: auto; position: relative; overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-oxblood-soft) 30%, transparent);
+  border-radius: 16px;
+  background: linear-gradient(158deg, #221319, #160e11 78%);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 34px rgba(122, 18, 40, 0.16);
+  padding: 20px 20px 18px;
+  /* Fixed height across shell AND live conversation so the panel never resizes
+     between states (presentation → connecting → voice/text). */
+  min-height: 354px;
+  display: flex;
+  flex-direction: column;
+}
+/* live conversation island fills the panel; controls pin to the bottom */
+.d10s-live-root { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; }
+.d10s-bar { display: flex; align-items: center; gap: 9px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-text-dim); }
+.d10s-bar b { color: var(--color-bone); font-weight: 500; }
+.d10s-live { width: 7px; height: 7px; border-radius: 50%; background: var(--color-oxblood-soft); box-shadow: 0 0 0 0 rgba(156, 51, 64, 0.55); animation: d10s-beat 2.4s var(--ease-sig) infinite; }
+@keyframes d10s-beat { 0%, 100% { box-shadow: 0 0 0 0 rgba(156, 51, 64, 0.5); } 50% { box-shadow: 0 0 0 6px rgba(156, 51, 64, 0); } }
+.d10s-say { margin-top: 14px; font-family: var(--font-display); font-style: italic; font-weight: 340; font-size: 18px; line-height: 1.4; color: var(--color-text); }
+.d10s-sugg { margin-top: 16px; }
+.d10s-sugg .lb { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text-dim); }
+.d10s-sugg button { display: block; width: 100%; text-align: left; margin: 0; padding: 9px 0; border: 0; border-top: 1px solid color-mix(in srgb, var(--color-bone) 8%, transparent); background: transparent; font-family: var(--font-mono); font-size: 12.5px; color: var(--color-text-muted); cursor: pointer; transition: color var(--dur-fast) var(--ease-sig), transform var(--dur-fast) var(--ease-sig); min-height: 40px; }
+.d10s-sugg button:first-of-type { margin-top: 8px; }
+.d10s-sugg button:hover { color: var(--color-bone); transform: translateX(4px); }
+.d10s-sugg button::before { content: "→ "; color: var(--color-accent-txt); }
+/* typewriter caret while D10S "speaks" its greeting */
+.d10s-say.is-typing::after { content: "▍"; margin-left: 1px; color: var(--color-oxblood-soft); animation: d10s-caret 0.9s steps(1) infinite; }
+@keyframes d10s-caret { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+.d10s-input { margin-top: 16px; display: flex; align-items: center; gap: 8px; padding: 7px 7px 7px 14px; border-radius: 11px; border: 1px solid color-mix(in srgb, var(--color-bone) 16%, transparent); background: color-mix(in srgb, #000 22%, transparent); transition: border-color var(--dur-fast) var(--ease-sig); }
+.d10s-input:hover { border-color: color-mix(in srgb, var(--color-bone) 28%, transparent); }
+.d10s-input-text { flex: 1; text-align: left; background: transparent; border: 0; padding: 0; min-height: 40px; font-family: var(--font-mono); font-size: 12.5px; color: var(--color-text-dim); cursor: text; transition: color var(--dur-fast) var(--ease-sig); }
+.d10s-input-text:hover { color: var(--color-text-muted); }
+.d10s-mic { width: 36px; height: 36px; flex: none; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #f7e2e6; background: linear-gradient(180deg, #7d1329, #611021); border: 1px solid color-mix(in srgb, var(--color-bone) 22%, transparent); cursor: pointer; transition: border-color var(--dur-fast) var(--ease-sig); }
+.d10s-mic:hover { border-color: color-mix(in srgb, var(--color-bone) 38%, transparent); }
+.d10s-input-text:focus-visible, .d10s-sugg button:focus-visible, .d10s-mic:focus-visible { outline: 2px solid var(--color-oxblood-soft); outline-offset: 2px; }
+/* Concept A — panel as the centered focal object of the section */
+.d10s-solo { max-width: 560px; margin-left: auto; margin-right: auto; }
+@media (max-width: 767px) { .d10s, .d10s-solo { max-width: none; } }
+@media (prefers-reduced-motion: reduce) { .d10s-live { animation: none; } }
+
+/* Floating D10S launcher — living red sphere (waveform at rest, rotating
+   "chiedi a d10s" seal on hover), bottom-right */
+.d10s-dock {
+  position: fixed; bottom: 24px; right: 32px; z-index: 40;
+  width: 52px; height: 52px; border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-oxblood-soft) 55%, transparent);
+  background: radial-gradient(circle at 40% 35%, #b8455a, #7a1228 46%, #3f0a17);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 26px rgba(122, 18, 40, 0.4);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateY(10px) scale(0.9); pointer-events: none;
+  transition: opacity var(--dur-med) var(--ease-sig), transform var(--dur-med) var(--ease-sig), box-shadow var(--dur-fast) var(--ease-sig);
+}
+.d10s-dock.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.d10s-dock:hover, .d10s-dock:focus-visible { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(156, 51, 64, 0.78); }
+.d10s-dock:focus-visible { outline: 2px solid var(--color-oxblood-soft); outline-offset: 7px; }
+
+/* waveform glyph — 'voice, alive' at rest */
+.d10s-dock-glyph { display: flex; align-items: center; gap: 2.5px; height: 16px; }
+.d10s-dock-glyph i { width: 2.5px; height: 6px; border-radius: 2px; background: #f6dfe4; animation: dock-eq 1.3s var(--ease-sig) infinite; }
+.d10s-dock-glyph i:nth-child(2) { height: 14px; animation-delay: .12s; }
+.d10s-dock-glyph i:nth-child(3) { height: 9px; animation-delay: .24s; }
+.d10s-dock-glyph i:nth-child(4) { height: 16px; animation-delay: .36s; }
+.d10s-dock-glyph i:nth-child(5) { height: 7px; animation-delay: .48s; }
+@keyframes dock-eq { 0%, 100% { transform: scaleY(.5); } 50% { transform: scaleY(1); } }
+
+/* rotating text seal — reveals on hover/focus, the words are the affordance */
+.d10s-seal { position: absolute; inset: -19px; opacity: 0; pointer-events: none; transition: opacity var(--dur-med) var(--ease-sig); }
+.d10s-seal text { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase; fill: var(--color-accent-txt); font-weight: 500; }
+.d10s-dock:hover .d10s-seal, .d10s-dock:focus-visible .d10s-seal { opacity: 1; animation: seal-spin 13s linear infinite; }
+@keyframes seal-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .d10s-dock-glyph i { animation: none; }
+  .d10s-dock:hover .d10s-seal, .d10s-dock:focus-visible .d10s-seal { animation: none; }
+  .d10s-dock { transition: opacity var(--dur-med) linear; }
+}
+
+/* Hero scroll cue — bouncing chevron into the next section (Natura/Michele) */
+.scroll-cue {
+  display: flex; align-items: center; justify-content: center;
+  width: 46px; height: 46px; border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--color-bone) 20%, transparent);
+  color: var(--color-text-muted); text-decoration: none;
+  transition: border-color var(--dur-fast) var(--ease-sig), color var(--dur-fast) var(--ease-sig);
+}
+.scroll-cue:hover { border-color: var(--color-oxblood-soft); color: var(--color-bone); }
+.scroll-cue:focus-visible { outline: 2px solid var(--color-oxblood-soft); outline-offset: 3px; }
+.scroll-cue svg { animation: cue-bounce 1.9s var(--ease-sig) infinite; }
+@keyframes cue-bounce { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
+@media (prefers-reduced-motion: reduce) { .scroll-cue svg { animation: none; } }
+
+.ws-dots { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px; padding: 6px 0 20px; }
+.ws-dot { width: 24px; height: 24px; padding: 0; border: 0; background: transparent; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+.ws-dot::before { content: ""; width: 8px; height: 8px; border-radius: 999px; background: color-mix(in srgb, var(--color-bone) 22%, transparent); transition: width var(--dur-fast) var(--ease-sig), background-color var(--dur-fast) var(--ease-sig); }
+.ws-dot.on::before { width: 22px; background: var(--color-oxblood-soft); }
+.ws-dot:focus-visible { outline: 2px solid var(--color-oxblood-soft); outline-offset: 1px; border-radius: 999px; }
+.ws-hint { margin-top: 12px; text-align: center; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--color-text-dim); }
+.ws-live { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+@media (max-width: 767px) {
+  .ws-controls { position: static; justify-content: flex-end; padding: 16px 20px 0; }
+  .ps-top { padding: 4px 20px 0; }
+  .ps-headline { padding: 10px 20px 0; }
+  .ps-grid { grid-template-columns: 1fr; gap: 20px; padding: 16px 20px 8px; }
+  .ps-stats { grid-template-columns: 1fr; gap: 12px; }
+  .ps-stat { border-left: 0; padding-left: 0; border-top: 1px solid color-mix(in srgb, var(--color-bone) 10%, transparent); padding-top: 8px; }
+  .ps-stat:first-child { border-top: 0; padding-top: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pslide.is-active { animation: none; }
 }
 
 /* Global page scrollbar — oxblood, inset on ink */
@@ -184,8 +604,7 @@ html:not(.js) .sec-line::before { transform: scaleX(1); }
 
 /* Project card: slow, quiet cover zoom inside its frame */
 .project-card figure { overflow: hidden; }
-.project-card figure img { transition: transform 1200ms var(--ease-sig); }
-.project-card:hover figure img { transform: scale(1.03); }
+/* cover stays static — hover zoom removed (broke the "real screenshot" read) */
 
 /* Timeline entries: the oxblood spine brightens and thickens on hover */
 #experience li { transition: border-color var(--dur-fast) var(--ease-sig); }

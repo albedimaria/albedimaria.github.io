@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="it" class="js">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mockup fase 0 v4 — rebranding estetico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ============ tokens — DNA sito + estensioni rebranding ============ */
+  :root {
+    --color-ink: #16100f;
+    --color-ink-2: #120c0b;
+    --color-surface: #1b1115;
+    --color-oxblood: #7a1228;
+    --color-oxblood-soft: #9c3340;
+    --color-bone: #faf3e8;
+    --color-text: #f9f2e9;
+    --color-text-muted: #d2c3b7;
+    --color-text-dim: #c3b5a9;
+    --accent-lg: #b8455a;   /* ≥3:1 su ink — display large */
+    --accent-txt: #cf7683;  /* ≥4.5:1 su ink — link e piccoli */
+    --font-display: "Fraunces", Georgia, serif;
+    --font-sans: "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+    --radius-btn: 4px;
+    --radius-card: 10px;
+    --ease-sig: cubic-bezier(0.22, 1, 0.36, 1);
+    --dur-fast: 220ms;
+    --dur-med: 420ms;
+  }
+  * { margin: 0; box-sizing: border-box; }
+  html { color-scheme: dark; scroll-behavior: smooth; }
+  body { background: var(--color-ink); color: var(--color-text); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; font-size: 16px; line-height: 1.5; overflow-x: clip; }
+  img, svg { display: block; }
+  img { max-width: 100%; }
+  .hero-grid > *, .d10s-grid > *, .svc-band > * { min-width: 0; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--color-oxblood-soft); outline-offset: 2px; border-radius: 2px; }
+
+  /* grana sottile su tutta la pagina — la texture toglie il "Word" */
+  body::after { content: ""; position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E"); }
+
+  .wrap-5 { max-width: 64rem; margin-inline: auto; padding-inline: 24px; }
+  .wrap-6 { max-width: 72rem; margin-inline: auto; padding-inline: 24px; }
+  .sec-line { position: relative; }
+  .sec-line::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 1px; background: color-mix(in srgb, var(--color-bone) 10%, transparent); }
+
+  .kicker { display: flex; align-items: center; gap: 14px; font-family: var(--font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.22em; color: var(--color-bone); }
+  .kicker .n { color: var(--accent-txt); }
+  .kicker::after { content: ""; flex: 0 0 56px; height: 1px; background: color-mix(in srgb, var(--color-oxblood-soft) 60%, transparent); }
+
+  .link-draw { font-family: var(--font-mono); font-size: 14px; color: var(--accent-txt); text-decoration: none; background: linear-gradient(currentColor, currentColor) no-repeat left bottom / 0% 1px; transition: background-size var(--dur-med) var(--ease-sig), color var(--dur-fast) var(--ease-sig); padding-bottom: 2px; }
+  .link-draw:hover { background-size: 100% 1px; color: var(--color-bone); }
+
+  .btn-cta { display: inline-flex; align-items: center; min-height: 44px; border-radius: var(--radius-btn); background: var(--color-oxblood); color: #f8e6ea; font-family: var(--font-mono); font-size: 14px; text-decoration: none; padding: 12px 22px; transition: background-color var(--dur-fast) var(--ease-sig); }
+  .btn-cta:hover { background: var(--color-oxblood-soft); animation: cta-pulse 1.3s ease-in-out infinite; }
+  @keyframes cta-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(156,51,64,0); } 50% { box-shadow: 0 0 22px 3px rgba(156,51,64,0.55); } }
+
+  /* ============ nav ============ */
+  header.site { position: sticky; top: 0; z-index: 30; border-bottom: 1px solid color-mix(in srgb, var(--color-bone) 10%, transparent); background: color-mix(in srgb, var(--color-ink) 80%, transparent); backdrop-filter: blur(8px); }
+  header.site nav { position: relative; display: flex; align-items: center; gap: 16px; padding: 16px 32px; }
+  .brand-mark { display: inline-flex; color: var(--color-bone); }
+  .nav-center { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 36px; font-family: var(--font-mono); font-size: 14px; text-transform: lowercase; }
+  .nav-center a { color: var(--color-text-muted); text-decoration: none; padding: 10px 2px; transition: color var(--dur-fast); }
+  .nav-center a:hover { color: var(--color-bone); }
+  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 20px; }
+  .lang-btn { font-family: var(--font-mono); font-size: 13px; color: var(--color-text-muted); border: 1px solid color-mix(in srgb, var(--color-bone) 15%, transparent); border-radius: var(--radius-btn); background: none; padding: 10px 14px; min-height: 44px; cursor: pointer; }
+
+  /* ============ hero ============ */
+  .hero { position: relative; overflow: hidden; }
+  /* atmosfera: alone oxblood dietro la foto, non un colore piatto */
+  .hero::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(52% 46% at 79% 30%, rgba(122,18,40,.22), transparent 70%); }
+  .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; padding-block: 96px 120px; }
+  .hero-copy { grid-column: 1 / 8; }
+  .avail { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 13px; text-transform: lowercase; color: var(--color-text-muted); margin-bottom: 28px; }
+  .avail::before { content: ""; width: 8px; height: 8px; border-radius: 999px; background: #57c98a; }
+  h1 { font-family: var(--font-display); font-weight: 550; font-size: clamp(52px, 6.8vw, 96px); line-height: 0.96; letter-spacing: -0.015em; color: var(--color-bone); }
+  h1 em { font-style: italic; font-weight: 420; color: var(--accent-lg); }
+  .hero-sub { margin-top: 30px; max-width: 34em; font-size: 20px; line-height: 1.5; }
+  .hero-sub .w { color: var(--color-bone); font-weight: 500; }
+  .hero-sub .g { color: var(--color-text-muted); font-weight: 400; }
+  .hero-ctas { margin-top: 40px; display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+
+  .hero-photo { grid-column: 10 / 13; align-self: start; margin-top: 52px; }
+  /* z-70: la foto sta SOPRA la grana di pagina (z-60) — resta nitida, niente effetto "AI enhanced" */
+  .photo-frame { position: relative; z-index: 70; aspect-ratio: 1 / 1; border: 1px solid color-mix(in srgb, var(--color-bone) 14%, transparent); border-radius: var(--radius-card); overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,.45); }
+  .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+  .photo-caption { margin-top: 14px; }
+  .photo-caption .name { font-family: var(--font-display); font-size: 20px; font-weight: 550; color: var(--color-bone); }
+  .photo-caption .role { margin-top: 4px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-dim); white-space: nowrap; }
+
+  /* onde firma — geometria live */
+  .wave-field { position: absolute; left: 0; top: 74%; width: 100%; height: 260px; transform: translateY(-50%); pointer-events: none; z-index: 0; overflow: hidden; }
+  .waves { width: 100%; height: 100%; }
+  .parallax-lines > use { animation: move-forever 20s cubic-bezier(0.55,0.5,0.45,0.5) infinite; }
+  .parallax-lines > use:nth-child(1) { animation-delay: -2s; animation-duration: 15s; }
+  .parallax-lines > use:nth-child(2) { animation-delay: -3s; animation-duration: 22s; }
+  .parallax-lines > use:nth-child(3) { animation-delay: -4s; animation-duration: 30s; }
+  .parallax-lines > use:nth-child(4) { animation-delay: -5s; animation-duration: 45s; }
+  @keyframes move-forever { 0% { transform: translate3d(-90px,0,0); } 100% { transform: translate3d(85px,0,0); } }
+
+  /* ============ banda D10S — pannello = stile live ============ */
+  .d10s { background: var(--color-ink-2); }
+  .d10s-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; align-items: center; padding-block: 76px; }
+  .d10s-copy { grid-column: 1 / 8; }
+  .d10s-copy h2 { margin-top: 18px; font-family: var(--font-display); font-weight: 550; font-size: clamp(28px, 3.2vw, 38px); line-height: 1.14; color: var(--color-bone); }
+  .d10s-copy p { margin-top: 14px; max-width: 28em; font-size: 16px; line-height: 1.6; color: var(--color-text-muted); }
+  .d10s-panel { grid-column: 8 / 13; background: var(--color-surface); border: 1px solid color-mix(in srgb, var(--color-bone) 10%, transparent); border-radius: var(--radius-card); padding: 18px 20px 20px; box-shadow: 0 0 50px rgba(0,0,0,.4); }
+  .d10s-status { display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--color-text-dim); padding: 2px 4px 14px; }
+  .d10s-status::before { content: ""; width: 6px; height: 6px; border-radius: 999px; background: var(--color-oxblood-soft); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+  .d10s-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .pill { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; border-radius: 999px; font-family: var(--font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.15em; text-decoration: none; padding: 10px 24px; transition: all var(--dur-fast) var(--ease-sig); }
+  .pill-solid { background: var(--color-oxblood); color: #f6dfe4; }
+  .pill-solid:hover { background: color-mix(in srgb, var(--color-oxblood) 85%, transparent); }
+  .pill-line { border: 1px solid color-mix(in srgb, var(--color-bone) 35%, transparent); color: var(--color-text-muted); }
+  .pill-line:hover { border-color: color-mix(in srgb, var(--color-bone) 60%, transparent); color: var(--color-bone); }
+  .chips { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+  .chip { font-family: var(--font-mono); font-size: 13px; color: var(--color-text-muted); background: color-mix(in srgb, var(--color-bone) 4%, transparent); border: 1px solid color-mix(in srgb, var(--color-bone) 12%, transparent); border-radius: 999px; padding: 11px 16px; min-height: 44px; display: inline-flex; align-items: center; cursor: pointer; transition: all var(--dur-fast) var(--ease-sig); }
+  .chip:hover { border-color: color-mix(in srgb, var(--color-oxblood-soft) 60%, transparent); color: var(--color-bone); }
+
+  /* ============ servizi — tre card, superfici vere ============ */
+  .services { position: relative; padding-block: 110px 120px; }
+  .services .ghost { position: absolute; top: 34px; right: 3vw; font-family: var(--font-display); font-style: italic; font-weight: 300; font-size: clamp(120px, 16vw, 230px); line-height: 1; color: transparent; -webkit-text-stroke: 1px color-mix(in srgb, var(--color-bone) 9%, transparent); user-select: none; pointer-events: none; }
+  .svc-band { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; margin-top: 56px; }
+  .svc-card { grid-column: span 4; position: relative; border-radius: var(--radius-card); padding: 28px 26px 26px; display: flex; flex-direction: column;
+    background: linear-gradient(165deg, #1e1318, #140d10 72%);
+    border: 1px solid color-mix(in srgb, var(--color-bone) 9%, transparent);
+    transition: transform var(--dur-med) var(--ease-sig), border-color var(--dur-fast) var(--ease-sig), box-shadow var(--dur-med) var(--ease-sig); }
+  .svc-card:hover { transform: translateY(-5px); border-color: color-mix(in srgb, var(--color-oxblood-soft) 55%, transparent); box-shadow: 0 24px 60px rgba(0,0,0,.5), 0 0 34px rgba(156,51,64,.14); }
+  .svc-card .glyph { height: 118px; margin: 2px 0 20px; }
+  .glyph svg { width: 100%; height: 100%; }
+  .svc-n { font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-txt); }
+  .svc-card h3 { margin-top: 12px; font-family: var(--font-display); font-weight: 550; font-size: 27px; line-height: 1.14; color: var(--color-bone); }
+  .svc-card h3 em { font-style: italic; font-weight: 420; color: var(--accent-lg); }
+  .svc-desc { margin-top: 12px; font-size: 16px; line-height: 1.6; color: var(--color-text-muted); }
+  .svc-ref { margin-top: auto; padding-top: 22px; }
+  .services-cta { margin-top: 52px; display: flex; justify-content: center; }
+  .services-cta .link-draw { font-size: 16px; }
+
+  .note { padding: 48px 24px 64px; font-family: var(--font-mono); font-size: 13px; color: var(--color-text-dim); text-align: center; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .parallax-lines > use { animation: none; }
+    .btn-cta:hover { animation: none; }
+    .d10s-status::before { animation: none; }
+    .svc-card, .svc-card:hover { transform: none; }
+  }
+  @media (max-width: 900px) {
+    .hero-grid, .d10s-grid, .svc-band { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .hero-copy, .hero-photo, .d10s-copy, .d10s-panel, .svc-card { grid-column: 1 / -1; }
+    .hero-photo { max-width: 300px; margin-top: 8px; }
+    .nav-center { display: none; }
+    header.site nav { padding: 12px 16px; gap: 12px; }
+    .nav-right { gap: 10px; }
+    .nav-right .btn-cta { font-size: 13px; padding: 10px 14px; }
+    .hero-grid { padding-block: 56px 88px; }
+    .d10s-grid { padding-block: 52px; }
+    .services { padding-block: 72px 80px; }
+    .services .ghost { font-size: 110px; top: 20px; }
+    .svc-band { margin-top: 40px; row-gap: 20px; }
+    h1 { font-size: clamp(44px, 12.5vw, 56px); }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav aria-label="Primary">
+    <a href="#top" class="brand-mark" aria-label="Alberto Di Maria — torna su">
+      <svg class="brand-octa" width="40" height="40" viewBox="-20 -20 40 40" aria-hidden="true">
+        <line stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><line stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </a>
+    <div class="nav-center">
+      <a href="#services">servizi</a><a href="#work">lavori</a><a href="#about">chi sono</a>
+    </div>
+    <div class="nav-right">
+      <a class="btn-cta" href="#contact">lavoriamo insieme</a>
+      <button class="lang-btn" type="button" aria-haspopup="true" aria-expanded="false">IT ▾</button>
+    </div>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap-6 hero-grid">
+    <div class="hero-copy">
+      <p class="avail">disponibile per nuovi progetti</p>
+      <h1>Ancora tutto<br /><em>a mano?</em></h1>
+      <p class="hero-sub"><span class="w">Siti, automazioni e agenti AI per la tua attività</span><br /><span class="g">li costruisco e li sistemo io.</span></p>
+      <div class="hero-ctas">
+        <a class="btn-cta" href="#contact">lavoriamo insieme →</a>
+        <a class="link-draw" href="#services">guarda cosa faccio ↓</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="photo-frame">
+        <img src="foto-alberto-crop.png" alt="Alberto Di Maria" />
+      </div>
+      <div class="photo-caption">
+        <p class="name">Alberto Di Maria</p>
+        <p class="role">AI product engineer · Milano</p>
+      </div>
+    </div>
+  </div>
+  <div class="wave-field" aria-hidden="true">
+    <svg class="waves" viewBox="0 20 150 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <defs><path id="line-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18" /></defs>
+      <g class="parallax-lines">
+        <use xlink:href="#line-wave" x="48" y="0" fill="none" stroke="rgba(156,51,64,0.8)" stroke-width="0.32" />
+        <use xlink:href="#line-wave" x="48" y="3" fill="none" stroke="rgba(156,51,64,0.55)" stroke-width="0.22" />
+        <use xlink:href="#line-wave" x="48" y="5" fill="none" stroke="rgba(122,18,40,0.45)" stroke-width="0.14" />
+        <use xlink:href="#line-wave" x="48" y="7" fill="none" stroke="rgba(122,18,40,0.3)" stroke-width="0.08" />
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="d10s sec-line" id="agent-demo">
+  <div class="wrap-5 d10s-grid">
+    <div class="d10s-copy">
+      <p class="kicker">demo dal vivo</p>
+      <h2>Rispondi ancora tu a tutto?<br />Chiedi al mio agente.</h2>
+      <p>Conosce ogni progetto di questo sito. Fagli una domanda — a voce o per iscritto.</p>
+    </div>
+    <div class="d10s-panel">
+      <p class="d10s-status">D10S · online</p>
+      <div class="d10s-btns">
+        <a class="pill pill-solid" href="#"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg>parla</a>
+        <a class="pill pill-line" href="#"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="7" width="18" height="11" rx="2"/><path d="M7 11h.01M11 11h.01M15 11h.01M17 11h.01M7 15h10"/></svg>scrivi</a>
+      </div>
+      <div class="chips">
+        <button type="button" class="chip">cosa puoi fare per il mio negozio?</button>
+        <button type="button" class="chip">preparami il messaggio di contatto</button>
+        <button type="button" class="chip">portami ai progetti</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services sec-line" id="services">
+  <span class="ghost" aria-hidden="true">01</span>
+  <div class="wrap-5">
+    <p class="kicker"><span class="n">01</span>cosa faccio per te</p>
+
+    <div class="svc-band">
+      <article class="svc-card">
+        <div class="glyph" aria-hidden="true">
+          <svg viewBox="0 0 300 168" fill="none">
+            <rect x="70" y="22" width="160" height="124" rx="6" stroke="#c3b5a9" stroke-opacity=".55" stroke-width="1.5"/>
+            <line x1="70" y1="42" x2="230" y2="42" stroke="#c3b5a9" stroke-opacity=".35" stroke-width="1.5"/>
+            <circle cx="80" cy="32" r="2.2" stroke="#9c3340" stroke-width="1.5"/>
+            <circle cx="89" cy="32" r="2.2" stroke="#9c3340" stroke-width="1.5" opacity=".6"/>
+            <rect x="82" y="54" width="64" height="8" rx="2" fill="#9c3340" fill-opacity=".8"/>
+            <rect x="82" y="70" width="84" height="5" rx="2" fill="#c3b5a9" fill-opacity=".35"/>
+            <rect x="82" y="81" width="72" height="5" rx="2" fill="#c3b5a9" fill-opacity=".25"/>
+            <rect x="82" y="96" width="40" height="14" rx="3" stroke="#9c3340" stroke-width="1.5"/>
+            <rect x="178" y="54" width="40" height="40" rx="4" stroke="#c3b5a9" stroke-opacity=".45" stroke-width="1.5"/>
+            <path d="M178 86l12-12 10 8 16-16" stroke="#9c3340" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="82" y="120" width="40" height="16" rx="3" stroke="#c3b5a9" stroke-opacity=".45" stroke-width="1.5"/>
+            <rect x="130" y="120" width="40" height="16" rx="3" stroke="#c3b5a9" stroke-opacity=".45" stroke-width="1.5"/>
+            <rect x="178" y="120" width="40" height="16" rx="3" stroke="#9c3340" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <p class="svc-n">01 · siti &amp; piattaforme</p>
+        <h3>Un sito che lavora <em>per te.</em></h3>
+        <p class="svc-desc">E-commerce, prenotazioni, area clienti — e se funziona male, lo sistemo.</p>
+        <p class="svc-ref"><a class="link-draw" href="#work">→ Beat Store, live</a></p>
+      </article>
+
+      <article class="svc-card">
+        <div class="glyph" aria-hidden="true">
+          <svg viewBox="0 0 300 168" fill="none">
+            <circle cx="86" cy="52" r="12" stroke="#c3b5a9" stroke-opacity=".55" stroke-width="1.5"/>
+            <circle cx="86" cy="116" r="12" stroke="#c3b5a9" stroke-opacity=".55" stroke-width="1.5"/>
+            <circle cx="150" cy="84" r="16" stroke="#9c3340" stroke-width="1.5"/>
+            <circle cx="150" cy="84" r="6" stroke="#9c3340" stroke-width="1.5" opacity=".7"/>
+            <circle cx="214" cy="52" r="12" stroke="#c3b5a9" stroke-opacity=".55" stroke-width="1.5"/>
+            <circle cx="214" cy="116" r="12" stroke="#c3b5a9" stroke-opacity=".55" stroke-width="1.5"/>
+            <path d="M97 57l38 21M97 111l38-21M165 77l38-21M165 91l38 21" stroke="#c3b5a9" stroke-opacity=".4" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M81 49h10M86 44v10" stroke="#c3b5a9" stroke-opacity=".7" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M81 116h10" stroke="#c3b5a9" stroke-opacity=".7" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M209 48l4 5 7-9" stroke="#9c3340" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M209 112l4 5 7-9" stroke="#9c3340" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="svc-n">02 · automazioni &amp; AI</p>
+        <h3>La burocrazia si fa <em>da sola.</em></h3>
+        <p class="svc-desc">Fatture, email e calendari che si parlano — senza di te in mezzo.</p>
+        <p class="svc-ref"><a class="link-draw" href="#work">→ Company Brain, live</a></p>
+      </article>
+
+      <article class="svc-card">
+        <div class="glyph" aria-hidden="true">
+          <svg viewBox="0 0 300 168" fill="none">
+            <path d="M104 56c0-6 5-11 11-11h8c5 0 8 3 9 7l2 11c1 4-1 7-4 9l-5 4c6 14 17 25 31 31l4-5c2-3 5-5 9-4l11 2c4 1 7 4 7 9v8c0 6-5 11-11 11-48 0-72-39-72-72z" stroke="#c3b5a9" stroke-opacity=".6" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M192 62c6 6 9 14 9 22M204 50c9 9 15 21 15 34M216 38c13 13 20 30 20 47" stroke="#9c3340" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="svc-n">03 · voice agents</p>
+        <h3>Risponde lui, <em>quando non puoi.</em></h3>
+        <p class="svc-desc">Un assistente telefonico 24/7 che prenota, sposta e informa.</p>
+        <p class="svc-ref"><a class="link-draw" href="#work">→ Ritmo Tropicale, live</a></p>
+      </article>
+    </div>
+
+    <div class="services-cta">
+      <a class="link-draw" href="#contact">hai in mente qualcosa? parliamone →</a>
+    </div>
+  </div>
+</section>
+
+<p class="note">mockup fase 0 · v4 — rebranding estetico: atmosfera + superfici + scala tipografica · DNA sito (onde, octaedro, oxblood/bone) intatto</p>
+
+<script>
+  // BrandMark octaedro — verbatim dal componente del sito
+  (() => {
+    const svg = document.querySelector('.brand-octa');
+    if (!svg) return;
+    const lines = Array.from(svg.querySelectorAll('line'));
+    const R = 14;
+    const V = [[R,0,0],[-R,0,0],[0,R,0],[0,-R,0],[0,0,R],[0,0,-R]];
+    const E = [];
+    for (let a = 0; a < 6; a++) for (let b = a + 1; b < 6; b++) {
+      if ((a===0&&b===1)||(a===2&&b===3)||(a===4&&b===5)) continue;
+      E.push([a,b]);
+    }
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let t = 0.5;
+    function frame() {
+      t += 0.011;
+      const ay = t, ax = t * 0.6;
+      const cy = Math.cos(ay), sy = Math.sin(ay), cx = Math.cos(ax), sx = Math.sin(ax);
+      const P = V.map(([x,y,z]) => {
+        const x1 = x*cy + z*sy, z1 = -x*sy + z*cy;
+        const y1 = y*cx - z1*sx, z2 = y*sx + z1*cx;
+        return [x1,y1,z2];
+      });
+      E.forEach(([a,b],i) => {
+        const p = P[a], q = P[b], ln = lines[i];
+        if (!ln) return;
+        ln.setAttribute('x1', p[0].toFixed(2)); ln.setAttribute('y1', (-p[1]).toFixed(2));
+        ln.setAttribute('x2', q[0].toFixed(2)); ln.setAttribute('y2', (-q[1]).toFixed(2));
+        ln.setAttribute('opacity', (((p[2]+q[2])/2 + R) / (2*R) * 0.72 + 0.28).toFixed(2));
+      });
+      if (!reduce) requestAnimationFrame(frame);
+    }
+    frame();
+  })();
+</script>
+
+</body>
+</html>

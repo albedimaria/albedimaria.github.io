@@ -2,12 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from './Nav.astro';
 import Hero from './Hero.astro';
+import AgentDemo from './AgentDemo.astro';
 import Work from './Work.astro';
 import Services from './Services.astro';
 import About from './About.astro';
-import Background from './Background.astro';
 import Contact from './Contact.astro';
 import BackToTop from './BackToTop.astro';
+import D10SDock from './D10SDock.astro';
 import { ui, type Lang } from '../i18n/content';
 
 interface Props {
@@ -15,16 +16,17 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = ui[lang];
+const navShortcuts: Record<Lang, string> = { en: 'Page shortcuts', it: 'Scorciatoie pagina', es: 'Atajos de página' };
 ---
 
 <Layout lang={lang}>
   <Nav lang={lang} />
   <main>
     <Hero lang={lang} />
+    <AgentDemo lang={lang} />
     <Services lang={lang} />
     <Work lang={lang} />
     <About lang={lang} />
-    <Background lang={lang} />
     <Contact lang={lang} />
   </main>
 
@@ -35,5 +37,8 @@ const t = ui[lang];
     </div>
   </footer>
 
-  <BackToTop />
+  <nav aria-label={navShortcuts[lang]}>
+    <BackToTop />
+    <D10SDock lang={lang} />
+  </nav>
 </Layout>

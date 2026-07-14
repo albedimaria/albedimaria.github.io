@@ -5,11 +5,12 @@
 // `top` lets each scene place the band (hero pushes it below the text).
 interface Props {
   top?: string;
+  opacity?: number;
 }
-const { top = '50%' } = Astro.props;
+const { top = '50%', opacity = 1 } = Astro.props;
 ---
 
-<div class="wave-field" style={`top:${top}`} aria-hidden="true">
+<div class="wave-field" style={`top:${top};opacity:${opacity}`} aria-hidden="true">
   <svg
     class="waves"
     viewBox="0 20 150 40"

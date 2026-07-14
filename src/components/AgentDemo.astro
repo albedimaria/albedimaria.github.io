@@ -1,0 +1,110 @@
+---
+import { agentBand, voiceUi, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const band = agentBand[lang];
+const vu = voiceUi[lang];
+
+// Concept A — the panel IS the section. One centered column, the live agent as
+// the focal object. Headline is a statement (not a question), the greeting lives
+// only inside the panel: no duplicated copy, no stacked questions.
+const headline: Record<Lang, string> = {
+  en: 'Ask my agent.',
+  it: 'Chiedi al mio agente.',
+  es: 'Pregunta a mi agente.',
+};
+const greeting: Record<Lang, string> = {
+  en: 'Hi, I’m D10S. I know every project on this site — ask me anything.',
+  it: 'Ciao, sono D10S. Conosco ogni progetto di questo sito — chiedimi quello che vuoi.',
+  es: 'Hola, soy D10S. Conozco cada proyecto de este sitio — pregúntame lo que quieras.',
+};
+const tryLabel: Record<Lang, string> = { en: 'try asking', it: 'prova a chiedere', es: 'prueba a preguntar' };
+const inputPh: Record<Lang, string> = { en: 'type a message…', it: 'scrivi un messaggio…', es: 'escribe un mensaje…' };
+const micLabel: Record<Lang, string> = { en: 'Talk to D10S', it: 'Parla con D10S', es: 'Habla con D10S' };
+---
+
+<!-- D10S live-agent band — full width under the hero. The panel is a static
+     shell (zero JS) that mounts the ~680 KB React + ElevenLabs island only on
+     the first interaction (boot script below). -->
+<section id="agent-demo" class="sec-line bg-ink-2">
+  <div class="mx-auto max-w-2xl px-6 py-[84px] text-center">
+    <p data-reveal class="kicker-rule kicker-center font-mono text-[13px] uppercase tracking-[0.22em] text-bone">{band.kicker}</p>
+    <h2 data-reveal class="mx-auto mt-5 max-w-[16ch] font-display text-[clamp(30px,4.4vw,46px)] font-[550] leading-[1.06] tracking-[-0.01em] text-bone">
+      {headline[lang]}
+    </h2>
+
+    <div data-reveal id="d10s-panel" data-lang={lang} class="d10s d10s-solo mt-9 text-left">
+      <div class="d10s-bar"><span class="d10s-live" aria-hidden="true"></span><span><b>D10S</b> · online</span></div>
+
+      <p class="d10s-say" data-typewriter>{greeting[lang]}</p>
+
+      <div class="d10s-sugg">
+        <div class="lb">{tryLabel[lang]}</div>
+        {vu.chips.map((c) => (
+          <button type="button" data-d10s="chip" data-chip={c}>{c}</button>
+        ))}
+      </div>
+
+      <div class="d10s-input">
+        <button type="button" class="d10s-input-text" data-d10s="text" aria-label={inputPh[lang]}>{inputPh[lang]}</button>
+        <button type="button" class="d10s-mic" data-d10s="voice" aria-label={micLabel[lang]}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0" /><path d="M12 18v3" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Load the voice SDK only on the first interaction with the panel.
+    const panel = document.getElementById('d10s-panel');
+    if (panel) {
+      let booted = false;
+      const boot = async (btn: HTMLElement) => {
+        if (booted) return;
+        booted = true;
+        const action = btn.dataset.d10s === 'chip' ? btn.dataset.chip! : btn.dataset.d10s!;
+        const { mount } = await import('./voice-mount');
+        mount(panel, (panel.dataset.lang as 'en' | 'it' | 'es') || 'en', action);
+      };
+      panel.querySelectorAll<HTMLElement>('[data-d10s]').forEach((b) =>
+        b.addEventListener('click', () => boot(b))
+      );
+
+      // Idle liveness — D10S "types" its greeting once, the first time the
+      // panel scrolls into view. Any interaction (or reduced-motion) reveals
+      // the full text immediately.
+      const say = panel.querySelector<HTMLElement>('[data-typewriter]');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (say && !reduce) {
+        const full = say.textContent || '';
+        let done = false;
+        const finish = () => { if (done) return; done = true; say.textContent = full; say.classList.remove('is-typing'); };
+        panel.querySelectorAll<HTMLElement>('[data-d10s]').forEach((b) => b.addEventListener('click', finish));
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (!e.isIntersecting || done) return;
+            io.unobserve(e.target);
+            // Reserve the final height so typing doesn't shift the panel (CLS).
+            say.style.minHeight = say.offsetHeight + 'px';
+            say.textContent = '';
+            say.classList.add('is-typing');
+            let i = 0;
+            const tick = () => {
+              if (done) return;
+              say.textContent = full.slice(0, ++i);
+              if (i < full.length) setTimeout(tick, 22);
+              else { say.classList.remove('is-typing'); done = true; }
+            };
+            tick();
+          });
+        }, { threshold: 0.5 });
+        io.observe(panel);
+      }
+    }
+  </script>
+</section>

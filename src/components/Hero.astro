@@ -1,108 +1,71 @@
 ---
 import WaveSignature from './WaveSignature.astro';
-import { ui, voiceDemo, voiceUi, type Lang } from '../i18n/content';
+import { ui, heroHook, heroSub, heroPhotoRole, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const t = ui[lang];
-const demo = voiceDemo[lang];
-const vu = voiceUi[lang];
+const hook = heroHook[lang];
+const sub = heroSub[lang];
+const cueLabel: Record<Lang, string> = { en: 'Meet my agent', it: 'Vai al mio agente', es: 'Ir a mi agente' };
 ---
 
-<!-- Hero "equation": name on the left, D10S (the live guide) on the right,
-     the signature waves running through the whole scene as the agent's voice. -->
-<section id="top" class="relative overflow-hidden">
-  <WaveSignature top="70%" />
+<!-- Hero: business-first question hook + photo. The D10S agent moved to its
+     own full-width band below (see AgentDemo.astro). -->
+<section id="top" class="hero-glow relative flex min-h-[calc(100svh-77px)] flex-col overflow-hidden">
+  <WaveSignature top="68%" />
 
-  <div
-    class="relative z-10 mx-auto grid max-w-6xl content-center gap-y-12 px-6 pb-16 pt-16 md:pb-20 md:pt-24 lg:min-h-[min(calc(100svh-220px),680px)] lg:grid-cols-[1fr_0.92fr] lg:items-end lg:gap-x-16"
-  >
-    <div class="min-w-0">
-      <p class="mb-6 flex items-center gap-2.5 font-mono text-[13px] lowercase tracking-wide text-text-muted">
+  <div class="relative z-10 flex flex-1 items-center">
+    <div class="mx-auto grid-12 w-full max-w-5xl px-6 pb-10 pt-12">
+    <!-- copy -->
+    <div class="col-span-12 lg:col-span-8">
+      <p class="hero-rise mb-7 flex items-center gap-2.5 font-mono text-[13px] lowercase tracking-wide text-text-muted" style="--d:0ms">
         <span class="h-2 w-2 rounded-full bg-[#57c98a]" aria-hidden="true"></span>
         {t.hero_available}
       </p>
-      <h1 class="font-display text-6xl font-semibold leading-[0.92] tracking-tight text-bone md:text-8xl xl:text-[104px]">
-        Alberto<br />Di Maria
+
+      <h1 class="hero-rise font-display text-[clamp(52px,6.8vw,96px)] font-[550] leading-[0.96] tracking-[-0.015em] text-bone" style="--d:90ms">
+        {hook.line1}<br /><em class="font-[420] not-italic text-accent-lg italic">{hook.accent}</em>
       </h1>
-      <p class="mt-6 font-mono text-[14px] tracking-wide text-text-muted md:text-[15px]">{t.hero_role}</p>
+
+      <p class="hero-rise mt-7 max-w-[34ch] text-[18px] leading-[1.5] md:text-[20px]" style="--d:210ms">
+        <span class="font-medium text-bone">{sub.lead}</span><br />
+        <span class="text-text-muted">{sub.follow}</span>
+      </p>
+
+      <div class="hero-rise mt-9 flex flex-wrap items-center gap-x-7 gap-y-4" style="--d:320ms">
+        <a href="#contact" class="btn-primary">
+          {t.hero_cta_primary}
+        </a>
+        <a href="#services" class="link-draw font-mono text-[14px] text-accent-txt transition-colors hover:text-bone">
+          {t.hero_cta_secondary}
+        </a>
+      </div>
     </div>
 
-    <div id="voice-chat" class="min-w-0">
-      <h2 class="font-display text-[24px] font-semibold leading-snug text-bone md:text-[26px]">
-        {demo.title}
-      </h2>
-      <div class="mt-6">
-        <!-- Static panel shell — renders with ZERO JS. The ~680 KB React +
-             ElevenLabs SDK is imported and mounted here only on the first
-             click (see the script below). -->
-        <div
-          id="d10s-panel"
-          data-lang={lang}
-          class="mx-auto w-full max-w-xl rounded-[var(--radius-card)] border border-bone/10 bg-surface p-4 shadow-[0_0_50px_rgba(0,0,0,0.4)] sm:p-5"
-        >
-          <div class="space-y-3">
-            <div class="flex items-center gap-2 px-1 pb-1">
-              <span class="h-1.5 w-1.5 rounded-full bg-oxblood-soft motion-safe:animate-pulse" aria-hidden="true"></span>
-              <span class="font-mono text-[12px] uppercase tracking-[0.18em] text-text-dim">D10S · online</span>
-            </div>
-            <div class="flex flex-wrap items-center justify-center gap-2.5">
-              <button
-                type="button"
-                data-d10s="voice"
-                class="flex items-center gap-2 rounded-full bg-oxblood px-6 py-2.5 font-mono text-[13px] uppercase tracking-[0.15em] text-[#f6dfe4] transition hover:bg-oxblood/85"
-              >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-                  <rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0" /><path d="M12 18v3" />
-                </svg>
-                {vu.talk}
-              </button>
-              <button
-                type="button"
-                data-d10s="text"
-                class="flex items-center gap-2 rounded-full border border-bone/35 px-5 py-2.5 font-mono text-[13px] uppercase tracking-[0.15em] text-text-muted transition hover:border-bone/60 hover:text-bone"
-              >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-                  <rect x="3" y="7" width="18" height="11" rx="2" /><path d="M7 11h.01M11 11h.01M15 11h.01M17 11h.01M7 15h10" />
-                </svg>
-                {vu.type}
-              </button>
-            </div>
-            <div class="flex flex-wrap justify-center gap-2 pt-0.5">
-              {vu.chips.map((c) => (
-                <button
-                  type="button"
-                  data-d10s="chip"
-                  data-chip={c}
-                  class="rounded-full border border-bone/12 bg-bone/[0.04] px-3 py-1.5 font-mono text-[12px] text-text-muted transition hover:border-oxblood-soft/60 hover:text-bone"
-                >
-                  {c}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
+    <!-- photo — smaller, with the signature caption BELOW the frame -->
+    <div class="hero-rise col-span-12 mt-6 max-w-[220px] self-start lg:col-span-4 lg:col-start-9 lg:ml-auto lg:mt-[47px] lg:max-w-[240px]" style="--d:180ms">
+      <div class="hero-photo-frame relative aspect-square overflow-hidden rounded-[var(--radius-card)] border border-bone/15 shadow-[0_20px_56px_rgba(0,0,0,0.42)]">
+        <img
+          src="/images/alberto.webp"
+          alt="Alberto Di Maria"
+          width="900"
+          height="900"
+          class="h-full w-full object-cover"
+        />
+        <div class="hero-photo-grade" aria-hidden="true"></div>
       </div>
+      <div class="mt-3.5 border-l border-oxblood/45 pl-3">
+        <p class="font-display text-[18px] font-[550] leading-tight text-bone">Alberto Di Maria</p>
+        <p class="mt-0.5 font-mono text-[11px] uppercase tracking-[0.1em] text-text-muted">{heroPhotoRole[lang]}</p>
+      </div>
+    </div>
     </div>
   </div>
 
-  <script>
-    // Load the voice SDK only on the first interaction with the panel.
-    const panel = document.getElementById('d10s-panel');
-    if (panel) {
-      let booted = false;
-      const boot = async (btn: HTMLElement) => {
-        if (booted) return;
-        booted = true;
-        const action = btn.dataset.d10s === 'chip' ? btn.dataset.chip! : btn.dataset.d10s!;
-        const { mount } = await import('./voice-mount');
-        mount(panel, (panel.dataset.lang as 'en' | 'it' | 'es') || 'en', action);
-      };
-      panel.querySelectorAll<HTMLElement>('[data-d10s]').forEach((b) =>
-        b.addEventListener('click', () => boot(b))
-      );
-    }
-  </script>
+  <a href="#agent-demo" class="scroll-cue hero-cue-in absolute bottom-8 left-1/2 z-10 -translate-x-1/2" style="--d:640ms" aria-label={cueLabel[lang]}>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14" /><path d="M5 12l7 7 7-7" /></svg>
+  </a>
 </section>
