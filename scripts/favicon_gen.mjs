@@ -3,61 +3,49 @@ import { writeFileSync } from 'node:fs';
 const require = createRequire('D:/Projects/html5up-solid-state/');
 const sharp = require('sharp');
 
-// Brand octahedron, ONE static pose. A favicon can't animate and thin wireframe
-// lines vanish at 16px — so the mark is drawn as a filled gem: the 3D octahedron
-// with its front faces shaded (lit left, dark right), rose edges on top. It fills
-// ~92% of the square (the old icon sat at ~55% with black bands around it) and the
-// background is transparent, so it reads on any tab colour, light or dark.
+// Brand octahedron as a favicon: ONE static, FRONT-ON pose. Viewed straight down
+// an axis the octahedron reads as the iconic gem — a diamond outline with four
+// triangular facets meeting at the centre. Symmetric, unmistakable at 16px, and
+// far cleaner than a tilted view (whose shaded faces turn to mush that small).
+// Lit from top-left: upper/left facets brighter, lower/right darker. Rose edges
+// on top. Fills ~96% of the square (old icon: ~55% inside black bands), on a
+// TRANSPARENT background so it reads on any tab colour, light or dark.
 
-const R = 46;
-const V = [[R,0,0],[-R,0,0],[0,R,0],[0,-R,0],[0,0,R],[0,0,-R]];
-// a pose picked to look like a cut gem: tilted so 4 faces face us
-const ay = Math.PI/4, ax = 0.34;
-const cy = Math.cos(ay), sy = Math.sin(ay), cx = Math.cos(ax), sx = Math.sin(ax);
-const P = V.map(([x,y,z]) => {
-  const x1 = x*cy + z*sy, z1 = -x*sy + z*cy;
-  const y1 = y*cx - z1*sx, z2 = y*sx + z1*cx;
-  return [50 + x1, 50 - y1, z2];      // project to a 100×100 box, centre 50,50
-});
-// 8 faces = one equator vertex (2,3) + one pole (4,5) + ... actually: each face
-// joins one of {top/bottom = idx 2/3} with two adjacent equator verts (0,1,4,5)
-const EQ = [4,0,5,1];                 // equator ring order (front,right,back,left)
-const faces = [];
-for (const apex of [2,3])             // top, bottom
-  for (let k=0;k<4;k++) faces.push([apex, EQ[k], EQ[(k+1)%4]]);
+const C = 50, R = 48;                       // centre, radius (96% of a 100 box)
+// diamond corners (equator projected), clockwise from top
+const TOP = [C, C - R], RIGHT = [C + R, C], BOT = [C, C + R], LEFT = [C - R, C];
+const MID = [C, C];                          // front apex projects to centre
 
-// depth-sort, keep the ones facing us
-const shaded = faces.map(f => {
-  const [a,b,c] = f.map(i=>P[i]);
-  const zMid = (a[2]+b[2]+c[2])/3;
-  // face normal z (screen) to pick lit vs shadow side
-  const nx = (b[0]-a[0])*(c[1]-a[1]) - (b[1]-a[1])*(c[0]-a[0]);
-  return { f, zMid, front: zMid > -4, lit: nx > 0 };
-}).filter(s => s.front).sort((s,t)=>s.zMid-t.zMid);
+// four facets, each centre → two adjacent corners. Shade: top-left lit.
+const OX_DARK = '#57101d', OX = '#7a1228', OX_MID = '#8f2436', OX_LIT = '#ab3049';
+const facets = [
+  { pts: [MID, TOP, LEFT], fill: OX_LIT },   // upper-left  → brightest
+  { pts: [MID, TOP, RIGHT], fill: OX_MID },  // upper-right
+  { pts: [MID, BOT, LEFT], fill: OX },       // lower-left
+  { pts: [MID, BOT, RIGHT], fill: OX_DARK }, // lower-right → darkest
+];
+const poly = facets.map(f =>
+  `<polygon points="${f.pts.map(p => p.join(',')).join(' ')}" fill="${f.fill}"/>`).join('');
 
-const OX_DARK = '#5e0f1f', OX = '#7a1228', OX_LIT = '#a83049';
-const EDGE = '#e9b3bd';
-const poly = shaded.map(s => {
-  const pts = s.f.map(i=>`${P[i][0].toFixed(1)},${P[i][1].toFixed(1)}`).join(' ');
-  return `<polygon points="${pts}" fill="${s.lit?OX_LIT:OX_DARK}"/>`;
-}).join('');
-// silhouette outline (the 4 outer equator→pole edges) for a crisp rose rim
-const rim = [];
-for (const apex of [2,3]) for (const e of EQ) rim.push(`${P[apex][0].toFixed(1)},${P[apex][1].toFixed(1)} ${P[e][0].toFixed(1)},${P[e][1].toFixed(1)}`);
-const edges = rim.map(l=>`<polyline points="${l}" fill="none" stroke="${EDGE}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>`).join('');
+const EDGE = '#edb9c2';
+const corners = [TOP, RIGHT, BOT, LEFT];
+const rim = `<polygon points="${corners.map(p => p.join(',')).join(' ')}" fill="none" stroke="${EDGE}" stroke-width="3" stroke-linejoin="round"/>`;
+// the four spokes centre→corner, a touch softer than the rim
+const spokes = corners.map(p =>
+  `<line x1="${MID[0]}" y1="${MID[1]}" x2="${p[0]}" y2="${p[1]}" stroke="${EDGE}" stroke-width="1.8" stroke-linecap="round" opacity="0.65"/>`).join('');
 
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">${poly}${edges}</svg>`;
+const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">${poly}${spokes}${rim}</svg>`;
 writeFileSync('D:/Projects/html5up-solid-state/public/favicon.svg', svg);
 console.log('favicon.svg scritto');
 
 const buf = Buffer.from(svg);
-for (const size of [16, 32, 180, 192, 512]) {
-  const name = size===180 ? 'apple-touch-icon' : size===192 ? 'android-chrome-192x192' : size===512 ? 'android-chrome-512x512' : `favicon-${size}x${size}`;
-  await sharp(buf, { density: 384 }).resize(size, size).png().toFile(`D:/Projects/html5up-solid-state/public/${name}.png`);
+for (const size of [16, 32, 192, 512]) {
+  const name = size === 192 ? 'android-chrome-192x192' : size === 512 ? 'android-chrome-512x512' : `favicon-${size}x${size}`;
+  await sharp(buf, { density: 512 }).resize(size, size).png().toFile(`D:/Projects/html5up-solid-state/public/${name}.png`);
   console.log(name + '.png', size);
 }
-// apple touch icon: platforms mask corners on a background, so give it the ink bg
+// apple touch icon: iOS masks corners over a background → give it the ink bg
 await sharp({ create: { width: 180, height: 180, channels: 4, background: '#16100f' } })
-  .composite([{ input: await sharp(buf, { density: 384 }).resize(150,150).png().toBuffer(), gravity: 'center' }])
+  .composite([{ input: await sharp(buf, { density: 512 }).resize(158, 158).png().toBuffer(), gravity: 'center' }])
   .png().toFile('D:/Projects/html5up-solid-state/public/apple-touch-icon.png');
-console.log('apple-touch-icon rifatto con bg ink');
+console.log('apple-touch-icon con bg ink');
