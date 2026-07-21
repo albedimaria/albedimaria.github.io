@@ -15,8 +15,8 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
       bullets: [
         { lead: 'Impari parlando', body: 'una conversazione vera, a voce, in inglese o spagnolo — dal primo minuto. Quasi senza testo, di proposito.' },
         { lead: 'Si ricorda di te', body: 'da ogni chiamata estrae gli errori che hai fatto davvero; la ripetizione spaziata li fa riemergere e sceglie lo scenario di domani.' },
+        { lead: 'Esercizi dai tuoi errori', body: 'scrittura, traduzione e lessico nascono dagli errori che hai fatto davvero — corretti da un LLM, e solo le valutazioni sicure entrano nella tua memoria.' },
         { lead: 'Quattro agenti, non un prompt', body: 'chi parte da zero ha un agente tutto suo: voce più lenta, ripeti-dopo-di-me, zero correzioni.' },
-        { lead: 'Minuti prepagati', body: 'un registro append-only conta ogni secondo di voce e non può spendere due volte.' },
       ],
     },
     'lyra': {
@@ -137,8 +137,8 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
       bullets: [
         { lead: 'Aprendes hablando', body: 'una conversación de verdad, en voz alta, en inglés o español — desde el primer minuto. Casi sin texto, a propósito.' },
         { lead: 'Se acuerda de ti', body: 'de cada llamada extrae los errores que cometiste de verdad; la repetición espaciada los hace resurgir y elige el escenario de mañana.' },
+        { lead: 'Ejercicios de tus errores', body: 'escritura, traducción y vocabulario nacen de los errores que cometiste de verdad — corregidos por un LLM, y solo las valoraciones seguras entran en tu memoria.' },
         { lead: 'Cuatro agentes, no un prompt', body: 'quien empieza de cero tiene su propio agente: voz más lenta, escucha-y-repite, cero correcciones.' },
-        { lead: 'Minutos prepagados', body: 'un libro append-only cuenta cada segundo de voz y no puede gastar dos veces.' },
       ],
     },
     'lyra': {
