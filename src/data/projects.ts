@@ -205,7 +205,7 @@ export const projects: Project[] = [
       { lead: 'Tested like a model, not like a website', body: 'every adversarial scenario is run three times, because on an LLM a single green is an anecdote. What the platform can guarantee is never left to the prompt.' },
     ],
     stack: ['Supabase', 'Postgres RPC', 'Twilio', 'Deno Edge Functions', 'Next.js', 'Vercel'],
-    ai: ['ElevenLabs Agents', 'Qwen 3.6 35B', 'Eleven v3'],
+    ai: ['ElevenLabs Agents', 'Qwen 3.5 397B', 'Eleven v3'],
     engineering: {
       summary: 'adversarially tested · deterministic gates · instrumented',
       stats: [
