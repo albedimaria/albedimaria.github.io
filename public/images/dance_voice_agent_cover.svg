@@ -179,9 +179,9 @@
   <rect x="820" y="537" width="100" height="18" rx="9" fill="#1e5922" opacity="0.7"/>
   <text x="870" y="549" fill="#f5f5f0" font-size="9" text-anchor="middle">ElevenLabs Agents</text>
   <text x="930" y="549" fill="#f5f5f0" font-size="10" text-anchor="middle" opacity="0.4">→</text>
-  <!-- Gemini 2.5 Flash badge: il cervello -->
+  <!-- Qwen 3.6 badge: il cervello -->
   <rect x="940" y="537" width="96" height="18" rx="9" fill="#1e5922" opacity="0.7"/>
-  <text x="988" y="549" fill="#f5f5f0" font-size="9" text-anchor="middle">Gemini 2.5 Flash</text>
+  <text x="988" y="549" fill="#f5f5f0" font-size="9" text-anchor="middle">Qwen 3.6 35B</text>
   <text x="1046" y="549" fill="#f5f5f0" font-size="10" text-anchor="middle" opacity="0.4">→</text>
   <!-- Postgres RPC badge: i tool sono funzioni nel database -->
   <rect x="1056" y="537" width="82" height="18" rx="9" fill="#1e5922" opacity="0.7"/>

@@ -201,11 +201,11 @@ export const projects: Project[] = [
     oneliner: 'A dance school’s AI phone assistant: answers 24/7, books, reschedules, informs.',
     bullets: [
       { lead: 'Knows who is calling before it picks up', body: 'a webhook matches the number to the student while the phone is still ringing, so it greets them by name. Then it gives course info, books, cancels, reschedules, and hands over to a human when it should.' },
-      { lead: 'Italian and Spanish, answers in 1.6s', body: 'measured on real calls, from the caller falling silent to the first word back; confirmations and reminders go out by SMS.' },
+      { lead: 'Italian and Spanish, answers in 1.6s', body: 'measured on real calls, from the caller falling silent to the first word back. Booking dates are computed by the database, never by the model.' },
       { lead: 'Tested like a model, not like a website', body: 'every adversarial scenario is run three times, because on an LLM a single green is an anecdote. What the platform can guarantee is never left to the prompt.' },
     ],
     stack: ['Supabase', 'Postgres RPC', 'Twilio', 'Deno Edge Functions', 'Next.js', 'Vercel'],
-    ai: ['ElevenLabs Agents', 'Gemini 2.5 Flash', 'Eleven v3'],
+    ai: ['ElevenLabs Agents', 'Qwen 3.6 35B', 'Eleven v3'],
     engineering: {
       summary: 'adversarially tested · deterministic gates · instrumented',
       stats: [

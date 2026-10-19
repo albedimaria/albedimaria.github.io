@@ -67,12 +67,12 @@
   {
     "id": "dance-voice-agent#1",
     "source": "Dance Voice Agent",
-    "text": "Architecture — the agent runs natively on the ElevenLabs Agents platform (ConvAI), with Gemini 2.5 Flash as the brain and Eleven v3 Conversational as the voice, in Italian and Spanish. Its thirteen tools are Postgres functions called straight over PostgREST, so the business logic lives in the database and there is no application server in the hot path. A conversation-initiation webhook (a Deno edge function) resolves the caller's number to a student before the call is even answered, which is why the agent can greet people by name instead of asking who they are halfway through. It replaced an earlier custom pipeline (Deepgram plus GPT-4o plus streaming TTS, stitched together in Python): the platform now guarantees turn-taking, barge-in and latency, which used to be Alberto's code to maintain."
+    "text": "Architecture — the agent runs natively on the ElevenLabs Agents platform (ConvAI), with Qwen 3.6 35B as the brain and Eleven v3 Conversational as the voice, in Italian and Spanish. Its thirteen tools are Postgres functions called straight over PostgREST, so the business logic lives in the database and there is no application server in the hot path. A conversation-initiation webhook (a Deno edge function) resolves the caller's number to a student before the call is even answered, which is why the agent can greet people by name instead of asking who they are halfway through. It replaced an earlier custom pipeline (Deepgram plus GPT-4o plus streaming TTS, stitched together in Python): the platform now guarantees turn-taking, barge-in and latency, which used to be Alberto's code to maintain."
   },
   {
     "id": "dance-voice-agent#2",
     "source": "Dance Voice Agent",
-    "text": "Stack: ElevenLabs Agents, Gemini 2.5 Flash, Supabase (Postgres, with the agent's tools as RPC functions), Deno edge functions, Twilio for telephony, a Next.js admin dashboard on Vercel."
+    "text": "Stack: ElevenLabs Agents, Qwen 3.6 35B, Supabase (Postgres, with the agent's tools as RPC functions), Deno edge functions, Twilio for telephony, a Next.js admin dashboard on Vercel."
   },
   {
     "id": "dance-voice-agent#3",

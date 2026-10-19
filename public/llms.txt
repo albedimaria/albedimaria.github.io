@@ -6,14 +6,14 @@
 - Role: AI Product Engineer · agentic AI, voice agents & audio
 - Freelance AI developer for music-business and other clients
 - Based in Milan, Italy
-- Strengths: voice agents (Twilio · ElevenLabs · Deepgram · GPT-4o), full-stack AI products (Next.js · Supabase · Stripe), Python automation, audio/ML (PyTorch · TensorFlow · RAVE · Essentia)
+- Strengths: voice agents (ElevenLabs Agents · Twilio · Supabase · custom STT→LLM→TTS pipelines), full-stack AI products (Next.js · Supabase · Stripe), Python automation, audio/ML (PyTorch · TensorFlow · RAVE · Essentia)
 - Languages: English, Italian, Spanish
 - Site available in English (/), Italian (/it/) and Spanish (/es/)
 
 ## Selected work
 - [Beat Store](https://ffinnico.netlify.app): full-stack music e-commerce for a producer (Next.js, TypeScript, Supabase, Stripe, Cloudflare R2). Acquired, live. Hardened with tests + CI + observability (86% money-path coverage, Sentry).
 - [Company Brain](https://company-brain-alberto.onrender.com): agentic AI over a company's live business data — FastAPI agent with tool-calling and zero-infra RAG; exact figures, source provenance, no hallucinations. Top 15 at the Cursor × Yellow Tech hackathon.
-- [Ritmo Tropicale Voice Agent](https://dance-voice-agent-dashboard.vercel.app): 24/7 inbound AI phone assistant for a dance school, running natively on ElevenLabs Agents (Gemini 2.5 Flash brain, 13 tools as Postgres RPCs, caller recognised by webhook before pickup). Adversarially tested with every scenario repeated; ~1.6s p50 response on live calls.
+- [Ritmo Tropicale Voice Agent](https://dance-voice-agent-dashboard.vercel.app): 24/7 inbound AI phone assistant for a dance school, running natively on ElevenLabs Agents (Qwen 3.6 35B brain, 13 tools as Postgres RPCs, caller recognised by webhook before pickup). Adversarially tested with every scenario repeated; ~1.6s p50 response on live calls.
 - Shy Order: autonomous voice agent that calls businesses on the user's behalf, handling the full phone conversation end-to-end (ElevenLabs, Twilio, FastAPI).
 - Beyond Space: audio generation via RAVE latent-space interpolation (PyTorch, TorchScript, FastAPI, React).
 - Geometry in Music (MSc thesis): pipeline from audio analysis to prompt-free music generation; comparative benchmark of generative models.

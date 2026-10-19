@@ -63,7 +63,7 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
       oneliner: 'L’assistente telefonico AI di una scuola di ballo: risponde 24/7, prenota, sposta, informa.',
       bullets: [
         { lead: 'Sa chi sta chiamando prima di rispondere', body: 'mentre il telefono squilla un webhook associa il numero allo studente, così lo saluta per nome. Poi dà info sui corsi, prenota, disdice, sposta, e passa a una persona quando è giusto farlo.' },
-        { lead: 'Italiano e spagnolo, risponde in 1,6s', body: 'misurati sulle chiamate vere, da quando il chiamante smette di parlare alla prima parola dell’agente; conferme e promemoria via SMS.' },
+        { lead: 'Italiano e spagnolo, risponde in 1,6s', body: 'misurati sulle chiamate vere, da quando il chiamante smette di parlare alla prima parola dell’agente. Le date delle prenotazioni le calcola il database, mai il modello.' },
         { lead: 'Testato come si testa un modello, non un sito', body: 'ogni scenario avversariale gira tre volte, perché su un LLM un verde singolo è un aneddoto. E quello che la piattaforma può garantire non si chiede mai al prompt.' },
       ],
     },
@@ -193,7 +193,7 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
       oneliner: 'El asistente telefónico IA de una escuela de baile: responde 24/7, reserva, cambia, informa.',
       bullets: [
         { lead: 'Sabe quién llama antes de descolgar', body: 'mientras suena el teléfono un webhook asocia el número al alumno, así lo saluda por su nombre. Luego informa de cursos, reserva, cancela, cambia clases y pasa a una persona cuando toca.' },
-        { lead: 'Italiano y español, responde en 1,6s', body: 'medidos en llamadas reales, desde que quien llama se calla hasta la primera palabra del agente; confirmaciones y recordatorios por SMS.' },
+        { lead: 'Italiano y español, responde en 1,6s', body: 'medidos en llamadas reales, desde que quien llama se calla hasta la primera palabra del agente. Las fechas de las reservas las calcula la base de datos, nunca el modelo.' },
         { lead: 'Probado como se prueba un modelo, no una web', body: 'cada escenario adversarial se ejecuta tres veces, porque en un LLM un verde suelto es una anécdota. Y lo que la plataforma puede garantizar nunca se le pide al prompt.' },
       ],
     },
