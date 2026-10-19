@@ -48,7 +48,15 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
       bullets: [
         { lead: 'Risponde dai dati veri', body: 'chiedi in linguaggio naturale su clienti, ordini o chiamate — l’agente consulta CRM, gestionale e documenti e cita le fonti.' },
         { lead: 'I conti li fa il codice, non l’AI', body: 'il modello sceglie solo dove guardare e come spiegare; i numeri sono sempre esatti.' },
-        { lead: 'Top 10 all’hackathon Cursor × Yellow Tech', body: 'qualificato alla Lega Nazionale Italiana degli Hackathon.' },
+        { lead: 'Top 10 all’hackathon Cursor × Yellow Tech', body: 'qualificato alla finale nazionale dell’Italian Hackathon League (vedi Zero to HubSpot).' },
+      ],
+    },
+    'zero-to-hubspot': {
+      oneliner: 'Un CRM compatibile con HubSpot costruito da un repo vuoto in cinque ore, con dentro 15 anni di dati del vecchio gestionale di un cliente.',
+      bullets: [
+        { lead: '675.000 righe sporche, migrate in 35 secondi', body: 'nove CSV da un vecchio CRM: aziende doppie dietro siti e formati di partita IVA diversi, importi mensili, note di credito, date in formato Excel, testo con doppia codifica. Ogni regola è stata trovata nei dati e poi verificata con un ricalcolo indipendente.' },
+        { lead: '47,3/50 sui requisiti dei dati, 9,1/10 sulla tenuta', body: 'paginazione esatta sul volume migrato, nessuna scrittura concorrente persa, letture p95 sotto i 100 ms.' },
+        { lead: 'La finale nazionale degli hackathon, giudicata dalle macchine', body: 'costruito dal vivo alle OGR di Torino da finalisti selezionati in quattro tappe, poi valutato da una suite di test nascosta sul CRM pubblicato: conformità alle API HubSpot, tenuta sotto carico, migrazione di un export mai visto e un assistente AI in italiano giudicato su 40 richieste inedite.' },
       ],
     },
     'dance-voice-agent': {
@@ -170,7 +178,15 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
       bullets: [
         { lead: 'Responde con datos reales', body: 'pregunta en lenguaje natural sobre clientes, pedidos o llamadas — el agente consulta el CRM, el gestor y los documentos y cita las fuentes.' },
         { lead: 'Las cuentas las hace el código, no la IA', body: 'el modelo solo elige dónde mirar y cómo explicarlo; los números son siempre exactos.' },
-        { lead: 'Top 10 en Cursor × Yellow Tech', body: 'clasificado para la Liga Nacional Italiana de Hackathons.' },
+        { lead: 'Top 10 en Cursor × Yellow Tech', body: 'clasificado para la final nacional de la Italian Hackathon League (ver Zero to HubSpot).' },
+      ],
+    },
+    'zero-to-hubspot': {
+      oneliner: 'Un CRM compatible con HubSpot construido desde un repo vacío en cinco horas, con 15 años de datos del antiguo sistema de un cliente migrados dentro.',
+      bullets: [
+        { lead: '675.000 filas sucias, migradas en 35 segundos', body: 'nueve CSV de un CRM antiguo: empresas duplicadas tras webs y formatos de NIF distintos, importes mensuales, notas de crédito, fechas en formato Excel, texto con doble codificación. Cada regla salió de los datos y se comprobó con un recálculo independiente.' },
+        { lead: '47,3/50 en los requisitos de datos, 9,1/10 en robustez', body: 'paginación exacta sobre el volumen migrado, ninguna escritura concurrente perdida, lecturas p95 por debajo de 100 ms.' },
+        { lead: 'La final nacional de hackathons, evaluada por máquinas', body: 'construido en directo en OGR Turín por finalistas de cuatro rondas clasificatorias, y luego puntuado por una batería de tests oculta sobre el CRM publicado: conformidad con la API de HubSpot, robustez bajo carga, migración de un export nunca visto y un asistente de IA en italiano evaluado con 40 peticiones inéditas.' },
       ],
     },
     'dance-voice-agent': {

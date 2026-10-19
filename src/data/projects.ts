@@ -164,7 +164,7 @@ export const projects: Project[] = [
     bullets: [
       { lead: 'Answers from real data', body: 'ask in plain language about clients, orders or calls — the agent reads the CRM, the ERP and the documents and cites its sources.' },
       { lead: 'Math done by code, not the AI', body: 'the model only picks where to look and how to explain; the numbers are always exact.' },
-      { lead: 'Top 10 at Cursor × Yellow Tech', body: 'qualified for the Italian National Hackathon League.' },
+      { lead: 'Top 10 at Cursor × Yellow Tech', body: 'qualified for the national final of the Italian Hackathon League (see Zero to HubSpot).' },
     ],
     stack: ['Python', 'FastAPI', 'Docker', 'Render'],
     ai: ['LLM tool-calling (Mistral via Regolo)', 'BM25 retrieval'],
@@ -173,6 +173,24 @@ export const projects: Project[] = [
       { label: 'live demo ↗', href: 'https://company-brain-alberto.onrender.com' },
       { label: 'code ↗', href: 'https://github.com/albedimaria/company-brain-alberto' },
     ],
+  },
+  {
+    id: 'zero-to-hubspot',
+    title: 'Zero to HubSpot',
+    category: 'Hackathon',
+    filters: ['Hackathons'],
+    featured: false,
+    badge: '★ National final · Top 25',
+    oneliner: 'A HubSpot-compatible CRM built from an empty repo in five hours, with 15 years of a client’s legacy data migrated in.',
+    bullets: [
+      { lead: '675,000 dirty rows, migrated in 35 seconds', body: 'nine CSVs from a legacy CRM: duplicate companies behind different websites and VAT formats, monthly amounts, credit notes, Excel dates, double-encoded text. Every rule was found in the data, then checked against an independent recalculation.' },
+      { lead: '47.3/50 on the data requirements, 9.1/10 on durability', body: 'exact pagination on the migrated volume, no lost concurrent writes, p95 reads under 100 ms.' },
+      { lead: 'Italy’s national hackathon final, graded by machines', body: 'built live at OGR Turin by finalists from four qualifying rounds, then scored by a hidden test suite against the deployed CRM: HubSpot API conformity, durability under load, migration of an export nobody had seen, and an Italian-speaking AI assistant judged on 40 unseen requests.' },
+    ],
+    stack: ['Python', 'FastAPI', 'PostgreSQL', 'Railway'],
+    ai: ['LLM tool-calling (gpt-6-luna via OpenRouter)', 'Multi-agent build (Claude Code + Codex)'],
+    cover: '/images/zero-to-hubspot.webp',
+    links: [],
   },
   {
     id: 'dance-voice-agent',
