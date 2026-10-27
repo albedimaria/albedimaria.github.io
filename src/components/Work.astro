@@ -10,7 +10,7 @@ const { lang } = Astro.props;
 const t = ui[lang];
 
 // Display order: commissioned first (default set), then All, then the rest.
-const filterOrder = ['Client work', 'All', 'Hackathons', 'Voice AI', 'Audio / ML', 'Research'] as const;
+const filterOrder = ['Client work', 'All', 'Products', 'Hackathons', 'Voice AI', 'Audio / ML', 'Research'] as const;
 const DEFAULT_FILTER = 'Client work';
 const hint: Record<Lang, string> = {
   en: 'browse projects ‹ › — the page stays put',

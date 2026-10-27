@@ -19,6 +19,14 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
         { lead: 'Quattro agenti, non un prompt', body: 'chi parte da zero ha un agente tutto suo: voce più lenta, ripeti-dopo-di-me, zero correzioni.' },
       ],
     },
+    'filoconduttore': {
+      oneliner: 'I miei appunti delle ripetizioni diventati un sito di studio — con un voice agent che interroga gli studenti.',
+      bullets: [
+        { lead: 'Cinque anni di lezioni, in un posto solo', body: '267 lezioni su sette materie — matematica, fisica, elettrotecnica, elettronica, informatica, statistica, automazione — con formulari e verifiche.' },
+        { lead: 'Un’interrogazione da fare da soli', body: 'un voice agent interroga lo studente sulla teoria di una lezione e valuta come la spiega, non solo il risultato — sempre con un passo successivo.' },
+        { lead: 'Generati in scala, controllati coi numeri', body: '2.570 esercizi svolti scritti con un LLM, poi smistati da filo-eval, un harness che misura quali deve leggere per primi un umano.' },
+      ],
+    },
     'lyra': {
       oneliner: 'Scoperta musicale lyrics-first — una playlist che attraversa le tue emozioni.',
       bullets: [
@@ -147,6 +155,14 @@ export const projectText: Partial<Record<Lang, Record<string, ProjectText>>> = {
         { lead: 'Se acuerda de ti', body: 'de cada llamada extrae los errores que cometiste de verdad; la repetición espaciada los hace resurgir y elige el escenario de mañana.' },
         { lead: 'Ejercicios de tus errores', body: 'escritura, traducción y vocabulario nacen de los errores que cometiste de verdad — corregidos por un LLM, y solo las valoraciones seguras entran en tu memoria.' },
         { lead: 'Cuatro agentes, no un prompt', body: 'quien empieza de cero tiene su propio agente: voz más lenta, escucha-y-repite, cero correcciones.' },
+      ],
+    },
+    'filoconduttore': {
+      oneliner: 'Mis apuntes de clases particulares convertidos en un sitio de estudio — con un voice agent que examina oralmente a los alumnos.',
+      bullets: [
+        { lead: 'Cinco años de clases, en un solo lugar', body: '267 lecciones en siete materias — matemáticas, física, electrotecnia, electrónica, informática, estadística, automatización — con formularios y autoevaluaciones.' },
+        { lead: 'Un examen oral para hacer solo', body: 'un voice agent examina al alumno sobre la teoría de una lección y evalúa cómo la explica, no solo el resultado — siempre con un paso siguiente.' },
+        { lead: 'Generados a escala, revisados con números', body: '2.570 ejercicios resueltos escritos con un LLM, luego clasificados por filo-eval, un harness que mide cuáles debe leer primero una persona.' },
       ],
     },
     'lyra': {

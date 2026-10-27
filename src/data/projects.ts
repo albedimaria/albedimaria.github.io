@@ -103,6 +103,32 @@ export const projects: Project[] = [
     links: [],
   },
   {
+    id: 'filoconduttore',
+    title: 'filoconduttore',
+    category: 'Products',
+    filters: ['Products', 'Voice AI'],
+    featured: true,
+    oneliner: 'My tutoring notes turned into a study site — with a voice agent that gives students an oral exam.',
+    bullets: [
+      { lead: 'Five years of lessons, in one place', body: '267 lessons across seven subjects — maths, physics, electrical engineering, electronics, computer science, statistics, automation — with formula sheets and self-checks.' },
+      { lead: 'An oral exam you can take alone', body: 'a voice agent quizzes the student on the theory of one lesson and grades how they explain it, not just the result — always with a way forward.' },
+      { lead: 'Generated at scale, checked with numbers', body: '2,570 worked exercises written with an LLM, then triaged by filo-eval, a harness that measures which ones a human should read first.' },
+    ],
+    stack: ['Astro', 'TypeScript', 'KaTeX', 'Cloudflare Pages + Functions', 'D1', 'Pagefind'],
+    ai: ['ElevenLabs Agents', 'Gemini 2.5 Flash'],
+    engineering: {
+      summary: 'gated · tested · metered',
+      stats: [
+        { value: '267', label: 'lessons' },
+        { value: '19/20', label: 'agent tests at 3/3' },
+        { value: '74', label: 'build-gate checks' },
+      ],
+      note: 'questions built from each lesson’s structure and read by me before going live · signed URL only, prompt override off · post-call webhook + reconciliation so no session goes unbilled · build gate on formulas, links and figures',
+    },
+    cover: '/images/filoconduttore.webp',
+    links: [{ label: 'visit site ↗', href: 'https://filoconduttore.it' }],
+  },
+  {
     id: 'lyra',
     title: 'Lyra',
     category: 'Hackathon',
