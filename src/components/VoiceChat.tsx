@@ -52,6 +52,9 @@ const ASR_KEYWORDS = [
   'Shy Order',
   'Company Brain',
   'Beat Store',
+  'Collaudio',
+  'Parlando',
+  'Zero to HubSpot',
   'Lyra',
   'Metatron',
   'Anecoica',
@@ -74,13 +77,10 @@ function sessionAllowed(): boolean {
 }
 
 function focusProjectCard(id: string): boolean {
-  // The work section is a carousel now: prefer its controller, which activates
-  // the right slide (switching filter if needed) before scrolling.
-  const go = (window as unknown as { workGoToProject?: (id: string) => void }).workGoToProject;
-  if (typeof go === 'function') {
-    go(id);
-    return true;
-  }
+  // The work section is three collapsible blocks: its controller opens the
+  // right one before scrolling to the card.
+  const go = (window as unknown as { workGoToProject?: (id: string) => boolean }).workGoToProject;
+  if (typeof go === 'function') return go(id);
   const el = document.getElementById(`proj-${id}`);
   if (!el) return false;
   el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -127,17 +127,26 @@ function Panel({
   useConversationClientTool('goToSection', (p: { section?: string }) => {
     const map: Record<string, string> = {
       work: 'work', projects: 'work', portfolio: 'work',
-      services: 'services', service: 'services',
+      services: 'work', service: 'work',
+      call: 'call', demo: 'call', proof: 'call',
+      agencies: 'agencies', agency: 'agencies',
       about: 'about', bio: 'about',
-      experience: 'experience', training: 'experience', background: 'experience',
+      experience: 'about', training: 'about', background: 'about',
       contact: 'contact', email: 'contact',
       top: 'top', hero: 'top', home: 'top',
     };
     const id = map[(p?.section ?? '').trim().toLowerCase()];
     const el = id ? document.getElementById(id) : null;
-    if (!el) return `unknown section: ${p?.section}. valid: work, services, about, experience, contact, top`;
+    if (!el) return `unknown section: ${p?.section}. valid: work, call, agencies, about, contact, top`;
     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     return `navigated to ${id}`;
+  });
+  // The recorded call under the hero: scroll to it and press play.
+  useConversationClientTool('playCall', () => {
+    const play = (window as unknown as { playDanceCall?: () => void }).playDanceCall;
+    if (typeof play !== 'function') return 'the call is not on this page';
+    play();
+    return 'the call is playing — stay quiet while the visitor listens';
   });
   useConversationClientTool('openCV', () => {
     window.open('/cv.pdf', '_blank', 'noopener');
@@ -147,7 +156,7 @@ function Panel({
   // agent. The agent NEVER sends — the visitor reviews and presses send.
   useConversationClientTool(
     'prefillContactForm',
-    (p: { name?: string; email?: string; budget?: string; message?: string }) => {
+    (p: { name?: string; email?: string; message?: string }) => {
       const form = document.getElementById('contact-form') as HTMLFormElement | null;
       if (!form) return 'contact form not found on this page';
       const set = (sel: string, v?: string) => {
@@ -158,19 +167,6 @@ function Panel({
       set('input[name="name"]', p?.name);
       set('input[name="email"]', p?.email);
       set('textarea[name="message"]', p?.message);
-      // Budget arrives as a language-independent code. Matching on the option's
-      // TEXT would break the moment the visitor is on /en/ or /es/ (the labels
-      // are translated) or the moment the agent phrases it its own way.
-      if (p?.budget) {
-        const s = form.querySelector<HTMLSelectElement>('select[name="budget"]');
-        const slot: Record<string, number> = { 'under-2k': 1, '2k-5k': 2, 'over-5k': 3, unknown: 4 };
-        const i = slot[p.budget.trim().toLowerCase()];
-        const byText = [...(s?.options ?? [])].find(
-          (o) => o.value && o.text.toLowerCase().includes(p.budget!.toLowerCase())
-        );
-        if (s && i !== undefined && s.options[i]) s.value = s.options[i].value;
-        else if (s && byText) s.value = byText.value;
-      }
       form.scrollIntoView({ behavior: 'smooth', block: 'center' });
       form.classList.add('proj-focus');
       setTimeout(() => form.classList.remove('proj-focus'), 2400);
@@ -294,6 +290,30 @@ function Panel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Actions from outside the island, once it is mounted: the hero field, the
+  // hero microphone, a chip in the static shell.
+  const live = useRef({ status, mode });
+  live.current = { status, mode };
+  useEffect(() => {
+    const onAction = (e: Event) => {
+      const action = (e as CustomEvent<string>).detail;
+      const { status: st } = live.current;
+      const up = st === 'connected' || st === 'connecting';
+      if (action === 'voice') { if (!up) startVoice(); return; }
+      if (action === 'text') { if (!up) startText(); return; }
+      if (st === 'connected') {
+        controls.sendUserMessage(action);
+        appendUser(action);
+      } else {
+        setPending(action);
+        if (!up) startText();
+      }
+    };
+    window.addEventListener('d10s:action', onAction);
+    return () => window.removeEventListener('d10s:action', onAction);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const connected = status === 'connected';
   const shownErr = err ?? (status === 'error' ? message : null);
   const barLabel = connected ? (mode === 'voice' ? 'live' : 'chat') : status === 'connecting' ? '…' : 'online';
@@ -316,7 +336,7 @@ function Panel({
         {lines.filter((l) => l.text.trim()).map((l, i) => (
           <div key={i} className={`flex ${l.source === 'ai' ? 'justify-start' : 'justify-end'}`}>
             <div
-              className={`max-w-[82%] rounded-2xl px-3 py-2 text-[13px] leading-snug ${
+              className={`max-w-[82%] rounded-2xl px-3 py-2 text-[15px] leading-snug ${
                 l.source === 'ai'
                   ? 'rounded-bl-sm bg-oxblood/20 text-bone'
                   : 'rounded-br-sm bg-bone/[0.06] text-text-muted'
@@ -329,7 +349,7 @@ function Panel({
         <div ref={endRef} />
       </div>
 
-      {shownErr && <p className="mt-2 px-1 font-mono text-[11px] text-oxblood-soft">{shownErr}</p>}
+      {shownErr && <p className="mt-2 px-1 text-[14px] text-accent-txt">{shownErr}</p>}
 
       {/* controls pinned to the bottom */}
       <div className="mt-3.5">
@@ -339,7 +359,7 @@ function Panel({
               <button
                 onClick={startVoice}
                 disabled={status === 'connecting'}
-                className="btn-primary font-mono text-[13px] uppercase tracking-[0.12em] disabled:opacity-50"
+                className="btn-primary disabled:opacity-50"
               >
                 <MicIcon />
                 {status === 'connecting' ? '…' : vu.talk}
@@ -347,19 +367,22 @@ function Panel({
               <button
                 onClick={startText}
                 disabled={status === 'connecting'}
-                className="btn-ghost font-mono text-[13px] uppercase tracking-[0.12em] disabled:opacity-50"
+                className="btn-ghost disabled:opacity-50"
               >
                 <KeysIcon />
                 {vu.type}
               </button>
             </div>
             <div className="d10s-sugg">
-              {vu.chips.map((c) => (
+              {vu.chips.map((c, i) => (
                 <button
                   key={c}
                   type="button"
                   disabled={status === 'connecting'}
                   onClick={() => {
+                    // the first chip is the recorded call: it plays without the agent
+                    const play = (window as unknown as { playDanceCall?: () => void }).playDanceCall;
+                    if (i === 0 && typeof play === 'function') { play(); return; }
                     setPending(c);
                     startText();
                   }}
@@ -374,7 +397,7 @@ function Panel({
             <button
               type="button"
               onClick={stop}
-              className="btn-ghost font-mono text-[13px] uppercase tracking-[0.12em]"
+              className="btn-ghost"
             >
               {t.end}
             </button>
@@ -387,7 +410,7 @@ function Panel({
                 onChange={(e) => setText(e.target.value)}
                 placeholder={t.placeholder}
                 autoFocus
-                className="min-w-0 flex-1 border-0 bg-transparent p-0 font-mono text-[13px] text-bone placeholder:text-text-dim focus:outline-none"
+                className="min-h-11 min-w-0 flex-1 border-0 bg-transparent p-0 text-[16px] text-bone placeholder:text-text-dim focus:outline-none"
               />
               <button type="submit" className="d10s-mic" aria-label={t.type}>
                 <SendIcon />
@@ -396,7 +419,7 @@ function Panel({
             <button
               type="button"
               onClick={stop}
-              className="mt-2.5 block w-full text-center font-mono text-[11px] uppercase tracking-[0.14em] text-text-dim transition hover:text-bone"
+              className="mt-1 block min-h-11 w-full text-center text-[15px] text-text-dim transition hover:text-bone"
             >
               {t.end}
             </button>

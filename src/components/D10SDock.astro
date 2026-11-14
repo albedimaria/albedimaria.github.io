@@ -11,14 +11,14 @@
 // tracking differs per arc (set in CSS) so both cover the same angle — that is what
 // keeps the side dots equidistant from the two texts.
 //
-// Visibility and clicks are owned by AgentDemo: the seal and the docked panel are
+// Visibility and clicks are owned by D10SPanel: the seal and the docked panel are
 // mutually exclusive, so a single script decides which one is up.
-import type { Lang } from '../i18n/content';
+import { d10sShell, type Lang } from '../i18n/content';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
-const label: Record<Lang, string> = { en: 'Ask D10S', it: 'Chiedi a D10S', es: 'Pregunta a D10S' };
-const top: Record<Lang, string> = { en: 'any questions?', it: 'hai domande?', es: '¿alguna duda?' };
-const bottom: Record<Lang, string> = { en: 'ask the agent', it: 'chiedi all’agente', es: 'pregunta al agente' };
+const label: Record<Lang, string> = { en: d10sShell.en.dock, it: d10sShell.it.dock, es: d10sShell.es.dock };
+const top: Record<Lang, string> = { en: d10sShell.en.sealTop, it: d10sShell.it.sealTop, es: d10sShell.es.sealTop };
+const bottom: Record<Lang, string> = { en: d10sShell.en.sealBottom, it: d10sShell.it.sealBottom, es: d10sShell.es.sealBottom };
 
 // Both arcs must cover the SAME angle, or the side dots stop sitting halfway
 // between the two texts. Same span, different radius and different string length

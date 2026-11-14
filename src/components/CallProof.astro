@@ -1,0 +1,137 @@
+---
+import { copy, localizedHome, type Lang } from '../i18n/content';
+import { callRows, clock, CALL_AUDIO, CALL_DURATION, CALL_ANSWERS_IN, CALL_BOOKING_AT } from '../data/call';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = copy[lang].call;
+const dec = (n: number, digits: number) => {
+  const s = n.toFixed(digits);
+  return lang === 'en' ? s : s.replace('.', ',');
+};
+---
+
+<!-- The proof, right under the hero: one real call, the whole of it, with the
+     timings the platform recorded. No decorative waveform: the transcript and
+     its numbers are the picture. -->
+<section id="call" class="call bg-ink-2">
+  <div class="wrap grid gap-y-12 py-16 lg:grid-cols-[minmax(0,400px)_minmax(0,1fr)] lg:gap-x-24 lg:py-24">
+    <div class="flex flex-col gap-7 lg:sticky lg:top-[108px] lg:self-start">
+      <h2 class="font-display text-[clamp(34px,9vw,50px)] font-[550] leading-[1.04] tracking-[-0.01em] text-bone">{t.quote}</h2>
+      <p class="text-[18px] leading-[1.5] text-text-muted">{t.line}</p>
+
+      <div class="call-player" data-call-player data-play={t.play} data-pause={t.pause}>
+        <audio preload="none" src={CALL_AUDIO}></audio>
+        <button type="button" class="call-play" data-call-toggle aria-label={t.play}>
+          <svg class="ico-play" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z" /></svg>
+          <svg class="ico-pause" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 4.5h4v15H6zM14 4.5h4v15h-4z" /></svg>
+        </button>
+        <div class="call-track">
+          <input type="range" min="0" max={CALL_DURATION} step="1" value="0" data-call-seek aria-label={t.seek} />
+          <div class="call-times"><span data-call-now>0:00</span><span>{clock(CALL_DURATION)}</span></div>
+        </div>
+        <div class="call-speed" role="group" aria-label={t.speed}>
+          <button type="button" data-call-rate="1" aria-pressed="true">1×</button>
+          <button type="button" data-call-rate="2" aria-pressed="false">2×</button>
+        </div>
+      </div>
+
+      <dl class="call-facts">
+        <div><dt>{t.answersIn}</dt><dd>{dec(CALL_ANSWERS_IN, 1)} s</dd></div>
+        <div><dt>{t.bookingAt}</dt><dd>{clock(CALL_BOOKING_AT)}</dd></div>
+      </dl>
+    </div>
+
+    <div>
+      <div class="call-clip" data-call-clip>
+      <ol class="call-rows" aria-label={t.transcriptLabel}>
+        {callRows.map((r) =>
+          r.kind === 'tool' ? (
+            <li class="call-row is-tool" data-t={r.t}>
+              <span></span>
+              <code>{r.call}{r.result && <> → {r.result}</>}</code>
+              <span class="call-lat">{dec(r.latency, 2)} s</span>
+            </li>
+          ) : (
+            <li class:list={['call-row', r.kind === 'agent' ? 'is-agent' : 'is-caller']} data-t={r.t}>
+              <span class="call-who">{r.kind === 'agent' ? t.agent : t.caller}</span>
+              <p>
+                {r.silence ? <span class="text-text-dim">{t.silence}</span> : r.text[lang]}
+                {r.interrupted && <span class="text-text-dim"> ({t.interrupted})</span>}
+              </p>
+              <span class="call-lat">{r.latency !== undefined && <>{dec(r.latency, 1)} s</>}</span>
+            </li>
+          )
+        )}
+      </ol>
+      </div>
+      <button type="button" class="call-more btn-ghost" data-call-more>{t.whole}</button>
+      {t.translated && (
+        <p class="mt-4 text-[15px] text-text-dim">
+          {t.translated} <a href={`${localizedHome.it}#call`} class="inline-flex min-h-11 items-center underline underline-offset-4">{t.original}</a>
+        </p>
+      )}
+    </div>
+  </div>
+</section>
+
+<script>
+  const player = document.querySelector<HTMLElement>('[data-call-player]');
+  if (player) {
+    const audio = player.querySelector('audio')!;
+    const toggle = player.querySelector<HTMLButtonElement>('[data-call-toggle]')!;
+    const seek = player.querySelector<HTMLInputElement>('[data-call-seek]')!;
+    const now = player.querySelector<HTMLElement>('[data-call-now]')!;
+    const rates = [...player.querySelectorAll<HTMLButtonElement>('[data-call-rate]')];
+    const rows = [...document.querySelectorAll<HTMLElement>('.call-row')];
+    const clock = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+
+    const paint = () => {
+      const s = audio.currentTime;
+      seek.value = String(Math.floor(s));
+      seek.style.setProperty('--p', `${(s / Number(seek.max)) * 100}%`);
+      now.textContent = clock(s);
+      // the row being spoken: the last one whose start is behind the playhead
+      let live = -1;
+      rows.forEach((r, i) => { if (Number(r.dataset.t) <= s) live = i; });
+      rows.forEach((r, i) => r.classList.toggle('is-live', i === live && (!audio.paused || s > 0)));
+    };
+    const setState = () => {
+      const playing = !audio.paused;
+      player.classList.toggle('is-playing', playing);
+      toggle.setAttribute('aria-label', playing ? player.dataset.pause! : player.dataset.play!);
+    };
+
+    toggle.addEventListener('click', () => (audio.paused ? audio.play() : audio.pause()));
+    audio.addEventListener('play', setState);
+    audio.addEventListener('pause', setState);
+    audio.addEventListener('ended', () => { audio.currentTime = 0; setState(); paint(); });
+    audio.addEventListener('timeupdate', paint);
+    seek.addEventListener('input', () => { audio.currentTime = Number(seek.value); paint(); });
+    rates.forEach((b) =>
+      b.addEventListener('click', () => {
+        audio.playbackRate = Number(b.dataset.callRate);
+        rates.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      })
+    );
+    // on a phone the transcript starts clipped: the button, or pressing play, opens it
+    const clip = document.querySelector<HTMLElement>('[data-call-clip]');
+    const more = document.querySelector<HTMLElement>('[data-call-more]');
+    const openClip = () => { clip?.classList.add('is-open'); more?.remove(); };
+    more?.addEventListener('click', openClip);
+    audio.addEventListener('play', openClip);
+
+    // a row is a shortcut to its own second of the call
+    rows.forEach((r) =>
+      r.addEventListener('click', () => { audio.currentTime = Number(r.dataset.t); audio.play(); })
+    );
+
+    // D10S (chip or client tool) can bring the visitor here and press play
+    (window as unknown as { playDanceCall?: () => void }).playDanceCall = () => {
+      document.getElementById('call')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      audio.play().catch(() => {});
+    };
+  }
+</script>

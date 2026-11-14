@@ -2,43 +2,43 @@
 import Layout from '../layouts/Layout.astro';
 import Nav from './Nav.astro';
 import Hero from './Hero.astro';
-import AgentDemo from './AgentDemo.astro';
-import Work from './Work.astro';
-import Services from './Services.astro';
+import CallProof from './CallProof.astro';
+import Blocks from './Blocks.astro';
+import Agencies from './Agencies.astro';
 import About from './About.astro';
 import Contact from './Contact.astro';
 import BackToTop from './BackToTop.astro';
 import D10SDock from './D10SDock.astro';
-import { ui, type Lang } from '../i18n/content';
+import D10SPanel from './D10SPanel.astro';
+import { copy, d10sShell, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const t = ui[lang];
-const navShortcuts: Record<Lang, string> = { en: 'Page shortcuts', it: 'Scorciatoie pagina', es: 'Atajos de página' };
 ---
 
 <Layout lang={lang}>
   <Nav lang={lang} />
   <main>
     <Hero lang={lang} />
-    <AgentDemo lang={lang} />
-    <Services lang={lang} />
-    <Work lang={lang} />
+    <CallProof lang={lang} />
+    <Blocks lang={lang} />
+    <Agencies lang={lang} />
     <About lang={lang} />
     <Contact lang={lang} />
   </main>
 
   <footer class="border-t border-bone/10 bg-ink">
-    <div class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 px-6 py-8 font-mono text-[12px] text-text-dim">
+    <div class="wrap flex flex-wrap items-center justify-between gap-2 py-7 text-[15px] text-text-dim">
       <span>© 2026 Alberto Di Maria</span>
-      <span>{t.footer_built}</span>
+      <span>{copy[lang].footer}</span>
     </div>
   </footer>
 
-  <nav aria-label={navShortcuts[lang]}>
+  <nav aria-label={d10sShell[lang].shortcuts}>
     <BackToTop />
     <D10SDock lang={lang} />
   </nav>
+  <D10SPanel lang={lang} />
 </Layout>

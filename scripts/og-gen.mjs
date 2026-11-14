@@ -32,8 +32,8 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
   ${octa}
   <text x="90" y="250" font-family="monospace" font-size="26" letter-spacing="4" fill="#a89a8f">AI PRODUCT ENGINEER</text>
   <text x="88" y="350" font-family="Georgia, 'Times New Roman', serif" font-size="96" font-weight="700" fill="#f4ece3">Alberto Di Maria</text>
-  <text x="90" y="412" font-family="monospace" font-size="28" fill="#b7a89d">agentic AI · voice agents · audio</text>
-  <text x="90" y="470" font-family="monospace" font-size="21" fill="#a89a8f">Beat Store — acquired   ·   Company Brain — Top 15   ·   voice agents in production</text>
+  <text x="90" y="412" font-family="monospace" font-size="28" fill="#b7a89d">voice agents · AI automations · sites</text>
+  <text x="90" y="470" font-family="monospace" font-size="21" fill="#a89a8f">I build AI products end-to-end.</text>
 </svg>`;
 
 mkdirSync('public', { recursive: true });

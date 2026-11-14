@@ -1,151 +1,64 @@
 ---
-import WaveSignature from './WaveSignature.astro';
-import { ui, contactReply, contactHeadline, contactForm, budgetField, type Lang } from '../i18n/content';
+import { copy, BOOK_URL, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const t = ui[lang];
-const headline = contactHeadline[lang];
-const f = contactForm[lang];
-const budget = budgetField[lang];
+const t = copy[lang].contact;
+const book = copy[lang].nav.book;
 
-// Web3Forms access key — free, tied to Alberto's inbox. Static-site friendly:
-// the form posts to Web3Forms and the reply lands in the linked email. Swap the
-// placeholder with the real key (https://web3forms.com → enter email → get key).
+// Web3Forms access key — public by design (it only routes the form to
+// Alberto's inbox). The form posts straight to Web3Forms: no backend.
 const WEB3FORMS_KEY = '730cfe53-7f78-4bb5-90cf-ee5be2bae7c7';
-
-// Inline-validation messages + a low-friction trust line under the copy.
-const fErr: Record<Lang, { name: string; email: string; message: string }> = {
-  en: { name: 'Your name?', email: 'A valid email, please', message: 'A line or two?' },
-  it: { name: 'Il tuo nome?', email: 'Un’email valida, per favore', message: 'Due righe?' },
-  es: { name: '¿Tu nombre?', email: 'Un email válido, por favor', message: '¿Dos líneas?' },
-};
-const e = fErr[lang];
-// "Consulenza", not "chiamata": the pill names what the visitor gets, not the
-// medium that delivers it — and it matches the lead right above ("ti rispondo
-// con una prima idea di come lo affronterei"), which is exactly a consultation.
-const freeCall: Record<Lang, string> = {
-  en: 'First consultation is free',
-  it: 'Prima consulenza gratuita',
-  es: 'Primera consulta gratis',
-};
 ---
 
-<section id="contact" class="sec-line relative flex min-h-[100svh] items-center overflow-hidden bg-ink-2">
-  <span class="ghost-num" aria-hidden="true">04</span>
-  <WaveSignature top="74%" opacity={0.5} />
-  <div data-reveal-stagger class="relative z-10 mx-auto grid w-full max-w-5xl gap-x-16 gap-y-12 px-6 py-16 lg:grid-cols-[1fr_minmax(0,440px)]">
-    <div class="min-w-0">
-      <p class="font-mono text-[13px] uppercase tracking-[0.22em] text-bone">
-        <span class="mr-3 text-oxblood-soft">04</span>{t.contact_title}
-      </p>
-      <p class="mt-6 font-display text-5xl font-semibold leading-[1.02] tracking-tight text-bone md:text-7xl xl:text-8xl">
-        {headline.pre}<em class="italic text-accent-lg">{headline.accent}</em>
-      </p>
-      <p class="mt-6 max-w-xl text-[16px] leading-relaxed text-text-muted">{t.contact_lead}</p>
-      <p class="mt-2 font-mono text-[13px] text-text-dim">{contactReply[lang]}</p>
-
-      <div class="mt-8 inline-flex items-center gap-2.5 rounded-[var(--radius-btn)] border border-bone/12 bg-ink/40 px-4 py-3 font-mono text-[13px] text-text-muted">
-        <span class="h-2 w-2 flex-none rounded-full bg-[#57c98a]" aria-hidden="true"></span>
-        {freeCall[lang]}
-      </div>
+<section id="contact" class="bg-ink-2">
+  <div class="wrap grid gap-y-12 py-16 lg:grid-cols-[minmax(0,1fr)_520px] lg:gap-x-24 lg:py-[112px]">
+    <div class="flex flex-col gap-7">
+      <h2 class="font-display text-[clamp(52px,14vw,88px)] font-[550] leading-[0.98] tracking-[-0.015em] text-bone">
+        {t.title[0]}<br />{t.title[1]}
+      </h2>
+      <p class="text-[20px] leading-[1.5] text-text-muted">{t.lines[0]}<br />{t.lines[1]}</p>
+      <a href={BOOK_URL} class="btn-primary btn-lg w-full sm:w-auto sm:self-start">{book}</a>
     </div>
 
-    <!-- Contact form — no-JS fallback: posts straight to Web3Forms. With JS the
-         inline script intercepts and shows status without leaving the page. -->
-    <form
-      id="contact-form"
-      action="https://api.web3forms.com/submit"
-      method="POST"
-      class="min-w-0 lg:self-end"
-    >
+    <!-- No-JS fallback: posts straight to Web3Forms. With JS the inline script
+         intercepts and shows the status without leaving the page. -->
+    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="flex min-w-0 flex-col gap-[18px]">
       <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
       <input type="hidden" name="subject" value="New message from albertodimaria.com" />
       <input type="hidden" name="from_name" value="Portfolio · D10S" />
       <!-- honeypot: bots fill it, humans never see it -->
       <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
+      <p class="text-[17px] text-text-muted">{t.formIntro}</p>
+
       <div class="grid gap-4 sm:grid-cols-2">
-        <label class="block">
-          <span class="mb-1.5 block font-mono text-[12px] uppercase tracking-wider text-text-muted">{f.name}</span>
-          <input
-            type="text"
-            name="name"
-            required
-            placeholder={f.namePh}
-            data-err-msg={e.name}
-            aria-describedby="err-name"
-            class="contact-input w-full rounded-[var(--radius-btn)] border border-bone/15 bg-transparent px-4 py-3 font-mono text-[14px] text-bone placeholder:text-text-dim focus:border-oxblood focus:outline-none"
-          />
+        <label class="field">
+          <span>{t.name}</span>
+          <input type="text" name="name" required autocomplete="name" data-err-msg={t.errName} aria-describedby="err-name" />
           <span id="err-name" class="ferr" data-err aria-live="polite"></span>
         </label>
-        <label class="block">
-          <span class="mb-1.5 block font-mono text-[12px] uppercase tracking-wider text-text-muted">{f.email}</span>
-          <input
-            type="email"
-            name="email"
-            required
-            placeholder={f.emailPh}
-            autocomplete="email"
-            data-err-msg={e.email}
-            aria-describedby="err-email"
-            class="contact-input w-full rounded-[var(--radius-btn)] border border-bone/15 bg-transparent px-4 py-3 font-mono text-[14px] text-bone placeholder:text-text-dim focus:border-oxblood focus:outline-none"
-          />
+        <label class="field">
+          <span>{t.email}</span>
+          <input type="email" name="email" required autocomplete="email" data-err-msg={t.errEmail} aria-describedby="err-email" />
           <span id="err-email" class="ferr" data-err aria-live="polite"></span>
         </label>
       </div>
 
-      <label class="mt-4 block">
-        <span class="mb-1.5 block font-mono text-[12px] uppercase tracking-wider text-text-muted">
-          {budget.label} <span class="normal-case text-text-dim">· {budget.optional}</span>
-        </span>
-        <select
-          name="budget"
-          class="w-full appearance-none rounded-[var(--radius-btn)] border border-bone/15 bg-transparent px-4 py-3 font-mono text-[14px] text-bone focus:border-oxblood focus:outline-none [&>option]:bg-surface"
-        >
-          <option value="">{budget.placeholder}</option>
-          {budget.options.map((o) => <option value={o}>{o}</option>)}
-        </select>
-      </label>
-
-      <label class="mt-4 block">
-        <span class="mb-1.5 block font-mono text-[12px] uppercase tracking-wider text-text-muted">{f.message}</span>
-        <textarea
-          name="message"
-          required
-          rows="4"
-          placeholder={f.messagePh}
-          data-err-msg={e.message}
-          aria-describedby="err-message"
-          class="contact-input w-full resize-y rounded-[var(--radius-btn)] border border-bone/15 bg-transparent px-4 py-3 font-mono text-[14px] leading-relaxed text-bone placeholder:text-text-dim focus:border-oxblood focus:outline-none"
-        ></textarea>
+      <label class="field">
+        <span>{t.message}</span>
+        <textarea name="message" required rows="5" data-err-msg={t.errMessage} aria-describedby="err-message"></textarea>
         <span id="err-message" class="ferr" data-err aria-live="polite"></span>
       </label>
 
-      <div class="mt-5 flex flex-wrap items-center gap-4">
-        <button
-          type="submit"
-          data-send={f.send}
-          data-sending={f.sending}
-          class="btn-primary disabled:opacity-60"
-        >
-          {f.send}
-        </button>
-        <a href="mailto:ing.albertodimaria@gmail.com" class="contact-alt link-draw font-mono text-[13px] text-text-muted transition hover:text-bone">
-          {f.orEmail}
-        </a>
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
+        <button type="submit" data-send={t.send} data-sending={t.sending} class="btn-ghost btn-md disabled:opacity-60">{t.send}</button>
+        <a href="mailto:ing.albertodimaria@gmail.com" class="contact-alt inline-flex min-h-11 items-center text-[16px] text-text-muted underline underline-offset-4 transition-colors hover:text-bone">{t.orEmail}</a>
       </div>
 
-      <p
-        id="contact-status"
-        role="status"
-        aria-live="polite"
-        class="mt-4 hidden font-mono text-[13px]"
-        data-success={f.success}
-        data-error={f.error}
-      ></p>
+      <p id="contact-status" role="status" aria-live="polite" class="hidden text-[16px]" data-success={t.success} data-error={t.error}></p>
     </form>
   </div>
 </section>
@@ -173,7 +86,7 @@ const freeCall: Record<Lang, string> = {
         // that never leaves — a silently lost lead. Trust the payload.
         const payload = await res.json().catch(() => null);
         const ok = res.ok && payload?.success === true;
-        status.textContent = ok ? '✓ ' + status.dataset.success! : status.dataset.error!;
+        status.textContent = ok ? status.dataset.success! : status.dataset.error!;
         status.classList.remove('hidden');
         status.classList.toggle('is-ok', ok);
         status.style.color = ok ? 'var(--color-bone)' : 'var(--color-accent-txt)';
@@ -181,7 +94,7 @@ const freeCall: Record<Lang, string> = {
       } catch {
         status.textContent = status.dataset.error!;
         status.classList.remove('hidden');
-        status.style.color = 'var(--color-oxblood-soft)';
+        status.style.color = 'var(--color-accent-txt)';
       } finally {
         btn.disabled = false;
         btn.textContent = label;

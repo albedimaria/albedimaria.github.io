@@ -1,0 +1,92 @@
+---
+import { copy, moreProjects, type Lang } from '../i18n/content';
+import { projects } from '../data/projects';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = copy[lang].blocks;
+const byId = new Map(projects.map((p) => [p.id, p]));
+const linkOf = (id: string) => byId.get(id)?.links[0]?.href;
+const coverOf = (id: string) => byId.get(id)?.cover;
+---
+
+<!-- Services and work are one section: for each thing I sell, the two best
+     pieces of work next to it. A native exclusive accordion (<details name>):
+     the first block is open, the other two show their line and the names of
+     the work, so the whole menu is readable without a click. -->
+<section id="work" class="bg-ink" aria-label={t.label}>
+  <div class="wrap py-16 lg:py-24">
+    {t.items.map((b, i) => (
+      <details class="blk" name="work" id={b.id} open={i === 0}>
+        <summary>
+          <h2>{b.title[0]}<br />{b.title[1]}</h2>
+          <div class="blk-sum">
+            <p class="blk-lead">{b.lead}</p>
+            <p class="blk-names">{[...b.cards.map((c) => c.title), ...b.also.map((a) => a.name)].join(', ')}</p>
+          </div>
+          <span class="blk-tog" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M8 2v12M2 8h12" /></svg>
+          </span>
+        </summary>
+        <div class="blk-body">
+          <p class="blk-also">
+            {t.alsoLabel}{' '}
+            {b.also.map((a, k) => (
+              <>
+                {linkOf(a.id) ? <a href={linkOf(a.id)} target="_blank" rel="noopener noreferrer">{a.name}</a> : <span>{a.name}</span>}
+                {k < b.also.length - 1 && ', '}
+              </>
+            ))}
+          </p>
+          {b.cards.map((c) => {
+            const href = linkOf(c.id);
+            const Tag = href ? 'a' : 'div';
+            return (
+              <Tag class="blk-card" id={`proj-${c.id}`} {...(href ? { href, target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                <span class="blk-cover">
+                  <img src={coverOf(c.id)} alt="" loading="lazy" decoding="async" width="800" height="500" />
+                </span>
+                <h3>{c.title}</h3>
+                <p>{c.text}</p>
+              </Tag>
+            );
+          })}
+        </div>
+      </details>
+    ))}
+
+    <p class="blk-more">
+      {t.moreLabel}{' '}
+      {moreProjects.map((m, k) => (
+        <>
+          <a href={linkOf(m.id)} target="_blank" rel="noopener noreferrer">{m.name[lang]}</a>{k < moreProjects.length - 1 ? ', ' : '.'}
+        </>
+      ))}
+    </p>
+  </div>
+</section>
+
+<script>
+  // D10S (focusProject) and the hero categories can open a block from outside.
+  const blocks = [...document.querySelectorAll<HTMLDetailsElement>('details.blk')];
+  const openBlock = (el: HTMLDetailsElement | null) => { if (el && !el.open) el.open = true; };
+
+  // a link to #voice / #automations / #sites opens that block before scrolling
+  const fromHash = () => openBlock(blocks.find((b) => `#${b.id}` === location.hash) ?? null);
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+
+  (window as unknown as { workGoToProject?: (id: string) => boolean }).workGoToProject = (id) => {
+    const card = document.getElementById(`proj-${id}`);
+    if (!card) return false;
+    openBlock(card.closest<HTMLDetailsElement>('details.blk'));
+    requestAnimationFrame(() => {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.classList.add('proj-focus');
+      setTimeout(() => card.classList.remove('proj-focus'), 2400);
+    });
+    return true;
+  };
+</script>

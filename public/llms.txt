@@ -1,22 +1,37 @@
 # Alberto Di Maria
 
-> AI Product Engineer and freelance AI developer based in Milan, Italy. I build AI voice agents and full-stack AI products end-to-end — from real-time voice pipelines to payment-grade web apps. This file is a machine-readable summary of my portfolio at https://albertodimaria.com.
+> AI Product Engineer, freelance, working remotely on US hours. I build AI products end-to-end: voice agents, AI automations, sites and platforms. This file is a machine-readable summary of my portfolio at https://albertodimaria.com.
 
 ## About
-- Role: AI Product Engineer · agentic AI, voice agents & audio
-- Freelance AI developer for music-business and other clients
-- Based in Milan, Italy
-- Strengths: voice agents (ElevenLabs Agents · Twilio · Supabase · custom STT→LLM→TTS pipelines), full-stack AI products (Next.js · Supabase · Stripe), Python automation, audio/ML (PyTorch · TensorFlow · RAVE · Essentia)
-- Languages: English, Italian, Spanish
-- Site available in English (/), Italian (/it/) and Spanish (/es/)
+- Role: AI Product Engineer
+- What I build: voice agents, AI automations, sites and platforms
+- Background: MSc in Music and Acoustic Engineering, Politecnico di Milano; audio developer at Anecoica Studio, Berlin
+- Strengths: voice agents (ElevenLabs Agents, Twilio, Supabase), agentic tool-calling and RAG, full-stack products (Next.js, Supabase, Stripe), Python automation, audio and ML (PyTorch, TensorFlow, Essentia)
+- Languages: Italian, English, Spanish
+- Site available in English (/), Spanish (/es/) and Italian (/it/)
 
-## Selected work
-- [Beat Store](https://ffinnico.netlify.app): full-stack music e-commerce for a producer (Next.js, TypeScript, Supabase, Stripe, Cloudflare R2). Acquired, live. Hardened with tests + CI + observability (86% money-path coverage, Sentry).
-- [Company Brain](https://company-brain-alberto.onrender.com): agentic AI over a company's live business data — FastAPI agent with tool-calling and zero-infra RAG; exact figures, source provenance, no hallucinations. Top 15 at the Cursor × Yellow Tech hackathon.
-- [Ritmo Tropicale Voice Agent](https://dance-voice-agent-dashboard.vercel.app): 24/7 inbound AI phone assistant for a dance school, running natively on ElevenLabs Agents (Qwen 3.5 397B brain, 13 tools as Postgres RPCs, caller recognised by webhook before pickup). Adversarially tested with every scenario repeated; ~1.6s p50 response on live calls.
-- Shy Order: autonomous voice agent that calls businesses on the user's behalf, handling the full phone conversation end-to-end (ElevenLabs, Twilio, FastAPI).
-- Beyond Space: audio generation via RAVE latent-space interpolation (PyTorch, TorchScript, FastAPI, React).
-- Geometry in Music (MSc thesis): pipeline from audio analysis to prompt-free music generation; comparative benchmark of generative models.
+## Voice agents
+- [Phone agent for a dance school](https://dance-voice-agent-dashboard.vercel.app): recognises the caller, books, cancels and reschedules. Runs on ElevenLabs Agents with its tools as Postgres functions. Answers in about 0.9 seconds. A recorded test call with transcript and timings is on the home page.
+- Shy Order: takes a booking in the browser, then phones the restaurant itself and holds the whole conversation (ElevenLabs, Twilio, FastAPI).
+- Collaudio: an automated tester that phones a voice agent and checks what it said against the database.
+- Parlando: a voice-first language tutor for English and Spanish; Android app, backend and dashboard; private beta.
+
+## AI automations
+- [Company Brain](https://company-brain-alberto.onrender.com): an agent that answers questions on a company's real data, with exact figures. Hackathon, Top 10 of 80+.
+- Zero to HubSpot: 15 years of CRM data migrated in 35 seconds. Italian Hackathon League national final, Top 25.
+- Beat Agent: publishes a producer's beats to the store, straight from a folder.
+- Invoice Agent: invoices, emails and bookings for my tutoring work.
+
+## Sites and platforms
+- [Beat Store](https://ffinnico.netlify.app): a producer's online store, client work, designed with Laura Zanchetta and built from her Figma file (Next.js, TypeScript, Supabase, Stripe). Delivered; launches on the producer's domain in early 2027.
+- [Alex Bartok Music](https://alexbartokmusic.com): a musician's broken website rebuilt from scratch, with a paid client area.
+- [filoconduttore](https://filoconduttore.it): my tutoring notes as a study site, with a voice agent that gives oral tests.
+
+## Research
+- Geometry in Music (MSc thesis): from audio analysis to music generation; hands-on evaluation of generative models.
+- Beyond Space: audio generation via RAVE latent-space interpolation.
+- Wave Digital Filters on the Eventide H9000.
+- Lyra: music discovery that starts from the lyrics (Musixmatch hackathon).
 
 ## Contact
 - Email: ing.albertodimaria@gmail.com

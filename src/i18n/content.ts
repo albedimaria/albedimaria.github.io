@@ -1,395 +1,31 @@
 export type Lang = 'en' | 'it' | 'es';
 
-export const langs: Lang[] = ['it', 'en', 'es'];
-export const defaultLang: Lang = 'it';
+/** Order of the language switcher: English first (root), then Spanish, then Italian. */
+export const langs: Lang[] = ['en', 'es', 'it'];
+export const defaultLang: Lang = 'en';
 export const langLabels: Record<Lang, string> = { en: 'EN', it: 'IT', es: 'ES' };
 
-/** Path for a locale: IT at root (primary audience), en/es prefixed. */
-export const localizedHome: Record<Lang, string> = { it: '/', en: '/en/', es: '/es/' };
+/** English lives at the root; Spanish and Italian are prefixed. */
+export const localizedHome: Record<Lang, string> = { en: '/', es: '/es/', it: '/it/' };
 
 export const ogLocale: Record<Lang, string> = { en: 'en_US', it: 'it_IT', es: 'es_ES' };
+
+/** "Book a call" target. Swap for the calendar URL as soon as there is one:
+ *  until then the button lands on the contact section. */
+export const BOOK_URL = '#contact';
 
 export const seo: Record<Lang, { title: string; description: string }> = {
   en: {
     title: 'Alberto Di Maria — AI Product Engineer',
-    description: 'Websites, automation and AI voice agents for your business. Freelance in Milan: less manual work, more time and more clients.',
+    description: 'Voice agents, AI automations, sites and platforms. I build AI products end-to-end.',
   },
   it: {
     title: 'Alberto Di Maria — AI Product Engineer',
-    description: 'Siti, automazioni e agenti vocali AI per la tua attività. Freelance a Milano: meno lavoro manuale, più tempo e clienti.',
+    description: 'Voice agent, automazioni AI, siti e piattaforme. Costruisco prodotti AI end-to-end.',
   },
   es: {
     title: 'Alberto Di Maria — AI Product Engineer',
-    description: 'Webs, automatización y agentes de voz IA para tu negocio. Freelance en Milán: menos trabajo manual, más tiempo y más clientes.',
-  },
-};
-
-export const contactReply: Record<Lang, string> = {
-  en: 'I usually reply within a day.',
-  it: 'Di solito rispondo in giornata.',
-  es: 'Suelo responder en un día.',
-};
-
-export const contactForm: Record<
-  Lang,
-  {
-    name: string;
-    namePh: string;
-    email: string;
-    emailPh: string;
-    message: string;
-    messagePh: string;
-    send: string;
-    sending: string;
-    success: string;
-    error: string;
-    orEmail: string;
-  }
-> = {
-  en: {
-    name: 'Name',
-    namePh: 'your name',
-    email: 'Email',
-    emailPh: 'you@company.com',
-    message: 'Message',
-    messagePh: 'what do you need? a couple of lines is enough.',
-    send: 'Send message',
-    sending: 'Sending…',
-    success: 'Thanks — your message is on its way. I’ll get back to you soon.',
-    error: 'Something went wrong. Try again, or email me directly.',
-    orEmail: 'or email me directly',
-  },
-  it: {
-    name: 'Nome',
-    namePh: 'il tuo nome',
-    email: 'Email',
-    emailPh: 'tu@azienda.com',
-    message: 'Messaggio',
-    messagePh: 'di cosa hai bisogno? bastano due righe.',
-    send: 'Invia messaggio',
-    sending: 'Invio…',
-    success: 'Grazie — il messaggio è partito. Ti rispondo a breve.',
-    error: 'Qualcosa è andato storto. Riprova, o scrivimi direttamente.',
-    orEmail: 'oppure scrivimi direttamente',
-  },
-  es: {
-    name: 'Nombre',
-    namePh: 'tu nombre',
-    email: 'Email',
-    emailPh: 'tu@empresa.com',
-    message: 'Mensaje',
-    messagePh: '¿qué necesitas? con un par de líneas basta.',
-    send: 'Enviar mensaje',
-    sending: 'Enviando…',
-    success: 'Gracias — tu mensaje está en camino. Te respondo pronto.',
-    error: 'Algo salió mal. Inténtalo de nuevo, o escríbeme directamente.',
-    orEmail: 'o escríbeme directamente',
-  },
-};
-
-// About (restyle) — playful caption under the small photo, and the
-// learning-philosophy line that reframes the Training list as proof.
-// Small playful chip ON the photo (Miranda-style label, not a museum caption)
-export const aboutPhotoCaption: Record<Lang, string> = {
-  en: 'proper photo: wip',
-  it: 'foto seria: wip',
-  es: 'foto seria: wip',
-};
-
-// How-we-work strip (inside Contact, not a standalone section) — four
-// qualitative steps, no binding promises.
-export const processSteps: Record<Lang, { title: string; desc: string }[]> = {
-  en: [
-    { title: 'Intro call', desc: 'free, to understand the problem' },
-    { title: 'Clear proposal', desc: 'fixed price, agreed upfront, no surprises' },
-    { title: 'Build', desc: 'demos and updates along the way' },
-    { title: 'Delivery', desc: 'training on use, and support after release' },
-  ],
-  it: [
-    { title: 'Chiamata conoscitiva', desc: 'gratuita, per capire il problema' },
-    { title: 'Proposta chiara', desc: 'prezzo fisso, concordato prima, niente sorprese' },
-    { title: 'Costruzione', desc: 'demo e aggiornamenti durante il processo' },
-    { title: 'Consegna', desc: 'formazione all’uso e assistenza dopo il rilascio' },
-  ],
-  es: [
-    { title: 'Llamada inicial', desc: 'gratuita, para entender el problema' },
-    { title: 'Propuesta clara', desc: 'precio fijo, acordado antes, sin sorpresas' },
-    { title: 'Construcción', desc: 'demos y actualizaciones durante el proceso' },
-    { title: 'Entrega', desc: 'formación de uso y asistencia tras la entrega' },
-  ],
-};
-
-// Optional budget select in the contact form — expectation filter, anchored
-// at the €2k list floor (never advertise below it).
-export const budgetField: Record<Lang, { label: string; optional: string; placeholder: string; options: string[] }> = {
-  en: { label: 'Rough budget', optional: 'optional', placeholder: '—', options: ['under €2,000', '€2,000 – €5,000', 'over €5,000', 'not sure yet'] },
-  it: { label: 'Budget indicativo', optional: 'opzionale', placeholder: '—', options: ['fino a €2.000', '€2.000 – €5.000', 'oltre €5.000', 'non lo so ancora'] },
-  es: { label: 'Presupuesto orientativo', optional: 'opcional', placeholder: '—', options: ['menos de €2.000', '€2.000 – €5.000', 'más de €5.000', 'aún no lo sé'] },
-};
-
-export const servicesCta: Record<Lang, string> = {
-  en: 'See it live ↗',
-  it: 'Guardalo live ↗',
-  es: 'Míralo en vivo ↗',
-};
-
-// Hero line that ties the name to the agent — the "equation" explained in one
-// sentence. `accent` is rendered in Fraunces italic oxblood.
-export const heroLine: Record<Lang, { pre: string; accent: string; post: string }> = {
-  en: { pre: 'I build AI products end-to-end — and ', accent: 'D10S', post: ', right here, is one of them.' },
-  it: { pre: 'Costruisco prodotti AI end-to-end — e ', accent: 'D10S', post: ', qui accanto, è uno di loro.' },
-  es: { pre: 'Construyo productos de IA end-to-end — y ', accent: 'D10S', post: ', aquí mismo, es uno de ellos.' },
-};
-
-// Hero (restyle) — question hook (accent = Fraunces italic, oxblood) + a
-// business-first one-liner split into a white lead and a muted follow.
-export const heroHook: Record<Lang, { line1: string; accent: string }> = {
-  en: { line1: 'Still doing it all', accent: 'by hand?' },
-  it: { line1: 'Ancora tutto', accent: 'a mano?' },
-  es: { line1: '¿Todavía todo', accent: 'a mano?' },
-};
-export const heroSub: Record<Lang, { lead: string; follow: string }> = {
-  en: { lead: 'Websites, automation and AI agents for your business', follow: 'less manual work, more time and more clients.' },
-  it: { lead: 'Siti, automazioni e agenti AI per la tua attività', follow: 'meno lavoro manuale, più tempo e clienti.' },
-  es: { lead: 'Webs, automatización y agentes IA para tu negocio', follow: 'menos trabajo manual, más tiempo y más clientes.' },
-};
-export const heroPhotoRole: Record<Lang, string> = {
-  en: 'AI product engineer · Milan',
-  it: 'AI product engineer · Milano',
-  es: 'AI product engineer · Milán',
-};
-
-// Agent band (D10S) — full-width section under the hero. Kicker + question
-// title (\n splits the two lines) + one-line description.
-export const agentBand: Record<Lang, { kicker: string; title: string; desc: string }> = {
-  en: { kicker: 'live demo', title: 'Still answering everything yourself?\nAsk my agent.', desc: 'It knows every project on this site. Ask it anything — by voice or text.' },
-  it: { kicker: 'demo dal vivo', title: 'Rispondi ancora tu a tutto?\nChiedi al mio agente.', desc: 'Conosce ogni progetto di questo sito. Fagli una domanda — a voce o per iscritto.' },
-  es: { kicker: 'demo en vivo', title: '¿Respondes todavía tú a todo?\nPregunta a mi agente.', desc: 'Conoce cada proyecto de este sitio. Pregúntale lo que quieras — por voz o texto.' },
-};
-
-// Services band (restyle) — three statement cards. Titles are affirmations
-// (the questions live in the hero and the agent band), one-line client-level
-// descriptions, and a quiet reference link into the work section.
-export interface ServiceCard {
-  cat: string;
-  pre: string;
-  accent: string;
-  desc: string;
-  ref: string;
-}
-export const servicesBand: Record<Lang, { kicker: string; cta: string; cards: ServiceCard[] }> = {
-  en: {
-    kicker: 'what I do for you',
-    cta: "got something in mind? let's talk →",
-    cards: [
-      { cat: 'sites & platforms', pre: 'A website that works', accent: 'for you.', desc: 'E-commerce, bookings, client areas. Or the rescue of a site that no longer works.', ref: '→ Beat Store, live' },
-      { cat: 'automation & AI', pre: 'Paperwork that does', accent: 'itself.', desc: 'Invoices, emails and calendars that talk to each other: repetitive work closes itself.', ref: '→ Company Brain, live' },
-      { cat: 'voice agents', pre: 'It answers,', accent: "when you can't.", desc: 'A 24/7 phone assistant that books, reschedules and informs.', ref: '→ Ritmo Tropicale, live' },
-    ],
-  },
-  it: {
-    kicker: 'cosa faccio per te',
-    cta: 'hai in mente qualcosa? parliamone →',
-    cards: [
-      { cat: 'siti & piattaforme', pre: 'Un sito che lavora', accent: 'per te.', desc: 'E-commerce, prenotazioni, area clienti. Oppure il recupero di un sito che non funziona più.', ref: '→ Beat Store, live' },
-      { cat: 'automazioni & AI', pre: 'La burocrazia si fa', accent: 'da sola.', desc: 'Fatture, email e calendari che si parlano: le operazioni ripetitive si chiudono da sole.', ref: '→ Company Brain, live' },
-      { cat: 'voice agents', pre: 'Risponde lui,', accent: 'quando non puoi.', desc: 'Un assistente telefonico 24/7 che prenota, sposta e informa.', ref: '→ Ritmo Tropicale, live' },
-    ],
-  },
-  es: {
-    kicker: 'qué hago por ti',
-    cta: '¿tienes algo en mente? hablemos →',
-    cards: [
-      { cat: 'webs & plataformas', pre: 'Una web que trabaja', accent: 'para ti.', desc: 'E-commerce, reservas, área de clientes. O el rescate de una web que ya no funciona.', ref: '→ Beat Store, live' },
-      { cat: 'automatización & IA', pre: 'El papeleo se hace', accent: 'solo.', desc: 'Facturas, emails y calendarios que se hablan: las tareas repetitivas se cierran solas.', ref: '→ Company Brain, live' },
-      { cat: 'voice agents', pre: 'Responde él,', accent: 'cuando tú no puedes.', desc: 'Un asistente telefónico 24/7 que reserva, cambia e informa.', ref: '→ Ritmo Tropicale, live' },
-    ],
-  },
-};
-
-// D10S guide claim — heading + sub of the hero's right column.
-export const voiceDemo: Record<Lang, { title: string; desc: string }> = {
-  en: {
-    title: 'Your AI voice guide to this site.',
-    desc: '',
-  },
-  it: {
-    title: 'La tua guida vocale AI al sito.',
-    desc: '',
-  },
-  es: {
-    title: 'Tu guía de voz IA del sitio.',
-    desc: '',
-  },
-};
-
-// Voice panel labels + chips — shared by the static Astro shell (renders with
-// zero JS) and the React island (mounted on first interaction).
-// Chips: business-first, and each is answerable from the RAG corpus. The
-// "draft my contact message" chip lands in phase 6 with the prefill tool.
-export const voiceUi: Record<Lang, { talk: string; type: string; chips: string[] }> = {
-  en: { talk: 'talk', type: 'type', chips: ['what can you do for my business?', 'show me a project for a client', 'write the message to Alberto for me'] },
-  it: { talk: 'parla', type: 'scrivi', chips: ['cosa puoi fare per la mia attività?', 'mostrami un lavoro per un cliente', 'scrivi tu il messaggio per Alberto'] },
-  es: { talk: 'habla', type: 'escribe', chips: ['¿qué puedes hacer por mi negocio?', 'muéstrame un proyecto de cliente', 'escribe tú el mensaje para Alberto'] },
-};
-
-// Contact headline split so the last word carries the italic accent.
-export const contactHeadline: Record<Lang, { pre: string; accent: string }> = {
-  en: { pre: "Let's work ", accent: 'together.' },
-  it: { pre: 'Lavoriamo ', accent: 'insieme.' },
-  es: { pre: 'Trabajemos ', accent: 'juntos.' },
-};
-
-export const filterCanonical = ['All', 'Client work', 'Hackathons', 'Voice AI', 'Audio / ML', 'Research'] as const;
-
-interface UI {
-  nav: { work: string; services: string; about: string; contact: string };
-  nav_cta: string;
-  hero_available: string;
-  hero_role: string;
-  hero_cta_primary: string;
-  hero_cta_secondary: string;
-  hero_cta_cv: string;
-  work_title: string;
-  work_lead: string;
-  filter_labels: Record<string, string>;
-  filter_desc: Record<string, string>;
-  show_all: string;
-  services_title: string;
-  services_lead: string;
-  services: { title: string; desc: string }[];
-  about_title: string;
-  about_text: string;
-  about_closing: string;
-  experience_title: string;
-  training_title: string;
-  contact_title: string;
-  contact_headline: string;
-  contact_lead: string;
-  contact_email: string;
-  footer_built: string;
-}
-
-export const ui: Record<Lang, UI> = {
-  en: {
-    nav: { work: 'work', services: 'services', about: 'about', contact: 'contact' },
-    nav_cta: "let's work together",
-    hero_available: 'available for new projects',
-    hero_role: 'AI PRODUCT ENGINEER · agentic AI, voice agents & audio',
-    hero_cta_primary: "Let's work together →",
-    hero_cta_secondary: 'View work ↓',
-    hero_cta_cv: 'Download CV',
-    work_title: 'Selected work',
-    work_lead: 'Client work, products online, research.',
-    filter_labels: { All: 'All', 'Client work': 'Client work', Products: 'Products', Hackathons: 'Hackathons', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML', Research: 'Research' },
-    filter_desc: {
-      All: '',
-      'Client work': 'real clients, in production',
-      Products: 'my own products',
-      Hackathons: 'competition builds — placed & awarded',
-      'Voice AI': 'real-time conversational phone agents',
-      'Audio / ML': 'audio analysis & generative models',
-      Research: 'academic & advanced technical work',
-    },
-    show_all: 'Show all projects',
-    services_title: 'What I build',
-    services_lead: 'End-to-end AI products — from the model and the data to the interface your users actually touch.',
-    services: [
-      { title: 'AI voice agents', desc: 'Inbound & outbound phone agents that book, qualify and handle real conversations end-to-end — STT → LLM tool-calling → TTS on Twilio.' },
-      { title: 'Full-stack AI products', desc: 'Production web apps from database to UI — e-commerce, dashboards, auth, payments — shipped, secured and maintained.' },
-      { title: 'Automation & agents', desc: 'Agentic pipelines and CLI tools that remove manual work: data enrichment, publishing, invoicing and integrations.' },
-      { title: 'Audio & ML', desc: 'Generative audio, music information retrieval and deep-learning models — from research prototype to interactive demo.' },
-    ],
-    about_title: 'About',
-    about_text: 'Engineer (MSc, Politecnico di Milano). I build websites, automation and AI agents for businesses and small companies — from the first line of code to launch, and I keep looking after them afterwards.',
-    about_closing: 'I follow what comes out as soon as it does, and I try it: workshops, hackathons, continuous training. Freelance in Milan, working remotely too.',
-    experience_title: 'Experience',
-    training_title: 'Training',
-    contact_title: 'Contact',
-    contact_headline: 'Let’s work together.',
-    contact_lead: 'Write me a couple of lines about what you need. I’ll reply with a first idea of how I’d approach it.',
-    contact_email: 'Email me',
-    footer_built: 'Milan, Italy · built with Astro',
-  },
-  it: {
-    nav: { work: 'lavori', services: 'servizi', about: 'chi sono', contact: 'contatti' },
-    nav_cta: 'lavoriamo insieme',
-    hero_available: 'disponibile per nuovi progetti',
-    hero_role: 'AI PRODUCT ENGINEER · AI agentica, voice agent & audio',
-    hero_cta_primary: 'Lavoriamo insieme →',
-    hero_cta_secondary: 'Vedi i lavori ↓',
-    hero_cta_cv: 'Scarica il CV',
-    work_title: 'Lavori selezionati',
-    work_lead: 'Lavori su commissione, prodotti online, ricerca.',
-    filter_labels: { All: 'Tutti', 'Client work': 'Su commissione', Products: 'Prodotti', Hackathons: 'Hackathon', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML', Research: 'Ricerca' },
-    filter_desc: {
-      All: '',
-      'Client work': 'clienti reali, in produzione',
-      Products: 'prodotti miei',
-      Hackathons: 'progetti da competition — premiati',
-      'Voice AI': 'agenti telefonici conversazionali real-time',
-      'Audio / ML': 'analisi audio e modelli generativi',
-      Research: 'lavoro accademico e tecnico avanzato',
-    },
-    show_all: 'Mostra tutti i progetti',
-    services_title: 'Cosa costruisco',
-    services_lead: 'Prodotti AI end-to-end — dal modello e dai dati fino all’interfaccia che i tuoi utenti toccano davvero.',
-    services: [
-      { title: 'Agenti vocali AI', desc: 'Agenti telefonici inbound e outbound che prenotano, qualificano e gestiscono conversazioni reali end-to-end — STT → LLM tool-calling → TTS su Twilio.' },
-      { title: 'Prodotti AI full-stack', desc: 'Web app in produzione dal database alla UI — e-commerce, dashboard, auth, pagamenti — online, sicure e mantenute.' },
-      { title: 'Automazione e agenti', desc: 'Pipeline agentiche e tool CLI che eliminano il lavoro manuale: arricchimento dati, pubblicazione, fatturazione e integrazioni.' },
-      { title: 'Audio e ML', desc: 'Audio generativo, music information retrieval e modelli deep-learning — dal prototipo di ricerca alla demo interattiva.' },
-    ],
-    about_title: 'Chi sono',
-    about_text: 'Ingegnere (MSc, Politecnico di Milano). Costruisco siti, automazioni e agenti AI per attività e piccole imprese — dalla prima riga di codice alla messa online, e continuo a seguirli dopo.',
-    about_closing: 'Seguo le novità appena escono e le provo: workshop, hackathon, formazione continua. Freelance a Milano, lavoro anche da remoto.',
-    experience_title: 'Esperienze',
-    training_title: 'Formazione',
-    contact_title: 'Contatti',
-    contact_headline: 'Lavoriamo insieme.',
-    contact_lead: 'Scrivimi due righe su cosa ti serve. Ti rispondo con una prima idea di come lo affronterei.',
-    contact_email: 'Scrivimi →',
-    footer_built: 'Milano, Italia · costruito con Astro',
-  },
-  es: {
-    nav: { work: 'trabajo', services: 'servicios', about: 'sobre mí', contact: 'contacto' },
-    nav_cta: 'trabajemos juntos',
-    hero_available: 'disponible para nuevos proyectos',
-    hero_role: 'AI PRODUCT ENGINEER · IA agéntica, agentes de voz & audio',
-    hero_cta_primary: 'Trabajemos juntos →',
-    hero_cta_secondary: 'Ver proyectos ↓',
-    hero_cta_cv: 'Descargar CV',
-    work_title: 'Trabajos seleccionados',
-    work_lead: 'Trabajos por encargo, productos online, investigación.',
-    filter_labels: { All: 'Todos', 'Client work': 'Por encargo', Products: 'Productos', Hackathons: 'Hackathons', 'Voice AI': 'Voice AI', 'Audio / ML': 'Audio / ML', Research: 'Investigación' },
-    filter_desc: {
-      All: '',
-      'Client work': 'clientes reales, en producción',
-      Products: 'productos propios',
-      Hackathons: 'proyectos de competición — premiados',
-      'Voice AI': 'agentes telefónicos conversacionales en tiempo real',
-      'Audio / ML': 'análisis de audio y modelos generativos',
-      Research: 'trabajo académico y técnico avanzado',
-    },
-    show_all: 'Ver todos los proyectos',
-    services_title: 'Qué construyo',
-    services_lead: 'Productos de IA end-to-end — del modelo y los datos a la interfaz que tus usuarios tocan de verdad.',
-    services: [
-      { title: 'Agentes de voz IA', desc: 'Agentes telefónicos inbound y outbound que reservan, cualifican y gestionan conversaciones reales end-to-end — STT → LLM tool-calling → TTS en Twilio.' },
-      { title: 'Productos de IA full-stack', desc: 'Apps web en producción de la base de datos a la UI — e-commerce, dashboards, auth, pagos — entregadas, seguras y mantenidas.' },
-      { title: 'Automatización y agentes', desc: 'Pipelines agénticas y herramientas CLI que eliminan el trabajo manual: enriquecimiento de datos, publicación, facturación e integraciones.' },
-      { title: 'Audio y ML', desc: 'Audio generativo, music information retrieval y modelos de deep-learning — del prototipo de investigación a la demo interactiva.' },
-    ],
-    about_title: 'Sobre mí',
-    about_text: 'Ingeniero (MSc, Politecnico di Milano). Construyo webs, automatización y agentes IA para negocios y pequeñas empresas — desde la primera línea de código hasta la puesta en línea, y los sigo también después.',
-    about_closing: 'Sigo las novedades en cuanto salen y las pruebo: workshops, hackathons, formación continua. Freelance en Milán, también en remoto.',
-    experience_title: 'Experiencia',
-    training_title: 'Formación',
-    contact_title: 'Contacto',
-    contact_headline: 'Trabajemos juntos.',
-    contact_lead: 'Escríbeme dos líneas sobre lo que necesitas. Te respondo con una primera idea de cómo lo abordaría.',
-    contact_email: 'Escríbeme →',
-    footer_built: 'Milán, Italia · hecho con Astro',
+    description: 'Agentes de voz, automatizaciones con IA, webs y plataformas. Construyo productos de IA end-to-end.',
   },
 };
 
@@ -399,47 +35,487 @@ export interface TimelineItem {
   desc: string;
 }
 
-export const experience: Record<Lang, TimelineItem[]> = {
+export interface BlockCard {
+  /** id in src/data/projects.ts: cover and link come from there */
+  id: string;
+  title: string;
+  text: string;
+}
+
+export interface Block {
+  id: 'voice' | 'automations' | 'sites';
+  /** two lines, so the three titles share one rhythm */
+  title: [string, string];
+  lead: string;
+  cards: [BlockCard, BlockCard];
+  /** smaller work in the same category: project id + display name */
+  also: { id: string; name: string }[];
+}
+
+interface Copy {
+  skip: string;
+  nav: { work: string; agencies: string; about: string; book: string; menuOpen: string; menuClose: string; language: string };
+  hero: {
+    h1: [string, string];
+    /** rendered as: <em>D10S</em>{d10sLine} */
+    d10sLine: string;
+    ask: string;
+    askLabel: string;
+    talk: string;
+    sphere: string;
+    /** the same line on a phone, where the sphere is the only control */
+    d10sLineMobile: [string, string];
+    cats: [string, string, string];
+    cueTop: string;
+    cue: string;
+  };
+  call: {
+    quote: string;
+    line: string;
+    play: string;
+    pause: string;
+    speed: string;
+    seek: string;
+    answersIn: string;
+    bookingAt: string;
+    caller: string;
+    agent: string;
+    silence: string;
+    interrupted: string;
+    translated: string;
+    original: string;
+    transcriptLabel: string;
+    whole: string;
+  };
+  blocks: { label: string; alsoLabel: string; moreLabel: string; items: Block[] };
+  agencies: { label: string; title: string; line: string };
+  about: {
+    title: string;
+    lead: string;
+    body: [string, string];
+    facts: { label: string; value: string }[];
+    cv: string;
+    photoAlt: string;
+    certifications: string;
+    experience: string;
+    education: string;
+  };
+  contact: {
+    title: [string, string];
+    lines: [string, string];
+    formIntro: string;
+    name: string;
+    email: string;
+    message: string;
+    send: string;
+    sending: string;
+    success: string;
+    error: string;
+    orEmail: string;
+    errName: string;
+    errEmail: string;
+    errMessage: string;
+  };
+  footer: string;
+}
+
+export const copy: Record<Lang, Copy> = {
+  en: {
+    skip: 'Skip to content',
+    nav: { work: 'Work', agencies: 'For agencies', about: 'About', book: 'Book a call', menuOpen: 'Open menu', menuClose: 'Close menu', language: 'Change language' },
+    hero: {
+      h1: ['I build AI products', 'end-to-end.'],
+      d10sLine: ', my voice agent, will show you around the site.',
+      ask: 'Talk or write to D10S',
+      askLabel: 'Write to D10S',
+      talk: 'Talk to D10S',
+      sphere: 'Open D10S',
+      d10sLineMobile: ['Talk or write to ', ', my voice agent.'],
+      cats: ['Voice agents', 'AI automations', 'Sites & platforms'],
+      cueTop: 'Scroll',
+      cue: 'Hear a real call',
+    },
+    call: {
+      quote: '“The Thursday in two weeks, not this one.”',
+      line: 'A test call to the phone agent I built for a dance school.',
+      play: 'Play the call',
+      pause: 'Pause the call',
+      speed: 'Playback speed',
+      seek: 'Position in the call',
+      answersIn: 'Answers in',
+      bookingAt: 'Booking written at',
+      caller: 'Caller',
+      agent: 'Agent',
+      silence: '(silence)',
+      interrupted: 'interrupted',
+      translated: 'Translated from Italian.',
+      original: 'Read the original',
+      transcriptLabel: 'Transcript of the call',
+      whole: 'Show the whole call',
+    },
+    blocks: {
+      label: 'Work',
+      alsoLabel: 'Also:',
+      moreLabel: 'More:',
+      items: [
+        {
+          id: 'voice',
+          title: ['Voice', 'agents'],
+          lead: 'Phone agents that answer and call out, or voice inside your app.',
+          cards: [
+            { id: 'dance-voice-agent', title: 'Phone agent for a dance school', text: 'Recognises the caller, books, cancels and reschedules. Answers in 0.9 seconds.' },
+            { id: 'shy-order', title: 'Shy Order', text: 'Takes your booking in the browser, then phones the restaurant itself.' },
+          ],
+          also: [{ id: 'collaudio', name: 'Collaudio' }, { id: 'parlando', name: 'Parlando' }],
+        },
+        {
+          id: 'automations',
+          title: ['AI', 'automations'],
+          lead: 'Automations that close repetitive work.',
+          cards: [
+            { id: 'company-brain', title: 'Company Brain', text: 'An agent that answers questions on a company’s real data. Hackathon, Top 10 of 80+.' },
+            { id: 'zero-to-hubspot', title: 'Zero to HubSpot', text: '15 years of CRM data migrated in 35 seconds. National final, Top 25.' },
+          ],
+          also: [{ id: 'beat-agent', name: 'Beat Agent' }, { id: 'invoice-agent', name: 'Invoice Agent' }],
+        },
+        {
+          id: 'sites',
+          title: ['Sites &', 'platforms'],
+          lead: 'A new site from scratch, or an existing one updated and fixed.',
+          cards: [
+            { id: 'beat-store', title: 'Beat Store', text: 'A producer’s online store, designed with Laura Zanchetta and built from her Figma file.' },
+            { id: 'alex-bartok', title: 'Alex Bartok Music', text: 'A musician’s broken website rebuilt from scratch, with a paid client area.' },
+          ],
+          also: [{ id: 'filoconduttore', name: 'filoconduttore' }],
+        },
+      ],
+    },
+    agencies: { label: 'For agencies', title: 'Voice agents for agencies.', line: 'Tested by automated calls, verified by hand.' },
+    about: {
+      title: 'About',
+      lead: 'I trained as an audio engineer, and voice is the area I keep coming back to.',
+      body: [
+        'I studied Music and Acoustic Engineering at Politecnico di Milano, then worked on generative models and music analysis at Anecoica Studio in Berlin. Over the last two years I have built AI products end-to-end: phone agents, automations and sites for clients.',
+        'Testing a voice agent by hand meant making calls after every change. So I built a tester that calls the agent itself and checks what it said against the database. I also teach: more than 30 university students in computer science and electronics.',
+      ],
+      facts: [
+        { label: 'Languages', value: 'Italian, English, Spanish' },
+        { label: 'Where', value: 'Remote, US hours' },
+        { label: 'Degree', value: 'MSc, Politecnico di Milano' },
+      ],
+      cv: 'Download CV',
+      photoAlt: 'Alberto Di Maria',
+      certifications: 'Certifications',
+      experience: 'Experience',
+      education: 'Education',
+    },
+    contact: {
+      title: ['Let’s work', 'together.'],
+      lines: ['The first call is free.', 'I usually reply within a day.'],
+      formIntro: 'Or write to me.',
+      name: 'Name',
+      email: 'Email',
+      message: 'Message',
+      send: 'Send message',
+      sending: 'Sending…',
+      success: 'Thanks, your message is on its way.',
+      error: 'Something went wrong. Try again, or email me directly.',
+      orEmail: 'or email me directly',
+      errName: 'Your name?',
+      errEmail: 'A valid email, please',
+      errMessage: 'A line or two?',
+    },
+    footer: 'Remote, US hours',
+  },
+
+  it: {
+    skip: 'Vai al contenuto',
+    nav: { work: 'Lavori', agencies: 'Per agenzie', about: 'Chi sono', book: 'Prenota una call', menuOpen: 'Apri il menu', menuClose: 'Chiudi il menu', language: 'Cambia lingua' },
+    hero: {
+      h1: ['Costruisco prodotti AI', 'end-to-end.'],
+      d10sLine: ', il mio agente vocale, ti accompagna nel sito.',
+      ask: 'Parla o scrivi a D10S',
+      askLabel: 'Scrivi a D10S',
+      talk: 'Parla con D10S',
+      sphere: 'Apri D10S',
+      d10sLineMobile: ['Parla o scrivi a ', ', il mio agente vocale.'],
+      cats: ['Voice agent', 'Automazioni AI', 'Siti e piattaforme'],
+      cueTop: 'Scorri',
+      cue: 'Ascolta una chiamata vera',
+    },
+    call: {
+      quote: '«Il giovedì fra due settimane, non questo giovedì.»',
+      line: 'Una chiamata di prova all’agente telefonico che ho costruito per una scuola di ballo.',
+      play: 'Ascolta la chiamata',
+      pause: 'Metti in pausa',
+      speed: 'Velocità di ascolto',
+      seek: 'Posizione nella chiamata',
+      answersIn: 'Risponde in',
+      bookingAt: 'Prenotazione scritta a',
+      caller: 'Chi chiama',
+      agent: 'Agente',
+      silence: '(silenzio)',
+      interrupted: 'interrotto',
+      translated: '',
+      original: '',
+      transcriptLabel: 'Trascrizione della chiamata',
+      whole: 'Mostra tutta la chiamata',
+    },
+    blocks: {
+      label: 'Lavori',
+      alsoLabel: 'Anche:',
+      moreLabel: 'Altro:',
+      items: [
+        {
+          id: 'voice',
+          title: ['Voice', 'agent'],
+          lead: 'Agenti telefonici che rispondono e chiamano, o la voce dentro la tua app.',
+          cards: [
+            { id: 'dance-voice-agent', title: 'Agente telefonico per una scuola di ballo', text: 'Riconosce chi chiama, prenota, cancella e sposta. Risponde in 0,9 secondi.' },
+            { id: 'shy-order', title: 'Shy Order', text: 'Prende la tua prenotazione nel browser, poi telefona lui al ristorante.' },
+          ],
+          also: [{ id: 'collaudio', name: 'Collaudio' }, { id: 'parlando', name: 'Parlando' }],
+        },
+        {
+          id: 'automations',
+          title: ['Automazioni', 'AI'],
+          lead: 'Automazioni che chiudono il lavoro ripetitivo.',
+          cards: [
+            { id: 'company-brain', title: 'Company Brain', text: 'Un agente che risponde sui dati veri di un’azienda. Hackathon, Top 10 su 80+.' },
+            { id: 'zero-to-hubspot', title: 'Zero to HubSpot', text: '15 anni di dati di un CRM migrati in 35 secondi. Finale nazionale, Top 25.' },
+          ],
+          also: [{ id: 'beat-agent', name: 'Beat Agent' }, { id: 'invoice-agent', name: 'Invoice Agent' }],
+        },
+        {
+          id: 'sites',
+          title: ['Siti e', 'piattaforme'],
+          lead: 'Un sito nuovo da zero, o uno esistente aggiornato e sistemato.',
+          cards: [
+            { id: 'beat-store', title: 'Beat Store', text: 'Lo store online di un producer, disegnato con Laura Zanchetta e costruito dal suo file Figma.' },
+            { id: 'alex-bartok', title: 'Alex Bartok Music', text: 'Il sito rotto di un musicista rifatto da zero, con un’area clienti a pagamento.' },
+          ],
+          also: [{ id: 'filoconduttore', name: 'filoconduttore' }],
+        },
+      ],
+    },
+    agencies: { label: 'Per agenzie', title: 'Voice agent per agenzie.', line: 'Testati con chiamate automatiche, verificati a mano.' },
+    about: {
+      title: 'Chi sono',
+      lead: 'Mi sono formato come ingegnere del suono, e la voce è l’area a cui torno sempre.',
+      body: [
+        'Ho studiato Music and Acoustic Engineering al Politecnico di Milano, poi ho lavorato su modelli generativi e analisi musicale ad Anecoica Studio, a Berlino. Negli ultimi due anni ho costruito prodotti AI end-to-end: agenti telefonici, automazioni e siti per clienti.',
+        'Testare un voice agent a mano voleva dire fare chiamate dopo ogni modifica. Così ho costruito un tester che chiama lui l’agente e confronta quello che ha detto con il database. Insegno anche: più di 30 studenti universitari in informatica ed elettronica.',
+      ],
+      facts: [
+        { label: 'Lingue', value: 'Italiano, inglese, spagnolo' },
+        { label: 'Dove', value: 'Da remoto, orari USA' },
+        { label: 'Laurea', value: 'MSc, Politecnico di Milano' },
+      ],
+      cv: 'Scarica il CV',
+      photoAlt: 'Alberto Di Maria',
+      certifications: 'Certificazioni',
+      experience: 'Esperienze',
+      education: 'Studi',
+    },
+    contact: {
+      title: ['Lavoriamo', 'insieme.'],
+      lines: ['La prima call è gratuita.', 'Di solito rispondo in giornata.'],
+      formIntro: 'Oppure scrivimi.',
+      name: 'Nome',
+      email: 'Email',
+      message: 'Messaggio',
+      send: 'Invia messaggio',
+      sending: 'Invio…',
+      success: 'Grazie, il messaggio è partito.',
+      error: 'Qualcosa è andato storto. Riprova, o scrivimi direttamente.',
+      orEmail: 'oppure scrivimi direttamente',
+      errName: 'Il tuo nome?',
+      errEmail: 'Un’email valida, per favore',
+      errMessage: 'Due righe?',
+    },
+    footer: 'Da remoto, orari USA',
+  },
+
+  es: {
+    skip: 'Ir al contenido',
+    nav: { work: 'Trabajo', agencies: 'Para agencias', about: 'Sobre mí', book: 'Reserva una llamada', menuOpen: 'Abrir el menú', menuClose: 'Cerrar el menú', language: 'Cambiar idioma' },
+    hero: {
+      h1: ['Construyo productos de IA', 'end-to-end.'],
+      d10sLine: ', mi agente de voz, te enseña el sitio.',
+      ask: 'Habla o escribe a D10S',
+      askLabel: 'Escribe a D10S',
+      talk: 'Habla con D10S',
+      sphere: 'Abrir D10S',
+      d10sLineMobile: ['Habla o escribe a ', ', mi agente de voz.'],
+      cats: ['Agentes de voz', 'Automatizaciones con IA', 'Webs y plataformas'],
+      cueTop: 'Desliza',
+      cue: 'Escucha una llamada real',
+    },
+    call: {
+      quote: '«El jueves dentro de dos semanas, no este.»',
+      line: 'Una llamada de prueba al agente telefónico que construí para una escuela de baile.',
+      play: 'Escuchar la llamada',
+      pause: 'Pausar la llamada',
+      speed: 'Velocidad de reproducción',
+      seek: 'Posición en la llamada',
+      answersIn: 'Responde en',
+      bookingAt: 'Reserva escrita en',
+      caller: 'Quien llama',
+      agent: 'Agente',
+      silence: '(silencio)',
+      interrupted: 'interrumpido',
+      translated: 'Traducido del italiano.',
+      original: 'Leer el original',
+      transcriptLabel: 'Transcripción de la llamada',
+      whole: 'Ver toda la llamada',
+    },
+    blocks: {
+      label: 'Trabajo',
+      alsoLabel: 'También:',
+      moreLabel: 'Más:',
+      items: [
+        {
+          id: 'voice',
+          title: ['Agentes', 'de voz'],
+          lead: 'Agentes telefónicos que responden y llaman, o voz dentro de tu app.',
+          cards: [
+            { id: 'dance-voice-agent', title: 'Agente telefónico para una escuela de baile', text: 'Reconoce a quien llama, reserva, cancela y cambia. Responde en 0,9 segundos.' },
+            { id: 'shy-order', title: 'Shy Order', text: 'Toma tu reserva en el navegador y luego llama él al restaurante.' },
+          ],
+          also: [{ id: 'collaudio', name: 'Collaudio' }, { id: 'parlando', name: 'Parlando' }],
+        },
+        {
+          id: 'automations',
+          title: ['Automatizaciones', 'con IA'],
+          lead: 'Automatizaciones que cierran el trabajo repetitivo.',
+          cards: [
+            { id: 'company-brain', title: 'Company Brain', text: 'Un agente que responde sobre los datos reales de una empresa. Hackathon, Top 10 de 80+.' },
+            { id: 'zero-to-hubspot', title: 'Zero to HubSpot', text: '15 años de datos de un CRM migrados en 35 segundos. Final nacional, Top 25.' },
+          ],
+          also: [{ id: 'beat-agent', name: 'Beat Agent' }, { id: 'invoice-agent', name: 'Invoice Agent' }],
+        },
+        {
+          id: 'sites',
+          title: ['Webs y', 'plataformas'],
+          lead: 'Una web nueva desde cero, o una existente actualizada y arreglada.',
+          cards: [
+            { id: 'beat-store', title: 'Beat Store', text: 'La tienda online de un productor, diseñada con Laura Zanchetta y construida desde su archivo Figma.' },
+            { id: 'alex-bartok', title: 'Alex Bartok Music', text: 'La web rota de un músico rehecha desde cero, con un área de clientes de pago.' },
+          ],
+          also: [{ id: 'filoconduttore', name: 'filoconduttore' }],
+        },
+      ],
+    },
+    agencies: { label: 'Para agencias', title: 'Agentes de voz para agencias.', line: 'Probados con llamadas automáticas, verificados a mano.' },
+    about: {
+      title: 'Sobre mí',
+      lead: 'Me formé como ingeniero de audio, y la voz es el área a la que siempre vuelvo.',
+      body: [
+        'Estudié Music and Acoustic Engineering en el Politecnico di Milano y luego trabajé en modelos generativos y análisis musical en Anecoica Studio, en Berlín. En los últimos dos años he construido productos de IA end-to-end: agentes telefónicos, automatizaciones y webs para clientes.',
+        'Probar un agente de voz a mano significaba hacer llamadas después de cada cambio. Así que construí un tester que llama él al agente y compara lo que dijo con la base de datos. También enseño: más de 30 estudiantes universitarios de informática y electrónica.',
+      ],
+      facts: [
+        { label: 'Idiomas', value: 'Italiano, inglés, español' },
+        { label: 'Dónde', value: 'En remoto, horario de EE. UU.' },
+        { label: 'Título', value: 'MSc, Politecnico di Milano' },
+      ],
+      cv: 'Descargar CV',
+      photoAlt: 'Alberto Di Maria',
+      certifications: 'Certificaciones',
+      experience: 'Experiencia',
+      education: 'Estudios',
+    },
+    contact: {
+      title: ['Trabajemos', 'juntos.'],
+      lines: ['La primera llamada es gratis.', 'Suelo responder en un día.'],
+      formIntro: 'O escríbeme.',
+      name: 'Nombre',
+      email: 'Email',
+      message: 'Mensaje',
+      send: 'Enviar mensaje',
+      sending: 'Enviando…',
+      success: 'Gracias, tu mensaje está en camino.',
+      error: 'Algo salió mal. Inténtalo de nuevo, o escríbeme directamente.',
+      orEmail: 'o escríbeme directamente',
+      errName: '¿Tu nombre?',
+      errEmail: 'Un email válido, por favor',
+      errMessage: '¿Dos líneas?',
+    },
+    footer: 'En remoto, horario de EE. UU.',
+  },
+};
+
+/** "More" line under the three blocks: research and side work, by project id. */
+export const moreProjects: { id: string; name: Record<Lang, string> }[] = [
+  { id: 'lyra', name: { en: 'Lyra', it: 'Lyra', es: 'Lyra' } },
+  { id: 'thesis', name: { en: 'MSc thesis', it: 'Tesi magistrale', es: 'Tesis de máster' } },
+  { id: 'beyond-space', name: { en: 'Beyond Space', it: 'Beyond Space', es: 'Beyond Space' } },
+  { id: 'wdf-h9000', name: { en: 'Wave Digital Filters on the Eventide H9000', it: 'Wave Digital Filters su Eventide H9000', es: 'Wave Digital Filters en el Eventide H9000' } },
+];
+
+// D10S panel — static shell (zero JS) and the React island share these.
+export const voiceUi: Record<Lang, { talk: string; type: string; chips: string[] }> = {
+  en: { talk: 'talk', type: 'type', chips: ['play me the real call', 'show me a project for a client', 'write the message to Alberto for me'] },
+  it: { talk: 'parla', type: 'scrivi', chips: ['fammi sentire la chiamata vera', 'mostrami un lavoro per un cliente', 'scrivi tu il messaggio per Alberto'] },
+  es: { talk: 'habla', type: 'escribe', chips: ['ponme la llamada real', 'muéstrame un proyecto de cliente', 'escribe tú el mensaje para Alberto'] },
+};
+
+export const d10sShell: Record<Lang, { greeting: string; tryLabel: string; inputPh: string; mic: string; minimise: string; dock: string; sealTop: string; sealBottom: string; shortcuts: string }> = {
+  en: { greeting: 'Hi, I’m D10S. Tell me what you need.', tryLabel: 'try asking', inputPh: 'type a message…', mic: 'Talk to D10S', minimise: 'Minimise D10S', dock: 'Ask D10S', sealTop: 'any questions?', sealBottom: 'ask the agent', shortcuts: 'Page shortcuts' },
+  it: { greeting: 'Ciao, sono D10S. Dimmi di cosa hai bisogno.', tryLabel: 'prova a chiedere', inputPh: 'scrivi un messaggio…', mic: 'Parla con D10S', minimise: 'Riduci D10S', dock: 'Chiedi a D10S', sealTop: 'hai domande?', sealBottom: 'chiedi all’agente', shortcuts: 'Scorciatoie pagina' },
+  es: { greeting: 'Hola, soy D10S. Dime qué necesitas.', tryLabel: 'prueba a preguntar', inputPh: 'escribe un mensaje…', mic: 'Habla con D10S', minimise: 'Reducir D10S', dock: 'Pregunta a D10S', sealTop: '¿alguna duda?', sealBottom: 'pregunta al agente', shortcuts: 'Atajos de página' },
+};
+
+export const certifications: Record<Lang, TimelineItem[]> = {
   en: [
-    { title: 'Freelance Developer — AI-Powered Audio Tools', meta: '2026 – Present · Milan, Italy', desc: 'End-to-end AI web tools for the music industry: e-commerce, automation agents and voice interfaces.' },
-    { title: 'Audio Developer — Anecoica Studio', meta: 'Berlin, Germany · 2023 – 2024', desc: 'Music information retrieval, 3D interfaces and generative audio; full-stack prototype in React, Flask and Python.' },
-    { title: 'Private Tutor — il-Cubo.it', meta: 'Milan, Italy · 2021 – Present', desc: 'Tutored 30+ bachelor and master students in CS and electronics; later coordinated a team of tutors.' },
-    { title: 'STEM Instructor — Bricks4Kidz', meta: 'Milan, Italy · 2025 – 2026', desc: 'STEM for primary-school children: LEGO Technic and an introduction to programming.' },
+    { title: 'Creative Machine Learning', meta: 'IRCAM / ACIDS · 2025', desc: 'ML for audio: neural networks, generative models and transformers. Score 96/100.' },
+    { title: 'Audio Signal Processing for Music Applications', meta: 'Universitat Pompeu Fabra · 2025', desc: 'Analysis, transformation and synthesis of musical signals.' },
+    { title: 'Generative Music AI Workshop', meta: 'Music Technology Group & Sound of AI · 2025', desc: 'Generative AI for music, with a team project. In person, 1 week.' },
   ],
   it: [
-    { title: 'Sviluppatore Freelance — Strumenti Audio AI per Produttori Musicali', meta: '2026 – Presente · Milano, Italia', desc: 'Sviluppo end-to-end di strumenti web basati su AI per l’industria musicale: piattaforme e-commerce, agenti di automazione e interfacce vocali.' },
-    { title: 'Audio Developer — Anecoica Studio', meta: 'Berlino, Germania · 2023 – 2024', desc: 'Music Information Retrieval, interfacce 3D e modelli audio generativi; prototipo full-stack con React, Flask e Python.' },
-    { title: 'Docente privato — il-Cubo.it', meta: 'Milano, Italia · 2021 – Presente', desc: 'Tutorato di 30+ studenti triennali e magistrali in informatica ed elettronica; ruolo espanso al coordinamento di un team di tutor.' },
-    { title: 'Istruttore STEM — Bricks4Kidz', meta: 'Milano, Italia · 2025 – 2026', desc: 'Formatore STEM per bambini della scuola primaria: LEGO Technic e introduzione alla programmazione.' },
+    { title: 'Creative Machine Learning', meta: 'IRCAM / ACIDS · 2025', desc: 'ML per l’audio: reti neurali, modelli generativi e transformer. Voto 96/100.' },
+    { title: 'Audio Signal Processing for Music Applications', meta: 'Universitat Pompeu Fabra · 2025', desc: 'Analisi, trasformazione e sintesi di segnali musicali.' },
+    { title: 'Generative Music AI Workshop', meta: 'Music Technology Group & Sound of AI · 2025', desc: 'AI generativa per la musica, con un progetto in team. In presenza, 1 settimana.' },
   ],
   es: [
-    { title: 'Desarrollador Freelance — Herramientas de Audio con IA para Productores', meta: '2026 – Presente · Milán, Italia', desc: 'Desarrollo end-to-end de herramientas web con IA para la industria musical: plataformas e-commerce, agentes de automatización e interfaces de voz.' },
-    { title: 'Audio Developer — Anecoica Studio', meta: 'Berlín, Alemania · 2023 – 2024', desc: 'Music Information Retrieval, interfaces 3D y modelos de audio generativos; prototipo full-stack con React, Flask y Python.' },
-    { title: 'Profesor particular — il-Cubo.it', meta: 'Milán, Italia · 2021 – Presente', desc: 'Tutorías a 30+ estudiantes de grado y máster en informática y electrónica; rol ampliado a la coordinación de un equipo de tutores.' },
-    { title: 'Instructor STEM — Bricks4Kidz', meta: 'Milán, Italia · 2025 – 2026', desc: 'Instructor STEM para niños de primaria: LEGO Technic y programación introductoria.' },
+    { title: 'Creative Machine Learning', meta: 'IRCAM / ACIDS · 2025', desc: 'ML para audio: redes neuronales, modelos generativos y transformers. Nota 96/100.' },
+    { title: 'Audio Signal Processing for Music Applications', meta: 'Universitat Pompeu Fabra · 2025', desc: 'Análisis, transformación y síntesis de señales musicales.' },
+    { title: 'Generative Music AI Workshop', meta: 'Music Technology Group & Sound of AI · 2025', desc: 'IA generativa para la música, con un proyecto en equipo. Presencial, 1 semana.' },
   ],
 };
 
-export const training: Record<Lang, TimelineItem[]> = {
+export const experience: Record<Lang, TimelineItem[]> = {
   en: [
-    { title: 'Agent Harness Workshop — Datapizza & Cosmico', meta: '2026 · Milan · 1 day', desc: 'Built a custom LLM agent harness from scratch: tool-calling loop, parallel subagents, RAG vs grep over a Markdown knowledge base. No frameworks.' },
-    { title: 'Generative Music AI Workshop — MTG & Sound of AI', meta: '2025 · Barcelona · 1 week · certificate', desc: 'GenAI for music creation with team-based project development.' },
-    { title: 'Artificial Intelligence Tutor — AIFIA', meta: '2025 · online · certificate', desc: 'Certified AI trainer with advanced GenAI skills and a commitment to ethical AI.' },
-    { title: 'Audio Signal Processing for Music Applications — UPF', meta: '2025 · online · 10 weeks', desc: 'Analysis, transformation and synthesis of musical signals.' },
-    { title: 'Creative Machine Learning — IRCAM / ACIDS', meta: '2025 · online · 10 weeks · 96/100', desc: 'ML for audio: fundamentals, neural networks, generative models and transformers.' },
+    { title: 'Freelance AI Developer', meta: '2026 – Present · Remote', desc: 'AI systems for clients, end-to-end: LLM agents, backend APIs and full-stack products.' },
+    { title: 'Audio Developer — Anecoica Studio', meta: 'Berlin · 2023 – 2024', desc: 'Generative audio models, music information retrieval and a full-stack prototype in React, Flask and Python.' },
+    { title: 'Private Tutor — il-Cubo.it and filoconduttore.it', meta: '2021 – Present', desc: 'Tutored 30+ bachelor and master students in computer science and electronics.' },
+    { title: 'STEM Instructor — Bricks4Kidz', meta: 'Milan · 2025 – 2026', desc: 'STEM for primary-school children: LEGO Technic and an introduction to programming.' },
   ],
   it: [
-    { title: 'Workshop Agent Harness — Datapizza & Cosmico', meta: '2026 · Milano · 1 giorno', desc: 'Costruito un agent harness LLM da zero: loop di tool-calling, subagenti paralleli e ricerca RAG vs Grep su knowledge base Markdown. Nessun framework.' },
-    { title: 'Generative Music AI Workshop — MTG & Sound of AI', meta: '2025 · Barcellona · 1 settimana · certificato', desc: 'GenAI per generare musica con sviluppo di un progetto in team.' },
-    { title: 'Tutor di Intelligenza Artificiale — AIFIA', meta: '2025 · online · certificato', desc: 'Certificazione come tutor qualificato di IA con abilità avanzate in GenAI e impegno per l’uso etico dell’IA.' },
-    { title: 'Audio Signal Processing for Music Applications — UPF', meta: '2025 · online · 10 settimane', desc: 'Analisi, trasformazione e sintesi di segnali musicali.' },
-    { title: 'Creative Machine Learning — IRCAM / ACIDS', meta: '2025 · online · 10 settimane · 96/100', desc: 'ML per l’audio: fondamenti, reti neurali, modelli generativi e transformer.' },
+    { title: 'Sviluppatore AI freelance', meta: '2026 – Presente · Da remoto', desc: 'Sistemi AI per clienti, end-to-end: agenti LLM, API backend e prodotti full-stack.' },
+    { title: 'Audio Developer — Anecoica Studio', meta: 'Berlino · 2023 – 2024', desc: 'Modelli audio generativi, music information retrieval e un prototipo full-stack con React, Flask e Python.' },
+    { title: 'Docente privato — il-Cubo.it e filoconduttore.it', meta: '2021 – Presente', desc: 'Tutorato di 30+ studenti triennali e magistrali in informatica ed elettronica.' },
+    { title: 'Istruttore STEM — Bricks4Kidz', meta: 'Milano · 2025 – 2026', desc: 'STEM per bambini della scuola primaria: LEGO Technic e introduzione alla programmazione.' },
   ],
   es: [
-    { title: 'Workshop de Agent Harness — Datapizza & Cosmico', meta: '2026 · Milán · 1 día', desc: 'Construcción de un agent harness LLM desde cero: bucle de tool-calling, subagentes paralelos y búsqueda RAG vs Grep sobre base de conocimiento Markdown. Sin frameworks.' },
-    { title: 'Generative Music AI Workshop — MTG & Sound of AI', meta: '2025 · Barcelona · 1 semana · certificado', desc: 'GenAI para la creación musical con desarrollo de proyectos en equipo.' },
-    { title: 'Tutor de Inteligencia Artificial — AIFIA', meta: '2025 · en línea · certificado', desc: 'Certificación como formador cualificado en IA con habilidades avanzadas en GenAI y uso ético de la IA.' },
-    { title: 'Audio Signal Processing for Music Applications — UPF', meta: '2025 · en línea · 10 semanas', desc: 'Análisis, transformación y síntesis de señales musicales.' },
-    { title: 'Creative Machine Learning — IRCAM / ACIDS', meta: '2025 · en línea · 10 semanas · 96/100', desc: 'ML para audio: fundamentos, redes neuronales, modelos generativos y transformers.' },
+    { title: 'Desarrollador de IA freelance', meta: '2026 – Presente · En remoto', desc: 'Sistemas de IA para clientes, end-to-end: agentes LLM, APIs backend y productos full-stack.' },
+    { title: 'Audio Developer — Anecoica Studio', meta: 'Berlín · 2023 – 2024', desc: 'Modelos de audio generativos, music information retrieval y un prototipo full-stack con React, Flask y Python.' },
+    { title: 'Profesor particular — il-Cubo.it y filoconduttore.it', meta: '2021 – Presente', desc: 'Tutorías a 30+ estudiantes de grado y máster en informática y electrónica.' },
+    { title: 'Instructor STEM — Bricks4Kidz', meta: 'Milán · 2025 – 2026', desc: 'STEM para niños de primaria: LEGO Technic e introducción a la programación.' },
+  ],
+};
+
+export const education: Record<Lang, TimelineItem[]> = {
+  en: [
+    { title: 'MSc Music and Acoustic Engineering', meta: 'Politecnico di Milano · 2024', desc: 'Thesis: a system that goes from audio analysis to music generation.' },
+    { title: 'BSc Electronic Engineering', meta: 'Università di Padova · 2020', desc: '' },
+  ],
+  it: [
+    { title: 'Laurea magistrale in Music and Acoustic Engineering', meta: 'Politecnico di Milano · 2024', desc: 'Tesi: un sistema che va dall’analisi audio alla generazione musicale.' },
+    { title: 'Laurea triennale in Ingegneria Elettronica', meta: 'Università di Padova · 2020', desc: '' },
+  ],
+  es: [
+    { title: 'Máster en Music and Acoustic Engineering', meta: 'Politecnico di Milano · 2024', desc: 'Tesis: un sistema que va del análisis de audio a la generación musical.' },
+    { title: 'Grado en Ingeniería Electrónica', meta: 'Università di Padova · 2020', desc: '' },
   ],
 };

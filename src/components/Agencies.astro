@@ -1,0 +1,22 @@
+---
+import { copy, BOOK_URL, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = copy[lang].agencies;
+const book = copy[lang].nav.book;
+---
+
+<!-- For the agency founder who arrives from an email: one line, one button. -->
+<section id="agencies" class="bg-ink-2">
+  <div class="wrap grid gap-y-8 py-16 lg:grid-cols-3 lg:items-end lg:gap-x-12 lg:py-[88px]">
+    <div class="flex flex-col gap-5 lg:col-span-2">
+      <p class="text-[20px] text-accent-txt">{t.label}</p>
+      <h2 class="font-display text-[clamp(36px,9.5vw,52px)] font-[550] leading-[1.05] tracking-[-0.012em] text-bone">{t.title}</h2>
+      <p class="font-display text-[clamp(22px,6vw,28px)] leading-[1.2] text-text-muted">{t.line}</p>
+    </div>
+    <a href={BOOK_URL} class="btn-primary btn-lg w-full lg:w-auto lg:justify-self-end">{book}</a>
+  </div>
+</section>

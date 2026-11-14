@@ -1,0 +1,147 @@
+---
+import { voiceUi, d10sShell, type Lang } from '../i18n/content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = d10sShell[lang];
+const vu = voiceUi[lang];
+---
+
+<!-- D10S, the agent itself. One floating panel in the corner, opened by the
+     hero (sphere, field, microphone) or by the seal that takes the hero's place
+     once it scrolls away. The panel is a static shell (zero JS) that mounts the
+     React + ElevenLabs island only on the first interaction. The page behind
+     stays fully visible: watching the agent move the page IS the demo. -->
+<div id="d10s-wrap" class="d10s-wrap">
+  <button id="d10s-min" type="button" class="d10s-min" aria-label={s.minimise}>
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+      <path d="M6 6l12 12M18 6L6 18" />
+    </svg>
+  </button>
+  <div id="d10s-panel" data-lang={lang} class="d10s text-left">
+    <div class="d10s-bar"><span class="d10s-live" aria-hidden="true"></span><span><b>D10S</b> · online</span></div>
+
+    <p class="d10s-say">{s.greeting}</p>
+
+    <div class="d10s-sugg">
+      <div class="lb">{s.tryLabel}</div>
+      {vu.chips.map((c, i) => (
+        <button type="button" data-d10s={i === 0 ? 'call' : 'chip'} data-chip={c}>{c}</button>
+      ))}
+    </div>
+
+    <div class="d10s-input">
+      <button type="button" class="d10s-input-text" data-d10s="text" aria-label={s.inputPh}>{s.inputPh}</button>
+      <button type="button" class="d10s-mic" data-d10s="voice" aria-label={s.mic}>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+          <rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0" /><path d="M12 18v3" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const panel = document.getElementById('d10s-panel');
+  const wrap = document.getElementById('d10s-wrap');
+  const hero = document.getElementById('top');
+  if (panel && wrap && hero) {
+    const dock = document.getElementById('d10s-dock');
+    const minBtn = document.getElementById('d10s-min');
+    let booted = false;
+    let open = false; // never by itself, only on a click
+    let past = false; // the hero has scrolled away
+
+    const playCall = () => (window as unknown as { playDanceCall?: () => void }).playDanceCall?.();
+
+    const sync = () => {
+      wrap.classList.toggle('is-docked', open);
+      // seal and panel are mutually exclusive; the seal only exists below the hero
+      dock?.classList.toggle('is-on', past && !open);
+      dock?.classList.toggle('is-live', booted && !open);
+      document.body.classList.toggle('d10s-docked', open);
+    };
+
+    // Load the voice SDK only on the first interaction. Later actions reach the
+    // mounted island as an event: the session, the mic grant and the transcript
+    // are never torn down.
+    const act = async (action: string | null) => {
+      open = true;
+      sync();
+      if (!booted) {
+        booted = true;
+        const { mount } = await import('./voice-mount');
+        mount(panel, (panel.dataset.lang as 'en' | 'it' | 'es') || 'en', action);
+        sync();
+      } else if (action) {
+        window.dispatchEvent(new CustomEvent('d10s:action', { detail: action }));
+      }
+    };
+
+    // static shell
+    panel.querySelectorAll<HTMLElement>('[data-d10s]').forEach((b) =>
+      b.addEventListener('click', () => {
+        const kind = b.dataset.d10s!;
+        if (kind === 'call') { open = false; sync(); playCall(); return; }
+        act(kind === 'chip' ? b.dataset.chip! : kind);
+      })
+    );
+
+    // hero triggers: sphere, field, microphone
+    document.querySelectorAll<HTMLElement>('[data-d10s-trigger]').forEach((el) => {
+      const kind = el.dataset.d10sTrigger;
+      if (kind === 'form') {
+        el.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const input = el.querySelector<HTMLInputElement>('input[name="q"]');
+          const q = input?.value.trim();
+          if (input) input.value = '';
+          act(q || 'text');
+        });
+      } else {
+        el.addEventListener('click', () => act(kind === 'voice' ? 'voice' : null));
+      }
+    });
+
+    let ticking = false;
+    const measure = () => {
+      ticking = false;
+      const now = hero.getBoundingClientRect().bottom < window.innerHeight * 0.45;
+      if (now === past) return;
+      past = now;
+      sync();
+    };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(measure); } };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    measure();
+    sync();
+
+    dock?.addEventListener('click', () => act(null));
+    minBtn?.addEventListener('click', () => { open = false; sync(); });
+
+    // Light dismiss: click away or Escape. The clicks that OPEN the panel bubble
+    // up here too, hence the guards.
+    document.addEventListener('click', (e) => {
+      if (!open) return;
+      const el = e.target as HTMLElement;
+      if (el.closest('#d10s-wrap') || el.closest('#d10s-dock') || el.closest('[data-d10s-trigger]')) return;
+      open = false;
+      sync();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && open) { open = false; sync(); }
+    });
+
+    // On a phone the seal sits ON the contact form: it steps aside there.
+    const contact = document.getElementById('contact');
+    if (contact) {
+      new IntersectionObserver(
+        ([e]) => document.body.classList.toggle('contact-in-view', e.isIntersecting),
+        { threshold: 0.22 }
+      ).observe(contact);
+    }
+  }
+</script>

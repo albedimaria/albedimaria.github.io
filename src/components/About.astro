@@ -1,159 +1,61 @@
 ---
-import { ui, experience, training, type Lang } from '../i18n/content';
+import { copy, certifications, experience, education, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const t = ui[lang];
-const exp = experience[lang];
-const tr = training[lang];
+const t = copy[lang].about;
 
-// Bio: split on the em-dash so the hook clause ("…lo sistemo") can carry weight.
-const [bioLead, bioHook] = t.about_text.split(/\s—\s/);
-
-// Count-up credibility anchor. Numbers derived from real data (14 projects, site
-// trilingual); `anni` is a placeholder to confirm with Alberto.
-const stats: { to: number; suffix?: string; label: Record<Lang, string> }[] = [
-  { to: 14, label: { en: 'projects shipped', it: 'progetti realizzati', es: 'proyectos realizados' } },
-  { to: 3, label: { en: 'clients', it: 'clienti', es: 'clientes' } },
-  { to: 1, label: { en: 'year freelance', it: 'anno freelance', es: 'año freelance' } },
-];
-
-const VISIBLE = 2;
-const moreLabel = { en: 'show more', it: 'mostra altri', es: 'ver más' }[lang];
 const lists = [
-  { id: 'exp', title: t.experience_title, items: exp },
-  { id: 'train', title: t.training_title, items: tr },
+  { id: 'certifications', title: t.certifications, items: certifications[lang] },
+  { id: 'experience', title: t.experience, items: experience[lang] },
+  { id: 'education', title: t.education, items: education[lang] },
 ];
-const cvLabel = { en: 'Download CV', it: 'Scarica il CV', es: 'Descargar CV' }[lang];
 ---
 
-<!-- Chi sono + Esperienza — one continuous section: bio, a count-up credibility
-     strip, then the timeline as a real spine with node dots. -->
-<section id="about" class="sec-line relative bg-ink-2">
-  <span class="ghost-num" aria-hidden="true">03</span>
-  <div class="mx-auto max-w-5xl px-6 py-14 md:py-24">
-    <p data-reveal class="font-mono text-[13px] uppercase tracking-[0.22em] text-bone"><span class="mr-3 text-oxblood-soft">03</span>{t.about_title}</p>
-
-    <div data-reveal-stagger class="mt-8 grid gap-7 md:grid-cols-[250px_1fr] md:gap-10 md:items-start">
-      <!-- capped on phones: full-width this becomes a 406px portrait — half a
-           screen for a face the visitor already met in the hero -->
-      <div class="about-photo relative w-[190px] overflow-hidden rounded-[var(--radius-card)] border border-bone/10 bg-surface md:w-auto">
-        <img src="/images/propic.webp" alt="Alberto Di Maria" loading="lazy" width="500" height="625" class="aspect-[4/5] w-full object-cover" />
-      </div>
-
-      <div class="min-w-0">
-        <p class="max-w-[60ch] font-display text-2xl leading-snug text-text-muted md:text-[26px]">
-          {bioLead}{bioHook && <> — <span class="text-bone">{bioHook}</span></>}
-        </p>
-        <p class="mt-4 max-w-[60ch] text-[16px] leading-relaxed text-text-muted">{t.about_closing}</p>
-
-        <!-- On a phone these three wrapped as 2 + 1, leaving GitHub orphaned on
-             a line of its own. As a 2-column grid the CV spans the full width
-             (it is the primary action) and the two links sit side by side. -->
-        <div class="mt-7 grid grid-cols-2 gap-3 md:flex md:flex-wrap md:items-center">
-          <a href="/cv.pdf" class="btn-primary col-span-2 justify-center md:col-auto">{cvLabel} <span class="btn-arw" aria-hidden="true">↓</span></a>
-          <a href="https://www.linkedin.com/in/di-maria-alberto/" target="_blank" rel="noopener noreferrer" class="btn-ghost justify-center">LinkedIn ↗</a>
-          <a href="https://github.com/albedimaria" target="_blank" rel="noopener noreferrer" class="btn-ghost justify-center">GitHub ↗</a>
-        </div>
-      </div>
+<section id="about" class="bg-ink">
+  <div class="wrap grid gap-y-10 py-16 lg:grid-cols-[320px_minmax(0,1fr)] lg:gap-x-[88px] lg:py-[104px]">
+    <div class="about-photo w-[200px] overflow-hidden rounded-[var(--radius-card)] border border-bone/10 bg-surface lg:w-auto lg:self-start">
+      <img src="/images/alberto.webp" alt={t.photoAlt} loading="lazy" decoding="async" width="900" height="900" class="aspect-[4/5] w-full object-cover" />
     </div>
 
-    <!-- Count-up credibility strip -->
-    <dl data-reveal class="mt-14 grid grid-cols-3 gap-6 border-t border-bone/10 pt-10">
-      {stats.map((s) => (
-        <div class="stat">
-          <dd class="stat-num" data-count-to={s.to}>0{s.suffix ?? ''}</dd>
-          <dt class="stat-label">{s.label[lang]}</dt>
-        </div>
-      ))}
-    </dl>
+    <div class="flex min-w-0 flex-col gap-7">
+      <h2 class="font-display text-[clamp(44px,11vw,60px)] font-[550] leading-none tracking-[-0.012em] text-bone">{t.title}</h2>
+      <p class="max-w-[760px] font-display text-[clamp(22px,6vw,28px)] leading-[1.35] text-bone">{t.lead}</p>
+      {t.body.map((p) => <p class="max-w-[760px] text-[clamp(17px,4.6vw,19px)] leading-[1.6] text-text-muted">{p}</p>)}
 
-    <!-- Experience + training — full-width timeline with a continuous spine -->
-    <div id="experience" class="mt-16 grid gap-x-16 gap-y-12 pt-2 md:grid-cols-2">
-      {lists.map((list) => (
-        <div>
-          <h2 data-reveal class="font-mono text-[13px] uppercase tracking-[0.22em] text-accent-txt">{list.title}</h2>
-          <ol class="tl mt-7" data-list={list.id} data-reveal-stagger>
-            {list.items.map((e, i) => (
-              <li
-                class:list={['tl-item', i === 0 && list.id === 'exp' && 'is-now', i >= VISIBLE && 'is-extra']}
-                style={i >= VISIBLE ? 'display:none' : undefined}
-              >
-                <h3 class="font-display text-lg font-semibold leading-tight text-bone">{e.title}</h3>
-                <p class="tl-meta mt-1 font-mono text-[12px] text-text-dim">{e.meta}</p>
-                <p class="mt-1.5 text-[16px] leading-relaxed text-text-muted">{e.desc}</p>
-              </li>
-            ))}
-          </ol>
-          {list.items.length > VISIBLE && (
-            <button
-              type="button"
-              data-list={list.id}
-              data-label={moreLabel}
-              class="more-btn mt-6 font-mono text-[12px] text-text-muted underline-offset-4 transition hover:text-bone hover:underline"
-            >
-              {moreLabel} (+{list.items.length - VISIBLE})
-            </button>
-          )}
-        </div>
-      ))}
+      <div class="grid gap-x-8 gap-y-5 border-t border-bone/12 pt-6 sm:grid-cols-3">
+        {t.facts.map((f) => (
+          <div class="flex flex-col gap-1">
+            <span class="text-[15px] text-text-dim">{f.label}</span>
+            <span class="text-[18px] text-bone">{f.value}</span>
+          </div>
+        ))}
+        <a href="/cv.pdf" class="about-link">{t.cv}</a>
+        <a href="https://www.linkedin.com/in/di-maria-alberto/" target="_blank" rel="noopener noreferrer" class="about-link">LinkedIn</a>
+        <a href="https://github.com/albedimaria" target="_blank" rel="noopener noreferrer" class="about-link">GitHub</a>
+      </div>
+
+      <div class="border-b border-bone/12">
+        {lists.map((l) => (
+          <details class="about-list" id={l.id}>
+            <summary>
+              {l.title}
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            </summary>
+            <ul>
+              {l.items.map((e) => (
+                <li>
+                  <h3>{e.title}</h3>
+                  <p class="about-meta">{e.meta}</p>
+                  {e.desc && <p class="about-desc">{e.desc}</p>}
+                </li>
+              ))}
+            </ul>
+          </details>
+        ))}
+      </div>
     </div>
   </div>
 </section>
-
-<script>
-  // On a phone the two lists side by side become two lists stacked — four long
-  // entries in a row. Collapse to ONE entry each and let "mostra altri" do the
-  // rest: same content, half the scroll. Desktop keeps two.
-  if (window.matchMedia('(max-width: 767px)').matches) {
-    document.querySelectorAll<HTMLElement>('ol.tl').forEach((ol) => {
-      const btn = document.querySelector<HTMLElement>(`.more-btn[data-list="${ol.dataset.list}"]`);
-      if (!btn) return; // no way to expand ⇒ never hide
-      const items = [...ol.querySelectorAll<HTMLElement>('.tl-item')];
-      items.forEach((el, i) => {
-        if (i < 1) return;
-        el.classList.add('is-extra');
-        el.style.display = 'none';
-      });
-      btn.textContent = `${btn.dataset.label} (+${items.length - 1})`;
-    });
-  }
-
-  // "show more" reveals the collapsed timeline entries.
-  document.querySelectorAll('.more-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const id = btn.getAttribute('data-list');
-      document
-        .querySelectorAll(`ol[data-list="${id}"] .is-extra`)
-        .forEach((el) => ((el as HTMLElement).style.display = ''));
-      (btn as HTMLElement).style.display = 'none';
-    });
-  });
-
-  // Count-up stats — animate 0 → target when the strip scrolls into view.
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const nums = document.querySelectorAll<HTMLElement>('.stat-num[data-count-to]');
-  const run = (el: HTMLElement) => {
-    const to = parseInt(el.dataset.countTo || '0', 10);
-    const suffix = (el.textContent || '').replace(/[0-9]/g, '').trim();
-    if (reduce) { el.textContent = `${to}${suffix}`; return; }
-    const dur = 1100;
-    let start = 0;
-    const step = (ts: number) => {
-      if (!start) start = ts;
-      const p = Math.min((ts - start) / dur, 1);
-      const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
-      el.textContent = `${Math.round(eased * to)}${suffix}`;
-      if (p < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-  };
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) { run(e.target as HTMLElement); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.6 });
-  nums.forEach((n) => io.observe(n));
-</script>

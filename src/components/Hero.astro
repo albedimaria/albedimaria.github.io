@@ -1,70 +1,105 @@
 ---
-import WaveSignature from './WaveSignature.astro';
-import { ui, heroHook, heroSub, heroPhotoRole, type Lang } from '../i18n/content';
+import { copy, BOOK_URL, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const t = ui[lang];
-const hook = heroHook[lang];
-const sub = heroSub[lang];
-const cueLabel: Record<Lang, string> = { en: 'Meet my agent', it: 'Vai al mio agente', es: 'Ir a mi agente' };
+const t = copy[lang].hero;
+const book = copy[lang].nav.book;
+const catHref = ['#voice', '#automations', '#sites'];
 ---
 
-<!-- Hero: business-first question hook + photo. The D10S agent moved to its
-     own full-width band below (see AgentDemo.astro). -->
-<section id="top" class="hero-glow relative flex min-h-[calc(100svh-77px)] flex-col overflow-hidden">
-  <WaveSignature top="68%" />
+<!-- Hero: one sentence, one button, and D10S as the object of the screen. The
+     sphere, the line and the field all open the same agent (see D10SPanel). The
+     wave is the D10S signature: it swells with the agent's voice (--d10s-vol)
+     and reaches towards whichever category is hovered (--wave-from). -->
+<section id="top" class="hero relative flex min-h-[min(calc(100svh-77px),960px)] flex-col overflow-hidden">
+  <div class="hero-wave" aria-hidden="true">
+    <svg class="hero-waves" viewBox="0 20 150 40" preserveAspectRatio="none">
+      <defs><path id="line-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18" /></defs>
+      <g class="parallax-lines">
+        <use href="#line-wave" x="48" y="0" fill="none" stroke="rgba(156,51,64,0.8)" stroke-width="0.32" />
+        <use href="#line-wave" x="48" y="3" fill="none" stroke="rgba(156,51,64,0.55)" stroke-width="0.22" />
+        <use href="#line-wave" x="48" y="5" fill="none" stroke="rgba(122,18,40,0.45)" stroke-width="0.14" />
+        <use href="#line-wave" x="48" y="7" fill="none" stroke="rgba(122,18,40,0.3)" stroke-width="0.08" />
+      </g>
+    </svg>
+  </div>
 
-  <div class="relative z-10 flex flex-1 items-center">
-    <div class="mx-auto grid-12 w-full max-w-5xl px-6 pb-10 pt-12">
-    <!-- copy -->
-    <div class="col-span-12 lg:col-span-8">
-      <p class="hero-rise mb-7 flex items-center gap-2.5 font-mono text-[13px] lowercase tracking-wide text-text-muted" style="--d:0ms">
-        <span class="h-2 w-2 rounded-full bg-[#57c98a]" aria-hidden="true"></span>
-        {t.hero_available}
-      </p>
-
-      <h1 class="hero-rise font-display text-[clamp(52px,6.8vw,96px)] font-[550] leading-[0.96] tracking-[-0.015em] text-bone" style="--d:90ms">
-        {hook.line1}<br /><em class="font-[420] not-italic text-accent-lg italic">{hook.accent}</em>
+  <div class="wrap relative z-10 grid flex-1 content-center gap-y-10 py-10 lg:grid-cols-3 lg:items-center lg:gap-x-12 lg:py-12">
+    <div class="flex flex-col gap-7 lg:col-span-2 lg:gap-10">
+      <h1 class="font-display text-[clamp(44px,13vw,56px)] font-[550] leading-[0.98] tracking-[-0.015em] text-bone lg:text-[clamp(64px,6.66vw,96px)]">
+        <span class="hero-h1-line">{t.h1[0]}</span> <span class="hero-h1-line">{t.h1[1]}</span>
       </h1>
+      <a href={BOOK_URL} class="btn-primary btn-lg w-full lg:w-auto lg:self-start">{book}</a>
+    </div>
 
-      <p class="hero-rise mt-7 max-w-[34ch] text-[18px] leading-[1.5] md:text-[20px]" style="--d:210ms">
-        <span class="font-medium text-bone">{sub.lead}</span><br />
-        <span class="text-text-muted">{sub.follow}</span>
+    <div class="relative flex flex-col items-center gap-5 text-center lg:gap-6">
+      <button type="button" class="d10s-sphere" data-d10s-trigger="open" aria-label={t.sphere}></button>
+
+      <p class="hidden font-display text-[26px] leading-[1.25] text-text lg:block">
+        <em class="font-[420] italic text-accent-txt">D10S</em>{t.d10sLine}
+      </p>
+      <p class="font-display text-[20px] leading-[1.3] text-text lg:hidden">
+        {t.d10sLineMobile[0]}<em class="font-[420] italic text-accent-txt">D10S</em>{t.d10sLineMobile[1]}
       </p>
 
-      <div class="hero-rise mt-9 flex flex-wrap items-center gap-x-7 gap-y-4" style="--d:320ms">
-        <a href="#contact" class="btn-primary">
-          {t.hero_cta_primary}
-        </a>
-        <a href="#services" class="hero-secondary link-draw font-mono text-[14px] text-accent-txt transition-colors hover:text-bone">
-          {t.hero_cta_secondary}
-        </a>
-      </div>
-    </div>
-
-    <!-- photo — smaller, with the signature caption BELOW the frame -->
-    <div class="hero-photo-wrap hero-rise col-span-12 mt-6 max-w-[220px] self-start lg:col-span-4 lg:col-start-9 lg:ml-auto lg:mt-[47px] lg:max-w-[240px]" style="--d:180ms">
-      <div class="hero-photo-frame relative aspect-square overflow-hidden rounded-[var(--radius-card)] border border-bone/15 shadow-[0_20px_56px_rgba(0,0,0,0.42)]">
-        <img
-          src="/images/alberto.webp"
-          alt="Alberto Di Maria"
-          width="900"
-          height="900"
-          class="h-full w-full object-cover"
-        />
-      </div>
-      <div class="mt-3.5 border-l border-oxblood/45 pl-3">
-        <p class="font-display text-[18px] font-[550] leading-tight text-bone">Alberto Di Maria</p>
-        <p class="mt-0.5 font-mono text-[11px] uppercase tracking-[0.1em] text-text-muted">{heroPhotoRole[lang]}</p>
-      </div>
-    </div>
+      <form id="hero-ask" class="hero-ask hidden w-full lg:flex" data-d10s-trigger="form">
+        <label for="hero-ask-input" class="sr-only">{t.askLabel}</label>
+        <input id="hero-ask-input" type="text" name="q" autocomplete="off" placeholder={t.ask} />
+        <button type="button" class="hero-ask-mic" data-d10s-trigger="voice" aria-label={t.talk}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true">
+            <rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0" /><path d="M12 18v3" />
+          </svg>
+        </button>
+      </form>
     </div>
   </div>
 
-  <a href="#agent-demo" class="scroll-cue hero-cue-in absolute bottom-8 left-1/2 z-10 -translate-x-1/2" style="--d:640ms" aria-label={cueLabel[lang]}>
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14" /><path d="M5 12l7 7 7-7" /></svg>
+  <div class="wrap relative z-10 pb-7 lg:pb-[112px]">
+    <ul class="hero-cats grid lg:grid-cols-3 lg:gap-x-12">
+      {t.cats.map((c, i) => (
+        <li><a href={catHref[i]} class="hero-cat" data-cat={i}>{c}</a></li>
+      ))}
+    </ul>
+  </div>
+
+  <a href="#call" class="hero-cue absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-0.5 text-center lg:flex">
+    <span class="text-[14px] text-text-dim">{t.cueTop}</span>
+    <span class="text-[16px] text-bone">{t.cue}</span>
   </a>
 </section>
+
+<script>
+  const hero = document.getElementById('top');
+
+  // The wave passes behind the sphere: measure where the sphere is.
+  const wave = hero?.querySelector<HTMLElement>('.hero-wave');
+  const sphere = hero?.querySelector<HTMLElement>('.d10s-sphere');
+  const place = () => {
+    if (!hero || !wave || !sphere) return;
+    const s = sphere.getBoundingClientRect();
+    const h = hero.getBoundingClientRect();
+    hero.style.setProperty('--wave-y', `${Math.round(s.top - h.top + s.height / 2)}px`);
+    wave.classList.add('is-placed');
+  };
+  place();
+  window.addEventListener('resize', place, { passive: true });
+  document.fonts?.ready.then(place);
+
+  // Hovering a category pulls the wave towards it: the mask that fades the wave
+  // on the left starts further left for the first two columns. Pointer only.
+  const from = ['0%', '18%', '39%'];
+  if (hero && window.matchMedia('(hover: hover)').matches) {
+    hero.querySelectorAll<HTMLElement>('.hero-cat').forEach((a) => {
+      const i = Number(a.dataset.cat);
+      const on = () => { hero.style.setProperty('--wave-from', from[i]); hero.style.setProperty('--wave-lift', '1'); };
+      const off = () => { hero.style.removeProperty('--wave-from'); hero.style.removeProperty('--wave-lift'); };
+      a.addEventListener('pointerenter', on);
+      a.addEventListener('pointerleave', off);
+      a.addEventListener('focus', on);
+      a.addEventListener('blur', off);
+    });
+  }
+</script>
