@@ -35,7 +35,7 @@ const coverOf = (id: string) => byId.get(id)?.cover;
             {t.alsoLabel}{' '}
             {b.also.map((a, k) => (
               <>
-                {linkOf(a.id) ? <a href={linkOf(a.id)} target="_blank" rel="noopener noreferrer">{a.name}</a> : <span>{a.name}</span>}
+                {linkOf(a.id) ? <a id={`proj-${a.id}`} href={linkOf(a.id)} target="_blank" rel="noopener noreferrer">{a.name}</a> : <span id={`proj-${a.id}`}>{a.name}</span>}
                 {k < b.also.length - 1 && ', '}
               </>
             ))}
@@ -61,7 +61,7 @@ const coverOf = (id: string) => byId.get(id)?.cover;
       {t.moreLabel}{' '}
       {moreProjects.map((m, k) => (
         <>
-          <a href={linkOf(m.id)} target="_blank" rel="noopener noreferrer">{m.name[lang]}</a>{k < moreProjects.length - 1 ? ', ' : '.'}
+          <a id={`proj-${m.id}`} href={linkOf(m.id)} target="_blank" rel="noopener noreferrer">{m.name[lang]}</a>{k < moreProjects.length - 1 ? ', ' : '.'}
         </>
       ))}
     </p>
@@ -77,8 +77,14 @@ const coverOf = (id: string) => byId.get(id)?.cover;
   const fromHash = () => openBlock(blocks.find((b) => `#${b.id}` === location.hash) ?? null);
   window.addEventListener('hashchange', fromHash);
   fromHash();
+  // clicking a link to the hash already in the URL fires no hashchange: open on the click too
+  document.addEventListener('click', (e) => {
+    const href = (e.target as HTMLElement).closest('a[href^="#"]')?.getAttribute('href');
+    if (href) openBlock(blocks.find((b) => `#${b.id}` === href) ?? null);
+  });
 
   (window as unknown as { workGoToProject?: (id: string) => boolean }).workGoToProject = (id) => {
+    // a card, or the project's name in an "Also" / "More" line
     const card = document.getElementById(`proj-${id}`);
     if (!card) return false;
     openBlock(card.closest<HTMLDetailsElement>('details.blk'));

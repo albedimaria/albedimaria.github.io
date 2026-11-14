@@ -22,7 +22,7 @@
 
   --font-display: "Fraunces Variable", "Fraunces Fallback", Georgia, serif;
   --font-sans: "Inter Variable", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, "Liberation Mono", monospace;
 
   --radius-btn: 4px;
   --radius-card: 8px;
@@ -312,15 +312,16 @@ textarea:focus-visible {
 }
 
 /* On a phone the whole call is two and a half screens of transcript: it starts
-   clipped, with a button (or the play button) to open it. */
+   clipped, with a button (or the play button) to open it. Only when scripts
+   run: without them nothing could open it again. */
 .call-more { display: none; }
 @media (max-width: 767px) {
-  .call-clip:not(.is-open) {
+  .js .call-clip:not(.is-open) {
     max-height: 560px; overflow: hidden;
     -webkit-mask-image: linear-gradient(#000 70%, transparent);
     mask-image: linear-gradient(#000 70%, transparent);
   }
-  .call-more { display: inline-flex; width: 100%; margin-top: 12px; }
+  .js .call-more { display: inline-flex; width: 100%; margin-top: 12px; }
 }
 
 /* ============================================================
@@ -440,7 +441,9 @@ a.blk-card:hover .blk-cover { border-color: color-mix(in srgb, var(--color-bone)
 .field input:focus-visible, .field textarea:focus-visible { outline-offset: 2px; border-color: var(--color-accent-txt); }
 .field .is-invalid { border-color: var(--color-accent-txt); }
 .ferr { display: block; font-size: 15px; color: var(--color-accent-txt); }
-.ferr:empty { display: none; }
+/* empty, it stays in the page (a live region must exist BEFORE its text
+   changes, or the error is never announced) and only gives back the gap */
+.ferr:empty { margin-top: -8px; }
 
 /* ============================================================
    D10S — the floating panel and the seal
@@ -557,7 +560,6 @@ body.d10s-docked #back-to-top { opacity: 0 !important; pointer-events: none; }
 }
 .d10s-dock:hover .d10s-dock-orb { transform: scale(1.06); }
 .d10s-dock:focus-visible .d10s-dock-orb { transform: scale(1.06); outline: 2px solid var(--color-accent-txt); outline-offset: 6px; }
-.d10s-dock-glyph { display: none; }
 
 /* ============================================================
    Phones and touch

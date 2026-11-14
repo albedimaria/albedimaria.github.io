@@ -12,11 +12,8 @@
 import type { Lang } from '../i18n/content';
 
 export const CALL_AUDIO = '/audio/dance-call.mp3';
-export const CALL_DURATION = 87;
-/** median of the reply latencies below, rounded to one decimal */
-export const CALL_ANSWERS_IN = 0.9;
-/** second at which `create_booking` is called */
-export const CALL_BOOKING_AT = 65;
+/** whole seconds of the recording (the mp3 is 86.3 s long) */
+export const CALL_DURATION = 86;
 
 export type CallRow =
   | { kind: 'caller' | 'agent'; t: number; text: Record<Lang, string>; latency?: number; interrupted?: boolean; silence?: boolean }
@@ -106,6 +103,12 @@ export const callRows: CallRow[] = [
   },
   { kind: 'tool', t: 82, call: 'end_call()', latency: 0.5 },
 ];
+
+const replies = callRows.flatMap((r) => (r.kind === 'agent' && r.latency !== undefined ? [r.latency] : [])).sort((a, b) => a - b);
+/** median reply time of this call, to one decimal */
+export const CALL_ANSWERS_IN = Math.round(replies[Math.floor(replies.length / 2)] * 10) / 10;
+/** second at which `create_booking` is called */
+export const CALL_BOOKING_AT = callRows.find((r) => r.kind === 'tool' && r.call.startsWith('create_booking'))!.t;
 
 /** m:ss for the player and the facts column */
 export const clock = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;

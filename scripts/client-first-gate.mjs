@@ -79,7 +79,7 @@ ok('no Italian interface strings on /', !/\bapri\b|mostra altri|Lavoriamo insiem
 // Source of each number: SPEC.md, "Numeri ammessi su /".
 const ALLOWED = new Set([
   // the call: reply times, tool times, player, dates and hours spoken in it
-  '0.9', '1.0', '1.5', '0.20', '0.28', '0.50', '0:00', '1:05', '1:27', '19', '19:00', '21:00', '22:00', '2026-11-19', '19th',
+  '0.9', '1.0', '1.5', '0.20', '0.28', '0.50', '0:00', '1:05', '1:26', '19', '19:00', '21:00', '22:00', '2026-11-19', '19th',
   '1×', '2×',
   // work
   '10', '80+', '15', '35', '25',

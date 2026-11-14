@@ -142,11 +142,18 @@ function Panel({
     return `navigated to ${id}`;
   });
   // The recorded call under the hero: scroll to it and press play.
-  useConversationClientTool('playCall', () => {
-    const play = (window as unknown as { playDanceCall?: () => void }).playDanceCall;
+  useConversationClientTool('playCall', async () => {
+    const play = (window as unknown as { playDanceCall?: (play?: boolean) => Promise<boolean> }).playDanceCall;
     if (typeof play !== 'function') return 'the call is not on this page';
-    play();
-    return 'the call is playing — stay quiet while the visitor listens';
+    // In a voice session the speakers would feed the recording into the open
+    // microphone: bring the visitor to the call and let them press play.
+    if (live.current.mode === 'voice') {
+      await play(false);
+      return 'scrolled to the recorded call. it was NOT started, because this is a voice session: ask the visitor to press play';
+    }
+    return (await play())
+      ? 'the call is playing — stay quiet while the visitor listens'
+      : 'scrolled to the recorded call, but the browser did not start it: ask the visitor to press play';
   });
   useConversationClientTool('openCV', () => {
     window.open('/cv.pdf', '_blank', 'noopener');
@@ -310,6 +317,8 @@ function Panel({
       }
     };
     window.addEventListener('d10s:action', onAction);
+    // tell the page the listener is up: actions fired while loading are waiting
+    window.dispatchEvent(new Event('d10s:ready'));
     return () => window.removeEventListener('d10s:action', onAction);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -374,20 +383,20 @@ function Panel({
               </button>
             </div>
             <div className="d10s-sugg">
-              {vu.chips.map((c, i) => (
+              {vu.chips.map((c) => (
                 <button
-                  key={c}
+                  key={c.text}
                   type="button"
                   disabled={status === 'connecting'}
                   onClick={() => {
-                    // the first chip is the recorded call: it plays without the agent
-                    const play = (window as unknown as { playDanceCall?: () => void }).playDanceCall;
-                    if (i === 0 && typeof play === 'function') { play(); return; }
-                    setPending(c);
+                    // the recorded call plays without the agent
+                    const play = (window as unknown as { playDanceCall?: (play?: boolean) => Promise<boolean> }).playDanceCall;
+                    if (c.action === 'call' && typeof play === 'function') { play(); return; }
+                    setPending(c.text);
                     startText();
                   }}
                 >
-                  {c}
+                  {c.text}
                 </button>
               ))}
             </div>

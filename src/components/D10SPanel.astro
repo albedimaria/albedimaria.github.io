@@ -27,8 +27,8 @@ const vu = voiceUi[lang];
 
     <div class="d10s-sugg">
       <div class="lb">{s.tryLabel}</div>
-      {vu.chips.map((c, i) => (
-        <button type="button" data-d10s={i === 0 ? 'call' : 'chip'} data-chip={c}>{c}</button>
+      {vu.chips.map((c) => (
+        <button type="button" data-d10s={c.action ?? 'chip'} data-chip={c.text}>{c.text}</button>
       ))}
     </div>
 
@@ -53,8 +53,14 @@ const vu = voiceUi[lang];
     let booted = false;
     let open = false; // never by itself, only on a click
     let past = false; // the hero has scrolled away
+    // The island announces itself once its listener is up. Until then actions
+    // wait here: an event dispatched to nobody would be a question lost.
+    let ready = false;
+    const queue: string[] = [];
+    const send = (action: string) => window.dispatchEvent(new CustomEvent('d10s:action', { detail: action }));
+    window.addEventListener('d10s:ready', () => { ready = true; queue.splice(0).forEach(send); });
 
-    const playCall = () => (window as unknown as { playDanceCall?: () => void }).playDanceCall?.();
+    const playCall = () => (window as unknown as { playDanceCall?: (play?: boolean) => Promise<boolean> }).playDanceCall?.();
 
     const sync = () => {
       wrap.classList.toggle('is-docked', open);
@@ -76,7 +82,8 @@ const vu = voiceUi[lang];
         mount(panel, (panel.dataset.lang as 'en' | 'it' | 'es') || 'en', action);
         sync();
       } else if (action) {
-        window.dispatchEvent(new CustomEvent('d10s:action', { detail: action }));
+        if (ready) send(action);
+        else queue.push(action);
       }
     };
 

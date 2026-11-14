@@ -454,10 +454,16 @@ export const moreProjects: { id: string; name: Record<Lang, string> }[] = [
 ];
 
 // D10S panel — static shell (zero JS) and the React island share these.
-export const voiceUi: Record<Lang, { talk: string; type: string; chips: string[] }> = {
-  en: { talk: 'talk', type: 'type', chips: ['play me the real call', 'show me a project for a client', 'write the message to Alberto for me'] },
-  it: { talk: 'parla', type: 'scrivi', chips: ['fammi sentire la chiamata vera', 'mostrami un lavoro per un cliente', 'scrivi tu il messaggio per Alberto'] },
-  es: { talk: 'habla', type: 'escribe', chips: ['ponme la llamada real', 'muéstrame un proyecto de cliente', 'escribe tú el mensaje para Alberto'] },
+/** A suggestion in the D10S panel. `action: 'call'` plays the recorded call on
+ *  the page itself; a chip without an action is sent to the agent as a question. */
+export interface Chip {
+  text: string;
+  action?: 'call';
+}
+export const voiceUi: Record<Lang, { talk: string; type: string; chips: Chip[] }> = {
+  en: { talk: 'talk', type: 'type', chips: [{ text: 'play me the real call', action: 'call' }, { text: 'show me a project for a client' }, { text: 'write the message to Alberto for me' }] },
+  it: { talk: 'parla', type: 'scrivi', chips: [{ text: 'fammi sentire la chiamata vera', action: 'call' }, { text: 'mostrami un lavoro per un cliente' }, { text: 'scrivi tu il messaggio per Alberto' }] },
+  es: { talk: 'habla', type: 'escribe', chips: [{ text: 'ponme la llamada real', action: 'call' }, { text: 'muéstrame un proyecto de cliente' }, { text: 'escribe tú el mensaje para Alberto' }] },
 };
 
 export const d10sShell: Record<Lang, { greeting: string; tryLabel: string; inputPh: string; mic: string; minimise: string; dock: string; sealTop: string; sealBottom: string; shortcuts: string }> = {

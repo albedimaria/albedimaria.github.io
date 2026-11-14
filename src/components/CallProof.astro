@@ -104,7 +104,8 @@ const dec = (n: number, digits: number) => {
       toggle.setAttribute('aria-label', playing ? player.dataset.pause! : player.dataset.play!);
     };
 
-    toggle.addEventListener('click', () => (audio.paused ? audio.play() : audio.pause()));
+    const start = () => audio.play().then(() => true, () => false);
+    toggle.addEventListener('click', () => (audio.paused ? start() : audio.pause()));
     audio.addEventListener('play', setState);
     audio.addEventListener('pause', setState);
     audio.addEventListener('ended', () => { audio.currentTime = 0; setState(); paint(); });
@@ -125,13 +126,14 @@ const dec = (n: number, digits: number) => {
 
     // a row is a shortcut to its own second of the call
     rows.forEach((r) =>
-      r.addEventListener('click', () => { audio.currentTime = Number(r.dataset.t); audio.play(); })
+      r.addEventListener('click', () => { audio.currentTime = Number(r.dataset.t); start(); })
     );
 
     // D10S (chip or client tool) can bring the visitor here and press play
-    (window as unknown as { playDanceCall?: () => void }).playDanceCall = () => {
+    // Resolves to whether the audio really started. `play: false` only scrolls.
+    (window as unknown as { playDanceCall?: (play?: boolean) => Promise<boolean> }).playDanceCall = (play = true) => {
       document.getElementById('call')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      audio.play().catch(() => {});
+      return play ? start() : Promise.resolve(false);
     };
   }
 </script>
