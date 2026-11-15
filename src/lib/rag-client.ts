@@ -33,6 +33,16 @@ export async function warmRag() {
   }
 }
 
+/** Everything the corpus says about one project (chunks whose id is
+ *  `<projectId>#n`). Empty when the corpus has nothing on it. */
+export async function projectFacts(projectId: string): Promise<string> {
+  const chunks = await getCorpus();
+  return chunks
+    .filter((c) => c.id.startsWith(`${projectId}#`))
+    .map((c) => c.text)
+    .join(' ');
+}
+
 export async function searchPortfolio(query: string, k = 4): Promise<string> {
   const q = tokenize(query);
   if (!q.length) return '';

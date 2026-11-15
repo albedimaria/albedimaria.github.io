@@ -5,7 +5,7 @@ import {
   useConversationStatus,
   useConversationClientTool,
 } from '@elevenlabs/react';
-import { searchPortfolio as ragSearch, warmRag } from '../lib/rag-client';
+import { searchPortfolio as ragSearch, projectFacts, warmRag } from '../lib/rag-client';
 import { voiceUi } from '../i18n/content';
 
 const AGENT_ID = 'agent_5701kw21ga79ex9b72p9fbbc6xsv';
@@ -112,9 +112,20 @@ function Panel({
   const rafRef = useRef<number | null>(null);
   const endRef = useRef<HTMLDivElement>(null);
 
-  useConversationClientTool('focusProject', (p: { projectId?: string }) => {
-    const ok = focusProjectCard(p?.projectId ?? '');
-    return ok ? `focused ${p?.projectId}` : `not on this page: ${p?.projectId}`;
+  // The answer carries the facts with it. Left to itself after a bare "focused",
+  // the model described the project from imagination (it invented what Parlando
+  // is): what the page can hand over is not left to the prompt.
+  useConversationClientTool('focusProject', async (p: { projectId?: string }) => {
+    const id = p?.projectId ?? '';
+    const ok = focusProjectCard(id);
+    let facts = '';
+    try {
+      facts = await projectFacts(id);
+    } catch {}
+    const where = ok ? `${id} is on screen.` : `${id} is not on this page.`;
+    return facts
+      ? `${where} Describe it using ONLY these facts: ${facts}`
+      : `${where} There are no facts about it: say you do not have details, do not describe it.`;
   });
   useConversationClientTool('searchPortfolio', async (p: { query?: string }) => {
     try {
