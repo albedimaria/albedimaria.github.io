@@ -10,8 +10,8 @@ export const localizedHome: Record<Lang, string> = { en: '/', es: '/es/', it: '/
 
 export const ogLocale: Record<Lang, string> = { en: 'en_US', it: 'it_IT', es: 'es_ES' };
 
-/** "Book a call" target. Swap for the calendar URL as soon as there is one:
- *  until then the button lands on the contact section. */
+/** "Book a call" target. There is no calendar: the call is asked for through
+ *  the contact form, so the button lands on the contact section. */
 export const BOOK_URL = '#contact';
 
 export const seo: Record<Lang, { title: string; description: string }> = {

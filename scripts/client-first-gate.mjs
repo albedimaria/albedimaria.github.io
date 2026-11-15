@@ -51,8 +51,6 @@ ok('/en/ redirects to /', /http-equiv="refresh"[^>]*url=\/"|url=\/["' ]/i.test(e
 ok('x-default points to /', /hreflang="x-default" href="https:\/\/albertodimaria\.com\/"/.test(home));
 
 // ---- 2. banned strings ----------------------------------------------------
-// public/legacy is the old static site, kept as it was: it is listed apart so
-// its findings are visible without hiding the rest.
 const BANNED = ['1.6', '1,6', 'Top 15', 'acquired', 'first client', 'real clients', 'in production', 'Freelance in Milan', 'Milan, Italy', 'Colombia', 'Deepgram', 'GPT-4o'];
 const TEXT_EXT = new Set(['.html', '.txt', '.json', '.xml', '.svg', '.webmanifest']);
 const textFiles = walk(DIST).filter((p) => TEXT_EXT.has(extname(p)));
@@ -63,10 +61,7 @@ for (const p of textFiles) {
   const body = extname(p) === '.html' ? visible(read(p)) : extname(p) === '.svg' ? visible('<x>' + read(p).replace(/<(?!text|tspan|\/text|\/tspan)[^>]*>/g, ' ') + '</x>') : read(p);
   for (const b of BANNED) if (body.includes(b)) hits.push(`${p.replace(/\\/g, '/')}: "${b}"`);
 }
-const legacyHits = hits.filter((h) => h.includes('/legacy/'));
-const liveHits = hits.filter((h) => !h.includes('/legacy/'));
-ok('no banned strings in the site', liveHits.length === 0, liveHits.join(' | '));
-ok('no banned strings in /legacy/', legacyHits.length === 0, legacyHits.join(' | '));
+ok('no banned strings in the site', hits.length === 0, hits.join(' | '));
 // our own strings inside the JS bundles (word-like ones only: minified code is full of "1.6")
 const jsFiles = walk(join(DIST, '_astro')).filter((p) => extname(p) === '.js');
 const jsHits = [];
@@ -79,7 +74,7 @@ ok('no Italian interface strings on /', !/\bapri\b|mostra altri|Lavoriamo insiem
 // Source of each number: SPEC.md, "Numeri ammessi su /".
 const ALLOWED = new Set([
   // the call: reply times, tool times, player, dates and hours spoken in it
-  '0.9', '1.0', '1.5', '0.20', '0.28', '0.50', '0:00', '1:05', '1:26', '19', '19:00', '21:00', '22:00', '2026-11-19', '19th',
+  '0.9', '1.0', '1.5', '0.20', '0.28', '0.50', '0:00', '0:50', '1:11', '19', '19:00', '21:00', '22:00', '2026-11-19', '19th',
   '1×', '2×',
   // work
   '10', '80+', '15', '35', '25',
@@ -102,7 +97,8 @@ const section = (id) => (home.match(new RegExp(`<section[^>]*id="${id}"[\\s\\S]*
 ok('"Book a call" in the hero', /Book a call/.test(section('top')));
 ok('"Book a call" in contact', /Book a call/.test(section('contact')));
 const bookUrl = (read('src/i18n/content.ts').match(/BOOK_URL = '([^']+)'/) ?? [])[1] ?? '';
-ok('"Book a call" points to a calendar', /^https:\/\//.test(bookUrl), `BOOK_URL = ${bookUrl}`);
+// there is no calendar: the call is asked for through the form (decided 15/11/2026)
+ok('"Book a call" lands on the contact form', bookUrl === '#contact' && /id="contact-form"/.test(section('contact')), `BOOK_URL = ${bookUrl}`);
 
 // ---- 6. the transcript equals the conversation ----------------------------
 const CALL_JSON = 'refs/call/conversation-fzfmstya.json';
@@ -112,6 +108,9 @@ if (skipCall) {
   ok('transcript vs conversation JSON', false, `${CALL_JSON} not found (private, outside git)`);
 } else {
   const conv = JSON.parse(read(CALL_JSON));
+  // the published call starts at CALL_START: earlier turns are cut, with the audio
+  const callStart = Number((read('src/data/call.ts').match(/CALL_START = (\d+)/) ?? [])[1]);
+  ok('transcript: CALL_START found', Number.isFinite(callStart));
   const clean = (s) => s.replace(/\[[^\]]*\]\s*/g, '').replace(/\s+/g, ' ').replace(/’/g, "'").replace(/\s*(\.\.\.|…)/g, '…').trim();
   const expected = [];
   const calledAt = {};
@@ -127,6 +126,9 @@ if (skipCall) {
     for (const c of t.tool_calls ?? []) calledAt[c.tool_name] = t.time_in_call_secs;
     for (const r of t.tool_results ?? []) expected.push({ kind: 'tool', t: calledAt[r.tool_name] ?? t.time_in_call_secs, name: r.tool_name, latency: +r.tool_latency_secs.toFixed(2) });
   }
+  const all = expected.length;
+  expected.splice(0, expected.length, ...expected.filter((e) => e.t >= callStart));
+  console.log(`      (${all - expected.length} turns before second ${callStart} are cut)`);
   // published rows, read from the source file
   const src = read('src/data/call.ts');
   const rowsSrc = src.slice(src.indexOf('export const callRows'));
@@ -141,7 +143,7 @@ if (skipCall) {
     if (kind === 'tool') published.push({ kind, t, name: (rest.match(/call: '([a-z_]+)/) ?? [])[1], latency: Number(lat) });
     else published.push({ kind, t, text: clean((rest.match(/it: '((?:[^'\\]|\\.)*)'/) ?? [])[1] ?? ''), latency: lat ? Number(lat) : undefined, interrupted: /interrupted: true/.test(rest) });
   }
-  ok('transcript: same number of rows', published.length === expected.length && expected.length >= 15, `${published.length} published, ${expected.length} in the conversation`);
+  ok('transcript: same number of rows', published.length === expected.length && expected.length >= 12, `${published.length} published, ${expected.length} in the conversation`);
   const diffs = [];
   expected.forEach((e, i) => {
     const p = published[i];

@@ -11,6 +11,8 @@ export interface ProjectLink {
 export interface Project {
   id: string;
   cover?: string;
+  /** width / height of the cover file, so a card can show it whole */
+  coverRatio?: number;
   links: ProjectLink[];
 }
 
@@ -18,12 +20,12 @@ export const projects: Project[] = [
   // voice agents
   {
     id: 'dance-voice-agent',
-    cover: '/images/dance_voice_agent_cover.svg',
+    cover: '/images/dance_voice_agent_cover.svg', coverRatio: 1200 / 630,
     links: [{ label: 'demo', href: 'https://dance-voice-agent-dashboard.vercel.app' }],
   },
   {
     id: 'shy-order',
-    cover: '/images/shy_order_cover.svg',
+    cover: '/images/shy_order_cover.svg', coverRatio: 1200 / 630,
     links: [{ label: 'demo', href: 'https://shy-order.onrender.com' }],
   },
   // no public link: the tester runs in-house
@@ -34,10 +36,10 @@ export const projects: Project[] = [
   // AI automations
   {
     id: 'company-brain',
-    cover: '/images/company_brain_cover.svg',
+    cover: '/images/company_brain_cover.svg', coverRatio: 1200 / 630,
     links: [{ label: 'live demo', href: 'https://company-brain-alberto.onrender.com' }],
   },
-  { id: 'zero-to-hubspot', cover: '/images/zero-to-hubspot.webp', links: [] },
+  { id: 'zero-to-hubspot', cover: '/images/zero-to-hubspot.webp', coverRatio: 1600 / 900, links: [] },
   {
     id: 'beat-agent',
     cover: '/images/beat_agent_cover.svg',
@@ -48,13 +50,13 @@ export const projects: Project[] = [
   // sites & platforms
   {
     id: 'beat-store',
-    cover: '/images/beat-store.webp',
+    cover: '/images/beat-store.webp', coverRatio: 1000 / 562,
     // a preview: the store launches on the producer's own domain in early 2027
     links: [{ label: 'preview', href: 'https://ffinnico.netlify.app' }],
   },
   {
     id: 'alex-bartok',
-    cover: '/images/alex-bartok.webp',
+    cover: '/images/alex-bartok.webp', coverRatio: 1600 / 900,
     links: [{ label: 'visit site', href: 'https://alexbartokmusic.com' }],
   },
   {

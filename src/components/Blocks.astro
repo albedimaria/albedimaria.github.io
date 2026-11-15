@@ -10,6 +10,9 @@ const t = copy[lang].blocks;
 const byId = new Map(projects.map((p) => [p.id, p]));
 const linkOf = (id: string) => byId.get(id)?.links[0]?.href;
 const coverOf = (id: string) => byId.get(id)?.cover;
+// Both covers of a block share one frame, as wide as the widest of the two: a
+// screenshot is never cut on the right, the narrower one loses a sliver at the bottom.
+const ratioOf = (ids: string[]) => Math.max(...ids.map((id) => byId.get(id)?.coverRatio ?? 1.6));
 ---
 
 <!-- Services and work are one section: for each thing I sell, the two best
@@ -45,7 +48,7 @@ const coverOf = (id: string) => byId.get(id)?.cover;
             const Tag = href ? 'a' : 'div';
             return (
               <Tag class="blk-card" id={`proj-${c.id}`} {...(href ? { href, target: '_blank', rel: 'noopener noreferrer' } : {})}>
-                <span class="blk-cover">
+                <span class="blk-cover" style={`aspect-ratio:${ratioOf(b.cards.map((x) => x.id)).toFixed(4)}`}>
                   <img src={coverOf(c.id)} alt="" loading="lazy" decoding="async" width="800" height="500" />
                 </span>
                 <h3>{c.title}</h3>

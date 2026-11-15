@@ -1,6 +1,6 @@
 ---
 import { copy, localizedHome, type Lang } from '../i18n/content';
-import { callRows, clock, CALL_AUDIO, CALL_DURATION, CALL_ANSWERS_IN, CALL_BOOKING_AT } from '../data/call';
+import { callRows, clock, CALL_AUDIO, CALL_DURATION, CALL_ANSWERS_IN, CALL_BOOKING_AT, CALL_START } from '../data/call';
 
 interface Props {
   lang: Lang;
@@ -49,13 +49,13 @@ const dec = (n: number, digits: number) => {
       <ol class="call-rows" aria-label={t.transcriptLabel}>
         {callRows.map((r) =>
           r.kind === 'tool' ? (
-            <li class="call-row is-tool" data-t={r.t}>
+            <li class="call-row is-tool" data-t={r.t - CALL_START}>
               <span></span>
               <code>{r.call}{r.result && <> → {r.result}</>}</code>
               <span class="call-lat">{dec(r.latency, 2)} s</span>
             </li>
           ) : (
-            <li class:list={['call-row', r.kind === 'agent' ? 'is-agent' : 'is-caller']} data-t={r.t}>
+            <li class:list={['call-row', r.kind === 'agent' ? 'is-agent' : 'is-caller']} data-t={r.t - CALL_START}>
               <span class="call-who">{r.kind === 'agent' ? t.agent : t.caller}</span>
               <p>
                 {r.silence ? <span class="text-text-dim">{t.silence}</span> : r.text[lang]}

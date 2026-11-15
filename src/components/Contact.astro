@@ -1,5 +1,5 @@
 ---
-import { copy, BOOK_URL, type Lang } from '../i18n/content';
+import { copy, type Lang } from '../i18n/content';
 
 interface Props {
   lang: Lang;
@@ -20,7 +20,7 @@ const WEB3FORMS_KEY = '730cfe53-7f78-4bb5-90cf-ee5be2bae7c7';
         {t.title[0]}<br />{t.title[1]}
       </h2>
       <p class="text-[20px] leading-[1.5] text-text-muted">{t.lines[0]}<br />{t.lines[1]}</p>
-      <a href={BOOK_URL} class="btn-primary btn-lg w-full sm:w-auto sm:self-start">{book}</a>
+      <a href="#contact-form" data-focus-form class="btn-primary btn-lg w-full sm:w-auto sm:self-start">{book}</a>
     </div>
 
     <!-- No-JS fallback: posts straight to Web3Forms. With JS the inline script
@@ -67,6 +67,12 @@ const WEB3FORMS_KEY = '730cfe53-7f78-4bb5-90cf-ee5be2bae7c7';
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const status = document.getElementById('contact-status');
   if (form && status) {
+    // "Book a call" inside this section: go to the form and put the cursor in it
+    document.querySelector('[data-focus-form]')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      (form.elements.namedItem('name') as HTMLInputElement | null)?.focus({ preventScroll: true });
+    });
     const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
     const label = btn.dataset.send!;
     const sending = btn.dataset.sending!;

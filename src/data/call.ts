@@ -1,10 +1,13 @@
 // The call shown under the hero: ElevenLabs conversation ending in `fzfmstya`
-// (6 Nov 2026, 87 s). Every turn of the conversation is here, in order, with the
-// timings the platform recorded. Italian is the original; English and Spanish
+// (6 Nov 2026, 87 s). The page plays it from second 15, where the caller starts
+// speaking: the greeting and a silence before it are cut, in the audio and here.
+// Every turn from there on is listed, in order, with the timings the platform
+// recorded. Italian is the original; English and Spanish
 // are translations. `scripts/check-call.mjs` compares this file with the
 // conversation JSON and fails on any difference.
 //
-// - `t`        second of the call at which the turn starts
+// - `t`        second of the ORIGINAL call at which the turn starts (the player
+//              subtracts CALL_START)
 // - `latency`  seconds from the caller falling silent to the agent's first
 //              audio (`convai_ttf_audio_since_silence`), only on replies
 // - tool rows  name, the arguments worth reading, and the tool's own latency
@@ -12,31 +15,16 @@
 import type { Lang } from '../i18n/content';
 
 export const CALL_AUDIO = '/audio/dance-call.mp3';
-/** whole seconds of the recording (the mp3 is 86.3 s long) */
-export const CALL_DURATION = 86;
+/** second of the original call at which the published audio starts */
+export const CALL_START = 15;
+/** whole seconds of the published audio (the mp3 is 71.0 s long) */
+export const CALL_DURATION = 71;
 
 export type CallRow =
   | { kind: 'caller' | 'agent'; t: number; text: Record<Lang, string>; latency?: number; interrupted?: boolean; silence?: boolean }
   | { kind: 'tool'; t: number; call: string; result?: string; latency: number };
 
 export const callRows: CallRow[] = [
-  {
-    kind: 'agent', t: 0,
-    text: {
-      it: 'Ciao Marco! Sono Karol, l’assistente automatico di Ritmo Tropicale. Dimmi pure!',
-      en: 'Hi Marco! I’m Karol, the automated assistant of Ritmo Tropicale. Go ahead!',
-      es: '¡Hola Marco! Soy Karol, la asistente automática de Ritmo Tropicale. ¡Dime!',
-    },
-  },
-  { kind: 'caller', t: 10, silence: true, text: { it: '…', en: '…', es: '…' } },
-  {
-    kind: 'agent', t: 11,
-    text: {
-      it: 'Marco, sei ancora lì? Dimmi pure, ti ascolto.',
-      en: 'Marco, are you still there? Go ahead, I’m listening.',
-      es: 'Marco, ¿sigues ahí? Dime, te escucho.',
-    },
-  },
   {
     kind: 'caller', t: 15,
     text: {
@@ -107,8 +95,8 @@ export const callRows: CallRow[] = [
 const replies = callRows.flatMap((r) => (r.kind === 'agent' && r.latency !== undefined ? [r.latency] : [])).sort((a, b) => a - b);
 /** median reply time of this call, to one decimal */
 export const CALL_ANSWERS_IN = Math.round(replies[Math.floor(replies.length / 2)] * 10) / 10;
-/** second at which `create_booking` is called */
-export const CALL_BOOKING_AT = callRows.find((r) => r.kind === 'tool' && r.call.startsWith('create_booking'))!.t;
+/** second of the published audio at which `create_booking` is called */
+export const CALL_BOOKING_AT = callRows.find((r) => r.kind === 'tool' && r.call.startsWith('create_booking'))!.t - CALL_START;
 
 /** m:ss for the player and the facts column */
 export const clock = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
