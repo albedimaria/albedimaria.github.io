@@ -122,10 +122,9 @@ function Panel({
     try {
       facts = await projectFacts(id);
     } catch {}
-    const where = ok ? `${id} is on screen.` : `${id} is not on this page.`;
-    return facts
-      ? `${where} Describe it using ONLY these facts: ${facts}`
-      : `${where} There are no facts about it: say you do not have details, do not describe it.`;
+    // plain facts, no orders: a result phrased as an instruction made the model answer nothing
+    const where = ok ? 'Shown on screen.' : 'Not on this page.';
+    return facts ? `${where} ${facts}` : `${where} No details available about this project.`;
   });
   useConversationClientTool('searchPortfolio', async (p: { query?: string }) => {
     try {
